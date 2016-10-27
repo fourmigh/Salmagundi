@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">曹珺的大杂烩</string>
+    <string name="qrcode_hint">请输入文字后点击图片刷新</string>
 </resources>
