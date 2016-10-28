@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">曹珺的大杂烩</string>
     <string name="qrcode_hint">请输入文字后点击图片刷新</string>
+    <string name="qrcode_title">二维码表白</string>
+    <string name="qrcode_save">保存二维码图片到%1$s%2$s。</string>
+    <string name="successed">成功</string>
+    <string name="failed">失败</string>
 </resources>
