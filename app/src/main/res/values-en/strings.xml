@@ -5,4 +5,15 @@
     <string name="qrcode_save">Save QRCode to %1$s %2$s.</string>
     <string name="successed">successed</string>
     <string name="failed">failed</string>
+    <string name="start_color">Start Color</string>
+    <string name="end_color">End Color</string>
+    <string name="color_title">Gradient Color</string>
+    <string name="red_hint">R</string>
+    <string name="green_hint">G</string>
+    <string name="blue_hint">B</string>
+    <string name="hex">HEX</string>
+    <string name="qrcode_size">width*height</string>
+    <string name="qrcode_width">width</string>
+    <string name="qrcode_height">height</string>
+    <string name="qrcode_char">*</string>
 </resources>

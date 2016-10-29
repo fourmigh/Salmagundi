@@ -17,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.utils.PackageUtils;
@@ -36,6 +37,8 @@ public class QRCodeActivity extends AppCompatActivity {
     private Drawable iconGallery3d;
     private String labelGallery3d;
     private static String LastSavedText;
+    private LinearLayout llSize;
+    private EditText etWidth, etHeight;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +49,10 @@ public class QRCodeActivity extends AppCompatActivity {
         ibGallery3d = (ImageButton) this.findViewById(R.id.ibGallery3d);
         ibGallery3d.setVisibility(View.GONE);
         ibGallery3d.setEnabled(false);
+
+        llSize = (LinearLayout) this.findViewById(R.id.llSize);
+        etWidth = (EditText) this.findViewById(R.id.etWidth);
+        etHeight = (EditText) this.findViewById(R.id.etHeight);
 
         ivQRCode.setOnClickListener(new OnClickListener()
         {
@@ -89,12 +96,20 @@ public class QRCodeActivity extends AppCompatActivity {
                 }
             }
         }.start();
+
+        llSize.setVisibility(View.GONE);//TODO 隐藏功能
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         refreshQRCode();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LastSavedText = null;
     }
 
     /**
@@ -126,7 +141,19 @@ public class QRCodeActivity extends AppCompatActivity {
                 int width = dm.widthPixels * 4 / 5;
                 int height = dm.heightPixels * 4 / 5;
                 int wh = Math.min(width, height);
-                bmQRCode = QRCodeUtils.createQRImage(text, wh, wh);
+
+                String strWidth = etWidth.getText().toString();
+                String strHeight = etHeight.getText().toString();
+                if(!TextUtils.isEmpty(strWidth) && !TextUtils.isEmpty(strHeight))
+                {
+                    width = Integer.parseInt(strWidth);
+                    height = Integer.parseInt(strHeight);
+                    bmQRCode = QRCodeUtils.createQRImage(text, width, height);
+                }
+                else
+                {
+                    bmQRCode = QRCodeUtils.createQRImage(text, wh, wh);
+                }
                 handlerQRCode.sendMessage(Message.obtain());
             }
         }.start();
@@ -151,6 +178,12 @@ public class QRCodeActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             try {
                 ivQRCode.setImageBitmap(bmQRCode);
+
+                int width = bmQRCode.getWidth();
+                int height = bmQRCode.getHeight();
+                etWidth.setText(String.valueOf(width));
+                etHeight.setText(String.valueOf(height));
+
                 if(TextUtils.isEmpty(LastSavedText) || !LastSavedText.equals(strQRCode)) {
                     ibGallery3d.setEnabled(true);
                 }

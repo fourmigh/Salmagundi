@@ -19,7 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".qrcode.QRCodeActivity"
-            android:label="@string/qrcode_title" />
+        android:label="@string/qrcode_title" />
+        <activity android:name=".color.ColorActivity"
+            android:label="@string/color_title" />
     </application>
 
 </manifest>
