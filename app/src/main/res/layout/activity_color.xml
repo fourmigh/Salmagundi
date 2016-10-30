@@ -27,7 +27,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/etStartRed"
-                android:maxLength="3" />
+                android:maxLength="3"
+                android:inputType="none" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -40,7 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/etStartGreen"
-                android:maxLength="3"/>
+                android:maxLength="3"
+                android:inputType="none" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -53,7 +55,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/etStartBlue"
-                android:maxLength="3"/>
+                android:maxLength="3"
+                android:inputType="none" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
@@ -79,7 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/etEndRed"
-                android:maxLength="3" />
+                android:maxLength="3"
+                android:inputType="none" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -92,7 +96,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/etEndGreen"
-                android:maxLength="3" />
+                android:maxLength="3"
+                android:inputType="none" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -105,7 +110,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/etEndBlue"
-                android:maxLength="3" />
+                android:maxLength="3"
+                android:inputType="none" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
@@ -121,12 +127,12 @@
             android:id="@+id/btnOK"
             android:layout_weight="1" />
 
-        <CheckBox
+        <!--<CheckBox
             android:text="@string/hex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="6dp"
-            android:id="@+id/cbHex" />
+            android:id="@+id/cbHex" />-->
 
     </LinearLayout>
 
@@ -176,12 +182,21 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btn4"
                 android:layout_weight="1" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
             <Button
                 android:text="5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn5"
                 android:layout_weight="1" />
+
             <Button
                 android:text="6"
                 android:layout_width="wrap_content"
@@ -194,13 +209,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btn7"
                 android:layout_weight="1" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
 
             <Button
                 android:text="8"
@@ -215,7 +223,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btn9"
                 android:layout_weight="1" />
-            <Button
+
+            <!--<Button
                 android:text="A"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -250,7 +259,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnF"
-                android:layout_weight="1" />
+                android:layout_weight="1" />-->
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
