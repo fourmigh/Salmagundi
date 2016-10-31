@@ -37,6 +37,10 @@ public class ColorUtils {
 
     public static Bitmap createGradientImage(Color[] colors, int width, int height)
     {
+        if(width <= 1 || height <= 1)
+        {
+            return null;
+        }
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         try {
             int w = width / colors.length;

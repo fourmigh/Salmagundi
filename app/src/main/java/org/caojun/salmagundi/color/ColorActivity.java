@@ -73,22 +73,9 @@ public class ColorActivity extends BaseActivity {
                 {
                     return;
                 }
-                int red = Integer.parseInt(etColors[0].getText().toString());
-                int green = Integer.parseInt(etColors[1].getText().toString());
-                int blue = Integer.parseInt(etColors[2].getText().toString());
-                Color colorStart = new Color(red, green, blue);
-                red = Integer.parseInt(etColors[3].getText().toString());
-                green = Integer.parseInt(etColors[4].getText().toString());
-                blue = Integer.parseInt(etColors[5].getText().toString());
-                Color colorEnd = new Color(red, green, blue);
-                Color[] colors = ColorUtils.getGradientColor(colorStart, colorEnd, ivColor.getWidth());
-                bmGradient = ColorUtils.createGradientImage(colors, ivColor.getWidth(), ivColor.getHeight());
-                ivColor.setImageBitmap(bmGradient);
-                ibGallery3d.setEnabled(true);
+                refreshColor();
             }
         });
-
-        checkColor();
 
         ibGallery3d.setOnClickListener(new OnClickListener(){
             @Override
@@ -110,6 +97,41 @@ public class ColorActivity extends BaseActivity {
                 Toast.makeText(ColorActivity.this, message, Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void refreshColor()
+    {
+        int red = Integer.parseInt(etColors[0].getText().toString());
+        int green = Integer.parseInt(etColors[1].getText().toString());
+        int blue = Integer.parseInt(etColors[2].getText().toString());
+        Color colorStart = new Color(red, green, blue);
+        red = Integer.parseInt(etColors[3].getText().toString());
+        green = Integer.parseInt(etColors[4].getText().toString());
+        blue = Integer.parseInt(etColors[5].getText().toString());
+        Color colorEnd = new Color(red, green, blue);
+        Color[] colors = ColorUtils.getGradientColor(colorStart, colorEnd, ivColor.getWidth());
+        bmGradient = ColorUtils.createGradientImage(colors, ivColor.getWidth(), ivColor.getHeight());
+        if(bmGradient != null) {
+            ivColor.setImageBitmap(bmGradient);
+        }
+        ibGallery3d.setEnabled(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkColor();
+        if(btnOK.isEnabled())
+        {
+            refreshColor();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LastStartColor = null;
+        LastEndColor = null;
     }
 
     private TextWatcher textWatcher = new TextWatcher(){

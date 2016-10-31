@@ -33,7 +33,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btnColor"
                 android:gravity="center"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:drawableTop="@drawable/icon_color"/>
         </TableRow>
 
         <TableRow
