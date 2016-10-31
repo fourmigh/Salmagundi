@@ -16,4 +16,5 @@
     <string name="qrcode_width">width</string>
     <string name="qrcode_height">height</string>
     <string name="qrcode_char">*</string>
+    <string name="color_save">Save Gradient Color to %1$s %2$s.</string>
 </resources>
