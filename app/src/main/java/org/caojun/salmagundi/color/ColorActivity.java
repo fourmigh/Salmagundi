@@ -1,5 +1,6 @@
 package org.caojun.salmagundi.color;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -53,6 +54,26 @@ public class ColorActivity extends AppCompatActivity {
             btnNumbers[i].setOnClickListener(oclButtonNumber);
             btnNumbers[i].setOnLongClickListener(onLongClickListener);
         }
+
+        ivColor = (ImageView) this.findViewById(R.id.ivColor);
+        btnOK = (Button) this.findViewById(R.id.btnOK);
+        btnOK.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                int red = Integer.parseInt(etColors[0].getText().toString());
+                int green = Integer.parseInt(etColors[1].getText().toString());
+                int blue = Integer.parseInt(etColors[2].getText().toString());
+                Color colorStart = new Color(red, green, blue);
+                red = Integer.parseInt(etColors[3].getText().toString());
+                green = Integer.parseInt(etColors[4].getText().toString());
+                blue = Integer.parseInt(etColors[5].getText().toString());
+                Color colorEnd = new Color(red, green, blue);
+                Color[] colors = ColorUtils.getGradientColor(colorStart, colorEnd, ivColor.getWidth());
+                Bitmap bitmap = ColorUtils.createGradientImage(colors, ivColor.getWidth(), ivColor.getHeight());
+                ivColor.setImageBitmap(bitmap);
+            }
+        });
     }
 
     private OnLongClickListener onLongClickListener = new OnLongClickListener()
