@@ -28,6 +28,10 @@ public class Color {
         return "0x" + (a + r + g + b).toUpperCase();
     }
 
+    public int toInt() {
+        return android.graphics.Color.argb(this.getAlpha(), this.getRed(), this.getGreen(), this.getBlue());
+    }
+
     @Override
     public boolean equals(Object o) {
         if(o == null)
