@@ -17,6 +17,36 @@ public class Color {
         this.setBlue(blue);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if(o == null)
+        {
+            return false;
+        }
+        if(!(o instanceof Color))
+        {
+            return false;
+        }
+        Color color = (Color) o;
+        if(color.getAlpha() != this.getAlpha())
+        {
+            return false;
+        }
+        if(color.getRed() != this.getRed())
+        {
+            return false;
+        }
+        if(color.getGreen() != this.getGreen())
+        {
+            return false;
+        }
+        if(color.getBlue() != this.getBlue())
+        {
+            return false;
+        }
+        return true;
+    }
+
     public Color(int red, int green, int blue)
     {
         this(0xFF, red, green, blue);

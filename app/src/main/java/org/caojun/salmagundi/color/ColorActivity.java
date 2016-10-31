@@ -4,8 +4,10 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnLongClickListener;
@@ -43,7 +45,7 @@ public class ColorActivity extends AppCompatActivity {
         {
             etColors[i] = (EditText) this.findViewById(ResIdColors[i]);
             etColors[i].setOnTouchListener(onTouchListener);
-
+            etColors[i].addTextChangedListener(textWatcher);
             formatColor(etColors[i], "0");
         }
 
@@ -74,7 +76,26 @@ public class ColorActivity extends AppCompatActivity {
                 ivColor.setImageBitmap(bitmap);
             }
         });
+
+        checkColor();
     }
+
+    private TextWatcher textWatcher = new TextWatcher(){
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            checkColor();
+        }
+    };
 
     private OnLongClickListener onLongClickListener = new OnLongClickListener()
     {
@@ -140,5 +161,29 @@ public class ColorActivity extends AppCompatActivity {
         }
         text = editText.getText().toString();
         editText.setSelection(text.length());
+    }
+
+    private void checkColor()
+    {
+        if(etColors == null || etColors.length != 6)
+        {
+            return;
+        }
+        for(int i = 0;i < etColors.length;i ++)
+        {
+            if(etColors[i] == null)
+            {
+                return;
+            }
+        }
+        int red = Integer.parseInt(etColors[0].getText().toString());
+        int green = Integer.parseInt(etColors[1].getText().toString());
+        int blue = Integer.parseInt(etColors[2].getText().toString());
+        Color colorStart = new Color(red, green, blue);
+        red = Integer.parseInt(etColors[3].getText().toString());
+        green = Integer.parseInt(etColors[4].getText().toString());
+        blue = Integer.parseInt(etColors[5].getText().toString());
+        Color colorEnd = new Color(red, green, blue);
+        btnOK.setEnabled(!colorStart.equals(colorEnd));
     }
 }
