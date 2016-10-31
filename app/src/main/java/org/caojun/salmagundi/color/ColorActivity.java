@@ -2,8 +2,8 @@ package org.caojun.salmagundi.color;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -16,14 +16,18 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
+import org.caojun.salmagundi.qrcode.QRCodeActivity;
+import org.caojun.salmagundi.utils.LogUtils;
 
 /**
  * 渐变色
  * Created by CaoJun on 2016/10/28.
  */
 
-public class ColorActivity extends AppCompatActivity {
+public class ColorActivity extends BaseActivity {
 
     private Button btnOK;
 //    private CheckBox cbHex;
@@ -32,6 +36,8 @@ public class ColorActivity extends AppCompatActivity {
     private final int[] ResIdNumbers = {R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9/*, R.id.btnA, R.id.btnB, R.id.btnC, R.id.btnD, R.id.btnE, R.id.btnF*/};
     private Button[] btnNumbers;
     private ImageView ivColor;
+    private Bitmap bmGradient;
+    private static Color LastStartColor, LastEndColor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,6 +69,10 @@ public class ColorActivity extends AppCompatActivity {
         {
             @Override
             public void onClick(View v) {
+                if(getStartColor().equals(LastStartColor) && getEndColor().equals(LastEndColor))
+                {
+                    return;
+                }
                 int red = Integer.parseInt(etColors[0].getText().toString());
                 int green = Integer.parseInt(etColors[1].getText().toString());
                 int blue = Integer.parseInt(etColors[2].getText().toString());
@@ -72,12 +82,34 @@ public class ColorActivity extends AppCompatActivity {
                 blue = Integer.parseInt(etColors[5].getText().toString());
                 Color colorEnd = new Color(red, green, blue);
                 Color[] colors = ColorUtils.getGradientColor(colorStart, colorEnd, ivColor.getWidth());
-                Bitmap bitmap = ColorUtils.createGradientImage(colors, ivColor.getWidth(), ivColor.getHeight());
-                ivColor.setImageBitmap(bitmap);
+                bmGradient = ColorUtils.createGradientImage(colors, ivColor.getWidth(), ivColor.getHeight());
+                ivColor.setImageBitmap(bmGradient);
+                ibGallery3d.setEnabled(true);
             }
         });
 
         checkColor();
+
+        ibGallery3d.setOnClickListener(new OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                String message = getString(R.string.color_save, labelGallery3d, getString(R.string.successed));
+                String description = getStartColor().toString() + "-" + getEndColor().toString();
+                LogUtils.e("description", description);
+                if(TextUtils.isEmpty(MediaStore.Images.Media.insertImage(getContentResolver(), bmGradient, getString(R.string.color_title), description)))
+                {
+                    message = getString(R.string.qrcode_save, labelGallery3d, getString(R.string.failed));
+                    ibGallery3d.setEnabled(true);
+                }
+                else
+                {
+                    LastStartColor = getStartColor();
+                    LastEndColor = getEndColor();
+                    ibGallery3d.setEnabled(false);
+                }
+                Toast.makeText(ColorActivity.this, message, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private TextWatcher textWatcher = new TextWatcher(){
@@ -176,14 +208,24 @@ public class ColorActivity extends AppCompatActivity {
                 return;
             }
         }
+        Color colorStart = getStartColor();
+        Color colorEnd = getEndColor();
+        btnOK.setEnabled(!colorStart.equals(colorEnd));
+    }
+
+    private Color getStartColor()
+    {
         int red = Integer.parseInt(etColors[0].getText().toString());
         int green = Integer.parseInt(etColors[1].getText().toString());
         int blue = Integer.parseInt(etColors[2].getText().toString());
-        Color colorStart = new Color(red, green, blue);
-        red = Integer.parseInt(etColors[3].getText().toString());
-        green = Integer.parseInt(etColors[4].getText().toString());
-        blue = Integer.parseInt(etColors[5].getText().toString());
-        Color colorEnd = new Color(red, green, blue);
-        btnOK.setEnabled(!colorStart.equals(colorEnd));
+        return new Color(red, green, blue);
+    }
+
+    private Color getEndColor()
+    {
+        int red = Integer.parseInt(etColors[3].getText().toString());
+        int green = Integer.parseInt(etColors[4].getText().toString());
+        int blue = Integer.parseInt(etColors[5].getText().toString());
+        return new Color(red, green, blue);
     }
 }

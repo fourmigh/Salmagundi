@@ -262,4 +262,6 @@
                 android:layout_weight="1" />-->
         </LinearLayout>
     </LinearLayout>
+
+    <include layout="@layout/layout_share"/>
 </LinearLayout>

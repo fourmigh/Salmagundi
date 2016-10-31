@@ -1,41 +1,34 @@
 package org.caojun.salmagundi.qrcode;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
-import org.caojun.salmagundi.utils.PackageUtils;
 
 /**
  * 生成二维码
  * Created by CaoJun on 2016/10/26.
  */
 
-public class QRCodeActivity extends AppCompatActivity {
+public class QRCodeActivity extends BaseActivity {
 
     private EditText etQRCode;
     private ImageView ivQRCode;
     private Bitmap bmQRCode;
     private String strQRCode;
-    private ImageButton ibGallery3d;
-    private Drawable iconGallery3d;
-    private String labelGallery3d;
+
     private static String LastSavedText;
     private LinearLayout llSize;
     private EditText etWidth, etHeight;
@@ -44,11 +37,9 @@ public class QRCodeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_qrcode);
+
         etQRCode = (EditText) this.findViewById(R.id.etQRCode);
         ivQRCode = (ImageView) this.findViewById(R.id.ivQRCode);
-        ibGallery3d = (ImageButton) this.findViewById(R.id.ibGallery3d);
-        ibGallery3d.setVisibility(View.GONE);
-        ibGallery3d.setEnabled(false);
 
         llSize = (LinearLayout) this.findViewById(R.id.llSize);
         etWidth = (EditText) this.findViewById(R.id.etWidth);
@@ -81,21 +72,6 @@ public class QRCodeActivity extends AppCompatActivity {
                 Toast.makeText(QRCodeActivity.this, message, Toast.LENGTH_LONG).show();
             }
         });
-
-        new Thread()
-        {
-            @Override
-            public void run() {
-                PackageInfo packageInfo = PackageUtils.getPackageInfo(QRCodeActivity.this, "com.android.gallery3d");
-                if(packageInfo != null)
-                {
-                    PackageManager pm = QRCodeActivity.this.getPackageManager();
-                    iconGallery3d = packageInfo.applicationInfo.loadIcon(pm);
-                    labelGallery3d = packageInfo.applicationInfo.loadLabel(pm).toString();
-                    handlerGallery3d.sendMessage(Message.obtain());
-                }
-            }
-        }.start();
 
         llSize.setVisibility(View.GONE);//TODO 隐藏功能
     }
@@ -158,19 +134,6 @@ public class QRCodeActivity extends AppCompatActivity {
             }
         }.start();
     }
-
-    private Handler handlerGallery3d = new Handler()
-    {
-        @Override
-        public void handleMessage(Message msg) {
-            try {
-                ibGallery3d.setImageDrawable(iconGallery3d);
-                ibGallery3d.setVisibility(View.VISIBLE);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
 
     private Handler handlerQRCode = new Handler()
     {

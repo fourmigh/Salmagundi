@@ -68,7 +68,7 @@
         android:layout_weight="1"
         android:id="@+id/ivQRCode" />
 
-    <LinearLayout
+    <!--<LinearLayout
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_width="match_parent"
@@ -79,6 +79,7 @@
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_launcher"
             android:id="@+id/ibGallery3d" />
-    </LinearLayout>
+    </LinearLayout>-->
+    <include layout="@layout/layout_share"/>
 
 </LinearLayout>

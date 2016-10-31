@@ -16,4 +16,5 @@
     <string name="qrcode_width">宽</string>
     <string name="qrcode_height">高</string>
     <string name="qrcode_char">×</string>
+    <string name="color_save">保存渐变色图片到%1$s%2$s。</string>
 </resources>

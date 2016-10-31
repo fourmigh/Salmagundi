@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.qrcode.QRCodeActivity;
+import org.caojun.salmagundi.utils.LogUtils;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 

@@ -1,5 +1,7 @@
 package org.caojun.salmagundi.color;
 
+import org.caojun.salmagundi.utils.FormatUtils;
+
 /**
  * 颜色
  * Created by  CaoJun 2016/10/28.
@@ -15,6 +17,15 @@ public class Color {
         this.setRed(red);
         this.setGreen(green);
         this.setBlue(blue);
+    }
+
+    @Override
+    public String toString() {
+        String a = FormatUtils.int2Hex(this.getAlpha());
+        String r = FormatUtils.int2Hex(this.getRed());
+        String g = FormatUtils.int2Hex(this.getGreen());
+        String b = FormatUtils.int2Hex(this.getBlue());
+        return "0x" + (a + r + g + b).toUpperCase();
     }
 
     @Override
