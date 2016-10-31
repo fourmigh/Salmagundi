@@ -89,6 +89,7 @@ public class QRCodeUtils {
                                 pixels[y * width + x] = colors[y].toInt();
                                 break;
                             case 2:
+                                pixels[y * width + x] = colors[x + y].toInt();
                                 break;
                             case 3:
                                 break;
