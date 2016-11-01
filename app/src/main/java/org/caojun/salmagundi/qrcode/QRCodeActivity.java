@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
+import org.caojun.salmagundi.utils.FormatUtils;
 
 /**
  * 生成二维码
@@ -32,6 +33,8 @@ public class QRCodeActivity extends BaseActivity {
     private static String LastSavedText;
     private LinearLayout llSize;
     private EditText etWidth, etHeight;
+
+    private int directColor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,6 +114,7 @@ public class QRCodeActivity extends BaseActivity {
                 {
                     return;
                 }
+                directColor = FormatUtils.getRandom(0, QRCodeUtils.MaxDirectColor);
                 strQRCode = text;
                 final DisplayMetrics dm = new DisplayMetrics();
                 getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -124,11 +128,11 @@ public class QRCodeActivity extends BaseActivity {
                 {
                     width = Integer.parseInt(strWidth);
                     height = Integer.parseInt(strHeight);
-                    bmQRCode = QRCodeUtils.createQRImage(text, width, height, 2);
+                    bmQRCode = QRCodeUtils.createQRImage(text, width, height, directColor);
                 }
                 else
                 {
-                    bmQRCode = QRCodeUtils.createQRImage(text, wh, wh, 2);
+                    bmQRCode = QRCodeUtils.createQRImage(text, wh, wh, directColor);
                 }
                 handlerQRCode.sendMessage(Message.obtain());
             }

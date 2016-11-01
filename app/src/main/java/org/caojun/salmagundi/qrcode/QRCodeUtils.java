@@ -20,12 +20,14 @@ import java.util.Hashtable;
 
 public class QRCodeUtils {
 
+    public static final int MaxDirectColor = 4;//渐变色方向总数
+
     /**
      * 增加渐变色的二维码
      * @param text
      * @param width
      * @param height
-     * @param directColor 0：左到右，1：上到下，2：左上到右下，3：外到内，4：内到外
+     * @param directColor 1：左到右，2：上到下，3：左上到右下，4：外到内
      * @return
      */
     public static Bitmap createQRImage(String text, int width, int height, int directColor)
@@ -39,23 +41,17 @@ public class QRCodeUtils {
             int step = 0;
             switch(directColor)
             {
-                case 0:
+                case 1://左到右
                     step = width;
                     break;
-                case 1:
+                case 2://上到下
                     step = height;
                     break;
-                case 2:
+                case 3://左上到右下
                     step = width + height - 1;
                     break;
-                case 3:
-                case 4:
-                    int max = Math.max(width, height);
-                    step = max / 2;
-                    if(max % 2 > 0)
-                    {
-                        step ++;
-                    }
+                case 4://外到内
+                    step = (width / 2) + (height / 2) - 1;
                     break;
                 default:
                     return createQRImage(text, width, height);
@@ -79,21 +75,31 @@ public class QRCodeUtils {
                 {
                     if (bitMatrix.get(x, y))
                     {
-//                        pixels[y * width + x] = 0xff000000;
+                        pixels[y * width + x] = 0xff000000;
                         switch(directColor)
                         {
-                            case 0:
+                            case 1://左到右
                                 pixels[y * width + x] = colors[x].toInt();
                                 break;
-                            case 1:
+                            case 2://上到下
                                 pixels[y * width + x] = colors[y].toInt();
                                 break;
-                            case 2:
+                            case 3://左上到右下
                                 pixels[y * width + x] = colors[x + y].toInt();
                                 break;
-                            case 3:
-                                break;
-                            case 4:
+                            case 4://外到内
+                                if(x <= width / 2 && y <= height / 2) {
+                                    pixels[y * width + x] = colors[x].toInt();
+                                }
+                                else if(x <= width / 2 && y > height / 2) {
+                                    pixels[y * width + x] = colors[Math.min(x, y)].toInt();
+                                }
+                                else if(x > width / 2 && y <= height / 2) {
+                                    pixels[y * width + x] = colors[Math.min(width - x, height - y)].toInt();
+                                }
+                                else {
+                                    pixels[y * width + x] = colors[Math.min(width - x, y)].toInt();
+                                }
                                 break;
                         }
                     }
