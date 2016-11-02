@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import org.caojun.salmagundi.bankcard.BankCardActivity;
 import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.qrcode.QRCodeActivity;
 import org.caojun.salmagundi.utils.LogUtils;
@@ -22,9 +23,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 //        this.startActivity(new Intent(this, ColorActivity.class));
         Button btnQRCode = (Button) this.findViewById(R.id.btnQRCode);
         Button btnColor = (Button) this.findViewById(R.id.btnColor);
+        Button btnBankCard = (Button) this.findViewById(R.id.btnBankCard);
 
         btnQRCode.setOnClickListener(this);
         btnColor.setOnClickListener(this);
+        btnBankCard.setOnClickListener(this);
     }
 
     @Override
@@ -37,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 break;
             case R.id.btnColor:
                 intent = new Intent(this, ColorActivity.class);
+                break;
+            case R.id.btnBankCard:
+                intent = new Intent(this, BankCardActivity.class);
                 break;
             default:
                 return;

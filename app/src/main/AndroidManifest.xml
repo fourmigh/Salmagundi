@@ -3,6 +3,7 @@
     package="org.caojun.salmagundi">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.NFC"/>
 
     <application
         android:name=".MainApplication"
@@ -19,13 +20,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".qrcode.QRCodeActivity"
-        android:label="@string/qrcode_title" />
+            android:label="@string/qrcode_title" />
         <activity android:name=".color.ColorActivity"
-            android:label="@string/color_title" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:label="@string/color_title" />
+        <activity android:name=".bankcard.BankCardActivity"
+            android:label="@string/bankcard_title" />
     </application>
 
 </manifest>
