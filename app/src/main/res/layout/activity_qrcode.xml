@@ -20,7 +20,7 @@
 
         <TextView
             android:text="@string/qrcode_size"
-            android:padding="6dp"
+            android:padding="@dimen/textview_padding"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
@@ -41,7 +41,7 @@
 
         <TextView
             android:text="@string/qrcode_char"
-            android:padding="6dp"
+            android:padding="@dimen/textview_padding"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />

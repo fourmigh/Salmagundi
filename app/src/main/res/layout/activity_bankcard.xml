@@ -9,11 +9,23 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical">
 
-    <ToggleButton
-        android:text="@string/nfc_status"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tbNFC" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/nfc_status"
+            android:padding="@dimen/textview_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/tbNFC" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"

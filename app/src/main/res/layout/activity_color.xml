@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="6dp"
+            android:padding="@dimen/textview_padding"
             android:gravity="center"
             android:text="@string/start_color" />
 
@@ -68,7 +68,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="6dp"
+            android:padding="@dimen/textview_padding"
             android:gravity="center"
             android:text="@string/end_color" />
 
@@ -131,7 +131,7 @@
             android:text="@string/hex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="6dp"
+            android:paddingRight="@dimen/textview_padding"
             android:id="@+id/cbHex" />-->
 
     </LinearLayout>
