@@ -115,6 +115,7 @@ public class QRCodeActivity extends BaseActivity {
                     return;
                 }
                 directColor = FormatUtils.getRandom(0, QRCodeUtils.MaxDirectColor);
+//                directColor = QRCodeUtils.MaxDirectColor;
                 strQRCode = text;
                 final DisplayMetrics dm = new DisplayMetrics();
                 getWindowManager().getDefaultDisplay().getMetrics(dm);

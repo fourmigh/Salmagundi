@@ -10,6 +10,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorUtils;
+import org.caojun.salmagundi.utils.LogUtils;
 
 import java.util.Hashtable;
 
@@ -21,6 +22,10 @@ import java.util.Hashtable;
 public class QRCodeUtils {
 
     public static final int MaxDirectColor = 4;//渐变色方向总数
+    private static final int DirectLeftRight = 1;
+    private static final int DirectTopButtom = 2;
+    private static final int DirectLtRb = 3;
+    private static final int DirectLtOutIn = 4;
 
     /**
      * 增加渐变色的二维码
@@ -41,17 +46,17 @@ public class QRCodeUtils {
             int step = 0;
             switch(directColor)
             {
-                case 1://左到右
+                case DirectLeftRight://左到右
                     step = width;
                     break;
-                case 2://上到下
+                case DirectTopButtom://上到下
                     step = height;
                     break;
-                case 3://左上到右下
+                case DirectLtRb://左上到右下
                     step = width + height - 1;
                     break;
-                case 4://外到内
-                    step = (width / 2) + (height / 2) - 1;
+                case DirectLtOutIn://外到内
+                    step = Math.min(width / 2, height / 2);
                     break;
                 default:
                     return createQRImage(text, width, height);
@@ -60,6 +65,33 @@ public class QRCodeUtils {
             if(colors == null)
             {
                 return null;
+            }
+            Color[][] colorReal = null;
+            if(directColor == DirectLtOutIn)
+            {
+                colorReal = new Color[width][height];
+                int paintStep = 1;
+                int startXY[] = {width / 2, height / 2};
+                LogUtils.e("startXY", startXY[0] + " : " + startXY[1]);
+                for(int i = 0;i < colors.length;i ++)
+                {
+                    int index = colors.length - i - 1;
+                    for(int j = 0;j < paintStep;j ++) {
+                        int x0 = Math.min(startXY[0] + j, width - 1);
+                        int y0 = startXY[1];
+                        colorReal[x0][y0] = colors[index];
+                        int x1 = startXY[0];
+                        int y1 = Math.min(startXY[1] + j, height - 1);
+                        colorReal[x1][y1] = colors[index];
+                        int y2 = Math.min(startXY[1] + paintStep - 1, height - 1);
+                        colorReal[x0][y2] = colors[index];
+                        int x3 = Math.min(startXY[0] + paintStep - 1, width - 1);
+                        colorReal[x3][y1] = colors[index];
+                    }
+                    paintStep += 2;
+                    startXY[0] = Math.max(0, startXY[0] - 1);
+                    startXY[1] = Math.max(0, startXY[1] - 1);
+                }
             }
 
             Hashtable<EncodeHintType, String> hints = new Hashtable<>();
@@ -78,27 +110,35 @@ public class QRCodeUtils {
                         pixels[y * width + x] = 0xff000000;
                         switch(directColor)
                         {
-                            case 1://左到右
+                            case DirectLeftRight://左到右
                                 pixels[y * width + x] = colors[x].toInt();
                                 break;
-                            case 2://上到下
+                            case DirectTopButtom://上到下
                                 pixels[y * width + x] = colors[y].toInt();
                                 break;
-                            case 3://左上到右下
+                            case DirectLtRb://左上到右下
                                 pixels[y * width + x] = colors[x + y].toInt();
                                 break;
-                            case 4://外到内
-                                if(x <= width / 2 && y <= height / 2) {
-                                    pixels[y * width + x] = colors[x].toInt();
+                            case DirectLtOutIn://外到内
+                                if(colorReal == null) {
+                                    if (x <= width / 2 && y <= height / 2) {
+                                        pixels[y * width + x] = colors[x].toInt();
+                                    } else if (x <= width / 2 && y > height / 2) {
+                                        pixels[y * width + x] = colors[Math.min(x, y)].toInt();
+                                    } else if (x > width / 2 && y <= height / 2) {
+                                        pixels[y * width + x] = colors[Math.min(width - x, height - y)].toInt();
+                                    } else {
+                                        pixels[y * width + x] = colors[Math.min(width - x, y)].toInt();
+                                    }
                                 }
-                                else if(x <= width / 2 && y > height / 2) {
-                                    pixels[y * width + x] = colors[Math.min(x, y)].toInt();
-                                }
-                                else if(x > width / 2 && y <= height / 2) {
-                                    pixels[y * width + x] = colors[Math.min(width - x, height - y)].toInt();
-                                }
-                                else {
-                                    pixels[y * width + x] = colors[Math.min(width - x, y)].toInt();
+                                else
+                                {
+                                    try {
+                                        pixels[y * width + x] = colorReal[x][y].toInt();
+                                    } catch (Exception e) {
+                                        LogUtils.e("x, y", x + " : " + y);
+                                        e.printStackTrace();
+                                    }
                                 }
                                 break;
                         }
