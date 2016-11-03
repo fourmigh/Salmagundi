@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
-import org.caojun.salmagundi.qrcode.QRCodeActivity;
 import org.caojun.salmagundi.utils.DataStorageUtils;
 import org.caojun.salmagundi.utils.LogUtils;
 
@@ -31,7 +30,6 @@ import org.caojun.salmagundi.utils.LogUtils;
 
 public class ColorActivity extends BaseActivity {
 
-//    private CheckBox cbHex;
     private EditText[] etColors;
     private final int[] ResIdColors = {R.id.etStartRed, R.id.etStartGreen, R.id.etStartBlue, R.id.etEndRed, R.id.etEndGreen, R.id.etEndBlue};
     private final int[] ResIdNumbers = {R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9/*, R.id.btnA, R.id.btnB, R.id.btnC, R.id.btnD, R.id.btnE, R.id.btnF*/};
@@ -96,16 +94,20 @@ public class ColorActivity extends BaseActivity {
 
     private void loadColors()
     {
-        Integer[] intColorStart = DataStorageUtils.loadIntArray(this, "GradientColor", "colorStart", 0);
-        if(intColorStart == null)
-        {
-            intColorStart = new Integer[]{0xFF, 0xFF, 0, 0};
-        }
-        Integer[] intColorEnd = DataStorageUtils.loadIntArray(this, "GradientColor", "colorEnd", 0);
-        if(intColorEnd == null)
-        {
-            intColorEnd = new Integer[]{0xFF, 0, 0, 0xFF};
-        }
+//        Integer[] intColorStart = DataStorageUtils.loadIntArray(this, "GradientColor", "colorStart", 0);
+//        if(intColorStart == null)
+//        {
+//            intColorStart = new Integer[]{0xFF, 0xFF, 0, 0};
+//        }
+//        Integer[] intColorEnd = DataStorageUtils.loadIntArray(this, "GradientColor", "colorEnd", 0);
+//        if(intColorEnd == null)
+//        {
+//            intColorEnd = new Integer[]{0xFF, 0, 0, 0xFF};
+//        }
+        Color[] color = ColorUtils.getSavedColors(this);
+        Integer[] intColorStart = new Integer[]{color[0].getAlpha(), color[0].getRed(), color[0].getGreen(), color[0].getBlue()};
+        Integer[] intColorEnd = new Integer[]{color[1].getAlpha(), color[1].getRed(), color[1].getGreen(), color[1].getBlue()};
+
         formatColor(etColors[0], String.valueOf(intColorStart[1]));
         formatColor(etColors[1], String.valueOf(intColorStart[2]));
         formatColor(etColors[2], String.valueOf(intColorStart[3]));

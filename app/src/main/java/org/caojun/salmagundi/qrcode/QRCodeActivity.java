@@ -129,11 +129,11 @@ public class QRCodeActivity extends BaseActivity {
                 {
                     width = Integer.parseInt(strWidth);
                     height = Integer.parseInt(strHeight);
-                    bmQRCode = QRCodeUtils.createQRImage(text, width, height, directColor);
+                    bmQRCode = QRCodeUtils.createQRImage(QRCodeActivity.this, text, width, height, directColor);
                 }
                 else
                 {
-                    bmQRCode = QRCodeUtils.createQRImage(text, wh, wh, directColor);
+                    bmQRCode = QRCodeUtils.createQRImage(QRCodeActivity.this, text, wh, wh, directColor);
                 }
                 handlerQRCode.sendMessage(Message.obtain());
             }

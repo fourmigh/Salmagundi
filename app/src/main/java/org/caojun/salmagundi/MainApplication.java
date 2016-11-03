@@ -1,7 +1,6 @@
 package org.caojun.salmagundi;
 
 import android.app.Application;
-
 import org.caojun.salmagundi.utils.LogUtils;
 
 /**

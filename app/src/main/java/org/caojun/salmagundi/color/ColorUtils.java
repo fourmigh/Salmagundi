@@ -1,8 +1,11 @@
 package org.caojun.salmagundi.color;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+
+import org.caojun.salmagundi.utils.DataStorageUtils;
 
 /**
  * 颜色工具类
@@ -10,6 +13,23 @@ import android.graphics.Paint;
  */
 
 public class ColorUtils {
+
+    public static Color[] getSavedColors(Context context)
+    {
+        Integer[] intColorStart = DataStorageUtils.loadIntArray(context, "GradientColor", "colorStart", 0);
+        if(intColorStart == null)
+        {
+            intColorStart = new Integer[]{0xFF, 0xFF, 0, 0};
+        }
+        Integer[] intColorEnd = DataStorageUtils.loadIntArray(context, "GradientColor", "colorEnd", 0);
+        if(intColorEnd == null)
+        {
+            intColorEnd = new Integer[]{0xFF, 0, 0, 0xFF};
+        }
+        Color colorStart = new Color(intColorStart[0], intColorStart[1], intColorStart[2], intColorStart[3]);
+        Color colorEnd = new Color(intColorEnd[0], intColorEnd[1], intColorEnd[2], intColorEnd[3]);
+        return new Color[]{colorStart, colorEnd};
+    }
 
     public static Color[] getGradientColor(Color start, Color end, int step)
     {

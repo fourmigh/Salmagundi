@@ -3,16 +3,12 @@ package org.caojun.salmagundi;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
-
-import org.caojun.salmagundi.qrcode.QRCodeActivity;
 import org.caojun.salmagundi.utils.PackageUtils;
 
 /**

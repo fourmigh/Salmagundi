@@ -10,14 +10,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-
 import org.caojun.salmagundi.bankcard.BankCardActivity;
 import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.color.ColorUtils;
 import org.caojun.salmagundi.qrcode.QRCodeActivity;
 import org.caojun.salmagundi.utils.DataStorageUtils;
-import org.caojun.salmagundi.utils.LogUtils;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 
@@ -50,27 +48,18 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
      */
     private void createColorIcon()
     {
-        Integer[] intColorStart = DataStorageUtils.loadIntArray(this, "GradientColor", "colorStart", 0);
-        if(intColorStart == null)
-        {
-            intColorStart = new Integer[]{0xFF, 0xFF, 0, 0};
-        }
-        Integer[] intColorEnd = DataStorageUtils.loadIntArray(this, "GradientColor", "colorEnd", 0);
-        if(intColorEnd == null)
-        {
-            intColorEnd = new Integer[]{0xFF, 0, 0, 0xFF};
-        }
-        Color colorStart = new Color(intColorStart[0], intColorStart[1], intColorStart[2], intColorStart[3]);
-        Color colorEnd = new Color(intColorEnd[0], intColorEnd[1], intColorEnd[2], intColorEnd[3]);
+        Color[] color = ColorUtils.getSavedColors(this);
         Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_color);
         int density = (int) getResources().getDisplayMetrics().density;
-        Color[] colors = ColorUtils.getGradientColor(colorStart, colorEnd, bitmap.getWidth() * density);
+        Color[] colors = ColorUtils.getGradientColor(color[0], color[1], bitmap.getWidth() * density);
         Bitmap bmGradient = ColorUtils.createGradientImage(colors, bitmap.getWidth() * density, bitmap.getHeight() * density);
         if(bmGradient != null) {
             Drawable drawable = new BitmapDrawable(bmGradient);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             btnColor.setCompoundDrawables(null, drawable, null, null);
         }
+        Integer[] intColorStart = new Integer[]{color[0].getAlpha(), color[0].getRed(), color[0].getGreen(), color[0].getBlue()};
+        Integer[] intColorEnd = new Integer[]{color[1].getAlpha(), color[1].getRed(), color[1].getGreen(), color[1].getBlue()};
         DataStorageUtils.saveIntArray(this, "GradientColor", "colorStart", intColorStart);
         DataStorageUtils.saveIntArray(this, "GradientColor", "colorEnd", intColorEnd);
     }

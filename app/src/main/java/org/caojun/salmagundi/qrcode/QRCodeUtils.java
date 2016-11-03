@@ -1,5 +1,6 @@
 package org.caojun.salmagundi.qrcode;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.text.TextUtils;
@@ -35,7 +36,7 @@ public class QRCodeUtils {
      * @param directColor 1：左到右，2：上到下，3：左上到右下，4：外到内
      * @return
      */
-    public static Bitmap createQRImage(String text, int width, int height, int directColor)
+    public static Bitmap createQRImage(Context context, String text, int width, int height, int directColor)
     {
         try
         {
@@ -61,7 +62,10 @@ public class QRCodeUtils {
                 default:
                     return createQRImage(text, width, height);
             }
-            Color[] colors = ColorUtils.getGradientColor(new Color(0xFF,0,0), new Color(0,0,0xFF), step);
+
+//            Color[] colors = ColorUtils.getGradientColor(new Color(0xFF,0,0), new Color(0,0,0xFF), step);
+            Color[] color = ColorUtils.getSavedColors(context);
+            Color[] colors = ColorUtils.getGradientColor(color[0], color[1], step);
             if(colors == null)
             {
                 return null;
@@ -72,7 +76,6 @@ public class QRCodeUtils {
                 colorReal = new Color[width][height];
                 int paintStep = 1;
                 int startXY[] = {width / 2, height / 2};
-                LogUtils.e("startXY", startXY[0] + " : " + startXY[1]);
                 for(int i = 0;i < colors.length;i ++)
                 {
                     int index = colors.length - i - 1;

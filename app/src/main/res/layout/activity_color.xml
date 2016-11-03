@@ -115,20 +115,6 @@
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <!--<CheckBox
-            android:text="@string/hex"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="@dimen/textview_padding"
-            android:id="@+id/cbHex" />-->
-
-    </LinearLayout>
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
