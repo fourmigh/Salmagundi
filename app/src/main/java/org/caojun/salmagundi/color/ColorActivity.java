@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.qrcode.QRCodeActivity;
+import org.caojun.salmagundi.utils.DataStorageUtils;
 import org.caojun.salmagundi.utils.LogUtils;
 
 /**
@@ -29,7 +31,6 @@ import org.caojun.salmagundi.utils.LogUtils;
 
 public class ColorActivity extends BaseActivity {
 
-    private Button btnOK;
 //    private CheckBox cbHex;
     private EditText[] etColors;
     private final int[] ResIdColors = {R.id.etStartRed, R.id.etStartGreen, R.id.etStartBlue, R.id.etEndRed, R.id.etEndGreen, R.id.etEndBlue};
@@ -44,8 +45,6 @@ public class ColorActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_color);
 
-        btnOK = (Button) this.findViewById(R.id.btnOK);
-
         etColors = new EditText[ResIdColors.length];
         for(int i = 0;i < ResIdColors.length;i ++)
         {
@@ -56,26 +55,22 @@ public class ColorActivity extends BaseActivity {
         }
 
         ivColor = (ImageView) this.findViewById(R.id.ivColor);
+        ViewTreeObserver vto = ivColor.getViewTreeObserver();
+        vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            public boolean onPreDraw() {
+                int width = ivColor.getMeasuredWidth();
+                int height = ivColor.getMeasuredHeight();
+                checkColor(width, height);
+                return true;
+            }
+        });
+
         btnNumbers = new Button[ResIdNumbers.length];
         for (int i = 0; i < ResIdNumbers.length; i++) {
             btnNumbers[i] = (Button) this.findViewById(ResIdNumbers[i]);
             btnNumbers[i].setOnClickListener(oclButtonNumber);
             btnNumbers[i].setOnLongClickListener(onLongClickListener);
         }
-
-        ivColor = (ImageView) this.findViewById(R.id.ivColor);
-        btnOK = (Button) this.findViewById(R.id.btnOK);
-        btnOK.setOnClickListener(new OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                if(getStartColor().equals(LastStartColor) && getEndColor().equals(LastEndColor))
-                {
-                    return;
-                }
-                refreshColor();
-            }
-        });
 
         ibGallery3d.setOnClickListener(new OnClickListener(){
             @Override
@@ -99,7 +94,35 @@ public class ColorActivity extends BaseActivity {
         });
     }
 
-    private void refreshColor()
+    private void loadColors()
+    {
+        Integer[] intColorStart = DataStorageUtils.loadIntArray(this, "GradientColor", "colorStart", 0);
+        if(intColorStart == null)
+        {
+            intColorStart = new Integer[]{0xFF, 0xFF, 0, 0};
+        }
+        Integer[] intColorEnd = DataStorageUtils.loadIntArray(this, "GradientColor", "colorEnd", 0);
+        if(intColorEnd == null)
+        {
+            intColorEnd = new Integer[]{0xFF, 0, 0, 0xFF};
+        }
+        formatColor(etColors[0], String.valueOf(intColorStart[1]));
+        formatColor(etColors[1], String.valueOf(intColorStart[2]));
+        formatColor(etColors[2], String.valueOf(intColorStart[3]));
+        formatColor(etColors[3], String.valueOf(intColorEnd[1]));
+        formatColor(etColors[4], String.valueOf(intColorEnd[2]));
+        formatColor(etColors[5], String.valueOf(intColorEnd[3]));
+    }
+
+    private void saveColors(Color colorStart, Color colorEnd)
+    {
+        int[] intColorStart = new int[]{colorStart.getAlpha(), colorStart.getRed(), colorStart.getGreen(), colorStart.getBlue()};
+        int[] intColorEnd = new int[]{colorEnd.getAlpha(), colorEnd.getRed(), colorEnd.getGreen(), colorEnd.getBlue()};
+        DataStorageUtils.saveIntArray(this, "GradientColor", "colorStart", intColorStart);
+        DataStorageUtils.saveIntArray(this, "GradientColor", "colorEnd", intColorEnd);
+    }
+
+    private void refreshColor(int width, int height)
     {
         int red = Integer.parseInt(etColors[0].getText().toString());
         int green = Integer.parseInt(etColors[1].getText().toString());
@@ -109,21 +132,21 @@ public class ColorActivity extends BaseActivity {
         green = Integer.parseInt(etColors[4].getText().toString());
         blue = Integer.parseInt(etColors[5].getText().toString());
         Color colorEnd = new Color(red, green, blue);
-        Color[] colors = ColorUtils.getGradientColor(colorStart, colorEnd, ivColor.getWidth());
-        bmGradient = ColorUtils.createGradientImage(colors, ivColor.getWidth(), ivColor.getHeight());
+        Color[] colors = ColorUtils.getGradientColor(colorStart, colorEnd, width);
+        bmGradient = ColorUtils.createGradientImage(colors, width, height);
         if(bmGradient != null) {
             ivColor.setImageBitmap(bmGradient);
         }
         ibGallery3d.setEnabled(true);
+        saveColors(colorStart, colorEnd);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        checkColor();
-        if(btnOK.isEnabled())
-        {
-            refreshColor();
+        loadColors();
+        if(ivColor != null) {
+            checkColor(ivColor.getWidth(), ivColor.getHeight());
         }
     }
 
@@ -147,7 +170,9 @@ public class ColorActivity extends BaseActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
-            checkColor();
+            if(ivColor != null) {
+                checkColor(ivColor.getWidth(), ivColor.getHeight());
+            }
         }
     };
 
@@ -217,7 +242,7 @@ public class ColorActivity extends BaseActivity {
         editText.setSelection(text.length());
     }
 
-    private void checkColor()
+    private void checkColor(int width, int height)
     {
         if(etColors == null || etColors.length != 6)
         {
@@ -232,7 +257,14 @@ public class ColorActivity extends BaseActivity {
         }
         Color colorStart = getStartColor();
         Color colorEnd = getEndColor();
-        btnOK.setEnabled(!colorStart.equals(colorEnd));
+        if(colorStart.equals(LastStartColor) && colorEnd.equals(LastEndColor))
+        {
+            return;
+        }
+        if(!colorStart.equals(colorEnd))
+        {
+            refreshColor(width, height);
+        }
     }
 
     private Color getStartColor()

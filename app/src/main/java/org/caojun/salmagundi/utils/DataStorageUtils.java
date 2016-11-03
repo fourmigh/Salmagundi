@@ -36,7 +36,7 @@ public class DataStorageUtils {
         return context.getSharedPreferences(name, Context.MODE_PRIVATE);
     }
 
-    public boolean saveBoolean(Context context, String name, String key, boolean value)
+    public static boolean saveBoolean(Context context, String name, String key, boolean value)
     {
         Editor editor = getEditor(context, name, key);
         if(editor == null)
@@ -48,7 +48,7 @@ public class DataStorageUtils {
         return true;
     }
 
-    public Boolean loadBoolean(Context context, String name, String key, boolean defValue)
+    public static Boolean loadBoolean(Context context, String name, String key, boolean defValue)
     {
         SharedPreferences preferences = getSharedPreferences(context, name, key);
         if(preferences == null)
@@ -58,7 +58,7 @@ public class DataStorageUtils {
         return preferences.getBoolean(key, defValue);
     }
 
-    public boolean saveBooleanArray(Context context, String name, String key, boolean values[])
+    public static boolean saveBooleanArray(Context context, String name, String key, boolean values[])
     {
         Editor editor = getEditor(context, name, key);
         if(editor == null || values == null)
@@ -74,7 +74,7 @@ public class DataStorageUtils {
         return true;
     }
 
-    public Boolean[] loadBooleanArray(Context context, String name, String key, boolean defValue)
+    public static Boolean[] loadBooleanArray(Context context, String name, String key, boolean defValue)
     {
         SharedPreferences preferences = getSharedPreferences(context, name, key);
         if(preferences == null)
@@ -94,7 +94,7 @@ public class DataStorageUtils {
         return values;
     }
 
-    public boolean saveFloat(Context context, String name, String key, float value)
+    public static boolean saveFloat(Context context, String name, String key, float value)
     {
         Editor editor = getEditor(context, name, key);
         if(editor == null)
@@ -106,7 +106,7 @@ public class DataStorageUtils {
         return true;
     }
 
-    public Float loadFloat(Context context, String name, String key, float defValue)
+    public static Float loadFloat(Context context, String name, String key, float defValue)
     {
         SharedPreferences preferences = getSharedPreferences(context, name, key);
         if(preferences == null)
@@ -116,7 +116,7 @@ public class DataStorageUtils {
         return preferences.getFloat(key, defValue);
     }
 
-    public boolean saveFloatArray(Context context, String name, String key, float values[])
+    public static boolean saveFloatArray(Context context, String name, String key, float values[])
     {
         Editor editor = getEditor(context, name, key);
         if(editor == null || values == null)
@@ -132,7 +132,7 @@ public class DataStorageUtils {
         return true;
     }
 
-    public Float[] loadFloatArray(Context context, String name, String key, float defValue)
+    public static Float[] loadFloatArray(Context context, String name, String key, float defValue)
     {
         SharedPreferences preferences = getSharedPreferences(context, name, key);
         if(preferences == null)
@@ -152,7 +152,7 @@ public class DataStorageUtils {
         return values;
     }
 
-    public boolean saveInt(Context context, String name, String key, int value)
+    public static boolean saveInt(Context context, String name, String key, int value)
     {
         Editor editor = getEditor(context, name, key);
         if(editor == null)
@@ -164,7 +164,7 @@ public class DataStorageUtils {
         return true;
     }
 
-    public Integer loadInt(Context context, String name, String key, int defValue)
+    public static Integer loadInt(Context context, String name, String key, int defValue)
     {
         SharedPreferences preferences = getSharedPreferences(context, name, key);
         if(preferences == null)
@@ -174,7 +174,7 @@ public class DataStorageUtils {
         return preferences.getInt(key, defValue);
     }
 
-    public boolean saveIntArray(Context context, String name, String key, int values[])
+    public static boolean saveIntArray(Context context, String name, String key, int values[])
     {
         Editor editor = getEditor(context, name, key);
         if(editor == null || values == null)
@@ -190,7 +190,23 @@ public class DataStorageUtils {
         return true;
     }
 
-    public Integer[] loadIntArray(Context context, String name, String key, int defValue)
+    public static boolean saveIntArray(Context context, String name, String key, Integer values[])
+    {
+        Editor editor = getEditor(context, name, key);
+        if(editor == null || values == null)
+        {
+            return false;
+        }
+        editor.putInt(key + ".length", values.length);
+        for(int i = 0;i < values.length;i ++)
+        {
+            editor.putInt(key + "." + i, values[i]);
+        }
+        editor.commit();
+        return true;
+    }
+
+    public static Integer[] loadIntArray(Context context, String name, String key, int defValue)
     {
         SharedPreferences preferences = getSharedPreferences(context, name, key);
         if(preferences == null)
@@ -210,7 +226,7 @@ public class DataStorageUtils {
         return values;
     }
 
-    public boolean saveLong(Context context, String name, String key, long value)
+    public static boolean saveLong(Context context, String name, String key, long value)
     {
         Editor editor = getEditor(context, name, key);
         if(editor == null)
@@ -222,7 +238,7 @@ public class DataStorageUtils {
         return true;
     }
 
-    public Long loadLong(Context context, String name, String key, long defValue)
+    public static Long loadLong(Context context, String name, String key, long defValue)
     {
         SharedPreferences preferences = getSharedPreferences(context, name, key);
         if(preferences == null)
@@ -232,7 +248,7 @@ public class DataStorageUtils {
         return preferences.getLong(key, defValue);
     }
 
-    public boolean saveLongArray(Context context, String name, String key, long values[])
+    public static boolean saveLongArray(Context context, String name, String key, long values[])
     {
         Editor editor = getEditor(context, name, key);
         if(editor == null || values == null)
@@ -248,7 +264,7 @@ public class DataStorageUtils {
         return true;
     }
 
-    public Long[] loadLongArray(Context context, String name, String key, long defValue)
+    public static Long[] loadLongArray(Context context, String name, String key, long defValue)
     {
         SharedPreferences preferences = getSharedPreferences(context, name, key);
         if(preferences == null)
@@ -268,7 +284,7 @@ public class DataStorageUtils {
         return values;
     }
 
-    public boolean saveString(Context context, String name, String key, String value)
+    public static boolean saveString(Context context, String name, String key, String value)
     {
         Editor editor = getEditor(context, name, key);
         if(editor == null)
@@ -280,7 +296,7 @@ public class DataStorageUtils {
         return true;
     }
 
-    public String loadString(Context context, String name, String key, String defValue)
+    public static String loadString(Context context, String name, String key, String defValue)
     {
         SharedPreferences preferences = getSharedPreferences(context, name, key);
         if(preferences == null)
@@ -290,7 +306,7 @@ public class DataStorageUtils {
         return preferences.getString(key, defValue);
     }
 
-    public boolean saveStringArray(Context context, String name, String key, String values[])
+    public static boolean saveStringArray(Context context, String name, String key, String values[])
     {
         Editor editor = getEditor(context, name, key);
         if(editor == null || values == null)
@@ -306,7 +322,7 @@ public class DataStorageUtils {
         return true;
     }
 
-    public String[] loadStringArray(Context context, String name, String key, String defValue)
+    public static String[] loadStringArray(Context context, String name, String key, String defValue)
     {
         SharedPreferences preferences = getSharedPreferences(context, name, key);
         if(preferences == null)
