@@ -7,9 +7,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
+
 import org.caojun.salmagundi.bankcard.BankCardActivity;
 import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorActivity;
@@ -20,6 +23,7 @@ import org.caojun.salmagundi.utils.DataStorageUtils;
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     private Button btnQRCode, btnColor;
+    private TextView tvInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         btnColor = (Button) this.findViewById(R.id.btnColor);
         Button btnBankCard = (Button) this.findViewById(R.id.btnBankCard);
 
+        tvInfo = (TextView) this.findViewById(R.id.tvInfo);
+
         btnQRCode.setOnClickListener(this);
         btnColor.setOnClickListener(this);
         btnBankCard.setOnClickListener(this);
@@ -41,6 +47,21 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     protected void onResume() {
         super.onResume();
         createColorIcon();
+        tvInfo.setText(getSystemInfo());
+    }
+
+    private String getSystemInfo()
+    {
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        StringBuffer sb = new StringBuffer();
+        sb.append("widthPixels: " + metrics.widthPixels);
+        sb.append("\n" + "heightPixels: " + metrics.heightPixels);
+        sb.append("\n" + "density: " + metrics.density);
+        sb.append("\n" + "densityDpi: " + metrics.densityDpi);
+        sb.append("\n" + "scaledDensity: " + metrics.scaledDensity);
+        sb.append("\n" + "xdpi: " + metrics.xdpi);
+        sb.append("\n" + "ydpi: " + metrics.ydpi);
+        return sb.toString();
     }
 
     /**

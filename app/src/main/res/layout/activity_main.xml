@@ -8,64 +8,83 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="org.caojun.salmagundi.MainActivity">
+    tools:context="org.caojun.salmagundi.MainActivity"
+    android:orientation="vertical">
 
-    <TableLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
-        <TableRow
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-            <Button
-                android:text="@string/qrcode_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btnQRCode"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/icon_qrcode" />
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <Button
-                android:text="@string/color_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btnColor"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/icon_color"/>
-        </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                    <Button
+                        android:text="@string/qrcode_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnQRCode"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/icon_qrcode" />
 
-            <Button
-                android:text="@string/bankcard_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btnBankCard"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/icon_bankcard"/>
+                    <Button
+                        android:text="@string/color_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnColor"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/icon_color"/>
+                </TableRow>
 
-            <Button
-                android:text="@string/color_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:visibility="invisible"
-                android:drawableTop="@drawable/icon_bankcard"/>
-        </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+                    <Button
+                        android:text="@string/bankcard_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnBankCard"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/icon_bankcard"/>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </TableLayout>
+                    <Button
+                        android:text="@string/color_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:visibility="invisible"
+                        android:drawableTop="@drawable/icon_bankcard"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvInfo" />
+
 </LinearLayout>
