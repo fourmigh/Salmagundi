@@ -22,7 +22,7 @@ import org.caojun.salmagundi.utils.DataStorageUtils;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 
-    private Button btnQRCode, btnColor;
+    private Button btnColor;
     private TextView tvInfo;
 
     @Override
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
 //        this.startActivity(new Intent(this, QRCodeActivity.class));
 //        this.startActivity(new Intent(this, ColorActivity.class));
-        btnQRCode = (Button) this.findViewById(R.id.btnQRCode);
+        Button btnQRCode = (Button) this.findViewById(R.id.btnQRCode);
         btnColor = (Button) this.findViewById(R.id.btnColor);
         Button btnBankCard = (Button) this.findViewById(R.id.btnBankCard);
 
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         sb.append("\n" + "scaledDensity: " + metrics.scaledDensity);
         sb.append("\n" + "xdpi: " + metrics.xdpi);
         sb.append("\n" + "ydpi: " + metrics.ydpi);
+        sb.append("\n" + "DPI: " + this.getString(R.string.dpi));
         return sb.toString();
     }
 

@@ -8,6 +8,7 @@
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
+        android:anyDensity="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
