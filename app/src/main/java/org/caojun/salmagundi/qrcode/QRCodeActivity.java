@@ -34,7 +34,7 @@ public class QRCodeActivity extends BaseActivity {
     private LinearLayout llSize;
     private EditText etWidth, etHeight;
 
-    private int directColor;
+//    private int directColor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -114,7 +114,7 @@ public class QRCodeActivity extends BaseActivity {
                 {
                     return;
                 }
-                directColor = FormatUtils.getRandom(0, QRCodeUtils.MaxDirectColor);
+                int direct = FormatUtils.getRandom(0, QRCodeUtils.MaxDirectColor);
 //                directColor = QRCodeUtils.MaxDirectColor;
                 strQRCode = text;
                 final DisplayMetrics dm = new DisplayMetrics();
@@ -129,13 +129,16 @@ public class QRCodeActivity extends BaseActivity {
                 {
                     width = Integer.parseInt(strWidth);
                     height = Integer.parseInt(strHeight);
-                    bmQRCode = QRCodeUtils.createQRImage(QRCodeActivity.this, text, width, height, directColor);
+                    wh = Math.min(width, height);
                 }
-                else
-                {
-                    bmQRCode = QRCodeUtils.createQRImage(QRCodeActivity.this, text, wh, wh, directColor);
-                }
-                handlerQRCode.sendMessage(Message.obtain());
+                Bundle data = new Bundle();
+                data.putString("text", text);
+                data.putInt("width", wh);
+                data.putInt("height", wh);
+                data.putInt("direct", direct);
+                Message msg = new Message();
+                msg.setData(data);
+                handlerQRCode.sendMessage(msg);
             }
         }.start();
     }
@@ -145,10 +148,17 @@ public class QRCodeActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
             try {
+                Bundle data = msg.getData();
+                String text = data.getString("text");
+                int width = data.getInt("width");
+                int height = data.getInt("height");
+                int direct = data.getInt("direct");
+                bmQRCode = QRCodeUtils.createQRImage(QRCodeActivity.this, text, width, height, direct);
+
                 ivQRCode.setImageBitmap(bmQRCode);
 
-                int width = bmQRCode.getWidth();
-                int height = bmQRCode.getHeight();
+//                width = bmQRCode.getWidth();
+//                height = bmQRCode.getHeight();
                 etWidth.setText(String.valueOf(width));
                 etHeight.setText(String.valueOf(height));
 
