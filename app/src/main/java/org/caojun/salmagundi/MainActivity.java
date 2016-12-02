@@ -19,6 +19,7 @@ import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.color.ColorUtils;
 import org.caojun.salmagundi.qrcode.QRCodeActivity;
 import org.caojun.salmagundi.utils.DataStorageUtils;
+import org.caojun.salmagundi.zxing.ZXingActivity;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 
@@ -99,6 +100,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 break;
             case R.id.btnBankCard:
                 intent = new Intent(this, BankCardActivity.class);
+                break;
+            case R.id.btnZXing:
+                intent = new Intent(this, ZXingActivity.class);
                 break;
             default:
                 return;

@@ -10,7 +10,7 @@
         android:allowBackup="true"
         android:anyDensity="false"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/main_app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
@@ -26,6 +26,8 @@
             android:label="@string/color_title" />
         <activity android:name=".bankcard.BankCardActivity"
             android:label="@string/bankcard_title" />
+        <activity android:name=".zxing.ZXingActivity"
+            android:label="@string/zxing_title" />
     </application>
 
 </manifest>

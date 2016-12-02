@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Salmagundi</string>
+    <string name="main_app_name">Salmagundi</string>
     <string name="qrcode_hint">Please enter the text and then click image refresh.</string>
     <string name="qrcode_title">QRCode</string>
     <string name="qrcode_save">Save QRCode to %1$s %2$s.</string>

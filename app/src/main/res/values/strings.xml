@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">曹珺的大杂烩</string>
+    <string name="main_app_name">曹珺的大杂烩</string>
     <string name="qrcode_hint">请输入文字后点击图片刷新</string>
     <string name="qrcode_title">二维码表白</string>
     <string name="qrcode_save">保存二维码图片到%1$s%2$s。</string>
@@ -21,4 +21,5 @@
     <string name="bankcard_title">非接银行卡</string>
     <string name="nfc_status">NFC 开/关</string>
     <string name="dpi">dpi</string>
+    <string name="zxing_title">扫码</string>
 </resources>
