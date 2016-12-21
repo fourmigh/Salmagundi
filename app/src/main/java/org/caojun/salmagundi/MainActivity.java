@@ -12,17 +12,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.google.zxing.client.android.CaptureActivity;
-
 import org.caojun.salmagundi.bankcard.BankCardActivity;
 import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.color.ColorUtils;
 import org.caojun.salmagundi.qrcode.QRCodeActivity;
 import org.caojun.salmagundi.utils.DataStorageUtils;
-import org.caojun.salmagundi.utils.LogUtils;
-import org.caojun.salmagundi.zxing.ZXingActivity;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 
@@ -34,8 +30,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        this.startActivity(new Intent(this, QRCodeActivity.class));
-//        this.startActivity(new Intent(this, ColorActivity.class));
         Button btnQRCode = (Button) this.findViewById(R.id.btnQRCode);
         btnColor = (Button) this.findViewById(R.id.btnColor);
         Button btnBankCard = (Button) this.findViewById(R.id.btnBankCard);
@@ -112,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             default:
                 return;
         }
-        LogUtils.d(this.getClass().getName(), v.getId() + " : " + R.id.btnZXing);
         this.startActivity(intent);
     }
 }

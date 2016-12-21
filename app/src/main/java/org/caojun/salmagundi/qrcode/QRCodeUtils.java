@@ -8,11 +8,8 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-
 import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorUtils;
-import org.caojun.salmagundi.utils.LogUtils;
-
 import java.util.Hashtable;
 
 /**
@@ -139,7 +136,6 @@ public class QRCodeUtils {
                                     try {
                                         pixels[y * width + x] = colorReal[x][y].toInt();
                                     } catch (Exception e) {
-                                        LogUtils.e("x, y", x + " : " + y);
                                         e.printStackTrace();
                                     }
                                 }

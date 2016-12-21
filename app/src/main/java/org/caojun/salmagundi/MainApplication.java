@@ -1,7 +1,8 @@
 package org.caojun.salmagundi;
 
 import android.app.Application;
-import org.caojun.salmagundi.utils.LogUtils;
+
+import com.socks.library.KLog;
 
 /**
  * Application类
@@ -13,6 +14,6 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        LogUtils.setLogType(LogUtils.LogType.Log);
+        KLog.init(true);
     }
 }

@@ -21,7 +21,6 @@ import android.widget.Toast;
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.utils.DataStorageUtils;
-import org.caojun.salmagundi.utils.LogUtils;
 
 /**
  * 渐变色
@@ -75,7 +74,6 @@ public class ColorActivity extends BaseActivity {
             public void onClick(View v) {
                 String message = getString(R.string.color_save, labelGallery3d, getString(R.string.successed));
                 String description = getStartColor().toString() + "-" + getEndColor().toString();
-                LogUtils.e("description", description);
                 if(TextUtils.isEmpty(MediaStore.Images.Media.insertImage(getContentResolver(), bmGradient, getString(R.string.color_title), description)))
                 {
                     message = getString(R.string.qrcode_save, labelGallery3d, getString(R.string.failed));
