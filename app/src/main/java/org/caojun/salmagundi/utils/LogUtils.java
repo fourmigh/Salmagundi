@@ -1,6 +1,6 @@
 package org.caojun.salmagundi.utils;
 
-import android.util.Log;
+import com.socks.library.KLog;
 
 /**
  * 日志输出类
@@ -14,7 +14,7 @@ public class LogUtils {
         Log,//Log
         None;//关闭日志输出
     }
-    private static LogType Type = LogType.None;
+    private static LogType Type = LogType.Log;
 
     public static void setLogType(LogType logType)
     {
@@ -28,7 +28,7 @@ public class LogUtils {
                 System.out.println("i." + tag + " : " + msg);
                 break;
             case Log:
-                Log.i(tag, msg);
+                KLog.i(tag, msg);
                 break;
             default:
                 break;
@@ -42,7 +42,7 @@ public class LogUtils {
                 System.out.println("d." + tag + " : " + msg);
                 break;
             case Log:
-                Log.d(tag, msg);
+                KLog.d(tag, msg);
                 break;
             default:
                 break;
@@ -56,7 +56,7 @@ public class LogUtils {
                 System.out.println("e." + tag + " : " + msg);
                 break;
             case Log:
-                Log.e(tag, msg);
+                KLog.e(tag, msg);
                 break;
             default:
                 break;
@@ -70,7 +70,7 @@ public class LogUtils {
                 System.out.println("v." + tag + " : " + msg);
                 break;
             case Log:
-                Log.v(tag, msg);
+                KLog.v(tag, msg);
                 break;
             default:
                 break;
@@ -84,7 +84,7 @@ public class LogUtils {
                 System.out.println("w." + tag + " : " + msg);
                 break;
             case Log:
-                Log.w(tag, msg);
+                KLog.w(tag, msg);
                 break;
             default:
                 break;

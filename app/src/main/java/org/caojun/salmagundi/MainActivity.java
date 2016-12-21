@@ -13,12 +13,15 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.zxing.client.android.CaptureActivity;
+
 import org.caojun.salmagundi.bankcard.BankCardActivity;
 import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.color.ColorUtils;
 import org.caojun.salmagundi.qrcode.QRCodeActivity;
 import org.caojun.salmagundi.utils.DataStorageUtils;
+import org.caojun.salmagundi.utils.LogUtils;
 import org.caojun.salmagundi.zxing.ZXingActivity;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
@@ -36,12 +39,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         Button btnQRCode = (Button) this.findViewById(R.id.btnQRCode);
         btnColor = (Button) this.findViewById(R.id.btnColor);
         Button btnBankCard = (Button) this.findViewById(R.id.btnBankCard);
+        Button btnZXing = (Button) this.findViewById(R.id.btnZXing);
 
         tvInfo = (TextView) this.findViewById(R.id.tvInfo);
 
         btnQRCode.setOnClickListener(this);
         btnColor.setOnClickListener(this);
         btnBankCard.setOnClickListener(this);
+        btnZXing.setOnClickListener(this);
     }
 
     @Override
@@ -102,11 +107,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 intent = new Intent(this, BankCardActivity.class);
                 break;
             case R.id.btnZXing:
-                intent = new Intent(this, ZXingActivity.class);
+                intent = new Intent(this, CaptureActivity.class);
                 break;
             default:
                 return;
         }
+        LogUtils.d(this.getClass().getName(), v.getId() + " : " + R.id.btnZXing);
         this.startActivity(intent);
     }
 }

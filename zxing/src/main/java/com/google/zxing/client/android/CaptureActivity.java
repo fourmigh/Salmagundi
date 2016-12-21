@@ -91,10 +91,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   private static final int HISTORY_REQUEST_CODE = 0x0000bacc;
 
   private static final Collection<ResultMetadataType> DISPLAYABLE_METADATA_TYPES =
-      EnumSet.of(ResultMetadataType.ISSUE_NUMBER,
-                 ResultMetadataType.SUGGESTED_PRICE,
-                 ResultMetadataType.ERROR_CORRECTION_LEVEL,
-                 ResultMetadataType.POSSIBLE_COUNTRY);
+          EnumSet.of(ResultMetadataType.ISSUE_NUMBER,
+                  ResultMetadataType.SUGGESTED_PRICE,
+                  ResultMetadataType.ERROR_CORRECTION_LEVEL,
+                  ResultMetadataType.POSSIBLE_COUNTRY);
 
   private CameraManager cameraManager;
   private CaptureActivityHandler handler;
@@ -147,7 +147,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   @Override
   protected void onResume() {
     super.onResume();
-    
+
     // historyManager must be initialized here to update the history preference
     historyManager = new HistoryManager(this);
     historyManager.trimHistory();
@@ -186,7 +186,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     Intent intent = getIntent();
 
     copyToClipboard = prefs.getBoolean(PreferencesActivity.KEY_COPY_TO_CLIPBOARD, true)
-        && (intent == null || intent.getBooleanExtra(Intents.Scan.SAVE_HISTORY, true));
+            && (intent == null || intent.getBooleanExtra(Intents.Scan.SAVE_HISTORY, true));
 
     source = IntentSource.NONE;
     sourceUrl = null;
@@ -220,15 +220,15 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             cameraManager.setManualCameraId(cameraId);
           }
         }
-        
+
         String customPromptMessage = intent.getStringExtra(Intents.Scan.PROMPT_MESSAGE);
         if (customPromptMessage != null) {
           statusView.setText(customPromptMessage);
         }
 
       } else if (dataString != null &&
-                 dataString.contains("http://www.google") &&
-                 dataString.contains("/m/products/scan")) {
+              dataString.contains("http://www.google") &&
+              dataString.contains("/m/products/scan")) {
 
         // Scan only products and send the result to mobile Product Search.
         source = IntentSource.PRODUCT_SEARCH_LINK;
@@ -285,7 +285,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       }
     }
   }
-  
+
   private static boolean isZXingURL(String dataString) {
     if (dataString == null) {
       return false;
@@ -380,7 +380,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       startActivity(intent);
     }
     else {
-        return super.onOptionsItemSelected(item);
+      return super.onOptionsItemSelected(item);
     }
     return true;
   }
@@ -469,8 +469,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (fromLiveScan && prefs.getBoolean(PreferencesActivity.KEY_BULK_MODE, false)) {
           Toast.makeText(getApplicationContext(),
-                         getResources().getString(R.string.msg_bulk_mode_scanned) + " (" + rawResult.getText() + ')',
-                         Toast.LENGTH_SHORT).show();
+                  getResources().getString(R.string.msg_bulk_mode_scanned) + " (" + rawResult.getText() + ')',
+                  Toast.LENGTH_SHORT).show();
           // Wait a moment or else it will scan the same barcode continuously about 3 times
           restartPreviewAfterDelay(BULK_MODE_SCAN_DELAY_MS);
         } else {
@@ -497,8 +497,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         paint.setStrokeWidth(4.0f);
         drawLine(canvas, paint, points[0], points[1], scaleFactor);
       } else if (points.length == 4 &&
-                 (rawResult.getBarcodeFormat() == BarcodeFormat.UPC_A ||
-                  rawResult.getBarcodeFormat() == BarcodeFormat.EAN_13)) {
+              (rawResult.getBarcodeFormat() == BarcodeFormat.UPC_A ||
+                      rawResult.getBarcodeFormat() == BarcodeFormat.EAN_13)) {
         // Hacky special case -- draw two lines, for the barcode and metadata
         drawLine(canvas, paint, points[0], points[1], scaleFactor);
         drawLine(canvas, paint, points[2], points[3], scaleFactor);
@@ -515,11 +515,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
   private static void drawLine(Canvas canvas, Paint paint, ResultPoint a, ResultPoint b, float scaleFactor) {
     if (a != null && b != null) {
-      canvas.drawLine(scaleFactor * a.getX(), 
-                      scaleFactor * a.getY(), 
-                      scaleFactor * b.getX(), 
-                      scaleFactor * b.getY(), 
-                      paint);
+      canvas.drawLine(scaleFactor * a.getX(),
+              scaleFactor * a.getY(),
+              scaleFactor * b.getX(),
+              scaleFactor * b.getY(),
+              paint);
     }
   }
 
@@ -546,7 +546,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     ImageView barcodeImageView = (ImageView) findViewById(R.id.barcode_image_view);
     if (barcode == null) {
       barcodeImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(),
-          R.drawable.launcher_icon));
+              R.drawable.launcher_icon));
     } else {
       barcodeImageView.setImageBitmap(barcode);
     }
@@ -591,11 +591,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     supplementTextView.setText("");
     supplementTextView.setOnClickListener(null);
     if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(
-        PreferencesActivity.KEY_SUPPLEMENTAL, true)) {
+            PreferencesActivity.KEY_SUPPLEMENTAL, true)) {
       SupplementalInfoRetriever.maybeInvokeRetrieval(supplementTextView,
-                                                     resultHandler.getResult(),
-                                                     historyManager,
-                                                     this);
+              resultHandler.getResult(),
+              historyManager,
+              this);
     }
 
     int buttonCount = resultHandler.getButtonCount();
@@ -612,6 +612,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       }
     }
 
+    //TODO 返回扫描数据
+//    Intent intent = new Intent();
+//    intent.putExtra("data", contentsTextView.getText().toString());
+//    this.setResult(Activity.RESULT_OK, intent);
+//    finish();
   }
 
   // Briefly show the contents of the barcode, then handle the result outside Barcode Scanner.
@@ -626,7 +631,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       resultDurationMS = DEFAULT_INTENT_RESULT_DURATION_MS;
     } else {
       resultDurationMS = getIntent().getLongExtra(Intents.Scan.RESULT_DISPLAY_DURATION_MS,
-                                                  DEFAULT_INTENT_RESULT_DURATION_MS);
+              DEFAULT_INTENT_RESULT_DURATION_MS);
     }
 
     if (resultDurationMS > 0) {
@@ -643,7 +648,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     }
 
     if (source == IntentSource.NATIVE_APP_INTENT) {
-      
+
       // Hand back whatever action they requested - this can be changed to Intents.Scan.ACTION when
       // the deprecated intent is retired.
       Intent intent = new Intent(getIntent().getAction());
@@ -658,7 +663,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       if (metadata != null) {
         if (metadata.containsKey(ResultMetadataType.UPC_EAN_EXTENSION)) {
           intent.putExtra(Intents.Scan.RESULT_UPC_EAN_EXTENSION,
-                          metadata.get(ResultMetadataType.UPC_EAN_EXTENSION).toString());
+                  metadata.get(ResultMetadataType.UPC_EAN_EXTENSION).toString());
         }
         Number orientation = (Number) metadata.get(ResultMetadataType.ORIENTATION);
         if (orientation != null) {
@@ -679,15 +684,15 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         }
       }
       sendReplyMessage(R.id.return_scan_result, intent, resultDurationMS);
-      
+
     } else if (source == IntentSource.PRODUCT_SEARCH_LINK) {
-      
+
       // Reformulate the URL which triggered us into a query, so that the request goes to the same
       // TLD as the scan URL.
       int end = sourceUrl.lastIndexOf("/scan");
-      String replyURL = sourceUrl.substring(0, end) + "?q=" + resultHandler.getDisplayContents() + "&source=zxing";      
+      String replyURL = sourceUrl.substring(0, end) + "?q=" + resultHandler.getDisplayContents() + "&source=zxing";
       sendReplyMessage(R.id.launch_product_query, replyURL, resultDurationMS);
-      
+
     } else if (source == IntentSource.ZXING_LINK) {
 
       if (scanFromWebPageManager != null && scanFromWebPageManager.isScanFromWebPage()) {
@@ -695,10 +700,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         scanFromWebPageManager = null;
         sendReplyMessage(R.id.launch_product_query, replyURL, resultDurationMS);
       }
-      
+
     }
   }
-  
+
   private void sendReplyMessage(int id, Object arg, long delayMS) {
     if (handler != null) {
       Message message = Message.obtain(handler, id, arg);
