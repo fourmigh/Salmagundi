@@ -27,4 +27,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
     compile 'com.github.zhaokaiqiang.klog:library:1.6.0'
     compile project(':zxing')
+    compile 'commons-lang:commons-lang:20030203.000129'
 }

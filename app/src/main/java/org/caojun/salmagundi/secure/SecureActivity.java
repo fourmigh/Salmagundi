@@ -80,6 +80,24 @@ public class SecureActivity extends BaseActivity {
             case 3://字符串 -> ASCII码
                 strOutput = StringConvertUtils.toASCII(strInput);
                 break;
+            case 4://十进制 -> 二进制
+                strOutput = StringConvertUtils.toBinary(strInput);
+                break;
+            case 5://二进制 -> 十进制
+                strOutput = StringConvertUtils.binaryTo(strInput);
+                break;
+            case 6://十进制 -> 八进制
+                strOutput = StringConvertUtils.toOctal(strInput);
+                break;
+            case 7://八进制 -> 十进制
+                strOutput = StringConvertUtils.octalTo(strInput);
+                break;
+            case 8://十进制 -> 十六进制
+                strOutput = StringConvertUtils.toHex(strInput);
+                break;
+            case 9://十六进制 -> 十进制
+                strOutput = StringConvertUtils.hexTo(strInput);
+                break;
         }
         etOutput.setText(strOutput);
     }

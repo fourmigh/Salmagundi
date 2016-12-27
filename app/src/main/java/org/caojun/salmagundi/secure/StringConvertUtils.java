@@ -1,12 +1,12 @@
 package org.caojun.salmagundi.secure;
 
 import android.text.TextUtils;
-
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
-import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * 字符串转换
@@ -120,5 +120,101 @@ public class StringConvertUtils {
             sb.append(Integer.toHexString(bytes[i] & 0xff));
         }
         return sb.toString();
+    }
+
+    /**
+     * 十进制转二进制
+     * @param text
+     * @return
+     */
+    public static String toBinary(String text)
+    {
+        if(!StringUtils.isNumeric(text))
+        {
+            return text;
+        }
+        int number = Integer.parseInt(text);
+        return Integer.toBinaryString(number);
+    }
+
+    /**
+     * 十进制转八进制
+     * @param text
+     * @return
+     */
+    public static String toOctal(String text)
+    {
+        if(!StringUtils.isNumeric(text))
+        {
+            return text;
+        }
+        int number = Integer.parseInt(text);
+        return Integer.toOctalString(number);
+    }
+
+    /**
+     * 十进制转十六进制
+     * @param text
+     * @return
+     */
+    public static String toHex(String text)
+    {
+        if(!StringUtils.isNumeric(text))
+        {
+            return text;
+        }
+        int number = Integer.parseInt(text);
+        return Integer.toHexString(number);
+    }
+
+    /**
+     * 其他进制转十进制
+     * @param text
+     * @param radix
+     * @return
+     */
+    public static String toDecimal(String text, int radix)
+    {
+        if(TextUtils.isEmpty(text))
+        {
+            return text;
+        }
+        try {
+            int number = Integer.valueOf(text, radix);
+            return String.valueOf(number);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return text;
+        }
+    }
+
+    /**
+     * 二进制转十进制
+     * @param text
+     * @return
+     */
+    public static String binaryTo(String text)
+    {
+        return toDecimal(text, 2);
+    }
+
+    /**
+     * 八进制转十进制
+     * @param text
+     * @return
+     */
+    public static String octalTo(String text)
+    {
+        return toDecimal(text, 8);
+    }
+
+    /**
+     * 十六进制转十进制
+     * @param text
+     * @return
+     */
+    public static String hexTo(String text)
+    {
+        return toDecimal(text, 16);
     }
 }
