@@ -129,7 +129,7 @@ public class StringConvertUtils {
      */
     public static String toBinary(String text)
     {
-        if(!StringUtils.isNumeric(text))
+        if(TextUtils.isEmpty(text) || !StringUtils.isNumeric(text))
         {
             return text;
         }
@@ -144,7 +144,7 @@ public class StringConvertUtils {
      */
     public static String toOctal(String text)
     {
-        if(!StringUtils.isNumeric(text))
+        if(TextUtils.isEmpty(text) || !StringUtils.isNumeric(text))
         {
             return text;
         }
@@ -159,7 +159,7 @@ public class StringConvertUtils {
      */
     public static String toHex(String text)
     {
-        if(!StringUtils.isNumeric(text))
+        if(TextUtils.isEmpty(text) || !StringUtils.isNumeric(text))
         {
             return text;
         }
