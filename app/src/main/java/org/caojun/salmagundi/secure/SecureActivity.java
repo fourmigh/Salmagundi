@@ -7,6 +7,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import org.caojun.salmagundi.BaseActivity;
@@ -21,6 +22,7 @@ public class SecureActivity extends BaseActivity {
     private Spinner spTranslateType;
     private EditText etInput, etOutput;
     private Button btnOK;
+    private ImageButton ibExchange;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class SecureActivity extends BaseActivity {
         etInput = (EditText) this.findViewById(R.id.etInput);
         etOutput = (EditText) this.findViewById(R.id.etOutput);
         btnOK = (Button) this.findViewById(R.id.btnOK);
+        ibExchange = (ImageButton) this.findViewById(R.id.ibExchange);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.translate_type, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -43,6 +46,20 @@ public class SecureActivity extends BaseActivity {
                 doTranslate();
             }
         });
+        ibExchange.setOnClickListener(new OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                doExchange();
+            }
+        });
+    }
+
+    private void doExchange()
+    {
+        String strInput = etInput.getText().toString();
+        String strOutput = etOutput.getText().toString();
+        etInput.setText(strOutput);
+        etOutput.setText(strInput);
     }
 
     private void doTranslate()
