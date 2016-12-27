@@ -60,6 +60,9 @@ public class SecureActivity extends BaseActivity {
             case 2://汉字 -> 拼音
                 strOutput = StringConvertUtils.toPinyinString(strInput);
                 break;
+            case 3://字符串 -> ASCII码
+                strOutput = StringConvertUtils.toASCII(strInput);
+                break;
         }
         etOutput.setText(strOutput);
     }

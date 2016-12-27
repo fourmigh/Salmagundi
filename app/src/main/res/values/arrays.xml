@@ -4,5 +4,6 @@
         <item>小写 -> 大写</item>
         <item>大写 -> 小写</item>
         <item>汉字 -> 拼音</item>
+        <item>字符串 -> ASCII码</item>
     </string-array>
 </resources>

@@ -108,4 +108,17 @@ public class StringConvertUtils {
         }
         return sb.toString();
     }
+
+    public static String toASCII(String text) {
+        if(TextUtils.isEmpty(text))
+        {
+            return text;
+        }
+        StringBuffer sb = new StringBuffer();
+        byte[] bytes = text.getBytes();
+        for (int i = 0; i < bytes.length; i++) {
+            sb.append(Integer.toHexString(bytes[i] & 0xff));
+        }
+        return sb.toString();
+    }
 }
