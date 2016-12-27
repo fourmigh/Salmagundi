@@ -4,18 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,9 +24,8 @@ import org.caojun.salmagundi.qrcode.QRCodeActivity;
 import org.caojun.salmagundi.secure.SecureActivity;
 import org.caojun.salmagundi.utils.DataStorageUtils;
 
-public class MainActivity extends AppCompatActivity/* implements OnClickListener*/ {
+public class MainActivity extends AppCompatActivity {
 
-//    private Button btnColor;
     private TextView tvInfo;
     private Bitmap bmGradient;
 
@@ -39,17 +34,7 @@ public class MainActivity extends AppCompatActivity/* implements OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Button btnQRCode = (Button) this.findViewById(R.id.btnQRCode);
-//        btnColor = (Button) this.findViewById(R.id.btnColor);
-//        Button btnBankCard = (Button) this.findViewById(R.id.btnBankCard);
-//        Button btnZXing = (Button) this.findViewById(R.id.btnZXing);
-
         tvInfo = (TextView) this.findViewById(R.id.tvInfo);
-
-//        btnQRCode.setOnClickListener(this);
-//        btnColor.setOnClickListener(this);
-//        btnBankCard.setOnClickListener(this);
-//        btnZXing.setOnClickListener(this);
 
         GridView gridView = (GridView) findViewById(R.id.gvApp);
         final AppAdapter adapter = new AppAdapter(this);
@@ -107,29 +92,6 @@ public class MainActivity extends AppCompatActivity/* implements OnClickListener
         DataStorageUtils.saveIntArray(this, "GradientColor", "colorEnd", intColorEnd);
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        Intent intent;
-//        switch(v.getId())
-//        {
-//            case R.id.btnQRCode:
-//                intent = new Intent(this, QRCodeActivity.class);
-//                break;
-//            case R.id.btnColor:
-//                intent = new Intent(this, ColorActivity.class);
-//                break;
-//            case R.id.btnBankCard:
-//                intent = new Intent(this, BankCardActivity.class);
-//                break;
-//            case R.id.btnZXing:
-//                intent = new Intent(this, CaptureActivity.class);
-//                break;
-//            default:
-//                return;
-//        }
-//        this.startActivity(intent);
-//    }
-
     private class AppAdapter extends BaseAdapter {
 
         public AppAdapter(Context c) {
@@ -169,14 +131,6 @@ public class MainActivity extends AppCompatActivity/* implements OnClickListener
                 holder.imageView.setImageResource(mThumbIds[position]);
             }
             return convertView;
-
-//            textView.setText(mTextIds[position]);
-//
-//            Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), mThumbIds[position]);
-//            Drawable drawable = new BitmapDrawable(bitmap);
-//            textView.setCompoundDrawables(null, drawable, null, null);
-//
-//            return textView;
         }
 
         private Context mContext;

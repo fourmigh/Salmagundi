@@ -52,10 +52,10 @@ public class SecureActivity extends BaseActivity {
         switch(spTranslateType.getSelectedItemPosition())
         {
             case 0://小写 -> 大写
-                strOutput = strInput.toUpperCase();
+                strOutput = StringConvertUtils.toUpperCase(strInput);
                 break;
             case 1://大写 -> 小写
-                strOutput = strInput.toLowerCase();
+                strOutput = StringConvertUtils.toLowerCase(strInput);
                 break;
         }
         etOutput.setText(strOutput);
