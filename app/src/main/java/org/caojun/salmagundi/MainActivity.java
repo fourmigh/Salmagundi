@@ -1,5 +1,6 @@
 package org.caojun.salmagundi;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,9 +9,15 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.zxing.client.android.CaptureActivity;
 import org.caojun.salmagundi.bankcard.BankCardActivity;
@@ -18,29 +25,43 @@ import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.color.ColorUtils;
 import org.caojun.salmagundi.qrcode.QRCodeActivity;
+import org.caojun.salmagundi.secure.SecureActivity;
 import org.caojun.salmagundi.utils.DataStorageUtils;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener {
+public class MainActivity extends AppCompatActivity/* implements OnClickListener*/ {
 
-    private Button btnColor;
+//    private Button btnColor;
     private TextView tvInfo;
+    private Bitmap bmGradient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnQRCode = (Button) this.findViewById(R.id.btnQRCode);
-        btnColor = (Button) this.findViewById(R.id.btnColor);
-        Button btnBankCard = (Button) this.findViewById(R.id.btnBankCard);
-        Button btnZXing = (Button) this.findViewById(R.id.btnZXing);
+//        Button btnQRCode = (Button) this.findViewById(R.id.btnQRCode);
+//        btnColor = (Button) this.findViewById(R.id.btnColor);
+//        Button btnBankCard = (Button) this.findViewById(R.id.btnBankCard);
+//        Button btnZXing = (Button) this.findViewById(R.id.btnZXing);
 
         tvInfo = (TextView) this.findViewById(R.id.tvInfo);
 
-        btnQRCode.setOnClickListener(this);
-        btnColor.setOnClickListener(this);
-        btnBankCard.setOnClickListener(this);
-        btnZXing.setOnClickListener(this);
+//        btnQRCode.setOnClickListener(this);
+//        btnColor.setOnClickListener(this);
+//        btnBankCard.setOnClickListener(this);
+//        btnZXing.setOnClickListener(this);
+
+        GridView gridView = (GridView) findViewById(R.id.gvApp);
+        final AppAdapter adapter = new AppAdapter(this);
+        gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, (Class) adapter.getItem(position));
+                MainActivity.this.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -74,38 +95,105 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_color);
         int density = (int) getResources().getDisplayMetrics().density;
         Color[] colors = ColorUtils.getGradientColor(color[0], color[1], bitmap.getWidth() * density);
-        Bitmap bmGradient = ColorUtils.createGradientImage(colors, bitmap.getWidth() * density, bitmap.getHeight() * density);
-        if(bmGradient != null) {
-            Drawable drawable = new BitmapDrawable(bmGradient);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            btnColor.setCompoundDrawables(null, drawable, null, null);
-        }
+        bmGradient = ColorUtils.createGradientImage(colors, bitmap.getWidth() * density, bitmap.getHeight() * density);
+//        if(bmGradient != null) {
+//            Drawable drawable = new BitmapDrawable(bmGradient);
+//            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+//            btnColor.setCompoundDrawables(null, drawable, null, null);
+//        }
         Integer[] intColorStart = new Integer[]{color[0].getAlpha(), color[0].getRed(), color[0].getGreen(), color[0].getBlue()};
         Integer[] intColorEnd = new Integer[]{color[1].getAlpha(), color[1].getRed(), color[1].getGreen(), color[1].getBlue()};
         DataStorageUtils.saveIntArray(this, "GradientColor", "colorStart", intColorStart);
         DataStorageUtils.saveIntArray(this, "GradientColor", "colorEnd", intColorEnd);
     }
 
-    @Override
-    public void onClick(View v) {
-        Intent intent;
-        switch(v.getId())
-        {
-            case R.id.btnQRCode:
-                intent = new Intent(this, QRCodeActivity.class);
-                break;
-            case R.id.btnColor:
-                intent = new Intent(this, ColorActivity.class);
-                break;
-            case R.id.btnBankCard:
-                intent = new Intent(this, BankCardActivity.class);
-                break;
-            case R.id.btnZXing:
-                intent = new Intent(this, CaptureActivity.class);
-                break;
-            default:
-                return;
+//    @Override
+//    public void onClick(View v) {
+//        Intent intent;
+//        switch(v.getId())
+//        {
+//            case R.id.btnQRCode:
+//                intent = new Intent(this, QRCodeActivity.class);
+//                break;
+//            case R.id.btnColor:
+//                intent = new Intent(this, ColorActivity.class);
+//                break;
+//            case R.id.btnBankCard:
+//                intent = new Intent(this, BankCardActivity.class);
+//                break;
+//            case R.id.btnZXing:
+//                intent = new Intent(this, CaptureActivity.class);
+//                break;
+//            default:
+//                return;
+//        }
+//        this.startActivity(intent);
+//    }
+
+    private class AppAdapter extends BaseAdapter {
+
+        public AppAdapter(Context c) {
+            mContext = c;
         }
-        this.startActivity(intent);
+
+        public int getCount() {
+            return mThumbIds.length;
+        }
+
+        public Object getItem(int position) {
+            return mActivitys[position];
+        }
+
+        public long getItemId(int position) {
+            return position;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+            if (convertView == null) {
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_app, null);
+                holder = new ViewHolder();
+                holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
+                holder.textView = (TextView) convertView.findViewById(R.id.textView);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            holder.textView.setText(mTextIds[position]);
+            if(position == 1 && bmGradient != null)
+            {
+                holder.imageView.setImageBitmap(bmGradient);
+            }
+            else {
+                holder.imageView.setImageResource(mThumbIds[position]);
+            }
+            return convertView;
+
+//            textView.setText(mTextIds[position]);
+//
+//            Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), mThumbIds[position]);
+//            Drawable drawable = new BitmapDrawable(bitmap);
+//            textView.setCompoundDrawables(null, drawable, null, null);
+//
+//            return textView;
+        }
+
+        private Context mContext;
+
+        private Integer[] mThumbIds = {
+                R.drawable.icon_qrcode, R.drawable.icon_color, R.drawable.icon_bankcard, R.drawable.launcher_icon, R.drawable.icon_secure
+        };
+        private Integer[] mTextIds = {
+                R.string.qrcode_title, R.string.color_title, R.string.bankcard_title, R.string.zxing_title, R.string.secure_title
+        };
+        private Class[] mActivitys = {
+            QRCodeActivity.class, ColorActivity.class, BankCardActivity.class, CaptureActivity.class, SecureActivity.class
+        };
+
+        private class ViewHolder {
+            private ImageView imageView;
+            private TextView textView;
+        }
     }
 }

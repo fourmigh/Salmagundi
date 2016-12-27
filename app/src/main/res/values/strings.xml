@@ -22,4 +22,7 @@
     <string name="nfc_status">NFC 开/关</string>
     <string name="dpi">dpi</string>
     <string name="zxing_title">扫码</string>
+    <string name="secure_title">字符串转换</string>
+    <string name="input_string">输入值</string>
+    <string name="output_string">输出值</string>
 </resources>

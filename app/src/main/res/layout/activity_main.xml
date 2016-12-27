@@ -11,7 +11,7 @@
     tools:context="org.caojun.salmagundi.MainActivity"
     android:orientation="vertical">
 
-    <ScrollView
+    <!--<ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
@@ -80,7 +80,15 @@
                     android:layout_height="match_parent" />
             </TableLayout>
         </LinearLayout>
-    </ScrollView>
+    </ScrollView>-->
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:numColumns="auto_fit"
+        android:layout_weight="1"
+        android:id="@+id/gvApp" />
 
     <TextView
         android:layout_width="match_parent"

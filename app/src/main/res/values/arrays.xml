@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="translate_type">
+        <item>小写 -> 大写</item>
+        <item>大写 -> 小写</item>
+    </string-array>
+</resources>
