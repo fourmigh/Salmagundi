@@ -57,6 +57,9 @@ public class SecureActivity extends BaseActivity {
             case 1://大写 -> 小写
                 strOutput = StringConvertUtils.toLowerCase(strInput);
                 break;
+            case 2://汉字 -> 拼音
+                strOutput = StringConvertUtils.toPinyinString(strInput);
+                break;
         }
         etOutput.setText(strOutput);
     }
