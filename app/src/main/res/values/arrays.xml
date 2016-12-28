@@ -16,6 +16,7 @@
         <item>银行卡号 -> 格式化</item>
         <item>身份证号 -> 隐藏</item>
         <item>字符串 -> MD5</item>
+        <item>字符串 -> SHA</item>
         <item>字符串 -> Base64</item>
         <item>Base64 -> 字符串</item>
     </string-array>

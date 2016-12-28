@@ -199,6 +199,15 @@ public class ConvertUtils {
         return DigestUtils.md5Hex(text);
     }
 
+    /**
+     * 字符串转SHA
+     * @param text
+     * @return
+     */
+    public static String toSHA(String text) {
+        return DigestUtils.shaHex(text);
+    }
+
     public static String toBase64(String text) {
         try {
             return Base64.encodeToString(text.getBytes(), Base64.NO_WRAP);

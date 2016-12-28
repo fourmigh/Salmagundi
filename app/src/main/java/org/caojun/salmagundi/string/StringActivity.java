@@ -112,10 +112,13 @@ public class StringActivity extends BaseActivity {
             case 14://字符串 -> MD5
                 strOutput = ConvertUtils.toMD5(strInput);
                 break;
-            case 15://字符串 -> Base64
+            case 15://字符串 -> SHA
+                strOutput = ConvertUtils.toSHA(strInput);
+                break;
+            case 16://字符串 -> Base64
                 strOutput = ConvertUtils.toBase64(strInput);
                 break;
-            case 16://Base64 -> 字符串
+            case 17://Base64 -> 字符串
                 strOutput = ConvertUtils.base64To(strInput);
                 break;
         }
