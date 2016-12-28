@@ -26,7 +26,7 @@
             android:label="@string/color_title" />
         <activity android:name=".bankcard.BankCardActivity"
             android:label="@string/bankcard_title" />
-        <activity android:name=".secure.SecureActivity"
+        <activity android:name=".string.StringActivity"
             android:label="@string/secure_title" />
     </application>
 

@@ -21,7 +21,7 @@ import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.color.ColorUtils;
 import org.caojun.salmagundi.qrcode.QRCodeActivity;
-import org.caojun.salmagundi.secure.SecureActivity;
+import org.caojun.salmagundi.string.StringActivity;
 import org.caojun.salmagundi.utils.DataStorageUtils;
 
 public class MainActivity extends AppCompatActivity {
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                 R.string.qrcode_title, R.string.color_title, R.string.bankcard_title, R.string.zxing_title, R.string.secure_title
         };
         private Class[] mActivitys = {
-            QRCodeActivity.class, ColorActivity.class, BankCardActivity.class, CaptureActivity.class, SecureActivity.class
+            QRCodeActivity.class, ColorActivity.class, BankCardActivity.class, CaptureActivity.class, StringActivity.class
         };
 
         private class ViewHolder {
