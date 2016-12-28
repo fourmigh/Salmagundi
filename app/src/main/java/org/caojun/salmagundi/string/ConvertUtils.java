@@ -1,12 +1,12 @@
 package org.caojun.salmagundi.string;
 
 import android.text.TextUtils;
+import android.util.Base64;
+
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
-
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -215,7 +215,7 @@ public class ConvertUtils {
 
     public static String toBase64(String text) {
         try {
-            return new String(Base64.encodeBase64(text.getBytes()));
+            return Base64.encodeToString(text.getBytes(), Base64.NO_WRAP);
         } catch (Exception e) {
             e.printStackTrace();
             return text;
@@ -224,7 +224,7 @@ public class ConvertUtils {
 
     public static String base64To(String text) {
         try {
-            return new String(Base64.decodeBase64(text.getBytes()));
+            return new String(Base64.decode(text.getBytes(), Base64.NO_WRAP));
         } catch (Exception e) {
             e.printStackTrace();
             return text;
