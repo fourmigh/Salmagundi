@@ -11,5 +11,9 @@
         <item>八进制 -> 十进制</item>
         <item>十进制 -> 十六进制</item>
         <item>十六进制 -> 十进制</item>
+        <item>字符串 -> MD5</item>
+        <item>手机号 -> 隐藏</item>
+        <item>银行卡号 -> 隐藏</item>
+        <item>银行卡号 -> 格式化</item>
     </string-array>
 </resources>

@@ -98,6 +98,18 @@ public class SecureActivity extends BaseActivity {
             case 9://十六进制 -> 十进制
                 strOutput = StringConvertUtils.hexTo(strInput);
                 break;
+            case 10://字符串 -> MD5
+                strOutput = StringConvertUtils.toMD5(strInput);
+                break;
+            case 11://手机号 -> 隐藏
+                strOutput = StringConvertUtils.maskMobile(strInput);
+                break;
+            case 12://银行卡号 -> 隐藏
+                strOutput = StringConvertUtils.maskBankCardNo(strInput);
+                break;
+            case 13://银行卡号 -> 格式化
+                strOutput = StringConvertUtils.formatBankCardNo(strInput);
+                break;
         }
         etOutput.setText(strOutput);
     }
