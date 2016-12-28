@@ -15,5 +15,6 @@
         <item>手机号 -> 隐藏</item>
         <item>银行卡号 -> 隐藏</item>
         <item>银行卡号 -> 格式化</item>
+        <item>身份证号 -> 隐藏</item>
     </string-array>
 </resources>

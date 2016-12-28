@@ -271,4 +271,31 @@ public class StringConvertUtils {
         }
         return sb.toString();
     }
+
+    public static boolean isPersonIdentifier(String str) {
+        if (TextUtils.isEmpty(str)) {
+            return false;
+        }
+        String reg15 = "^\\d{6}\\d{2}(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])\\d{3}$";
+        String reg18 = "^\\d{6}(18|19|20)\\d{2}(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])\\d{3}(\\d|X|x)$";
+        Pattern p15 = Pattern.compile(reg15);
+        Pattern p18 = Pattern.compile(reg18);
+        if (p15.matcher(str).matches() || p18.matcher(str).matches()) {
+            return true;
+        }
+        return false;
+    }
+
+    public static String maskPersonIdentifier(String id) {
+        if (!isPersonIdentifier(id)) {
+            return id;
+        }
+        StringBuffer mask = new StringBuffer();
+        for(int i = 0;i < id.length() - 6;i ++)
+        {
+            mask.append("*");
+        }
+        return id.substring(0, 3) + mask.toString()
+                + id.substring(id.length() - 3);
+    }
 }

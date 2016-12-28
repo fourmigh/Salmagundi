@@ -110,6 +110,9 @@ public class SecureActivity extends BaseActivity {
             case 13://银行卡号 -> 格式化
                 strOutput = StringConvertUtils.formatBankCardNo(strInput);
                 break;
+            case 14://身份证号 -> 隐藏
+                strOutput = StringConvertUtils.maskPersonIdentifier(strInput);
+                break;
         }
         etOutput.setText(strOutput);
     }
