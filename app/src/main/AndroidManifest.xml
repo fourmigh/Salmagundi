@@ -27,6 +27,8 @@
         <activity android:name=".bankcard.BankCardActivity"
             android:label="@string/bankcard_title" />
         <activity android:name=".string.StringActivity"
+            android:label="@string/string_title" />
+        <activity android:name=".secure.SecureActivity"
             android:label="@string/secure_title" />
     </application>
 

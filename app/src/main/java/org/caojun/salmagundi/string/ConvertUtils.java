@@ -5,6 +5,8 @@ import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
+
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -205,6 +207,24 @@ public class ConvertUtils {
             // BigInteger函数则将8位的字符串转换成16位hex值，用字符串来表示；得到字符串形式的hash值
             //signum 该数的正负号（-1 表示负，0 表示零，1 表示正）
             return new BigInteger(1, md.digest()).toString(16);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return text;
+        }
+    }
+
+    public static String toBase64(String text) {
+        try {
+            return new String(Base64.encodeBase64(text.getBytes()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return text;
+        }
+    }
+
+    public static String base64To(String text) {
+        try {
+            return new String(Base64.decodeBase64(text.getBytes()));
         } catch (Exception e) {
             e.printStackTrace();
             return text;

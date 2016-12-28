@@ -11,10 +11,21 @@
         <item>八进制 -> 十进制</item>
         <item>十进制 -> 十六进制</item>
         <item>十六进制 -> 十进制</item>
-        <item>字符串 -> MD5</item>
         <item>手机号 -> 隐藏</item>
         <item>银行卡号 -> 隐藏</item>
         <item>银行卡号 -> 格式化</item>
         <item>身份证号 -> 隐藏</item>
+        <item>字符串 -> MD5</item>
+        <item>字符串 -> Base64</item>
+        <item>Base64 -> 字符串</item>
+    </string-array>
+
+    <string-array name="secure_type">
+        <item>DES加密</item>
+        <item>DES解密</item>
+        <item>3DES加密</item>
+        <item>3DES解密</item>
+        <item>AES加密</item>
+        <item>AES解密</item>
     </string-array>
 </resources>

@@ -28,4 +28,5 @@ dependencies {
     compile 'com.github.zhaokaiqiang.klog:library:1.6.0'
     compile project(':zxing')
     compile 'commons-lang:commons-lang:20030203.000129'
+    compile 'commons-codec:commons-codec:20041127.091804'
 }

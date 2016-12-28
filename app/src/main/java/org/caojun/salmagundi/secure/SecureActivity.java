@@ -2,8 +2,10 @@ package org.caojun.salmagundi.secure;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,8 +21,9 @@ import org.caojun.salmagundi.R;
  */
 
 public class SecureActivity extends BaseActivity {
-    private Spinner spTranslateType;
-    private EditText etInput, etOutput;
+    private Spinner spSecureType;
+    private EditText etInput, etOutput, etKey, etPublicKey, etPrivateKey;
+    private TextInputLayout tilKey, tilPublicKey, tilPrivateKey;
     private Button btnOK;
     private ImageButton ibExchange;
 
@@ -29,21 +32,39 @@ public class SecureActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_secure);
 
-        spTranslateType = (Spinner) this.findViewById(R.id.spTranslateType);
+        spSecureType = (Spinner) this.findViewById(R.id.spSecureType);
         etInput = (EditText) this.findViewById(R.id.etInput);
         etOutput = (EditText) this.findViewById(R.id.etOutput);
+        etKey = (EditText) this.findViewById(R.id.etKey);
+        etPublicKey = (EditText) this.findViewById(R.id.etPublicKey);
+        etPrivateKey = (EditText) this.findViewById(R.id.etPrivateKey);
         btnOK = (Button) this.findViewById(R.id.btnOK);
         ibExchange = (ImageButton) this.findViewById(R.id.ibExchange);
+        tilKey = (TextInputLayout) this.findViewById(R.id.tilKey);
+        tilPublicKey = (TextInputLayout) this.findViewById(R.id.tilPublicKey);
+        tilPrivateKey = (TextInputLayout) this.findViewById(R.id.tilPrivateKey);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.translate_type, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.secure_type, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spTranslateType.setAdapter(adapter);
+        spSecureType.setAdapter(adapter);
+        spSecureType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         btnOK.setOnClickListener(new OnClickListener()
         {
             @Override
             public void onClick(View v) {
-                doTranslate();
+                doSecure();
             }
         });
         ibExchange.setOnClickListener(new OnClickListener(){
@@ -62,56 +83,23 @@ public class SecureActivity extends BaseActivity {
         etOutput.setText(strInput);
     }
 
-    private void doTranslate()
+    private void doSecure()
     {
         String strInput = etInput.getText().toString();
         String strOutput = null;
-        switch(spTranslateType.getSelectedItemPosition())
+        switch(spSecureType.getSelectedItemPosition())
         {
-            case 0://小写 -> 大写
-                strOutput = StringConvertUtils.toUpperCase(strInput);
+            case 0://DES加密
                 break;
-            case 1://大写 -> 小写
-                strOutput = StringConvertUtils.toLowerCase(strInput);
+            case 1://DES解密
                 break;
-            case 2://汉字 -> 拼音
-                strOutput = StringConvertUtils.toPinyinString(strInput);
+            case 2://3DES加密
                 break;
-            case 3://字符串 -> ASCII码
-                strOutput = StringConvertUtils.toASCII(strInput);
+            case 3://3DES解密
                 break;
-            case 4://十进制 -> 二进制
-                strOutput = StringConvertUtils.toBinary(strInput);
+            case 4://AES加密
                 break;
-            case 5://二进制 -> 十进制
-                strOutput = StringConvertUtils.binaryTo(strInput);
-                break;
-            case 6://十进制 -> 八进制
-                strOutput = StringConvertUtils.toOctal(strInput);
-                break;
-            case 7://八进制 -> 十进制
-                strOutput = StringConvertUtils.octalTo(strInput);
-                break;
-            case 8://十进制 -> 十六进制
-                strOutput = StringConvertUtils.toHex(strInput);
-                break;
-            case 9://十六进制 -> 十进制
-                strOutput = StringConvertUtils.hexTo(strInput);
-                break;
-            case 10://字符串 -> MD5
-                strOutput = StringConvertUtils.toMD5(strInput);
-                break;
-            case 11://手机号 -> 隐藏
-                strOutput = StringConvertUtils.maskMobile(strInput);
-                break;
-            case 12://银行卡号 -> 隐藏
-                strOutput = StringConvertUtils.maskBankCardNo(strInput);
-                break;
-            case 13://银行卡号 -> 格式化
-                strOutput = StringConvertUtils.formatBankCardNo(strInput);
-                break;
-            case 14://身份证号 -> 隐藏
-                strOutput = StringConvertUtils.maskPersonIdentifier(strInput);
+            case 5://AES解密
                 break;
         }
         etOutput.setText(strOutput);

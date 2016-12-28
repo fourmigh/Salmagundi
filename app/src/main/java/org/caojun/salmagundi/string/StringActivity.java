@@ -8,10 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
-import org.caojun.salmagundi.secure.StringConvertUtils;
 
 /**
  * 字符串转换
@@ -70,49 +68,55 @@ public class StringActivity extends BaseActivity {
         switch(spTranslateType.getSelectedItemPosition())
         {
             case 0://小写 -> 大写
-                strOutput = StringConvertUtils.toUpperCase(strInput);
+                strOutput = ConvertUtils.toUpperCase(strInput);
                 break;
             case 1://大写 -> 小写
-                strOutput = StringConvertUtils.toLowerCase(strInput);
+                strOutput = ConvertUtils.toLowerCase(strInput);
                 break;
             case 2://汉字 -> 拼音
-                strOutput = StringConvertUtils.toPinyinString(strInput);
+                strOutput = ConvertUtils.toPinyinString(strInput);
                 break;
             case 3://字符串 -> ASCII码
-                strOutput = StringConvertUtils.toASCII(strInput);
+                strOutput = ConvertUtils.toASCII(strInput);
                 break;
             case 4://十进制 -> 二进制
-                strOutput = StringConvertUtils.toBinary(strInput);
+                strOutput = ConvertUtils.toBinary(strInput);
                 break;
             case 5://二进制 -> 十进制
-                strOutput = StringConvertUtils.binaryTo(strInput);
+                strOutput = ConvertUtils.binaryTo(strInput);
                 break;
             case 6://十进制 -> 八进制
-                strOutput = StringConvertUtils.toOctal(strInput);
+                strOutput = ConvertUtils.toOctal(strInput);
                 break;
             case 7://八进制 -> 十进制
-                strOutput = StringConvertUtils.octalTo(strInput);
+                strOutput = ConvertUtils.octalTo(strInput);
                 break;
             case 8://十进制 -> 十六进制
-                strOutput = StringConvertUtils.toHex(strInput);
+                strOutput = ConvertUtils.toHex(strInput);
                 break;
             case 9://十六进制 -> 十进制
-                strOutput = StringConvertUtils.hexTo(strInput);
+                strOutput = ConvertUtils.hexTo(strInput);
                 break;
-            case 10://字符串 -> MD5
-                strOutput = StringConvertUtils.toMD5(strInput);
+            case 10://手机号 -> 隐藏
+                strOutput = ConvertUtils.maskMobile(strInput);
                 break;
-            case 11://手机号 -> 隐藏
-                strOutput = StringConvertUtils.maskMobile(strInput);
+            case 11://银行卡号 -> 隐藏
+                strOutput = ConvertUtils.maskBankCardNo(strInput);
                 break;
-            case 12://银行卡号 -> 隐藏
-                strOutput = StringConvertUtils.maskBankCardNo(strInput);
+            case 12://银行卡号 -> 格式化
+                strOutput = ConvertUtils.formatBankCardNo(strInput);
                 break;
-            case 13://银行卡号 -> 格式化
-                strOutput = StringConvertUtils.formatBankCardNo(strInput);
+            case 13://身份证号 -> 隐藏
+                strOutput = ConvertUtils.maskPersonIdentifier(strInput);
                 break;
-            case 14://身份证号 -> 隐藏
-                strOutput = StringConvertUtils.maskPersonIdentifier(strInput);
+            case 14://字符串 -> MD5
+                strOutput = ConvertUtils.toMD5(strInput);
+                break;
+            case 15://字符串 -> Base64
+                strOutput = ConvertUtils.toBase64(strInput);
+                break;
+            case 16://Base64 -> 字符串
+                strOutput = ConvertUtils.base64To(strInput);
                 break;
         }
         etOutput.setText(strOutput);

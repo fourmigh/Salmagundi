@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.icon_qrcode, R.drawable.icon_color, R.drawable.icon_bankcard, R.drawable.launcher_icon, R.drawable.icon_secure
         };
         private Integer[] mTextIds = {
-                R.string.qrcode_title, R.string.color_title, R.string.bankcard_title, R.string.zxing_title, R.string.secure_title
+                R.string.qrcode_title, R.string.color_title, R.string.bankcard_title, R.string.zxing_title, R.string.string_title
         };
         private Class[] mActivitys = {
             QRCodeActivity.class, ColorActivity.class, BankCardActivity.class, CaptureActivity.class, StringActivity.class
