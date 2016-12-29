@@ -51,12 +51,12 @@ public class SecureActivity extends BaseActivity {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                doChangeKey();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                doChangeKey();
             }
         });
 
@@ -81,6 +81,20 @@ public class SecureActivity extends BaseActivity {
         String strOutput = etOutput.getText().toString();
         etInput.setText(strOutput);
         etOutput.setText(strInput);
+    }
+
+    private void doChangeKey() {
+        boolean isRSA = spSecureType.getSelectedItemPosition() > 5;
+        if (isRSA) {
+            tilKey.setVisibility(View.GONE);
+            tilPublicKey.setVisibility(View.VISIBLE);
+            tilPrivateKey.setVisibility(View.VISIBLE);
+        }
+        else {
+            tilKey.setVisibility(View.VISIBLE);
+            tilPublicKey.setVisibility(View.GONE);
+            tilPrivateKey.setVisibility(View.GONE);
+        }
     }
 
     private void doSecure()
