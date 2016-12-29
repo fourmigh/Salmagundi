@@ -6,7 +6,8 @@ import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
-import org.apache.commons.codec.binary.BinaryCodec;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import java.util.regex.Matcher;
@@ -119,24 +120,13 @@ public class ConvertUtils {
                 if (i > 0) {
                     sb.append(' ');
                 }
-                String s = toASCIIFromChar(text.charAt(i));
+                String s = string2hex(String.valueOf(text.charAt(i)));
                 sb.append(s);
             }
             return sb.toString();
         } catch (Exception e) {
             e.printStackTrace();
             return text;
-        }
-    }
-
-    private static String toASCIIFromChar(char c) {
-        try {
-            String binary = new String(BinaryCodec.toAsciiBytes(String.valueOf(c).getBytes()));
-            String int10 = toDecimal(binary, 2);
-            return toHex(int10);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "" + c;
         }
     }
 
@@ -153,12 +143,7 @@ public class ConvertUtils {
         try {
             StringBuffer sb = new StringBuffer();
             for (int i = 0; i < texts.length; i++) {
-                String int10 = hexTo(texts[i]);
-                String binary = toBinary(int10);
-                while (binary.length() % 8 != 0) {
-                    binary = "0" + binary;
-                }
-                sb.append(new String(BinaryCodec.fromAscii(binary.getBytes())));
+                sb.append(hex2string(texts[i]));
             }
             return sb.toString();
         } catch (Exception e) {
@@ -381,5 +366,23 @@ public class ConvertUtils {
         }
         return id.substring(0, 3) + mask.toString()
                 + id.substring(id.length() - 3);
+    }
+
+    public static String string2hex(String text) {
+        try {
+            return String.copyValueOf(Hex.encodeHex(text.getBytes()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return text;
+        }
+    }
+
+    public static String hex2string(String text) {
+        try {
+            return  new String(Hex.decodeHex(text.toCharArray()));
+        } catch (DecoderException e) {
+            e.printStackTrace();
+            return text;
+        }
     }
 }

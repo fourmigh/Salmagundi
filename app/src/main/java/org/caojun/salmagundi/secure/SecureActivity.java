@@ -103,17 +103,25 @@ public class SecureActivity extends BaseActivity {
         String strOutput = null;
         switch(spSecureType.getSelectedItemPosition())
         {
-            case 0://DES加密
+            case 0://AES加密
                 break;
-            case 1://DES解密
+            case 1://AES解密
                 break;
-            case 2://3DES加密
+            case 2://DES加密
                 break;
-            case 3://3DES解密
+            case 3://DES解密
                 break;
-            case 4://AES加密
+            case 4://3DES加密
                 break;
-            case 5://AES解密
+            case 5://3DES解密
+                break;
+            case 6://RSA公钥加密
+                break;
+            case 7://RSA公钥解密
+                break;
+            case 8://RSA私钥加密
+                break;
+            case 9://RSA私钥解密
                 break;
         }
         etOutput.setText(strOutput);

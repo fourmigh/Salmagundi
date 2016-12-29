@@ -20,15 +20,17 @@
         <item>Base64 -> 字符串</item>
         <item>字符串 -> ASCII码</item>
         <item>ASCII码 -> 字符串</item>
+        <item>字符串 -> 十六进制</item>
+        <item>十六进制 -> 字符串</item>
     </string-array>
 
     <string-array name="secure_type">
+        <item>AES加密</item>
+        <item>AES解密</item>
         <item>DES加密</item>
         <item>DES解密</item>
         <item>3DES加密</item>
         <item>3DES解密</item>
-        <item>AES加密</item>
-        <item>AES解密</item>
         <item>RSA公钥加密</item>
         <item>RSA公钥解密</item>
         <item>RSA私钥加密</item>

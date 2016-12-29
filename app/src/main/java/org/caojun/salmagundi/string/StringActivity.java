@@ -124,6 +124,12 @@ public class StringActivity extends BaseActivity {
             case 18://ASCII码 -> 字符串
                 strOutput = ConvertUtils.asciiTo(strInput);
                 break;
+            case 19://字符串 -> 十六进制
+                strOutput = ConvertUtils.string2hex(strInput);
+                break;
+            case 20://十六进制 -> 字符串
+                strOutput = ConvertUtils.hex2string(strInput);
+                break;
         }
         etOutput.setText(strOutput);
     }
