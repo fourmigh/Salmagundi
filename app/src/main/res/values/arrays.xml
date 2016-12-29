@@ -4,7 +4,6 @@
         <item>小写 -> 大写</item>
         <item>大写 -> 小写</item>
         <item>汉字 -> 拼音</item>
-        <item>字符串 -> ASCII码</item>
         <item>十进制 -> 二进制</item>
         <item>二进制 -> 十进制</item>
         <item>十进制 -> 八进制</item>
@@ -19,6 +18,8 @@
         <item>字符串 -> SHA</item>
         <item>字符串 -> Base64</item>
         <item>Base64 -> 字符串</item>
+        <item>字符串 -> ASCII码</item>
+        <item>ASCII码 -> 字符串</item>
     </string-array>
 
     <string-array name="secure_type">

@@ -76,50 +76,53 @@ public class StringActivity extends BaseActivity {
             case 2://汉字 -> 拼音
                 strOutput = ConvertUtils.toPinyinString(strInput);
                 break;
-            case 3://字符串 -> ASCII码
-                strOutput = ConvertUtils.toASCII(strInput);
-                break;
-            case 4://十进制 -> 二进制
+            case 3://十进制 -> 二进制
                 strOutput = ConvertUtils.toBinary(strInput);
                 break;
-            case 5://二进制 -> 十进制
+            case 4://二进制 -> 十进制
                 strOutput = ConvertUtils.binaryTo(strInput);
                 break;
-            case 6://十进制 -> 八进制
+            case 5://十进制 -> 八进制
                 strOutput = ConvertUtils.toOctal(strInput);
                 break;
-            case 7://八进制 -> 十进制
+            case 6://八进制 -> 十进制
                 strOutput = ConvertUtils.octalTo(strInput);
                 break;
-            case 8://十进制 -> 十六进制
+            case 7://十进制 -> 十六进制
                 strOutput = ConvertUtils.toHex(strInput);
                 break;
-            case 9://十六进制 -> 十进制
+            case 8://十六进制 -> 十进制
                 strOutput = ConvertUtils.hexTo(strInput);
                 break;
-            case 10://手机号 -> 隐藏
+            case 9://手机号 -> 隐藏
                 strOutput = ConvertUtils.maskMobile(strInput);
                 break;
-            case 11://银行卡号 -> 隐藏
+            case 10://银行卡号 -> 隐藏
                 strOutput = ConvertUtils.maskBankCardNo(strInput);
                 break;
-            case 12://银行卡号 -> 格式化
+            case 11://银行卡号 -> 格式化
                 strOutput = ConvertUtils.formatBankCardNo(strInput);
                 break;
-            case 13://身份证号 -> 隐藏
+            case 12://身份证号 -> 隐藏
                 strOutput = ConvertUtils.maskPersonIdentifier(strInput);
                 break;
-            case 14://字符串 -> MD5
+            case 13://字符串 -> MD5
                 strOutput = ConvertUtils.toMD5(strInput);
                 break;
-            case 15://字符串 -> SHA
+            case 14://字符串 -> SHA
                 strOutput = ConvertUtils.toSHA(strInput);
                 break;
-            case 16://字符串 -> Base64
+            case 15://字符串 -> Base64
                 strOutput = ConvertUtils.toBase64(strInput);
                 break;
-            case 17://Base64 -> 字符串
+            case 16://Base64 -> 字符串
                 strOutput = ConvertUtils.base64To(strInput);
+                break;
+            case 17://字符串 -> ASCII码
+                strOutput = ConvertUtils.toASCII(strInput);
+                break;
+            case 18://ASCII码 -> 字符串
+                strOutput = ConvertUtils.asciiTo(strInput);
                 break;
         }
         etOutput.setText(strOutput);

@@ -2,12 +2,19 @@ package org.caojun.salmagundi.string;
 
 import android.text.TextUtils;
 import android.util.Base64;
+
+import com.socks.library.KLog;
+
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
+
+import org.apache.commons.codec.binary.BinaryCodec;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +26,10 @@ import java.util.regex.Pattern;
 public class ConvertUtils {
 
     /**
-     * 字符串转大写 @param text @return
+     * 字符串转大写
+     *
+     * @param text
+     * @return
      */
     public static String toUpperCase(String text) {
         if (TextUtils.isEmpty(text)) return text;
@@ -27,7 +37,10 @@ public class ConvertUtils {
     }
 
     /**
-     * 字符串转小写 @param text @return
+     * 字符串转小写
+     *
+     * @param text
+     * @return
      */
     public static String toLowerCase(String text) {
         if (TextUtils.isEmpty(text)) return text;
@@ -35,7 +48,10 @@ public class ConvertUtils {
     }
 
     /**
-     * 汉字转拼音 @param c @return
+     * 汉字转拼音
+     *
+     * @param c
+     * @return
      */
     public static String[] toPinyinStringArray(char c) {
         HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();
@@ -50,7 +66,11 @@ public class ConvertUtils {
     }
 
     /**
-     * 汉字转拼音 @param c @param first 只返回第一个 @return
+     * 汉字转拼音
+     *
+     * @param c
+     * @param first 只返回第一个
+     * @return
      */
     public static String toPinyinString(char c, boolean first) {
         String[] pinyin = toPinyinStringArray(c);
@@ -69,7 +89,10 @@ public class ConvertUtils {
     }
 
     /**
-     * 汉字转拼音 @param text @return
+     * 汉字转拼音
+     *
+     * @param text
+     * @return
      */
     public static String toPinyinString(String text) {
         if (TextUtils.isEmpty(text)) return text;
@@ -77,24 +100,77 @@ public class ConvertUtils {
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
             String pinyin = toPinyinString(c, true);
-            if (TextUtils.isEmpty(pinyin)) sb.append(c);
-            else sb.append(pinyin);
-            if (i < text.length() - 1) sb.append(" ");
+            if (TextUtils.isEmpty(pinyin)) {
+                sb.append(c);
+            } else {
+                sb.append(pinyin);
+            }
+            if (i < text.length() - 1) {
+                sb.append(" ");
+            }
         }
         return sb.toString();
     }
 
     /**
-     * 字符串转ASCII @param text @return
+     * 字符串转ASCII
+     *
+     * @param text
+     * @return
      */
     public static String toASCII(String text) {
-        if (TextUtils.isEmpty(text)) return text;
-        StringBuffer sb = new StringBuffer();
-        byte[] bytes = text.getBytes();
-        for (int i = 0; i < bytes.length; i++) {
-            sb.append(Integer.toHexString(bytes[i] & 0xff));
+        try {
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < text.length(); i++) {
+                if (i > 0) {
+                    sb.append(' ');
+                }
+                String s = toASCIIFromChar(text.charAt(i));
+                sb.append(s);
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return text;
         }
-        return sb.toString();
+    }
+
+    private static String toASCIIFromChar(char c) {
+        try {
+            String binary = new String(BinaryCodec.toAsciiBytes(String.valueOf(c).getBytes()));
+            String int10 = toDecimal(binary, 2);
+            return toHex(int10);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "" + c;
+        }
+    }
+
+    public static String asciiTo(String text) {
+        try {
+            return asciiToFromArray(text.split(" "));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return text;
+        }
+    }
+
+    private static String asciiToFromArray(String[] texts) {
+        try {
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < texts.length; i++) {
+                String int10 = hexTo(texts[i]);
+                String binary = toBinary(int10);
+                while (binary.length() % 8 != 0) {
+                    binary = "0" + binary;
+                }
+                sb.append(new String(BinaryCodec.fromAscii(binary.getBytes())));
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -201,6 +277,7 @@ public class ConvertUtils {
 
     /**
      * 字符串转SHA
+     *
      * @param text
      * @return
      */
@@ -266,23 +343,22 @@ public class ConvertUtils {
         if (!isBankCardNo(cardNo)) {
             return cardNo;
         }
-        return cardNo.substring(0,4) + " **** **** " + cardNo.substring(cardNo.length() - 4);
+        return cardNo.substring(0, 4) + " **** **** " + cardNo.substring(cardNo.length() - 4);
     }
 
-    public static String formatBankCardNo(String cardNo)
-    {
-        if(TextUtils.isEmpty(cardNo)) {
+    public static String formatBankCardNo(String cardNo) {
+        if (TextUtils.isEmpty(cardNo)) {
             return cardNo;
         }
         StringBuffer sb = new StringBuffer();
         int index = 0;
         while (index < cardNo.length()) {
             char c = cardNo.charAt(index);
-            if(index > 0 && index % 4 == 0) {
+            if (index > 0 && index % 4 == 0) {
                 sb.append(' ');
             }
             sb.append(c);
-            index ++;
+            index++;
         }
         return sb.toString();
     }
@@ -306,8 +382,7 @@ public class ConvertUtils {
             return id;
         }
         StringBuffer mask = new StringBuffer();
-        for(int i = 0;i < id.length() - 6;i ++)
-        {
+        for (int i = 0; i < id.length() - 6; i++) {
             mask.append("*");
         }
         return id.substring(0, 3) + mask.toString()
