@@ -273,6 +273,24 @@ public class ConvertUtils {
         }
     }
 
+    public static byte[] base64ToBytes(String text) {
+        try {
+            return Base64.decode(text.getBytes(), Base64.NO_WRAP);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String base64ToString(byte[] bytes) {
+        try {
+            return new String(Base64.decode(bytes, Base64.NO_WRAP));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static String base64To(String text) {
         try {
             return new String(Base64.decode(text.getBytes(), Base64.NO_WRAP));

@@ -11,16 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
-
-import com.socks.library.KLog;
-
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.string.ConvertUtils;
-
-import java.util.HashMap;
 
 /**
  * 加密相关类
@@ -146,23 +140,27 @@ public class SecureActivity extends BaseActivity {
         if(TextUtils.isEmpty(strInput) || TextUtils.isEmpty(strKey)) {
             return;
         }
-//        switch(spInput.getSelectedItemPosition()) {
-//            case 1://十六进制
-//                strInput = ConvertUtils.hex2string(strInput);
-//                break;
-//            case 2://Base64
-//                strInput = ConvertUtils.base64To(strInput);
-//                break;
-//        }
+        byte[] input = null;
+        switch(spInput.getSelectedItemPosition()) {
+            case 0://无格式
+                input = strInput.getBytes();
+                break;
+            case 1://十六进制
+                input = ConvertUtils.hex2bytes(strInput);
+                break;
+            case 2://Base64
+                input = ConvertUtils.base64ToBytes(strInput);
+                break;
+        }
 
-        String strOutput = null;
+        byte[] output = null;
         switch(spSecureType.getSelectedItemPosition())
         {
             case 0://AES加密
-                strOutput = AES.encrypt(strKey, strInput);
+                output = AES.encrypt(strKey, input);
                 break;
             case 1://AES解密
-                strOutput = AES.decrypt(strKey, strInput);
+                output = AES.decrypt(strKey, input);
                 break;
             case 2://DES加密
                 break;
@@ -181,17 +179,20 @@ public class SecureActivity extends BaseActivity {
             case 9://RSA私钥解密
                 break;
         }
-        if(TextUtils.isEmpty(strOutput)) {
-            return;
+        String strOutput = null;
+        if(output != null) {
+            switch(spOutput.getSelectedItemPosition()) {
+                case 0://无格式
+                    strOutput = new String(output);
+                    break;
+                case 1://十六进制
+                    strOutput = ConvertUtils.string2hex(output);
+                    break;
+                case 2://Base64
+                    strOutput = ConvertUtils.base64ToString(output);
+                    break;
+            }
         }
-//        switch(spOutput.getSelectedItemPosition()) {
-//            case 1://十六进制
-//                strOutput = ConvertUtils.string2hex(strOutput);
-//                break;
-//            case 2://Base64
-//                strOutput = ConvertUtils.toBase64(strOutput);
-//                break;
-//        }
         etOutput.setText(strOutput);
     }
 }

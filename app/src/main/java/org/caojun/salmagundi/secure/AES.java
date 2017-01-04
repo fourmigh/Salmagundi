@@ -36,7 +36,8 @@ public class AES {
 
     private static byte[] doAES(byte[] key, byte[] data, int opmode) {
         try {
-            SecretKeySpec sks = new SecretKeySpec(key, "AES");
+            byte[] rawKey = getRawKey(key);
+            SecretKeySpec sks = new SecretKeySpec(rawKey, "AES");
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(opmode, sks, new IvParameterSpec(new byte[cipher.getBlockSize()]));
             return cipher.doFinal(data);
@@ -66,26 +67,42 @@ public class AES {
         return doAES(key, data, Cipher.DECRYPT_MODE);
     }
 
-    public static String encrypt(String key, String data) {
+    public static byte[] encrypt(String key, byte[] data) {
         try {
-            byte[] rawKey = getRawKey(key.getBytes());
-            byte[] result = encrypt(rawKey, data.getBytes());
-            return ConvertUtils.string2hex(result);
+            return encrypt(key.getBytes(), data);
         } catch (Exception e) {
             e.printStackTrace();
             return data;
         }
     }
 
-    public static String decrypt(String key, String data) {
+    public static byte[] decrypt(String key, byte[] data) {
         try {
-            byte[] rawKey = getRawKey(key.getBytes());
-            byte[] enc = ConvertUtils.hex2bytes(data);
-            byte[] result = decrypt(rawKey, enc);
-            return new String(result);
+            return decrypt(key.getBytes(), data);
         } catch (Exception e) {
             e.printStackTrace();
             return data;
         }
     }
+
+//    public static String encrypt(String key, String data) {
+//        try {
+//            byte[] result = encrypt(key.getBytes(), data.getBytes());
+//            return ConvertUtils.string2hex(result);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return data;
+//        }
+//    }
+//
+//    public static String decrypt(String key, String data) {
+//        try {
+//            byte[] enc = ConvertUtils.hex2bytes(data);
+//            byte[] result = decrypt(key.getBytes(), enc);
+//            return new String(result);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return data;
+//        }
+//    }
 }
