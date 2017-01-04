@@ -3,6 +3,7 @@ package org.caojun.salmagundi.secure;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -10,10 +11,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+
+import com.socks.library.KLog;
 
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
+import org.caojun.salmagundi.string.ConvertUtils;
+
+import java.util.HashMap;
 
 /**
  * 加密相关类
@@ -21,7 +28,7 @@ import org.caojun.salmagundi.R;
  */
 
 public class SecureActivity extends BaseActivity {
-    private Spinner spSecureType;
+    private Spinner spSecureType, spInput, spOutput;
     private EditText etInput, etOutput, etKey, etPublicKey, etPrivateKey;
     private TextInputLayout tilKey, tilPublicKey, tilPrivateKey;
     private Button btnOK;
@@ -33,6 +40,8 @@ public class SecureActivity extends BaseActivity {
         this.setContentView(R.layout.activity_secure);
 
         spSecureType = (Spinner) this.findViewById(R.id.spSecureType);
+        spInput = (Spinner) this.findViewById(R.id.spInput);
+        spOutput = (Spinner) this.findViewById(R.id.spOutput);
         etInput = (EditText) this.findViewById(R.id.etInput);
         etOutput = (EditText) this.findViewById(R.id.etOutput);
         etKey = (EditText) this.findViewById(R.id.etKey);
@@ -60,6 +69,33 @@ public class SecureActivity extends BaseActivity {
             }
         });
 
+        adapter = ArrayAdapter.createFromResource(this, R.array.character_format, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spInput.setAdapter(adapter);
+        spInput.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                doChangeCharacterFormat(spInput, etInput);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        spOutput.setAdapter(adapter);
+        spOutput.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                doChangeCharacterFormat(spOutput, etOutput);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         btnOK.setOnClickListener(new OnClickListener()
         {
             @Override
@@ -73,6 +109,12 @@ public class SecureActivity extends BaseActivity {
                 doExchange();
             }
         });
+    }
+
+    private void doChangeCharacterFormat(Spinner spinner, EditText editText) {
+        if (spinner == null || editText == null) {
+            return;
+        }
     }
 
     private void doExchange()
@@ -100,12 +142,27 @@ public class SecureActivity extends BaseActivity {
     private void doSecure()
     {
         String strInput = etInput.getText().toString();
+        String strKey = etKey.getText().toString();
+        if(TextUtils.isEmpty(strInput) || TextUtils.isEmpty(strKey)) {
+            return;
+        }
+//        switch(spInput.getSelectedItemPosition()) {
+//            case 1://十六进制
+//                strInput = ConvertUtils.hex2string(strInput);
+//                break;
+//            case 2://Base64
+//                strInput = ConvertUtils.base64To(strInput);
+//                break;
+//        }
+
         String strOutput = null;
         switch(spSecureType.getSelectedItemPosition())
         {
             case 0://AES加密
+                strOutput = AES.encrypt(strKey, strInput);
                 break;
             case 1://AES解密
+                strOutput = AES.decrypt(strKey, strInput);
                 break;
             case 2://DES加密
                 break;
@@ -124,6 +181,17 @@ public class SecureActivity extends BaseActivity {
             case 9://RSA私钥解密
                 break;
         }
+        if(TextUtils.isEmpty(strOutput)) {
+            return;
+        }
+//        switch(spOutput.getSelectedItemPosition()) {
+//            case 1://十六进制
+//                strOutput = ConvertUtils.string2hex(strOutput);
+//                break;
+//            case 2://Base64
+//                strOutput = ConvertUtils.toBase64(strOutput);
+//                break;
+//        }
         etOutput.setText(strOutput);
     }
 }

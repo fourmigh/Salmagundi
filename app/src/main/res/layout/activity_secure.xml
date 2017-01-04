@@ -59,17 +59,28 @@
                     android:id="@+id/etPrivateKey"/>
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/input_string">
+                android:layout_height="wrap_content">
 
-                <EditText
+                <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/etInput"/>
-            </android.support.design.widget.TextInputLayout>
+                    android:id="@+id/spInput" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="@string/input_string">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/etInput"/>
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -77,17 +88,29 @@
                 app:srcCompat="@android:drawable/stat_notify_sync"
                 android:id="@+id/ibExchange" />
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/output_string">
+                android:layout_height="match_parent">
 
-                <EditText
+                <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/etOutput" />
-            </android.support.design.widget.TextInputLayout>
+                    android:id="@+id/spOutput" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/output_string">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/etOutput" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

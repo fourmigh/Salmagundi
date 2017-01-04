@@ -370,19 +370,37 @@ public class ConvertUtils {
 
     public static String string2hex(String text) {
         try {
-            return String.copyValueOf(Hex.encodeHex(text.getBytes()));
+            return String.valueOf(Hex.encodeHex(text.getBytes()));
         } catch (Exception e) {
             e.printStackTrace();
             return text;
         }
     }
 
+    public static String string2hex(byte[] bytes) {
+        try {
+            return String.valueOf(Hex.encodeHex(bytes));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static String hex2string(String text) {
         try {
-            return  new String(Hex.decodeHex(text.toCharArray()));
+            return new String(Hex.decodeHex(text.toCharArray()));
         } catch (DecoderException e) {
             e.printStackTrace();
             return text;
+        }
+    }
+
+    public static byte[] hex2bytes(String text) {
+        try {
+            return Hex.decodeHex(text.toCharArray());
+        } catch (DecoderException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

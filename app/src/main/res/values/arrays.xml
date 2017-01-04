@@ -36,4 +36,10 @@
         <item>RSA私钥加密</item>
         <item>RSA私钥解密</item>
     </string-array>
+
+    <string-array name="character_format">
+        <item>无格式</item>
+        <item>十六进制</item>
+        <item>Base64</item>
+    </string-array>
 </resources>
