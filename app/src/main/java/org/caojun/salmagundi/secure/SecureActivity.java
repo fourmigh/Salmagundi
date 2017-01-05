@@ -66,29 +66,7 @@ public class SecureActivity extends BaseActivity {
         adapter = ArrayAdapter.createFromResource(this, R.array.character_format, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spInput.setAdapter(adapter);
-        spInput.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                doChangeCharacterFormat(spInput, etInput);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
         spOutput.setAdapter(adapter);
-        spOutput.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                doChangeCharacterFormat(spOutput, etOutput);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
 
         btnOK.setOnClickListener(new OnClickListener()
         {
@@ -105,18 +83,26 @@ public class SecureActivity extends BaseActivity {
         });
     }
 
-    private void doChangeCharacterFormat(Spinner spinner, EditText editText) {
-        if (spinner == null || editText == null) {
-            return;
-        }
-    }
-
     private void doExchange()
     {
         String strInput = etInput.getText().toString();
         String strOutput = etOutput.getText().toString();
         etInput.setText(strOutput);
         etOutput.setText(strInput);
+
+        int indexInput = spInput.getSelectedItemPosition();
+        int indexOutput = spOutput.getSelectedItemPosition();
+        spInput.setSelection(indexOutput);
+        spOutput.setSelection(indexInput);
+
+        int indexSecureType = spSecureType.getSelectedItemPosition();
+        if(indexSecureType % 2 == 0) {
+            indexSecureType ++;
+        }
+        else {
+            indexSecureType --;
+        }
+        spSecureType.setSelection(indexSecureType);
     }
 
     private void doChangeKey() {
