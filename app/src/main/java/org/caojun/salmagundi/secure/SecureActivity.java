@@ -149,8 +149,10 @@ public class SecureActivity extends BaseActivity {
                 output = AES.decrypt(strKey, input);
                 break;
             case 2://DES加密
+                output = DES.encrypt(strKey, input);
                 break;
             case 3://DES解密
+                output = DES.decrypt(strKey, input);
                 break;
             case 4://3DES加密
                 break;

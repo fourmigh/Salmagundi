@@ -1,15 +1,12 @@
 package org.caojun.salmagundi.secure;
 
-import org.caojun.salmagundi.string.ConvertUtils;
-
-import java.security.Key;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -18,28 +15,23 @@ import javax.crypto.spec.SecretKeySpec;
  * Created by CaoJun on 2016/12/29.
  */
 
-public class AES {
+public class DES {
 
-    private static byte[] getRawKey(byte[] seed) {
+    private static SecretKey getSecurekey(byte[] key) {
         try {
-            KeyGenerator kgen = KeyGenerator.getInstance("AES");
-            SecureRandom sr = SecureRandom.getInstance("SHA1PRNG", "Crypto");
-            sr.setSeed(seed);
-            kgen.init(128, sr); // 192 and 256 bits may not be available
-            SecretKey skey = kgen.generateKey();
-            return skey.getEncoded();
+            DESKeySpec desKey = new DESKeySpec(key);
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+            return keyFactory.generateSecret(desKey);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    private static byte[] doAES(byte[] key, byte[] data, int opmode) {
+    private static byte[] doDES(byte[] key, byte[] data, int opmode) {
         try {
-            byte[] rawKey = getRawKey(key);
-            SecretKeySpec sks = new SecretKeySpec(rawKey, "AES");
-            Cipher cipher = Cipher.getInstance("AES");
-            cipher.init(opmode, sks, new IvParameterSpec(new byte[cipher.getBlockSize()]));
+            Cipher cipher = Cipher.getInstance("DES");
+            cipher.init(opmode, getSecurekey(key), new SecureRandom());
             return cipher.doFinal(data);
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,7 +46,7 @@ public class AES {
      * @return
      */
     private static byte[] encrypt(byte[] key, byte[] data) {
-        return doAES(key, data, Cipher.ENCRYPT_MODE);
+        return doDES(key, data, Cipher.ENCRYPT_MODE);
     }
 
     /**
@@ -64,7 +56,7 @@ public class AES {
      * @return
      */
     private static byte[] decrypt(byte[] key, byte[] data) {
-        return doAES(key, data, Cipher.DECRYPT_MODE);
+        return doDES(key, data, Cipher.DECRYPT_MODE);
     }
 
     public static byte[] encrypt(String key, byte[] data) {
