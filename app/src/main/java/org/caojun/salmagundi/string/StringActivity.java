@@ -77,22 +77,22 @@ public class StringActivity extends BaseActivity {
                 strOutput = ConvertUtils.toPinyinString(strInput);
                 break;
             case 3://十进制 -> 二进制
-                strOutput = ConvertUtils.toBinary(strInput);
+                strOutput = ConvertUtils.decimalToBinary(strInput);
                 break;
             case 4://二进制 -> 十进制
-                strOutput = ConvertUtils.binaryTo(strInput);
+                strOutput = ConvertUtils.binaryToDecimal(strInput);
                 break;
             case 5://十进制 -> 八进制
-                strOutput = ConvertUtils.toOctal(strInput);
+                strOutput = ConvertUtils.decimalToOctal(strInput);
                 break;
             case 6://八进制 -> 十进制
-                strOutput = ConvertUtils.octalTo(strInput);
+                strOutput = ConvertUtils.octalToDecimal(strInput);
                 break;
             case 7://十进制 -> 十六进制
-                strOutput = ConvertUtils.toHex(strInput);
+                strOutput = ConvertUtils.decimalToHex(strInput);
                 break;
             case 8://十六进制 -> 十进制
-                strOutput = ConvertUtils.hexTo(strInput);
+                strOutput = ConvertUtils.hexToDecimal(strInput);
                 break;
             case 9://手机号 -> 隐藏
                 strOutput = ConvertUtils.maskMobile(strInput);
@@ -116,19 +116,19 @@ public class StringActivity extends BaseActivity {
                 strOutput = ConvertUtils.toBase64(strInput);
                 break;
             case 16://Base64 -> 字符串
-                strOutput = ConvertUtils.base64To(strInput);
+                strOutput = ConvertUtils.base64ToString(strInput);
                 break;
             case 17://字符串 -> ASCII码
                 strOutput = ConvertUtils.toASCII(strInput);
                 break;
             case 18://ASCII码 -> 字符串
-                strOutput = ConvertUtils.asciiTo(strInput);
+                strOutput = ConvertUtils.asciiToString(strInput);
                 break;
             case 19://字符串 -> 十六进制
-                strOutput = ConvertUtils.string2hex(strInput);
+                strOutput = ConvertUtils.stringToHex(strInput);
                 break;
             case 20://十六进制 -> 字符串
-                strOutput = ConvertUtils.hex2string(strInput);
+                strOutput = ConvertUtils.hexToString(strInput);
                 break;
         }
         etOutput.setText(strOutput);

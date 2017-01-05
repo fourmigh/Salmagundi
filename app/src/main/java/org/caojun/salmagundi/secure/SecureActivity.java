@@ -146,7 +146,7 @@ public class SecureActivity extends BaseActivity {
                 input = strInput.getBytes();
                 break;
             case 1://十六进制
-                input = ConvertUtils.hex2bytes(strInput);
+                input = ConvertUtils.hexToBytes(strInput);
                 break;
             case 2://Base64
                 input = ConvertUtils.base64ToBytes(strInput);
@@ -186,7 +186,7 @@ public class SecureActivity extends BaseActivity {
                     strOutput = new String(output);
                     break;
                 case 1://十六进制
-                    strOutput = ConvertUtils.string2hex(output);
+                    strOutput = ConvertUtils.stringToHex(output);
                     break;
                 case 2://Base64
                     strOutput = ConvertUtils.base64ToString(output);

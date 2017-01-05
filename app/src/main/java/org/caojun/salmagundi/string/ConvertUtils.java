@@ -20,6 +20,8 @@ import java.util.regex.Pattern;
 
 public class ConvertUtils {
 
+    private static final int Base64Flags = Base64.NO_WRAP;
+
     /**
      * 字符串转大写
      *
@@ -120,7 +122,7 @@ public class ConvertUtils {
                 if (i > 0) {
                     sb.append(' ');
                 }
-                String s = string2hex(String.valueOf(text.charAt(i)));
+                String s = stringToHex(String.valueOf(text.charAt(i)));
                 sb.append(s);
             }
             return sb.toString();
@@ -130,20 +132,20 @@ public class ConvertUtils {
         }
     }
 
-    public static String asciiTo(String text) {
+    public static String asciiToString(String text) {
         try {
-            return asciiToFromArray(text.split(" "));
+            return asciiToString(text.split(" "));
         } catch (Exception e) {
             e.printStackTrace();
             return text;
         }
     }
 
-    private static String asciiToFromArray(String[] texts) {
+    private static String asciiToString(String[] texts) {
         try {
             StringBuffer sb = new StringBuffer();
             for (int i = 0; i < texts.length; i++) {
-                sb.append(hex2string(texts[i]));
+                sb.append(hexToString(texts[i]));
             }
             return sb.toString();
         } catch (Exception e) {
@@ -158,7 +160,7 @@ public class ConvertUtils {
      * @param text
      * @return
      */
-    public static String toBinary(String text) {
+    public static String decimalToBinary(String text) {
         if (TextUtils.isEmpty(text) || !StringUtils.isNumeric(text)) {
             return text;
         }
@@ -172,7 +174,7 @@ public class ConvertUtils {
      * @param text
      * @return
      */
-    public static String toOctal(String text) {
+    public static String decimalToOctal(String text) {
         if (TextUtils.isEmpty(text) || !StringUtils.isNumeric(text)) {
             return text;
         }
@@ -186,7 +188,7 @@ public class ConvertUtils {
      * @param text
      * @return
      */
-    public static String toHex(String text) {
+    public static String decimalToHex(String text) {
         if (TextUtils.isEmpty(text) || !StringUtils.isNumeric(text)) {
             return text;
         }
@@ -220,7 +222,7 @@ public class ConvertUtils {
      * @param text
      * @return
      */
-    public static String binaryTo(String text) {
+    public static String binaryToDecimal(String text) {
         return toDecimal(text, 2);
     }
 
@@ -230,7 +232,7 @@ public class ConvertUtils {
      * @param text
      * @return
      */
-    public static String octalTo(String text) {
+    public static String octalToDecimal(String text) {
         return toDecimal(text, 8);
     }
 
@@ -240,7 +242,7 @@ public class ConvertUtils {
      * @param text
      * @return
      */
-    public static String hexTo(String text) {
+    public static String hexToDecimal(String text) {
         return toDecimal(text, 16);
     }
 
@@ -264,9 +266,18 @@ public class ConvertUtils {
         return DigestUtils.shaHex(text);
     }
 
+    private static byte[] base64Decode(byte[] bytes) {
+        try {
+            return Base64.decode(bytes, Base64Flags);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static String toBase64(String text) {
         try {
-            return Base64.encodeToString(text.getBytes(), Base64.NO_WRAP);
+            return Base64.encodeToString(text.getBytes(), Base64Flags);
         } catch (Exception e) {
             e.printStackTrace();
             return text;
@@ -275,7 +286,7 @@ public class ConvertUtils {
 
     public static byte[] base64ToBytes(String text) {
         try {
-            return Base64.decode(text.getBytes(), Base64.NO_WRAP);
+            return base64Decode(text.getBytes());
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -284,16 +295,16 @@ public class ConvertUtils {
 
     public static String base64ToString(byte[] bytes) {
         try {
-            return new String(Base64.decode(bytes, Base64.NO_WRAP));
+            return new String(base64Decode(bytes));
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static String base64To(String text) {
+    public static String base64ToString(String text) {
         try {
-            return new String(Base64.decode(text.getBytes(), Base64.NO_WRAP));
+            return base64ToString(text.getBytes());
         } catch (Exception e) {
             e.printStackTrace();
             return text;
@@ -386,16 +397,16 @@ public class ConvertUtils {
                 + id.substring(id.length() - 3);
     }
 
-    public static String string2hex(String text) {
+    public static String stringToHex(String text) {
         try {
-            return String.valueOf(Hex.encodeHex(text.getBytes()));
+            return stringToHex(text.getBytes());
         } catch (Exception e) {
             e.printStackTrace();
             return text;
         }
     }
 
-    public static String string2hex(byte[] bytes) {
+    public static String stringToHex(byte[] bytes) {
         try {
             return String.valueOf(Hex.encodeHex(bytes));
         } catch (Exception e) {
@@ -404,19 +415,19 @@ public class ConvertUtils {
         }
     }
 
-    public static String hex2string(String text) {
+    public static String hexToString(String text) {
         try {
             return new String(Hex.decodeHex(text.toCharArray()));
-        } catch (DecoderException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return text;
         }
     }
 
-    public static byte[] hex2bytes(String text) {
+    public static byte[] hexToBytes(String text) {
         try {
             return Hex.decodeHex(text.toCharArray());
-        } catch (DecoderException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
