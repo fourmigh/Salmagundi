@@ -189,7 +189,7 @@ public class SecureActivity extends BaseActivity {
                     strOutput = ConvertUtils.stringToHex(output);
                     break;
                 case 2://Base64
-                    strOutput = ConvertUtils.base64ToString(output);
+                    strOutput = ConvertUtils.toBase64(output);
                     break;
             }
         }

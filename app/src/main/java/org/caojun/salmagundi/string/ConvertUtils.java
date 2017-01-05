@@ -277,10 +277,19 @@ public class ConvertUtils {
 
     public static String toBase64(String text) {
         try {
-            return Base64.encodeToString(text.getBytes(), Base64Flags);
+            return toBase64(text.getBytes());
         } catch (Exception e) {
             e.printStackTrace();
             return text;
+        }
+    }
+
+    public static String toBase64(byte[] bytes) {
+        try {
+            return Base64.encodeToString(bytes, Base64Flags);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
