@@ -11,13 +11,13 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * AES
+ * DES
  * Created by CaoJun on 2016/12/29.
  */
 
 public class DES {
 
-    private static SecretKey getSecurekey(byte[] key) {
+    private static SecretKey getSecureKey(byte[] key) {
         try {
             DESKeySpec desKey = new DESKeySpec(key);
             SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
@@ -31,7 +31,7 @@ public class DES {
     private static byte[] doDES(byte[] key, byte[] data, int opmode) {
         try {
             Cipher cipher = Cipher.getInstance("DES");
-            cipher.init(opmode, getSecurekey(key), new SecureRandom());
+            cipher.init(opmode, getSecureKey(key), new SecureRandom());
             return cipher.doFinal(data);
         } catch (Exception e) {
             e.printStackTrace();
