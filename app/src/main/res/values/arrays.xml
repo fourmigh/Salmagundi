@@ -32,9 +32,9 @@
         <item>3DES加密</item>
         <item>3DES解密</item>
         <item>RSA公钥加密</item>
-        <item>RSA公钥解密</item>
-        <item>RSA私钥加密</item>
         <item>RSA私钥解密</item>
+        <item>RSA私钥加密</item>
+        <item>RSA公钥解密</item>
     </string-array>
 
     <string-array name="character_format">

@@ -35,29 +35,61 @@
                     android:id="@+id/etKey"/>
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/llRSAKey"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tilPublicKey"
-                android:hint="@string/public_key">
+                android:layout_height="wrap_content">
 
-                <EditText
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/etPublicKey"/>
-            </android.support.design.widget.TextInputLayout>
+                    android:gravity="center_vertical">
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tilPrivateKey"
-                android:hint="@string/private_key">
+                    <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/spRSAKey" />
 
-                <EditText
+                    <Button
+                        android:text="@string/gen_key_pair"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnRSAKey"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/etPrivateKey"/>
-            </android.support.design.widget.TextInputLayout>
+                    android:hint="@string/public_key">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/etPublicKey"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/private_key">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/etPrivateKey"/>
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"

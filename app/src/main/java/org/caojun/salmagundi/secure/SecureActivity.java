@@ -1,5 +1,7 @@
 package org.caojun.salmagundi.secure;
 
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -11,9 +13,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
+import org.caojun.salmagundi.secure.data.RSAKey;
+import org.caojun.salmagundi.secure.data.RSAKeyDatabase;
 import org.caojun.salmagundi.string.ConvertUtils;
 
 /**
@@ -22,11 +27,15 @@ import org.caojun.salmagundi.string.ConvertUtils;
  */
 
 public class SecureActivity extends BaseActivity {
-    private Spinner spSecureType, spInput, spOutput;
+    private Spinner spSecureType, spInput, spOutput, spRSAKey;
     private EditText etInput, etOutput, etKey, etPublicKey, etPrivateKey;
-    private TextInputLayout tilKey, tilPublicKey, tilPrivateKey;
-    private Button btnOK;
+    private TextInputLayout tilKey;
+    private LinearLayout llRSAKey;
+    private Button btnOK, btnRSAKey;
     private ImageButton ibExchange;
+    private byte[] keyPrivate, keyPublic;
+    private RSAKeyDatabase rsaKeyDatabase;
+    private Cursor cKeyPair;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,8 +53,9 @@ public class SecureActivity extends BaseActivity {
         btnOK = (Button) this.findViewById(R.id.btnOK);
         ibExchange = (ImageButton) this.findViewById(R.id.ibExchange);
         tilKey = (TextInputLayout) this.findViewById(R.id.tilKey);
-        tilPublicKey = (TextInputLayout) this.findViewById(R.id.tilPublicKey);
-        tilPrivateKey = (TextInputLayout) this.findViewById(R.id.tilPrivateKey);
+        llRSAKey = (LinearLayout) this.findViewById(R.id.llRSAKey);
+        spRSAKey = (Spinner) this.findViewById(R.id.spRSAKey);
+        btnRSAKey = (Button) this.findViewById(R.id.btnRSAKey);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.secure_type, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -81,6 +91,109 @@ public class SecureActivity extends BaseActivity {
                 doExchange();
             }
         });
+        btnRSAKey.setOnClickListener(new OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                genKeyPair();
+            }
+        });
+
+        queryKeyPair();
+    }
+
+    /**
+     * 生成公私钥对
+     */
+    private void genKeyPair()
+    {
+        byte[][] key = RSA.genKeyPair(1024);
+        if(key == null) {
+            return;
+        }
+        keyPublic = key[0];
+        keyPrivate = key[1];
+        if(keyPrivate == null || keyPublic == null) {
+            return;
+        }
+        if(rsaKeyDatabase == null) {
+            rsaKeyDatabase = new RSAKeyDatabase(this);
+        }
+        saveKeyPair();
+    }
+
+    /**
+     * 存储公私钥对
+     */
+    private void saveKeyPair()
+    {
+        if(keyPrivate == null || keyPublic == null || rsaKeyDatabase == null)
+        {
+            return;
+        }
+        ContentValues values = new ContentValues();
+        values.put(RSAKey.Private_Key, keyPrivate);
+        values.put(RSAKey.Public_Key, keyPublic);
+        if(rsaKeyDatabase.insert(values) > 0)
+        {
+            queryKeyPair();
+        }
+    }
+
+    /**
+     * 读取公私钥对
+     */
+    private void queryKeyPair()
+    {
+        if(rsaKeyDatabase == null) {
+            rsaKeyDatabase = new RSAKeyDatabase(this);
+        }
+        cKeyPair = rsaKeyDatabase.query();
+        if(cKeyPair == null || cKeyPair.getCount() < 1)
+        {
+            spRSAKey.setVisibility(View.GONE);
+        }
+        else
+        {
+            String[] keys = new String[cKeyPair.getCount()];
+            for(int i = 0;i < keys.length;i ++)
+            {
+                keys[i] = getString(R.string.key_pair) + "-" + i;
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, keys);
+            spRSAKey.setAdapter(adapter);
+
+            if(cKeyPair.moveToFirst()) {
+
+                doChangeRSAKey(0);
+
+                spRSAKey.setVisibility(View.VISIBLE);
+
+                spRSAKey.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        doChangeRSAKey(position);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+            }
+        }
+    }
+
+    private void doChangeRSAKey(int position) {
+        if(cKeyPair == null || !cKeyPair.moveToPosition(position)) {
+            return;
+        }
+        keyPublic = cKeyPair.getBlob(cKeyPair.getColumnIndex(RSAKey.Public_Key));
+        keyPrivate = cKeyPair.getBlob(cKeyPair.getColumnIndex(RSAKey.Private_Key));
+        String strKeyPublic = ConvertUtils.toBase64(keyPublic);
+        String strKeyPrivate = ConvertUtils.toBase64(keyPrivate);
+        etPublicKey.setText(strKeyPublic);
+        etPrivateKey.setText(strKeyPrivate);
     }
 
     private void doExchange()
@@ -109,21 +222,30 @@ public class SecureActivity extends BaseActivity {
         boolean isRSA = spSecureType.getSelectedItemPosition() > 5;
         if (isRSA) {
             tilKey.setVisibility(View.GONE);
-            tilPublicKey.setVisibility(View.VISIBLE);
-            tilPrivateKey.setVisibility(View.VISIBLE);
+            llRSAKey.setVisibility(View.VISIBLE);
         }
         else {
             tilKey.setVisibility(View.VISIBLE);
-            tilPublicKey.setVisibility(View.GONE);
-            tilPrivateKey.setVisibility(View.GONE);
+            llRSAKey.setVisibility(View.GONE);
         }
     }
 
     private void doSecure()
     {
-        String strInput = etInput.getText().toString();
+        int indexSecureType = spSecureType.getSelectedItemPosition();
         String strKey = etKey.getText().toString();
-        if(TextUtils.isEmpty(strInput) || TextUtils.isEmpty(strKey)) {
+        if(indexSecureType < 6) {
+            if (TextUtils.isEmpty(strKey)) {
+                return;
+            }
+        }
+        else {
+            if(keyPrivate == null || keyPublic == null) {
+                return;
+            }
+        }
+        String strInput = etInput.getText().toString();
+        if (TextUtils.isEmpty(strInput)) {
             return;
         }
         byte[] input = null;
@@ -140,7 +262,7 @@ public class SecureActivity extends BaseActivity {
         }
 
         byte[] output = null;
-        switch(spSecureType.getSelectedItemPosition())
+        switch(indexSecureType)
         {
             case 0://AES加密
                 output = AES.encrypt(strKey, input);
@@ -161,12 +283,16 @@ public class SecureActivity extends BaseActivity {
                 output = DESede.decrypt(strKey, input);
                 break;
             case 6://RSA公钥加密
+                output = RSA.encrypt(keyPublic, true, input);
                 break;
-            case 7://RSA公钥解密
+            case 7://RSA私钥解密
+                output = RSA.decrypt(keyPrivate, false, input);
                 break;
             case 8://RSA私钥加密
+                output = RSA.encrypt(keyPrivate, false, input);
                 break;
-            case 9://RSA私钥解密
+            case 9://RSA公钥解密
+                output = RSA.decrypt(keyPublic, true, input);
                 break;
         }
         String strOutput = null;

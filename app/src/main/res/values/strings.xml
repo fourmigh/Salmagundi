@@ -29,4 +29,6 @@
     <string name="key">密钥</string>
     <string name="public_key">公钥</string>
     <string name="private_key">私钥</string>
+    <string name="gen_key_pair">生成公私钥对</string>
+    <string name="key_pair">公私钥对</string>
 </resources>

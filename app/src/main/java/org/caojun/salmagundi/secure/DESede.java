@@ -26,7 +26,7 @@ public class DESede {
         }
     }
 
-    private static byte[] doDES(byte[] key, byte[] data, int opmode) {
+    private static byte[] doDESede(byte[] key, byte[] data, int opmode) {
         try {
             Cipher cipher = Cipher.getInstance("DESede");
             cipher.init(opmode, getSecureKey(key), new SecureRandom());
@@ -44,7 +44,7 @@ public class DESede {
      * @return
      */
     private static byte[] encrypt(byte[] key, byte[] data) {
-        return doDES(key, data, Cipher.ENCRYPT_MODE);
+        return doDESede(key, data, Cipher.ENCRYPT_MODE);
     }
 
     /**
@@ -54,7 +54,7 @@ public class DESede {
      * @return
      */
     private static byte[] decrypt(byte[] key, byte[] data) {
-        return doDES(key, data, Cipher.DECRYPT_MODE);
+        return doDESede(key, data, Cipher.DECRYPT_MODE);
     }
 
     public static byte[] encrypt(String key, byte[] data) {
