@@ -164,9 +164,11 @@ public class SecureActivity extends BaseActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, keys);
             spRSAKey.setAdapter(adapter);
 
-            if(cKeyPair.moveToFirst()) {
+            if(cKeyPair.moveToLast()) {
 
-                doChangeRSAKey(0);
+                int index = cKeyPair.getCount() - 1;
+                doChangeRSAKey(index);
+                spRSAKey.setSelection(index);
 
                 spRSAKey.setVisibility(View.VISIBLE);
 
