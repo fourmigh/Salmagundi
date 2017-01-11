@@ -302,7 +302,18 @@ public class SecureActivity extends BaseActivity {
                 break;
             case 11://RSA公钥验签
                 try {
-                    output = (byte[]) etOutput.getTag();
+                    String strOutput = etOutput.getText().toString();
+                    switch(spOutput.getSelectedItemPosition()) {
+                        case 0://无格式
+                            output = strOutput.getBytes();
+                            break;
+                        case 1://十六进制
+                            output = ConvertUtils.hexToBytes(strOutput);
+                            break;
+                        case 2://Base64
+                            output = ConvertUtils.base64ToBytes(strOutput);
+                            break;
+                    }
                     Toast.makeText(this, getString(R.string.verify_result) + RSA.verify(keyPublic, input, output), Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -323,7 +334,6 @@ public class SecureActivity extends BaseActivity {
                     break;
             }
         }
-        etOutput.setTag(output);
         etOutput.setText(strOutput);
     }
 }
