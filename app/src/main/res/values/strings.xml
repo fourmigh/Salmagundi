@@ -31,4 +31,5 @@
     <string name="private_key">私钥</string>
     <string name="gen_key_pair">生成公私钥对</string>
     <string name="key_pair">公私钥对</string>
+    <string name="verify_result">验签结果：</string>
 </resources>

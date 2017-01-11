@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.secure.data.RSAKey;
@@ -219,8 +221,8 @@ public class SecureActivity extends BaseActivity {
     }
 
     private void doChangeKey() {
-        boolean isRSA = spSecureType.getSelectedItemPosition() > 5;
-        if (isRSA) {
+        int indexSecureType = spSecureType.getSelectedItemPosition();
+        if (indexSecureType > 5) {
             tilKey.setVisibility(View.GONE);
             llRSAKey.setVisibility(View.VISIBLE);
         }
@@ -228,6 +230,7 @@ public class SecureActivity extends BaseActivity {
             tilKey.setVisibility(View.VISIBLE);
             llRSAKey.setVisibility(View.GONE);
         }
+        ibExchange.setVisibility(indexSecureType == 10 || indexSecureType == 11?View.INVISIBLE:View.VISIBLE);
     }
 
     private void doSecure()
@@ -294,6 +297,17 @@ public class SecureActivity extends BaseActivity {
             case 9://RSA公钥解密
                 output = RSA.decrypt(keyPublic, true, input);
                 break;
+            case 10://RSA私钥签名
+                output = RSA.sign(keyPrivate, input);
+                break;
+            case 11://RSA公钥验签
+                try {
+                    output = (byte[]) etOutput.getTag();
+                    Toast.makeText(this, getString(R.string.verify_result) + RSA.verify(keyPublic, input, output), Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return;
         }
         String strOutput = null;
         if(output != null) {
@@ -309,6 +323,7 @@ public class SecureActivity extends BaseActivity {
                     break;
             }
         }
+        etOutput.setTag(output);
         etOutput.setText(strOutput);
     }
 }
