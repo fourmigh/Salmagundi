@@ -16,12 +16,15 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
-import org.caojun.salmagundi.secure.data.RSAKey;
-import org.caojun.salmagundi.secure.data.RSAKeyDatabase;
+//import org.caojun.salmagundi.secure.data.RSAKey;
+//import org.caojun.salmagundi.secure.data.RSAKeyDatabase;
+import org.caojun.salmagundi.secure.greendao.RSAKey;
+import org.caojun.salmagundi.secure.greendao.RSAKeyDatabase;
 import org.caojun.salmagundi.string.ConvertUtils;
+
+import java.util.List;
 
 /**
  * 加密相关类
@@ -36,8 +39,10 @@ public class SecureActivity extends BaseActivity {
     private Button btnOK, btnRSAKey;
     private ImageButton ibExchange;
     private byte[] keyPrivate, keyPublic;
+//    private RSAKeyDatabase rsaKeyDatabase;
     private RSAKeyDatabase rsaKeyDatabase;
-    private Cursor cKeyPair;
+//    private Cursor cKeyPair;
+    private List<RSAKey> listRSAKey;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -132,11 +137,14 @@ public class SecureActivity extends BaseActivity {
         {
             return;
         }
-        ContentValues values = new ContentValues();
-        values.put(RSAKey.Private_Key, keyPrivate);
-        values.put(RSAKey.Public_Key, keyPublic);
-        if(rsaKeyDatabase.insert(values) > 0)
-        {
+//        ContentValues values = new ContentValues();
+//        values.put(RSAKey.Private_Key, keyPrivate);
+//        values.put(RSAKey.Public_Key, keyPublic);
+//        if(rsaKeyDatabase.insert(values) > 0)
+//        {
+//            queryKeyPair();
+//        }
+        if(rsaKeyDatabase.insert(keyPublic, keyPrivate) > 0) {
             queryKeyPair();
         }
     }
@@ -149,14 +157,17 @@ public class SecureActivity extends BaseActivity {
         if(rsaKeyDatabase == null) {
             rsaKeyDatabase = new RSAKeyDatabase(this);
         }
-        cKeyPair = rsaKeyDatabase.query();
-        if(cKeyPair == null || cKeyPair.getCount() < 1)
+//        cKeyPair = rsaKeyDatabase.query();
+        listRSAKey = rsaKeyDatabase.query();
+//        if(cKeyPair == null || cKeyPair.getCount() < 1)
+        if(listRSAKey == null || listRSAKey.isEmpty())
         {
             spRSAKey.setVisibility(View.GONE);
         }
         else
         {
-            String[] keys = new String[cKeyPair.getCount()];
+//            String[] keys = new String[cKeyPair.getCount()];
+            String[] keys = new String[listRSAKey.size()];
             for(int i = 0;i < keys.length;i ++)
             {
                 keys[i] = getString(R.string.key_pair) + "-" + i;
@@ -164,9 +175,11 @@ public class SecureActivity extends BaseActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, keys);
             spRSAKey.setAdapter(adapter);
 
-            if(cKeyPair.moveToLast()) {
+//            if(cKeyPair.moveToLast()) {
+            if(listRSAKey.size() > 0) {
 
-                int index = cKeyPair.getCount() - 1;
+//                int index = cKeyPair.getCount() - 1;
+                int index = listRSAKey.size() - 1;
                 doChangeRSAKey(index);
                 spRSAKey.setSelection(index);
 
@@ -189,11 +202,15 @@ public class SecureActivity extends BaseActivity {
     }
 
     private void doChangeRSAKey(int position) {
-        if(cKeyPair == null || !cKeyPair.moveToPosition(position)) {
+//        if(cKeyPair == null || !cKeyPair.moveToPosition(position)) {
+        if(listRSAKey == null || listRSAKey.isEmpty()) {
             return;
         }
-        keyPublic = cKeyPair.getBlob(cKeyPair.getColumnIndex(RSAKey.Public_Key));
-        keyPrivate = cKeyPair.getBlob(cKeyPair.getColumnIndex(RSAKey.Private_Key));
+//        keyPublic = cKeyPair.getBlob(cKeyPair.getColumnIndex(RSAKey.Public_Key));
+//        keyPrivate = cKeyPair.getBlob(cKeyPair.getColumnIndex(RSAKey.Private_Key));\
+        RSAKey rsaKey = listRSAKey.get(position);
+        keyPublic = rsaKey.getPublicKey();
+        keyPrivate = rsaKey.getPrivateKey();
         String strKeyPublic = ConvertUtils.toBase64(keyPublic);
         String strKeyPrivate = ConvertUtils.toBase64(keyPrivate);
         etPublicKey.setText(strKeyPublic);
