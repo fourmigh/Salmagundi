@@ -15,18 +15,20 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.google.zxing.client.android.CaptureActivity;
+
 import org.caojun.salmagundi.bankcard.BankCardActivity;
 import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.color.ColorUtils;
 import org.caojun.salmagundi.qrcode.QRCodeActivity;
+import org.caojun.salmagundi.rxjava.RxJavaActivity;
 import org.caojun.salmagundi.secure.SecureActivity;
 import org.caojun.salmagundi.string.StringActivity;
 import org.caojun.salmagundi.utils.DataStorageUtils;
 
 public class MainActivity extends AppCompatActivity {
-
     private TextView tvInfo;
     private Bitmap bmGradient;
 
@@ -34,14 +36,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         tvInfo = (TextView) this.findViewById(R.id.tvInfo);
-
         GridView gridView = (GridView) findViewById(R.id.gvApp);
         final AppAdapter adapter = new AppAdapter(this);
         gridView.setAdapter(adapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, (Class) adapter.getItem(position));
@@ -57,8 +56,7 @@ public class MainActivity extends AppCompatActivity {
         tvInfo.setText(getSystemInfo());
     }
 
-    private String getSystemInfo()
-    {
+    private String getSystemInfo() {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         StringBuffer sb = new StringBuffer();
         sb.append("widthPixels: " + metrics.widthPixels);
@@ -75,18 +73,12 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 更新渐变色按钮图标
      */
-    private void createColorIcon()
-    {
+    private void createColorIcon() {
         Color[] color = ColorUtils.getSavedColors(this);
         Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_color);
         int density = (int) getResources().getDisplayMetrics().density;
         Color[] colors = ColorUtils.getGradientColor(color[0], color[1], bitmap.getWidth() * density);
-        bmGradient = ColorUtils.createGradientImage(colors, bitmap.getWidth() * density, bitmap.getHeight() * density);
-//        if(bmGradient != null) {
-//            Drawable drawable = new BitmapDrawable(bmGradient);
-//            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-//            btnColor.setCompoundDrawables(null, drawable, null, null);
-//        }
+        bmGradient = ColorUtils.createGradientImage(colors, bitmap.getWidth() * density, bitmap.getHeight() * density); /*        if(bmGradient != null) { Drawable drawable = new BitmapDrawable(bmGradient); drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight()); btnColor.setCompoundDrawables(null, drawable, null, null); }*/
         Integer[] intColorStart = new Integer[]{color[0].getAlpha(), color[0].getRed(), color[0].getGreen(), color[0].getBlue()};
         Integer[] intColorEnd = new Integer[]{color[1].getAlpha(), color[1].getRed(), color[1].getGreen(), color[1].getBlue()};
         DataStorageUtils.saveIntArray(this, "GradientColor", "colorStart", intColorStart);
@@ -94,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class AppAdapter extends BaseAdapter {
-
         public AppAdapter(Context c) {
             mContext = c;
         }
@@ -124,11 +115,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             holder.textView.setText(mTextIds[position]);
-            if(position == 1 && bmGradient != null)
-            {
+            if (position == 1 && bmGradient != null) {
                 holder.imageView.setImageBitmap(bmGradient);
-            }
-            else {
+            } else {
                 holder.imageView.setImageResource(mThumbIds[position]);
             }
             return convertView;
@@ -137,13 +126,12 @@ public class MainActivity extends AppCompatActivity {
         private Context mContext;
 
         private Integer[] mThumbIds = {
-                R.drawable.icon_qrcode, R.drawable.icon_color, R.drawable.icon_bankcard, R.drawable.launcher_icon, R.drawable.icon_string, R.drawable.icon_secure
-        };
+                R.drawable.icon_qrcode, R.drawable.icon_color, R.drawable.icon_bankcard, R.drawable.launcher_icon, R.drawable.icon_string, R.drawable.icon_secure, R.drawable.icon_rxjava};
         private Integer[] mTextIds = {
-                R.string.qrcode_title, R.string.color_title, R.string.bankcard_title, R.string.zxing_title, R.string.string_title, R.string.secure_title
+                R.string.qrcode_title, R.string.color_title, R.string.bankcard_title, R.string.zxing_title, R.string.string_title, R.string.secure_title, R.string.rxjava_title
         };
         private Class[] mActivitys = {
-            QRCodeActivity.class, ColorActivity.class, BankCardActivity.class, CaptureActivity.class, StringActivity.class, SecureActivity.class
+                QRCodeActivity.class, ColorActivity.class, BankCardActivity.class, CaptureActivity.class, StringActivity.class, SecureActivity.class, RxJavaActivity.class
         };
 
         private class ViewHolder {

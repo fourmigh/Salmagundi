@@ -32,4 +32,5 @@
     <string name="gen_key_pair">生成公私钥对</string>
     <string name="key_pair">公私钥对</string>
     <string name="verify_result">验签结果：</string>
+    <string name="rxjava_title">RxJava</string>
 </resources>

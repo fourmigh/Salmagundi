@@ -40,4 +40,7 @@ dependencies {
     compile 'commons-lang:commons-lang:20030203.000129'
     compile 'commons-codec:commons-codec:20041127.091804'
     compile 'org.greenrobot:greendao:3.2.0'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'com.github.zhaokaiqiang.klog:library:1.6.0'
 }
