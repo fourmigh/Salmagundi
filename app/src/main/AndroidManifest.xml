@@ -32,6 +32,8 @@
             android:label="@string/secure_title" />
         <activity android:name=".rxjava.RxJavaActivity"
             android:label="@string/rxjava_title" />
+        <activity android:name=".ai.AIActivity"
+            android:label="@string/ai_title" />
     </application>
 
 </manifest>

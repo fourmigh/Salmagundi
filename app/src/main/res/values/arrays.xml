@@ -44,4 +44,9 @@
         <item>十六进制</item>
         <item>Base64</item>
     </string-array>
+
+    <string-array name="ai_name">
+        <item>我</item>
+        <item>AI</item>
+    </string-array>
 </resources>
