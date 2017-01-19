@@ -16,7 +16,9 @@ import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * RxJava示例
@@ -64,6 +66,7 @@ public class RxJavaActivity extends BaseActivity {
     }
 
     private void doRxJava() {
+        //订阅
         Subscriber<Course> subscriber = new Subscriber<Course>() {
             @Override
             public void onCompleted() {
@@ -80,7 +83,10 @@ public class RxJavaActivity extends BaseActivity {
                 showInfo("Course " + course.getId() + " : " + course.getName());
             }
         };
+        //可观察者
         Observable.from(students)
+//                .subscribeOn(AndroidSchedulers.mainThread())//指定 Subscriber 的回调发生在主线程
+                .subscribeOn(Schedulers.computation())
                 .flatMap(new Func1<Student, Observable<Course>>() {
                     @Override
                     public Observable<Course> call(Student student) {
