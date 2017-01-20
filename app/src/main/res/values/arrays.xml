@@ -49,4 +49,9 @@
         <item>我</item>
         <item>AI</item>
     </string-array>
+
+    <string-array name="ai_words">
+        <item>你瞅啥？->瞅你咋地？</item>
+        <item>->你说啥？</item>
+    </string-array>
 </resources>

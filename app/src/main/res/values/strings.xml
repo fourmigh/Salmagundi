@@ -34,5 +34,5 @@
     <string name="verify_result">验签结果：</string>
     <string name="rxjava_title">RxJava</string>
     <string name="ai_title">傻瓜AI</string>
-    <string name="ai_word">%1$s：%2$s\n</string>
+    <string name="ai_word">%1$s：%2$s</string>
 </resources>
