@@ -9,14 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.socks.library.KLog;
-
+import com.turing.androidsdk.HttpRequestListener;
+import com.turing.androidsdk.TuringManager;
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
-
-import rx.Observable;
-import rx.Subscriber;
+import org.json.JSONObject;
 
 /**
  * 傻瓜式AI对话
@@ -26,11 +23,12 @@ import rx.Subscriber;
 public class AIActivity extends BaseActivity {
 
     private String[] names;
-    private String[] aiWords;
     private boolean isAITurn = false;//是否轮到AI
     private Button btnSend;
     private EditText etInfo;
     private TextView tvInfo;
+
+    private TuringManager turingManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,7 +40,6 @@ public class AIActivity extends BaseActivity {
         btnSend = (Button) this.findViewById(R.id.btnSend);
 
         names = this.getResources().getStringArray(R.array.ai_name);
-        aiWords = this.getResources().getStringArray(R.array.ai_words);
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +62,28 @@ public class AIActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 checkMyTurnInput(s);
+            }
+        });
+
+        turingManager = new TuringManager(this, "1ce6ccd092ea41ac96a5c9db44250ecd", "b48a74b2dc265ea0");
+        turingManager.setHttpRequestListener(new HttpRequestListener() {
+            @Override
+            public void onSuccess(String s) {
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    String text = jsonObject.optString("text");
+                    if(!TextUtils.isEmpty(text)) {
+                        showInfo(text, true);
+                    }
+                    changeTurn();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFail(int i, String s) {
+
             }
         });
     }
@@ -103,37 +122,20 @@ public class AIActivity extends BaseActivity {
     private void doMyTurn() {
         String word = etInfo.getText().toString();
         showInfo(this.getString(R.string.ai_word, names[0], word), true);
+        etInfo.setText(null);
         changeTurn();
         doAITurn(word);
     }
 
     private void doAITurn(String word) {
         showInfo(this.getString(R.string.ai_word, names[1], ""), false);
-
-        for(int i = 0;i < aiWords.length;i ++) {
-            final String[] words = aiWords[i].split("->");
-            if(words[0].startsWith(word) || i == aiWords.length - 1) {
-                new Thread() {
-                    @Override
-                    public void run() {
-                        for(int i = 0;i < words[1].length();i ++) {
-                            showInfo(String.valueOf(words[1].charAt(i)), i == words[1].length() - 1);
-                            try {
-                                sleep(100);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        changeTurn();
-                    }
-                }.start();
-                return;
-            }
-        }
+        turingManager.requestTuring(word);
     }
 
     private void changeTurn() {
         isAITurn = !isAITurn;
         checkMyTurnInput(etInfo.getText());
     }
+
+
 }
