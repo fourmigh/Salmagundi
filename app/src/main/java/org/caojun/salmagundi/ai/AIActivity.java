@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import com.turing.androidsdk.HttpRequestListener;
 import com.turing.androidsdk.TuringManager;
@@ -27,7 +28,7 @@ public class AIActivity extends BaseActivity {
     private Button btnSend;
     private EditText etInfo;
     private TextView tvInfo;
-
+    private ScrollView scrollView;
     private TuringManager turingManager;
 
     @Override
@@ -38,6 +39,7 @@ public class AIActivity extends BaseActivity {
         tvInfo = (TextView) this.findViewById(R.id.tvInfo);
         etInfo = (EditText) this.findViewById(R.id.etInfo);
         btnSend = (Button) this.findViewById(R.id.btnSend);
+        scrollView = (ScrollView) this.findViewById(R.id.scrollView);
 
         names = this.getResources().getStringArray(R.array.ai_name);
 
@@ -62,6 +64,12 @@ public class AIActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 checkMyTurnInput(s);
+            }
+        });
+        scrollView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                scroll(scrollView, tvInfo);
             }
         });
 
@@ -137,5 +145,21 @@ public class AIActivity extends BaseActivity {
         checkMyTurnInput(etInfo.getText());
     }
 
+    private void scroll(final ScrollView scroll, final View inner) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (scroll == null || inner == null) {
+                    return;
+                }
+                // 内层高度超过外层
+                int offset = inner.getMeasuredHeight() - scroll.getMeasuredHeight();
+                if (offset < 0) {
+                    offset = 0;
+                }
+                scroll.scrollTo(0, offset);
+            }
+        });
+    }
 
 }
