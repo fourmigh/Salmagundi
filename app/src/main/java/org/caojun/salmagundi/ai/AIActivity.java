@@ -105,6 +105,7 @@ public class AIActivity extends BaseActivity {
             }
             JSONArray list = jsonObject.optJSONArray("list");
             if(list != null) {
+                sb.append("\n");
                 for(int i = 0;i < list.length();i ++) {
                     JSONObject jo = list.optJSONObject(i);
                     if(jo == null) {
@@ -113,22 +114,33 @@ public class AIActivity extends BaseActivity {
                     String article = jo.optString("article");
                     String source = jo.optString("source");
                     String detailurl = jo.optString("detailurl");
+                    String name = jo.optString("name");//菜名
+                    String info = jo.optString("info");//配料
 
                     sb.append(i + 1);
-                    if(!TextUtils.isEmpty(source)) {
+                    if(!TextUtils.isEmpty(source) || !TextUtils.isEmpty(name)) {
                         sb.append("【");
-                        sb.append(source);
+                        if(!TextUtils.isEmpty(source)) {
+                            sb.append(source);
+                        }
+                        if(!TextUtils.isEmpty(name)) {
+                            sb.append(name);
+                        }
                         sb.append("】");
                     }
-                    if(!TextUtils.isEmpty(article)) {
-                        sb.append(article);
+                    if(!TextUtils.isEmpty(article) || !TextUtils.isEmpty(info)) {
+                        if(!TextUtils.isEmpty(article)) {
+                            sb.append(article);
+                        }
+                        if(!TextUtils.isEmpty(info)) {
+                            sb.append(info);
+                        }
                     }
                     if(!TextUtils.isEmpty(detailurl)) {
                         sb.append("\n");
                         sb.append(detailurl);
                         sb.append("\n");
                     }
-                    sb.append("\n");
                 }
             }
         } catch (Exception e) {
@@ -141,7 +153,7 @@ public class AIActivity extends BaseActivity {
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                String info = tvInfo.getText().toString() + text.trim() + (isEnter?"\n":"");
+                String info = tvInfo.getText().toString() + text + (isEnter?"\n":"");
                 tvInfo.setText(info);
             }
         });
