@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.util.Linkify;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import com.turing.androidsdk.HttpRequestListener;
 import com.turing.androidsdk.TuringManager;
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -43,6 +45,7 @@ public class AIActivity extends BaseActivity {
 
         names = this.getResources().getStringArray(R.array.ai_name);
 
+        tvInfo.setAutoLinkMask(Linkify.ALL);
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,16 +80,8 @@ public class AIActivity extends BaseActivity {
         turingManager.setHttpRequestListener(new HttpRequestListener() {
             @Override
             public void onSuccess(String s) {
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    String text = jsonObject.optString("text");
-                    if(!TextUtils.isEmpty(text)) {
-                        showInfo(text, true);
-                    }
-                    changeTurn();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                parseTuring(s);
+                changeTurn();
             }
 
             @Override
@@ -94,6 +89,52 @@ public class AIActivity extends BaseActivity {
 
             }
         });
+    }
+
+    private void parseTuring(String s) {
+        StringBuffer sb = new StringBuffer();
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            String text = jsonObject.optString("text");
+            sb.append(text);
+            String url = jsonObject.optString("url");
+            if(!TextUtils.isEmpty(url)) {
+                sb.append("\n");
+                sb.append(url);
+                sb.append("\n");
+            }
+            JSONArray list = jsonObject.optJSONArray("list");
+            if(list != null) {
+                for(int i = 0;i < list.length();i ++) {
+                    JSONObject jo = list.optJSONObject(i);
+                    if(jo == null) {
+                        continue;
+                    }
+                    String article = jo.optString("article");
+                    String source = jo.optString("source");
+                    String detailurl = jo.optString("detailurl");
+
+                    sb.append(i + 1);
+                    if(!TextUtils.isEmpty(source)) {
+                        sb.append("【");
+                        sb.append(source);
+                        sb.append("】");
+                    }
+                    if(!TextUtils.isEmpty(article)) {
+                        sb.append(article);
+                    }
+                    if(!TextUtils.isEmpty(detailurl)) {
+                        sb.append("\n");
+                        sb.append(detailurl);
+                        sb.append("\n");
+                    }
+                    sb.append("\n");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        showInfo(sb.toString(), true);
     }
 
     private void showInfo(final String text, final boolean isEnter) {
