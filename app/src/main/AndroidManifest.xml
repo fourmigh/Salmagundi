@@ -13,7 +13,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/main_app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppStartLoadTranslucent">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
