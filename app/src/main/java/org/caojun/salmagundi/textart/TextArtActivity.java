@@ -32,7 +32,7 @@ public class TextArtActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
             try {
-                showInfo(texts[msg.what]);
+                showInfo((String)msg.obj);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -41,7 +41,7 @@ public class TextArtActivity extends BaseActivity {
     private TimerTask task = new TimerTask() {
         public void run() {
             Message message = new Message();
-            message.what = index;
+            message.obj = texts[index];
             handler.sendMessage(message);
             index ++;
             if(index >= texts.length) {
