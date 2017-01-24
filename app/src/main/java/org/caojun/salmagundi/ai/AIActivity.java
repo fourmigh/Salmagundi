@@ -7,9 +7,12 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.util.Linkify;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import com.turing.androidsdk.HttpRequestListener;
 import com.turing.androidsdk.TuringManager;
@@ -32,6 +35,7 @@ public class AIActivity extends BaseActivity {
     private TextView tvInfo;
     private ScrollView scrollView;
     private TuringManager turingManager;
+    private Spinner spTrueQuestion;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +46,7 @@ public class AIActivity extends BaseActivity {
         etInfo = (EditText) this.findViewById(R.id.etInfo);
         btnSend = (Button) this.findViewById(R.id.btnSend);
         scrollView = (ScrollView) this.findViewById(R.id.scrollView);
+        spTrueQuestion = (Spinner) this.findViewById(R.id.spTrueQuestion);
 
         names = this.getResources().getStringArray(R.array.ai_name);
 
@@ -87,6 +92,23 @@ public class AIActivity extends BaseActivity {
             @Override
             public void onFail(int i, String s) {
 
+            }
+        });
+
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.true_questions, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spTrueQuestion.setAdapter(adapter);
+        spTrueQuestion.setSelection(0, true);
+        spTrueQuestion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                etInfo.setText(adapter.getItem(position).toString());
+                btnSend.performClick();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
     }
