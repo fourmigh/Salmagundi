@@ -4,14 +4,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -24,15 +20,17 @@ public class TextArtActivity extends BaseActivity {
 
     private TextView tvInfo;
     private ScrollView scrollView;
-    private String[] texts;
 
+    private String TEXT;
+    private StringBuffer stringBuffer;
     private Timer timer = new Timer();
     private int index;
+    private boolean isDirect = true;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             try {
-                showInfo((String)msg.obj);
+                showInfo((String) msg.obj);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -40,12 +38,28 @@ public class TextArtActivity extends BaseActivity {
     };
     private TimerTask task = new TimerTask() {
         public void run() {
+
+            if(isDirect) {
+                stringBuffer.append(TEXT.charAt(index));
+                index++;
+            }
+            else {
+                stringBuffer.deleteCharAt(stringBuffer.length() - 1);
+                index --;
+            }
+
             Message message = new Message();
-            message.obj = texts[index];
+            message.obj = stringBuffer.toString();
             handler.sendMessage(message);
-            index ++;
-            if(index >= texts.length) {
-                index = 0;
+
+            if (index >= TEXT.length() || index < 0) {
+                isDirect = !isDirect;
+                if(isDirect) {
+                    index = 0;
+                }
+                else {
+                    index = TEXT.length() - 1;
+                }
             }
         }
     };
@@ -62,18 +76,37 @@ public class TextArtActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        texts = new String[26];
-        for (int j = 0; j < texts.length; j++) {
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < j; i++) {
-                sb.append("\n");
-            }
-            for (int i = 0; i < j; i++) {
-                sb.append(" ");
-            }
-            texts[j] = sb.toString() + String.valueOf((char)('a' + j));
-        }
-        timer.schedule(task, 1000 * 5, 500);
+//        texts = new String[26];
+//        for (int j = 0; j < texts.length; j++) {
+//            StringBuffer sb = new StringBuffer();
+//            for (int i = 0; i < j; i++) {
+//                sb.append("\n");
+//            }
+//            for (int i = 0; i < j; i++) {
+//                sb.append(" ");
+//            }
+//            texts[j] = sb.toString() + String.valueOf((char)('a' + j));
+//        }
+        stringBuffer = new StringBuffer();
+        TEXT = "//                       .::::.\n" +
+                "//                     .::::::::.\n" +
+                "//                    :::::::::::\n" +
+                "//                 ..:::::::::::'\n" +
+                "//              '::::::::::::'\n" +
+                "//                .::::::::::\n" +
+                "//           '::::::::::::::..\n" +
+                "//                ..::::::::::::.\n" +
+                "//              ``::::::::::::::::\n" +
+                "//               ::::``:::::::::'        .:::.\n" +
+                "//              ::::'   ':::::'       .::::::::.\n" +
+                "//            .::::'      ::::     .:::::::'::::.\n" +
+                "//           .:::'       :::::  .:::::::::' ':::::.\n" +
+                "//          .::'        :::::.:::::::::'      ':::::.\n" +
+                "//         .::'         ::::::::::::::'         ``::::.\n" +
+                "//     ...:::           ::::::::::::'              ``::.\n" +
+                "//    ```` ':.          ':::::::::'                  ::::..\n" +
+                "//                       '.:::::'                    ':'````..";
+        timer.schedule(task, 1000, 100);
     }
 
     private void showInfo(final String text) {
