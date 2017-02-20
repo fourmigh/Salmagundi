@@ -1,5 +1,7 @@
 package org.caojun.salmagundi.passwordstore.greendao;
 
+import org.caojun.salmagundi.secure.DESede;
+import org.caojun.salmagundi.string.ConvertUtils;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
@@ -24,9 +26,51 @@ public class Password implements Serializable {
     private byte length;//密码长度
     private String account;//账号
     private String password;//密码
+    private byte realLength;//密码实际长度
 
-    @Generated(hash = 66582281)
-    public Password(Long id, String company, String url, byte type, byte length, String account, String password) {
+    /**
+     * 获取加密密钥
+     * @return
+     */
+    private static String getKey(String company, String url, byte type, byte length, String account) {
+        String k = company + url + type + account;
+        StringBuffer sb = new StringBuffer(24);
+        int index = 0;
+        while(sb.length() != 24) {
+            if(index >= k.length()) {
+                index -= k.length();
+            }
+            char c = k.charAt(index);
+            sb.append(c);
+            index += length;
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 加密密码
+     */
+    public static String getEncodePassword(String company, String url, byte type, byte length, String account, String password) {
+        byte[] input = password.getBytes();
+        byte[] output = DESede.encrypt(getKey(company, url, type, length, account), input);
+        return ConvertUtils.toBase64(output);
+    }
+
+    /**
+     * 获取明文密码
+     */
+    public String getDecodePassword() {
+        byte[] input = ConvertUtils.base64ToBytes(password);
+        byte[] output = DESede.decrypt(getKey(company, url, type, length, account), input);
+        return new String(output);
+    }
+
+    public Password() {
+    }
+
+    @Generated(hash = 735068223)
+    public Password(Long id, String company, String url, byte type, byte length, String account, String password,
+            byte realLength) {
         this.id = id;
         this.company = company;
         this.url = url;
@@ -34,10 +78,11 @@ public class Password implements Serializable {
         this.length = length;
         this.account = account;
         this.password = password;
+        this.realLength = realLength;
     }
 
-    @Generated(hash = 565943725)
-    public Password() {
+    public byte getRealLength() {
+        return realLength;
     }
 
     public Long getId() {
@@ -94,5 +139,9 @@ public class Password implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setRealLength(byte realLength) {
+        this.realLength = realLength;
     }
 }

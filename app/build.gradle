@@ -43,4 +43,5 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.github.zhaokaiqiang.klog:library:1.6.0'
+    compile 'com.maksim88:PasswordEditText:v0.9'
 }

@@ -70,7 +70,13 @@ public class PasswordAdapter extends BaseAdapter {
         holder.tvCompany.setText(password.getCompany());
         holder.tvUrl.setText(password.getUrl());
         holder.tvAccount.setText(password.getAccount());
-        holder.tvPassword.setText(password.getPassword());
+
+        byte length = password.getRealLength();
+        StringBuffer sb = new StringBuffer(length);
+        for(byte i = 0;i < length;i ++) {
+            sb.append("*");
+        }
+        holder.tvPassword.setText(sb.toString());
         return convertView;
     }
 

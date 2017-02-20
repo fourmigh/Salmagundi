@@ -27,7 +27,7 @@ public class PasswordDatabase extends GreendaoDatabase {
     }
 
     public long insert(String company, String url, byte type, byte length, String account, String password) {
-        Password psd = new Password(null, company, url, type, length, account, password);
+        Password psd = new Password(null, company, url, type, length, account, Password.getEncodePassword(company, url, type, length, account, password), (byte)password.length());
         return passwordDao.insert(psd);
     }
 
@@ -36,7 +36,7 @@ public class PasswordDatabase extends GreendaoDatabase {
     }
 
     public void update(Long id, String company, String url, byte type, byte length, String account, String password) {
-        update(new Password(id, company, url, type, length, account, password));
+        update(new Password(id, company, url, type, length, account, Password.getEncodePassword(company, url, type, length, account, password), (byte)password.length()));
     }
 
     public void delete(Long id) {
