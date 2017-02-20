@@ -2,6 +2,7 @@ package org.caojun.salmagundi.secure.greendao;
 
 import android.content.Context;
 
+import org.caojun.salmagundi.GreendaoDatabase;
 import java.util.List;
 
 /**
@@ -9,17 +10,12 @@ import java.util.List;
  * Created by CaoJun on 2017/1/13.
  */
 
-public class RSAKeyDatabase {
+public class RSAKeyDatabase extends GreendaoDatabase {
 
-    private DaoMaster daoMaster;
-    private DaoMaster.DevOpenHelper devOpenHelper;
-    private DaoSession daoSession;
     private RSAKeyDao rsaKeyDao;
 
     public RSAKeyDatabase(Context context) {
-        devOpenHelper = new DaoMaster.DevOpenHelper(context, "rsakey-db", null);
-        daoMaster = new DaoMaster(devOpenHelper.getWritableDatabase());
-        daoSession = daoMaster.newSession();
+        super(context, "rsakey-db");
         rsaKeyDao = daoSession.getRSAKeyDao();
     }
 

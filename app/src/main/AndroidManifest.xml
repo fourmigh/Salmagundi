@@ -37,6 +37,10 @@
             android:label="@string/ai_title" />
         <activity android:name=".textart.TextArtActivity"
             android:label="@string/textart_title" />
+        <activity android:name=".passwordstore.PasswordStoreActivity"
+            android:label="@string/passwordstore_title" />
+        <activity android:name=".passwordstore.PasswordDetailActivity"
+            android:label="@string/ps_detail_title" />
     </application>
 
 </manifest>

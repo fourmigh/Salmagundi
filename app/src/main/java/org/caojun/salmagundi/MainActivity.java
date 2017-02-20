@@ -23,6 +23,7 @@ import org.caojun.salmagundi.bankcard.BankCardActivity;
 import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.color.ColorUtils;
+import org.caojun.salmagundi.passwordstore.PasswordStoreActivity;
 import org.caojun.salmagundi.qrcode.QRCodeActivity;
 import org.caojun.salmagundi.rxjava.RxJavaActivity;
 import org.caojun.salmagundi.secure.SecureActivity;
@@ -128,12 +129,13 @@ public class MainActivity extends AppCompatActivity {
         private Context mContext;
 
         private Integer[] mThumbIds = {
-                R.drawable.icon_qrcode, R.drawable.icon_color, R.drawable.icon_bankcard, R.drawable.launcher_icon, R.drawable.icon_string, R.drawable.icon_secure, R.drawable.icon_rxjava, R.drawable.icon_ai, R.drawable.icon_textart};
+                R.drawable.icon_qrcode, R.drawable.icon_color, R.drawable.icon_bankcard, R.drawable.launcher_icon, R.drawable.icon_string, R.drawable.icon_secure, R.drawable.icon_rxjava, R.drawable.icon_ai, R.drawable.icon_textart, R.drawable.icon_passwordstore
+        };
         private Integer[] mTextIds = {
-                R.string.qrcode_title, R.string.color_title, R.string.bankcard_title, R.string.zxing_title, R.string.string_title, R.string.secure_title, R.string.rxjava_title, R.string.ai_title, R.string.textart_title
+                R.string.qrcode_title, R.string.color_title, R.string.bankcard_title, R.string.zxing_title, R.string.string_title, R.string.secure_title, R.string.rxjava_title, R.string.ai_title, R.string.textart_title, R.string.passwordstore_title
         };
         private Class[] mActivitys = {
-                QRCodeActivity.class, ColorActivity.class, BankCardActivity.class, CaptureActivity.class, StringActivity.class, SecureActivity.class, RxJavaActivity.class, AIActivity.class, TextArtActivity.class
+                QRCodeActivity.class, ColorActivity.class, BankCardActivity.class, CaptureActivity.class, StringActivity.class, SecureActivity.class, RxJavaActivity.class, AIActivity.class, TextArtActivity.class, PasswordStoreActivity.class
         };
 
         private class ViewHolder {

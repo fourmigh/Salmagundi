@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="translate_type">
-        <item>小写 -> 大写</item>
-        <item>大写 -> 小写</item>
-        <item>汉字 -> 拼音</item>
-        <item>十进制 -> 二进制</item>
-        <item>二进制 -> 十进制</item>
-        <item>十进制 -> 八进制</item>
-        <item>八进制 -> 十进制</item>
-        <item>十进制 -> 十六进制</item>
-        <item>十六进制 -> 十进制</item>
-        <item>手机号 -> 隐藏</item>
-        <item>银行卡号 -> 隐藏</item>
-        <item>银行卡号 -> 格式化</item>
-        <item>身份证号 -> 隐藏</item>
-        <item>字符串 -> MD5</item>
-        <item>字符串 -> SHA</item>
-        <item>字符串 -> Base64</item>
-        <item>Base64 -> 字符串</item>
-        <item>字符串 -> ASCII码</item>
-        <item>ASCII码 -> 字符串</item>
-        <item>字符串 -> 十六进制</item>
-        <item>十六进制 -> 字符串</item>
+        <item>lowercase -> UPPERCASE</item>
+        <item>UPPERCASE -> lowercase</item>
+        <item>汉字 -> pinyin</item>
+        <item>Decimal -> Binary</item>
+        <item>Binary -> Decimal</item>
+        <item>Decimal -> 八进制</item>
+        <item>Octal -> Decimal</item>
+        <item>Decimal -> 十六进制</item>
+        <item>Hexadecimal -> Decimal</item>
+        <item>Mobile Number -> hide</item>
+        <item>BankCard Number -> hide</item>
+        <item>BankCard Number -> format</item>
+        <item>IDCard -> hide</item>
+        <item>String -> MD5</item>
+        <item>String -> SHA</item>
+        <item>String -> Base64</item>
+        <item>Base64 -> String</item>
+        <item>String -> ASCII</item>
+        <item>ASCII -> String</item>
+        <item>String -> HEX</item>
+        <item>HEX -> String</item>
     </string-array>
 
     <string-array name="secure_type">
-        <item>AES加密</item>
-        <item>AES解密</item>
-        <item>DES加密</item>
-        <item>DES解密</item>
-        <item>3DES加密</item>
-        <item>3DES解密</item>
-        <item>RSA公钥加密</item>
-        <item>RSA私钥解密</item>
-        <item>RSA私钥加密</item>
-        <item>RSA公钥解密</item>
-        <item>RSA私钥签名</item>
-        <item>RSA公钥验签</item>
+        <item>AES Encrypt</item>
+        <item>AES Decrypt</item>
+        <item>DES Encrypt</item>
+        <item>DES Decrypt</item>
+        <item>3DES Encrypt</item>
+        <item>3DES Decrypt</item>
+        <item>RSA Public Key Encrypt</item>
+        <item>RSA Private Key Decrypt</item>
+        <item>RSA Private Key Encrypt</item>
+        <item>RSA Public Key Decrypt</item>
+        <item>RSA Private Key Sign</item>
+        <item>RSA Public Key Verify</item>
     </string-array>
 
     <string-array name="character_format">
-        <item>无格式</item>
-        <item>十六进制</item>
+        <item>String</item>
+        <item>HEX</item>
         <item>Base64</item>
     </string-array>
 
     <string-array name="ai_name">
-        <item>我</item>
+        <item>ME</item>
         <item>AI</item>
     </string-array>
     
@@ -126,7 +126,7 @@
     </string-array>
 
     <string-array name="password_type">
-        <item>数字</item>
-        <item>字母+数字+符号</item>
+        <item>Number</item>
+        <item>Letter + Number + Symbol</item>
     </string-array>
 </resources>

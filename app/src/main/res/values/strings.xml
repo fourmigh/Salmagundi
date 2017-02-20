@@ -36,4 +36,15 @@
     <string name="ai_title">傻瓜AI</string>
     <string name="ai_word">%1$s：%2$s</string>
     <string name="textart_title">文字艺术</string>
+    <string name="passwordstore_title">密码仓库</string>
+    <string name="ps_detail_title">密码详情</string>
+    <string name="ps_company">网站/银行</string>
+    <string name="ps_url">网址</string>
+    <string name="ps_account">账号</string>
+    <string name="ps_password_type">密码类型</string>
+    <string name="ps_password_length">密码长度</string>
+    <string name="ps_password">密码</string>
+    <string name="ps_add">添加</string>
+    <string name="ps_delete">删除</string>
+    <string name="ps_save">保存</string>
 </resources>
