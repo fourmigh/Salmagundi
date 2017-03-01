@@ -58,7 +58,7 @@ public class DataStorageUtils {
         return preferences.getBoolean(key, defValue);
     }
 
-    public static boolean saveBooleanArray(Context context, String name, String key, boolean values[])
+    public static boolean saveBooleanArray(Context context, String name, String key, boolean[] values)
     {
         Editor editor = getEditor(context, name, key);
         if(editor == null || values == null)
@@ -116,7 +116,7 @@ public class DataStorageUtils {
         return preferences.getFloat(key, defValue);
     }
 
-    public static boolean saveFloatArray(Context context, String name, String key, float values[])
+    public static boolean saveFloatArray(Context context, String name, String key, float[] values)
     {
         Editor editor = getEditor(context, name, key);
         if(editor == null || values == null)
@@ -174,7 +174,7 @@ public class DataStorageUtils {
         return preferences.getInt(key, defValue);
     }
 
-    public static boolean saveIntArray(Context context, String name, String key, int values[])
+    public static boolean saveIntArray(Context context, String name, String key, int[] values)
     {
         Editor editor = getEditor(context, name, key);
         if(editor == null || values == null)
@@ -190,7 +190,7 @@ public class DataStorageUtils {
         return true;
     }
 
-    public static boolean saveIntArray(Context context, String name, String key, Integer values[])
+    public static boolean saveIntArray(Context context, String name, String key, Integer[] values)
     {
         Editor editor = getEditor(context, name, key);
         if(editor == null || values == null)
@@ -248,7 +248,7 @@ public class DataStorageUtils {
         return preferences.getLong(key, defValue);
     }
 
-    public static boolean saveLongArray(Context context, String name, String key, long values[])
+    public static boolean saveLongArray(Context context, String name, String key, long[] values)
     {
         Editor editor = getEditor(context, name, key);
         if(editor == null || values == null)
@@ -306,7 +306,7 @@ public class DataStorageUtils {
         return preferences.getString(key, defValue);
     }
 
-    public static boolean saveStringArray(Context context, String name, String key, String values[])
+    public static boolean saveStringArray(Context context, String name, String key, String[] values)
     {
         Editor editor = getEditor(context, name, key);
         if(editor == null || values == null)
@@ -338,6 +338,66 @@ public class DataStorageUtils {
         for(int i = 0;i < length;i ++)
         {
             values[i] = preferences.getString(key + "." + i, defValue);
+        }
+        return values;
+    }
+
+    public static boolean saveByte(Context context, String name, String key, byte value)
+    {
+        Editor editor = getEditor(context, name, key);
+        if(editor == null)
+        {
+            return false;
+        }
+        editor.putInt(key, value);
+        editor.commit();
+        return true;
+    }
+
+    public static Byte loadByte(Context context, String name, String key, byte defValue)
+    {
+        SharedPreferences preferences = getSharedPreferences(context, name, key);
+        if(preferences == null)
+        {
+            return null;
+        }
+        Integer value = preferences.getInt(key, defValue);
+        return Byte.valueOf(value.byteValue());
+    }
+
+    public static boolean saveByteArray(Context context, String name, String key, byte[] values)
+    {
+        Editor editor = getEditor(context, name, key);
+        if(editor == null || values == null)
+        {
+            return false;
+        }
+        editor.putInt(key + ".length", values.length);
+        for(int i = 0;i < values.length;i ++)
+        {
+            editor.putInt(key + "." + i, values[i]);
+        }
+        editor.commit();
+        return true;
+    }
+
+    public static byte[] loadByteArray(Context context, String name, String key, byte defValue)
+    {
+        SharedPreferences preferences = getSharedPreferences(context, name, key);
+        if(preferences == null)
+        {
+            return null;
+        }
+        int length = preferences.getInt(key + ".length", 0);
+        if(length < 1)
+        {
+            return null;
+        }
+        byte[] values = new byte[length];
+        for(int i = 0;i < length;i ++)
+        {
+            Integer value = preferences.getInt(key + "." + i, defValue);
+            values[i] = Byte.valueOf(value.byteValue());
         }
         return values;
     }

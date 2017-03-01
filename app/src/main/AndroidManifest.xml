@@ -41,6 +41,10 @@
             android:label="@string/passwordstore_title" />
         <activity android:name=".passwordstore.PasswordDetailActivity"
             android:label="@string/ps_detail_title" />
+        <activity android:name=".lockpattern.GestureLoginActivity"
+            android:label="@string/gesture_login_title" />
+        <activity android:name=".lockpattern.CreateGestureActivity"
+            android:label="@string/create_gesture_title" />
     </application>
 
 </manifest>

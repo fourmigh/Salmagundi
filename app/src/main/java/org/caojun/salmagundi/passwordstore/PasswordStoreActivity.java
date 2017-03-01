@@ -1,5 +1,6 @@
 package org.caojun.salmagundi.passwordstore;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
+import org.caojun.salmagundi.lockpattern.GestureConstant;
+import org.caojun.salmagundi.lockpattern.GestureLoginActivity;
 import org.caojun.salmagundi.passwordstore.adapter.PasswordAdapter;
 import org.caojun.salmagundi.passwordstore.greendao.Password;
 import org.caojun.salmagundi.passwordstore.greendao.PasswordDatabase;
@@ -26,7 +29,7 @@ public class PasswordStoreActivity extends BaseActivity {
     private PasswordAdapter adapter;
     private List<Password> list;
     private Button btnAdd;
-//    private PasswordDatabase passwordDatabase;
+    private boolean isLogined = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,8 +52,6 @@ public class PasswordStoreActivity extends BaseActivity {
                 doAdd();
             }
         });
-
-//        passwordDatabase = new PasswordDatabase(this);
     }
 
     @Override
@@ -65,6 +66,25 @@ public class PasswordStoreActivity extends BaseActivity {
             adapter.setData(list);
             adapter.notifyDataSetChanged();
         }
+
+        if(!isLogined) {
+            Intent intent = new Intent(this, GestureLoginActivity.class);
+            intent.putExtra(GestureConstant.HostGesture, this.getClass().getName());
+            this.startActivityForResult(intent, GestureConstant.RequestCode_GestureLogin);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == GestureConstant.RequestCode_GestureLogin) {
+            if (resultCode == Activity.RESULT_OK) {
+                isLogined = true;
+            } else {
+                this.finish();
+            }
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void doUpdate(int position) {

@@ -46,4 +46,18 @@
     <string name="ps_add">Add</string>
     <string name="ps_delete">Delete</string>
     <string name="ps_save">Save</string>
+
+    <!-- Gesture login activity -->
+    <string name="gesture_forget_gesture">Forget Gesture</string>
+    <string name="gesture_default">Input Gesture</string>
+    <string name="gesture_error">Gesture Error</string>
+    <string name="gesture_correct">Gesture Correct</string>
+
+    <!-- Create gesture activity -->
+    <string name="create_gesture_default">Create Gesture</string>
+    <string name="create_gesture_correct">Create Gesture Again</string>
+    <string name="create_gesture_less_error">Less than 4 points.</string>
+    <string name="create_gesture_confirm_error">Gesture Confirm Error</string>
+    <string name="create_gesture_confirm_correct">Gesture Confirm Correct</string>
+    <string name="create_gesture_reset">Gesture Reset</string>
 </resources>

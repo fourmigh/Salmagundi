@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f6f6">
+
+    <org.caojun.salmagundi.lockpattern.widget.LockPatternView
+        android:id="@+id/lockPatternView"
+        android:layout_width="270dp"
+        android:layout_height="270dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_above="@id/lockPatternView"
+        android:layout_marginBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:text="@string/create_gesture_default"
+        android:textColor="#a5a5a5"
+        android:textSize="16sp" />
+
+    <org.caojun.salmagundi.lockpattern.widget.LockPatternIndicator
+        android:id="@+id/lockPatternIndicator"
+        android:layout_above="@id/tvMessage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
+
+    <Button
+        android:id="@+id/btnReset"
+        android:layout_below="@id/lockPatternView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/layout_grey_bg"
+        android:text="@string/create_gesture_reset"
+        android:textColor="#a5a5a5"
+        android:textSize="16sp" />
+
+</RelativeLayout>
