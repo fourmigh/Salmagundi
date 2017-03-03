@@ -5,7 +5,6 @@ import org.caojun.salmagundi.string.ConvertUtils;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
-
 import java.io.Serializable;
 
 /**
@@ -33,12 +32,19 @@ public class Password implements Serializable {
      * @return
      */
     private static String getKey(String company, String url, byte type, byte length, String account) {
-        String k = company + url + type + account;
+        String key = company + url + type + account;
+        StringBuffer k = new StringBuffer();
+        for (int i = 0;i < key.length();i ++) {
+            char c = key.charAt(i);
+            if ((c >= 0 && c <= 9) || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+                k.append(c);
+            }
+        }
         StringBuffer sb = new StringBuffer(24);
         int index = 0;
-        while(sb.length() != 24) {
-            if(index >= k.length()) {
-                index -= k.length();
+        while (sb.length() != 24) {
+            if (index >= k.length()) {
+                index %= k.length();
             }
             char c = k.charAt(index);
             sb.append(c);
