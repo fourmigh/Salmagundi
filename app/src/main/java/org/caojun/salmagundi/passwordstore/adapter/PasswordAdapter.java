@@ -5,11 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.TextView;
-
 import org.caojun.salmagundi.R;
-import org.caojun.salmagundi.passwordstore.greendao.Password;
+import org.caojun.salmagundi.passwordstore.ormlite.Password;
 import java.util.List;
 
 /**

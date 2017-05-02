@@ -45,4 +45,5 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.github.zhaokaiqiang.klog:library:1.6.0'
     compile 'com.maksim88:PasswordEditText:v0.9'
+    compile 'com.j256.ormlite:ormlite-android:5.0'
 }

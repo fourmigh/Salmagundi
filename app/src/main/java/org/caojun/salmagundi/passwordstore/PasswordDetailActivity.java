@@ -13,13 +13,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-
 import com.maksim88.passwordedittext.PasswordEditText;
-
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
-import org.caojun.salmagundi.passwordstore.greendao.Password;
-import org.caojun.salmagundi.passwordstore.greendao.PasswordDatabase;
+import org.caojun.salmagundi.passwordstore.ormlite.Password;
+import org.caojun.salmagundi.passwordstore.ormlite.PasswordDatabase;
+import org.caojun.salmagundi.passwordstore.ormlite.PasswordUtils;
 
 /**
  * 密码仓库详情
@@ -121,7 +120,7 @@ public class PasswordDetailActivity extends BaseActivity {
             etUrl.setText(password.getUrl());
             etLength.setText(String.valueOf(password.getLength()));
             etAccount.setText(password.getAccount());
-            pePassword.setText(password.getDecodePassword());
+            pePassword.setText(PasswordUtils.getDecodePassword(password));
         }
 
         doCheckDeleteButton();
@@ -227,7 +226,7 @@ public class PasswordDetailActivity extends BaseActivity {
         if(TextUtils.isEmpty(psd)) {
             return false;
         }
-        if(password != null && !psd.equals(password.getDecodePassword())) {
+        if(password != null && !psd.equals(PasswordUtils.getDecodePassword(password))) {
             return true;
         }
         return isNew();

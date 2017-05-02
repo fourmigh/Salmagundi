@@ -13,8 +13,8 @@ import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.lockpattern.GestureConstant;
 import org.caojun.salmagundi.lockpattern.GestureLoginActivity;
 import org.caojun.salmagundi.passwordstore.adapter.PasswordAdapter;
-import org.caojun.salmagundi.passwordstore.greendao.Password;
-import org.caojun.salmagundi.passwordstore.greendao.PasswordDatabase;
+import org.caojun.salmagundi.passwordstore.ormlite.Password;
+import org.caojun.salmagundi.passwordstore.ormlite.PasswordDatabase;
 
 import java.util.List;
 
