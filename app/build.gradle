@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "org.caojun.salmagundi"
         minSdkVersion 16
@@ -21,10 +21,12 @@ android {
 
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
+        mavenCentral() // add repository
     }
     dependencies {
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
+        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
     }
 }
 apply plugin: 'org.greenrobot.greendao'
@@ -32,14 +34,13 @@ apply plugin: 'org.greenrobot.greendao'
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.4.0'
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:23.4.0'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
     compile 'com.github.zhaokaiqiang.klog:library:1.6.0'
+    compile 'org.greenrobot:greendao:3.2.2'
     compile project(':zxing')
     compile 'commons-lang:commons-lang:20030203.000129'
     compile 'commons-codec:commons-codec:20041127.091804'
-    compile 'org.greenrobot:greendao:3.2.0'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.github.zhaokaiqiang.klog:library:1.6.0'
