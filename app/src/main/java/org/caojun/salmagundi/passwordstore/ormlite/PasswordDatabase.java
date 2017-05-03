@@ -56,7 +56,7 @@ public class PasswordDatabase extends OrmLiteSqliteOpenHelper {
         onCreate(db, connectionSource);
     }
 
-    public long insert(String company, String url, byte type, byte length, String account, String password) {
+    public int insert(String company, String url, byte type, byte length, String account, String password) {
         Password psd = new Password(null, company, url, type, length, account, PasswordUtils.getEncodePassword(company, url, type, length, account, password), (byte)password.length());
         try {
             return passwordDao.create(psd);
@@ -66,24 +66,26 @@ public class PasswordDatabase extends OrmLiteSqliteOpenHelper {
         return -1;
     }
 
-    public void update(Password password) {
+    public int update(Password password) {
         try {
-            passwordDao.update(password);
+            return passwordDao.update(password);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return -1;
     }
 
-    public void update(int id, String company, String url, byte type, byte length, String account, String password) {
-        update(new Password(id, company, url, type, length, account, PasswordUtils.getEncodePassword(company, url, type, length, account, password), (byte)password.length()));
+    public int update(int id, String company, String url, byte type, byte length, String account, String password) {
+        return update(new Password(id, company, url, type, length, account, PasswordUtils.getEncodePassword(company, url, type, length, account, password), (byte)password.length()));
     }
 
-    public void delete(int id) {
+    public int delete(int id) {
         try {
-            passwordDao.deleteById(id);
+            return passwordDao.deleteById(id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return -1;
     }
 
     public List<Password> query() {
