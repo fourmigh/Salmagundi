@@ -14,9 +14,7 @@ import java.io.Serializable;
 @DatabaseTable
 public class Password implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    @DatabaseField(id = true)
+    @DatabaseField(generatedId = true)
     private Integer id;
     @DatabaseField
     private String company;//网站/银行
