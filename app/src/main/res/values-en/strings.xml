@@ -60,4 +60,8 @@
     <string name="create_gesture_confirm_error">Gesture Confirm Error</string>
     <string name="create_gesture_confirm_correct">Gesture Confirm Correct</string>
     <string name="create_gesture_reset">Gesture Reset</string>
+
+    <!-- 的士数 -->
+    <string name="taxicab_title">Taxicab</string>
+    <string name="cb_ta_ca">Positive Integer</string>
 </resources>

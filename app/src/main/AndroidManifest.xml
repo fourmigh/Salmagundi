@@ -45,6 +45,8 @@
             android:label="@string/gesture_login_title" />
         <activity android:name=".lockpattern.CreateGestureActivity"
             android:label="@string/create_gesture_title" />
+        <activity android:name=".taxicab.TaxicabActivity"
+            android:label="@string/taxicab_title" />
     </application>
 
 </manifest>
