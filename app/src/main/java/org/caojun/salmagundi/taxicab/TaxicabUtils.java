@@ -4,6 +4,8 @@ import android.content.Context;
 import org.caojun.salmagundi.taxicab.ormlite.Taxicab;
 import org.caojun.salmagundi.taxicab.ormlite.TaxicabDatabase;
 import java.math.BigInteger;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -50,6 +52,14 @@ public class TaxicabUtils {
             }
         }
 
-        return TaxicabDatabase.getInstance(context).query();
+//        return TaxicabDatabase.getInstance(context).query();
+        List<Taxicab> list = TaxicabDatabase.getInstance(context).query();
+        Collections.sort(list, new Comparator<Taxicab>() {
+            @Override
+            public int compare(Taxicab t0, Taxicab t1) {
+                return t0.getTaxicab().compareTo(t1.getTaxicab());
+            }
+        });
+        return list;
     }
 }
