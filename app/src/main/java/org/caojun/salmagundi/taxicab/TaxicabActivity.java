@@ -88,6 +88,10 @@ public class TaxicabActivity extends BaseActivity {
         }
     }
 
+    private void runDoOK() {
+        
+    }
+
     private BigInteger checkMax(String strMax) {
         if (TextUtils.isEmpty(strMax)) {
             btnOK.setEnabled(false);

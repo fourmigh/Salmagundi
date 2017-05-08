@@ -16,7 +16,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="number"
-            android:text="10" />
+            android:text="436" />
 
         <CheckBox
             android:id="@+id/cbTaCa"
