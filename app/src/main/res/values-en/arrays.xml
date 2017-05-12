@@ -129,4 +129,9 @@
         <item>Number</item>
         <item>Letter + Number + Symbol</item>
     </string-array>
+
+    <string-array name="bloodpressure_device">
+        <item>YUWELL YE8900A</item>
+        <item>Mercury</item>
+    </string-array>
 </resources>

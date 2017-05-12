@@ -60,11 +60,26 @@
     <string name="create_gesture_default">绘制解锁图案</string>
     <string name="create_gesture_correct">再次绘制解锁图案</string>
     <string name="create_gesture_less_error">至少连接4个点，请重新输入</string>
-    <string name="create_gesture_confirm_error">与上一次绘制不一致，请重新绘制</string>
+    <string name="create_gesture_confirm_error">与上一次绘制不一致，请重新绘制</string>m
     <string name="create_gesture_confirm_correct">设置成功</string>
     <string name="create_gesture_reset">重新设置</string>
 
     <!-- 的士数 -->
     <string name="taxicab_title">的士数</string>
     <string name="cb_ta_ca">正整数</string>
+
+    <!-- 血压 -->
+    <string name="bp_title">血压记录</string>
+    <string name="bp_detail_title">血压记录详情</string>
+    <string name="bp_time">时间</string>
+    <string name="bp_high">高压（收缩压）</string>
+    <string name="bp_low">低压（舒张压）</string>
+    <string name="bp_pulse">脉搏</string>
+    <string name="bp_device">设备</string>
+    <string name="bp_bloodpressure">血压</string>
+    <string name="bp_medicine">服药</string>
+    <string name="bp_weight">体重</string>
+    <string name="bp_left">左手</string>
+    <string name="bp_right">右手</string>
+    <string name="bp_weight_unit">%s公斤</string>
 </resources>

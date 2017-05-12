@@ -47,6 +47,10 @@
             android:label="@string/create_gesture_title" />
         <activity android:name=".taxicab.TaxicabActivity"
             android:label="@string/taxicab_title" />
+        <activity android:name=".bloodpressure.BloodPressureActivity"
+            android:label="@string/bp_title" />
+        <activity android:name=".bloodpressure.BloodPressureDetailActivity"
+            android:label="@string/bp_detail_title" />
     </application>
 
 </manifest>

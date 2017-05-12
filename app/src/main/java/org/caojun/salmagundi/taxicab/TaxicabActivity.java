@@ -89,7 +89,7 @@ public class TaxicabActivity extends BaseActivity {
     }
 
     private void runDoOK() {
-        
+
     }
 
     private BigInteger checkMax(String strMax) {

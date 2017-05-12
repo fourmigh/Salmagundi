@@ -64,4 +64,19 @@
     <!-- 的士数 -->
     <string name="taxicab_title">Taxicab</string>
     <string name="cb_ta_ca">Positive Integer</string>
+
+    <!-- 血压 -->
+    <string name="bp_title">BP Record</string>
+    <string name="bp_detail_title">BP Record Detail</string>
+    <string name="bp_time">Time</string>
+    <string name="bp_high">High</string>
+    <string name="bp_low">Low</string>
+    <string name="bp_pulse">Pulse</string>
+    <string name="bp_device">Device</string>
+    <string name="bp_bloodpressure">Blood Pressure</string>
+    <string name="bp_medicine">Take Medicine</string>
+    <string name="bp_weight">Weight</string>
+    <string name="bp_left">Left Hand</string>
+    <string name="bp_right">Right Hand</string>
+    <string name="bp_weight_unit">%sKG</string>
 </resources>

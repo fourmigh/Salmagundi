@@ -129,4 +129,9 @@
         <item>数字</item>
         <item>字母+数字+符号</item>
     </string-array>
+
+    <string-array name="bloodpressure_device">
+        <item>鱼跃电子手腕式</item>
+        <item>水银</item>
+    </string-array>
 </resources>
