@@ -78,5 +78,5 @@
     <string name="bp_weight">Weight</string>
     <string name="bp_left">Left Hand</string>
     <string name="bp_right">Right Hand</string>
-    <string name="bp_weight_unit">%sKG</string>
+    <string name="bp_weight_unit">%skg</string>
 </resources>

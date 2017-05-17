@@ -134,4 +134,13 @@
         <item>YUWELL YE8900A</item>
         <item>Mercury</item>
     </string-array>
+
+    <string-array name="bloodpressure_type">
+        <item>Low</item>
+        <item>Normal</item>
+        <item>Mild</item>
+        <item>Moderate</item>
+        <item>Severe</item>
+        <item>Others</item>
+    </string-array>
 </resources>

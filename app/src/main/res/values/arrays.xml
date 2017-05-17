@@ -134,4 +134,13 @@
         <item>鱼跃电子手腕式</item>
         <item>水银</item>
     </string-array>
+
+    <string-array name="bloodpressure_type">
+        <item>低</item>
+        <item>正常</item>
+        <item>轻度</item>
+        <item>中度</item>
+        <item>严重</item>
+        <item>其他</item>
+    </string-array>
 </resources>
