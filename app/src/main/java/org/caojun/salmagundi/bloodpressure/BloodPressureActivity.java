@@ -22,12 +22,14 @@ import org.caojun.salmagundi.passwordstore.ormlite.PasswordDatabase;
 
 import java.util.List;
 
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
+
 /**
  * Created by fourm on 2017/5/9.
  */
 
 public class BloodPressureActivity extends BaseActivity {
-    private ListView listView;
+    private StickyListHeadersListView listView;
     private BloodPressureAdapter adapter;
     private List<BloodPressure> list;
     private Button btnAdd;
@@ -35,9 +37,9 @@ public class BloodPressureActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_passwordstore);
+        this.setContentView(R.layout.activity_bloodpressure);
 
-        listView = (ListView) this.findViewById(R.id.lvPasswordStore);
+        listView = (StickyListHeadersListView) this.findViewById(R.id.lvBloodPressure);
         btnAdd = (Button) this.findViewById(R.id.btnAdd);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

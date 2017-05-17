@@ -42,7 +42,7 @@ public class BloodPressureDetailActivity extends BaseActivity {
     private BloodPressure bloodPressure;
     private ArrayAdapter<CharSequence> adapter;
 
-    private final String dateFormat = "yyyy/MM/dd HH:mm";
+    private final String dateFormat = "yyyy/MM/dd HH:mm:ss";
     private final int[] IDType = {R.id.rbBloodPressure, R.id.rbMedicine, R.id.rbWeight};
 
     @Override

@@ -16,15 +16,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
+
 /**
  * Created by fourm on 2017/5/9.
  */
 
-public class BloodPressureAdapter extends BaseAdapter {
+public class BloodPressureAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
     private Context context;
     private List<BloodPressure> list;
-    private final String dateFormat = "yyyy/MM/dd HH:mm:ss";
+    private final String dateFormat = "HH:mm:ss";
+    private final String dateFormatDay = "yyyy/MM/dd";
     private String[] type;
 
     public BloodPressureAdapter(Context context, List<BloodPressure> list) {
@@ -101,5 +104,33 @@ public class BloodPressureAdapter extends BaseAdapter {
 
     private class ViewHolder {
         TextView tvTime, tvRemark, tvHigh, tvLow, tvPulse;
+    }
+
+    @Override
+    public View getHeaderView(int position, View convertView, ViewGroup parent) {
+        HeaderViewHolder holder;
+        if (convertView == null) {
+            holder = new HeaderViewHolder();
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_bloodpressure_header, parent, false);
+            holder.tvHeader = (TextView) convertView.findViewById(R.id.tvHeader);
+            convertView.setTag(holder);
+        } else {
+            holder = (HeaderViewHolder) convertView.getTag();
+        }
+        BloodPressure bloodPressure = (BloodPressure) getItem(position);
+        String header = TimeUtils.getTime(dateFormatDay, bloodPressure.getTime());
+        holder.tvHeader.setText(header);
+        return convertView;
+    }
+
+    @Override
+    public long getHeaderId(int position) {
+        BloodPressure bloodPressure = (BloodPressure) getItem(position);
+        String time = TimeUtils.getTime("yyyyMMdd", bloodPressure.getTime());
+        return Long.parseLong(time);
+    }
+
+    private class HeaderViewHolder {
+        TextView tvHeader;
     }
 }
