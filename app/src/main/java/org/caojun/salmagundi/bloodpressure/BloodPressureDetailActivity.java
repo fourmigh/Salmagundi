@@ -119,6 +119,7 @@ public class BloodPressureDetailActivity extends BaseActivity {
             etTime.setText(time);
         }
         doCheckSaveButton();
+        doCheckDeleteButton();
 
         rgBloodPressure.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -330,5 +331,10 @@ public class BloodPressureDetailActivity extends BaseActivity {
 
     private void doCheckSaveButton() {
         btnSave.setEnabled(canSave());
+    }
+
+    private void doCheckDeleteButton() {
+//        btnDelete.setEnabled(bloodPressure != null);
+        btnDelete.setVisibility(bloodPressure == null?View.GONE:View.VISIBLE);
     }
 }
