@@ -69,6 +69,7 @@ public class BloodPressureActivity extends BaseActivity {
             adapter.setData(list);
             adapter.notifyDataSetChanged();
         }
+        listView.setSelection(adapter.getCount() - 1);
     }
 
     private void doUpdate(int position) {

@@ -37,7 +37,7 @@ public class BloodPressureDetailActivity extends BaseActivity {
     private EditText etHigh, etLow, etPulse;
     private Spinner spDevice;
     private EditText etWeight;
-    private Button btnSave;
+    private Button btnSave, btnDelete;
 
     private BloodPressure bloodPressure;
     private ArrayAdapter<CharSequence> adapter;
@@ -65,6 +65,7 @@ public class BloodPressureDetailActivity extends BaseActivity {
         spDevice = (Spinner) findViewById(R.id.spDevice);
         etWeight = (EditText) findViewById(R.id.etWeight);
         btnSave = (Button) findViewById(R.id.btnSave);
+        btnDelete = (Button) findViewById(R.id.btnDelete);
 
         bloodPressure = (BloodPressure) getIntent().getSerializableExtra("bloodPressure");
 
@@ -76,6 +77,13 @@ public class BloodPressureDetailActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 doSave();
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doDelete();
             }
         });
 
@@ -189,6 +197,14 @@ public class BloodPressureDetailActivity extends BaseActivity {
                 etWeight.setVisibility(View.VISIBLE);
                 break;
         }
+    }
+
+    private void doDelete() {
+        if(bloodPressure == null) {
+            return;
+        }
+        BloodPressureDatabase.getInstance(this).delete(bloodPressure);
+        finish();
     }
 
     private void doSave() {

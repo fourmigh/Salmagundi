@@ -122,4 +122,13 @@ public class BloodPressureDatabase extends OrmLiteSqliteOpenHelper {
         }
         return null;
     }
+
+    public int delete(BloodPressure bloodPressure) {
+        try {
+            return bloodPressureDao.delete(bloodPressure);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }
