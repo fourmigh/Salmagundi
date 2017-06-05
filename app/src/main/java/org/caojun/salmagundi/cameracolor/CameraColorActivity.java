@@ -1,5 +1,8 @@
 package org.caojun.salmagundi.cameracolor;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -8,6 +11,7 @@ import android.os.Message;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
@@ -20,6 +24,7 @@ import org.caojun.salmagundi.color.ColorUtils;
 
 public class CameraColorActivity extends BaseActivity {
 
+    private LinearLayout llRoot;
     private TextureView mTextureView;
     private ImageView ivColor;
     private TextView tvColor;
@@ -49,6 +54,10 @@ public class CameraColorActivity extends BaseActivity {
 
             bitmap = ColorUtils.createImage(rgb, ivColor.getWidth(), ivColor.getHeight());
             ivColor.setImageBitmap(bitmap);
+
+            ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clipData = ClipData.newPlainText(null, hex);
+            cm.setPrimaryClip(clipData);
         }
     };
 
@@ -59,11 +68,12 @@ public class CameraColorActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cameracolor);
 
+        llRoot = (LinearLayout) findViewById(R.id.llRoot);
         mTextureView = (TextureView) findViewById(R.id.textureView);
         ivColor = (ImageView) findViewById(R.id.ivColor);
         tvColor = (TextView) findViewById(R.id.tvColor);
 
-        mTextureView.setOnClickListener(new View.OnClickListener() {
+        llRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 CameraColorUtils.getInstance().takeColor();
