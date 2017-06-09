@@ -106,7 +106,7 @@ public class TaxicabActivity extends BaseActivity {
 
     private void doOK() {
 
-        progressDialog = ProgressDialog.show(TaxicabActivity.this, "计算的士数", "计算中……", true, false);
+        progressDialog = ProgressDialog.show(TaxicabActivity.this, getString(R.string.cb_pd_title), getString(R.string.cb_pd_message), true, false);
         new Thread() {
             @Override
             public void run() {

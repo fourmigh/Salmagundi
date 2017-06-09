@@ -48,12 +48,14 @@
     <string name="ps_save">Save</string>
 
     <!-- Gesture login activity -->
+    <string name="gesture_login_title">Gesture Login</string>
     <string name="gesture_forget_gesture">Forget Gesture</string>
     <string name="gesture_default">Input Gesture</string>
     <string name="gesture_error">Gesture Error</string>
     <string name="gesture_correct">Gesture Correct</string>
 
     <!-- Create gesture activity -->
+    <string name="create_gesture_title">Create Gesture</string>
     <string name="create_gesture_default">Create Gesture</string>
     <string name="create_gesture_correct">Create Gesture Again</string>
     <string name="create_gesture_less_error">Less than 4 points.</string>
@@ -64,6 +66,8 @@
     <!-- 的士数 -->
     <string name="taxicab_title">Taxicab</string>
     <string name="cb_ta_ca">Positive Integer</string>
+    <string name="cb_pd_title">Calculate Taxicab</string>
+    <string name="cb_pd_message">Calculating...</string>
 
     <!-- 血压 -->
     <string name="bp_title">BP Record</string>

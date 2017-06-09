@@ -67,6 +67,8 @@
     <!-- 的士数 -->
     <string name="taxicab_title">的士数</string>
     <string name="cb_ta_ca">正整数</string>
+    <string name="cb_pd_title">计算的士数</string>
+    <string name="cb_pd_message">计算中……</string>
 
     <!-- 血压 -->
     <string name="bp_title">血压记录</string>
