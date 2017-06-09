@@ -1,5 +1,6 @@
 package org.caojun.salmagundi;
 
+import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -16,7 +17,7 @@ import org.caojun.salmagundi.utils.PackageUtils;
  * Created by CaoJun on 2016/10/31.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends Activity {
 
     protected ImageButton ibGallery3d;
     private Drawable iconGallery3d;

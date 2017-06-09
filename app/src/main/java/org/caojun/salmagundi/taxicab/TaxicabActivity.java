@@ -40,6 +40,18 @@ public class TaxicabActivity extends BaseActivity {
     private TaxicabAdapter adapter;
     private List<Taxicab> list;
     private ProgressDialog progressDialog;
+    private Handler handlerProgressDialog = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+
+            progressDialog = new ProgressDialog(TaxicabActivity.this);
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(false);
+            progressDialog.setTitle("计算的士数");
+            progressDialog.setMessage("计算中……");
+            progressDialog.show();
+        }
+    };
     private Handler handlerAdapter = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -51,7 +63,7 @@ public class TaxicabActivity extends BaseActivity {
                 adapter.setData(list);
                 adapter.notifyDataSetChanged();
             }
-            progressDialog.cancel();
+            progressDialog.dismiss();
         }
     };
 
@@ -86,18 +98,15 @@ public class TaxicabActivity extends BaseActivity {
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 doOK();
             }
         });
     }
 
     private void doOK() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setIndeterminate(false);
-        progressDialog.setCancelable(false);
-        progressDialog.setTitle("计算的士数");
-        progressDialog.setMessage("计算中……");
-        progressDialog.show();
+
+        progressDialog = ProgressDialog.show(TaxicabActivity.this, "计算的士数", "计算中……", true, false);
         new Thread() {
             @Override
             public void run() {
@@ -125,5 +134,13 @@ public class TaxicabActivity extends BaseActivity {
         }
         btnOK.setEnabled(true);
         return max;
+    }
+
+    @Override
+    protected void onPause() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+        super.onPause();
     }
 }

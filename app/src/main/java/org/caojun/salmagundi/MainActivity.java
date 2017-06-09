@@ -1,5 +1,6 @@
 package org.caojun.salmagundi;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -34,7 +35,7 @@ import org.caojun.salmagundi.taxicab.TaxicabActivity;
 import org.caojun.salmagundi.textart.TextArtActivity;
 import org.caojun.salmagundi.utils.DataStorageUtils;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     private TextView tvInfo;
     private Bitmap bmGradient;
 

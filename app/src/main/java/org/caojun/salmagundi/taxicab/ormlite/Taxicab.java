@@ -2,7 +2,6 @@ package org.caojun.salmagundi.taxicab.ormlite;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.socks.library.KLog;
 import org.caojun.salmagundi.taxicab.TaxicabUtils;
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -27,25 +26,21 @@ public class Taxicab implements Serializable {
     public Taxicab() {}
 
     public Taxicab(BigInteger a, BigInteger b) {
-//        BigInteger absA = a.abs();
-//        BigInteger absB = b.abs();
-//        if (absA.compareTo(absB) < 1) {
-//            //a绝对值小于等于b绝对值
-//            this.setA(a);
-//            this.setB(b);
-//        } else {
-//            this.setA(b);
-//            this.setB(a);
-//        }
+        BigInteger absA = a.abs();
+        BigInteger absB = b.abs();
+        if (absA.compareTo(absB) < 1) {
+            //a绝对值小于等于b绝对值
+            this.setA(b);
+            this.setB(a);
+        } else {
+            this.setA(a);
+            this.setB(b);
+        }
+
         this.setA(a);
         this.setB(b);
         this.setTaxicab(TaxicabUtils.getTaxicab(a, b));
         this.setId(this.getA().toString() + "_" + this.getB().toString());
-
-        KLog.d("Taxicab", "id: " + this.getId());
-        KLog.d("Taxicab", "a: " + this.getA().toString());
-        KLog.d("Taxicab", "b: " + this.getB().toString());
-        KLog.d("Taxicab", "taxicab: " + this.getTaxicab().toString());
     }
 
     public String getId() {

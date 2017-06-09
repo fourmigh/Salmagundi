@@ -38,7 +38,8 @@ public class TaxicabUtils {
     }
 
     public static List<Taxicab> getList(Context context, BigInteger max, boolean isTaxicab) {
-        int progress = 0;
+        int n = 6;
+        KLog.d("isTaxicab", "" + isTaxicab);
         if (isTaxicab) {
             //正整数
             for (BigInteger a = BigInteger.ONE; a.compareTo(max) <= 0; a = a.add(BigInteger.ONE)) {
@@ -49,12 +50,19 @@ public class TaxicabUtils {
             }
         } else {
             //正或负或零
-            for (BigInteger a = BigInteger.ZERO; a.compareTo(max.subtract(BigInteger.ONE)) < 0; a = a.add(BigInteger.ONE)) {
-                BigInteger b = a.add(BigInteger.ONE);
-                TaxicabDatabase.getInstance(context).insert(a, b);
-                BigInteger nb = BigInteger.ZERO.subtract(b);
-                TaxicabDatabase.getInstance(context).insert(a, nb);
+//            for (BigInteger a = BigInteger.ZERO; a.compareTo(max.subtract(BigInteger.ONE)) < 0; a = a.add(BigInteger.ONE)) {
+//                BigInteger b = a.add(BigInteger.ONE);
+//                TaxicabDatabase.getInstance(context).insert(a, b);
+//                BigInteger nb = BigInteger.ZERO.subtract(b);
+//                TaxicabDatabase.getInstance(context).insert(a, nb);
+//            }
+            for (BigInteger a = BigInteger.ONE; a.compareTo(max) <= 0; a = a.add(BigInteger.ONE)) {
+                BigInteger na = BigInteger.ZERO.subtract(a);
+                for (BigInteger b = na; b.compareTo(a) <= 0; b = b.add(BigInteger.ONE)) {
+                    TaxicabDatabase.getInstance(context).insert(a, b);
+                }
             }
+            n = 10;
         }
 
         List<Taxicab> list = TaxicabDatabase.getInstance(context).query();
@@ -68,7 +76,7 @@ public class TaxicabUtils {
 
         //过滤
         List<Taxicab> result = new ArrayList<>();
-        for (int i = 1;i <= 6;i ++) {
+        for (int i = 1;i <= n;i ++) {
             result.addAll(getTaxicab(i, max, list));
         }
         return result;
