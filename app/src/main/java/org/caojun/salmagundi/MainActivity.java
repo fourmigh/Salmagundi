@@ -31,19 +31,18 @@ import org.caojun.salmagundi.qrcode.QRCodeActivity;
 import org.caojun.salmagundi.rxjava.RxJavaActivity;
 import org.caojun.salmagundi.secure.SecureActivity;
 import org.caojun.salmagundi.string.StringActivity;
+import org.caojun.salmagundi.sysinfo.SysinfoActivity;
 import org.caojun.salmagundi.taxicab.TaxicabActivity;
 import org.caojun.salmagundi.textart.TextArtActivity;
 import org.caojun.salmagundi.utils.DataStorageUtils;
 
 public class MainActivity extends Activity {
-    private TextView tvInfo;
     private Bitmap bmGradient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tvInfo = (TextView) this.findViewById(R.id.tvInfo);
         GridView gridView = (GridView) findViewById(R.id.gvApp);
         final AppAdapter adapter = new AppAdapter(this);
         gridView.setAdapter(adapter);
@@ -60,21 +59,6 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         createColorIcon();
-        tvInfo.setText(getSystemInfo());
-    }
-
-    private String getSystemInfo() {
-        DisplayMetrics metrics = getResources().getDisplayMetrics();
-        StringBuffer sb = new StringBuffer();
-        sb.append("widthPixels: " + metrics.widthPixels);
-        sb.append("\n" + "heightPixels: " + metrics.heightPixels);
-        sb.append("\n" + "density: " + metrics.density);
-        sb.append("\n" + "densityDpi: " + metrics.densityDpi);
-        sb.append("\n" + "scaledDensity: " + metrics.scaledDensity);
-        sb.append("\n" + "xdpi: " + metrics.xdpi);
-        sb.append("\n" + "ydpi: " + metrics.ydpi);
-        sb.append("\n" + "DPI: " + this.getString(R.string.dpi));
-        return sb.toString();
     }
 
     /**
@@ -145,7 +129,8 @@ public class MainActivity extends Activity {
                 R.drawable.icon_textart,
                 R.drawable.icon_passwordstore,
                 R.drawable.icon_taxicab,
-                R.drawable.icon_cameracolor
+                R.drawable.icon_cameracolor,
+                R.drawable.icon_sysinfo
         };
         private Integer[] mTextIds = {
                 R.string.bp_title,
@@ -160,7 +145,8 @@ public class MainActivity extends Activity {
                 R.string.textart_title,
                 R.string.passwordstore_title,
                 R.string.taxicab_title,
-                R.string.cc_title
+                R.string.cc_title,
+                R.string.si_title
         };
         private Class[] mActivitys = {
                 BloodPressureActivity.class,
@@ -175,7 +161,8 @@ public class MainActivity extends Activity {
                 TextArtActivity.class,
                 PasswordStoreActivity.class,
                 TaxicabActivity.class,
-                CameraColorActivity.class
+                CameraColorActivity.class,
+                SysinfoActivity.class
         };
 
         private class ViewHolder {

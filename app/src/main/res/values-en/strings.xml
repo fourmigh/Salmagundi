@@ -88,4 +88,7 @@
     <string name="cc_title">Camera Color</string>
     <string name="cc_camera_error">Camera open error.</string>
     <string name="cc_configure_failed">Camera configure failed.</string>
+
+    <!-- 系统信息 -->
+    <string name="si_title">System Info</string>
 </resources>

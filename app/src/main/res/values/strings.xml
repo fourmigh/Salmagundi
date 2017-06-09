@@ -89,4 +89,7 @@
     <string name="cc_title">摄像头取色</string>
     <string name="cc_camera_error">摄像头开启失败</string>
     <string name="cc_configure_failed">摄像头配置失败</string>
+
+    <!-- 系统信息 -->
+    <string name="si_title">系统信息</string>
 </resources>
