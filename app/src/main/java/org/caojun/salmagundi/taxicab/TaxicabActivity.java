@@ -51,12 +51,7 @@ public class TaxicabActivity extends BaseActivity {
                 adapter.setData(list);
                 adapter.notifyDataSetChanged();
             }
-        }
-    };
-    private Handler handlerProgressDailog = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            progressDialog.show();
+            progressDialog.cancel();
         }
     };
 
@@ -91,34 +86,18 @@ public class TaxicabActivity extends BaseActivity {
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog = new ProgressDialog(TaxicabActivity.this);
-                progressDialog.setIndeterminate(false);
-                progressDialog.setCancelable(false);
-                progressDialog.setTitle("计算的士数");
-                progressDialog.setMessage("计算中……");
-                progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                runDoOK();
+                doOK();
             }
         });
     }
 
     private void doOK() {
-        String strMax = etMax.getText().toString();
-        BigInteger max = checkMax(strMax);
-        if (max == null) {
-            return;
-        }
-        List<Taxicab> list = TaxicabUtils.getList(this, max, cbTaCa.isChecked(), progressDialog, handlerProgressDailog);
-        if (adapter == null) {
-            adapter = new TaxicabAdapter(this, list);
-            lvTaxicab.setAdapter(adapter);
-        } else {
-            adapter.setData(list);
-            adapter.notifyDataSetChanged();
-        }
-    }
-
-    private void runDoOK() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("计算的士数");
+        progressDialog.setMessage("计算中……");
+        progressDialog.show();
         new Thread() {
             @Override
             public void run() {
@@ -128,7 +107,7 @@ public class TaxicabActivity extends BaseActivity {
                 if (max == null) {
                     return;
                 }
-                list = TaxicabUtils.getList(TaxicabActivity.this, max, cbTaCa.isChecked(), progressDialog, handlerProgressDailog);
+                list = TaxicabUtils.getList(TaxicabActivity.this, max, cbTaCa.isChecked());
                 handlerAdapter.sendMessage(Message.obtain());
             }
         }.start();
