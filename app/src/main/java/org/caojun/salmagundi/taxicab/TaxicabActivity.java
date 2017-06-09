@@ -1,6 +1,9 @@
 package org.caojun.salmagundi.taxicab;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -10,11 +13,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import com.socks.library.KLog;
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.taxicab.adapter.TaxicabAdapter;
 import org.caojun.salmagundi.taxicab.ormlite.Taxicab;
-
 import java.math.BigInteger;
 import java.util.List;
 
@@ -35,6 +38,27 @@ public class TaxicabActivity extends BaseActivity {
     private CheckBox cbTaCa;
     private Button btnOK;
     private TaxicabAdapter adapter;
+    private List<Taxicab> list;
+    private ProgressDialog progressDialog;
+    private Handler handlerAdapter = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+
+            if (adapter == null) {
+                adapter = new TaxicabAdapter(TaxicabActivity.this, list);
+                lvTaxicab.setAdapter(adapter);
+            } else {
+                adapter.setData(list);
+                adapter.notifyDataSetChanged();
+            }
+        }
+    };
+    private Handler handlerProgressDailog = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            progressDialog.show();
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,7 +91,13 @@ public class TaxicabActivity extends BaseActivity {
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                doOK();
+                progressDialog = new ProgressDialog(TaxicabActivity.this);
+                progressDialog.setIndeterminate(false);
+                progressDialog.setCancelable(false);
+                progressDialog.setTitle("计算的士数");
+                progressDialog.setMessage("计算中……");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                runDoOK();
             }
         });
     }
@@ -78,7 +108,7 @@ public class TaxicabActivity extends BaseActivity {
         if (max == null) {
             return;
         }
-        List<Taxicab> list = TaxicabUtils.getList(this, max, cbTaCa.isChecked());
+        List<Taxicab> list = TaxicabUtils.getList(this, max, cbTaCa.isChecked(), progressDialog, handlerProgressDailog);
         if (adapter == null) {
             adapter = new TaxicabAdapter(this, list);
             lvTaxicab.setAdapter(adapter);
@@ -89,7 +119,19 @@ public class TaxicabActivity extends BaseActivity {
     }
 
     private void runDoOK() {
-
+        new Thread() {
+            @Override
+            public void run() {
+                KLog.d("runDoOK", "handleMessage");
+                String strMax = etMax.getText().toString();
+                BigInteger max = checkMax(strMax);
+                if (max == null) {
+                    return;
+                }
+                list = TaxicabUtils.getList(TaxicabActivity.this, max, cbTaCa.isChecked(), progressDialog, handlerProgressDailog);
+                handlerAdapter.sendMessage(Message.obtain());
+            }
+        }.start();
     }
 
     private BigInteger checkMax(String strMax) {

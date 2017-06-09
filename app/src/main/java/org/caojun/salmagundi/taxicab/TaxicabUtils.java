@@ -1,6 +1,9 @@
 package org.caojun.salmagundi.taxicab;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 
 import com.socks.library.KLog;
 
@@ -38,23 +41,32 @@ public class TaxicabUtils {
         return aCube.add(bCube);
     }
 
-    public static List<Taxicab> getList(Context context, BigInteger max, boolean isTaxicab) {
+    public static List<Taxicab> getList(Context context, BigInteger max, boolean isTaxicab, ProgressDialog progressDialog, Handler handler) {
+        int progress = 0;
         if (isTaxicab) {
             //正整数
+            progressDialog.setMax(max.intValue() * max.intValue() / 2);
+            handler.sendMessage(Message.obtain());
             for (BigInteger a = BigInteger.ONE; a.compareTo(max) <= 0; a = a.add(BigInteger.ONE)) {
                 for (BigInteger b = BigInteger.ONE; b.compareTo(a) <= 0; b = b.add(BigInteger.ONE)) {
+                    KLog.d("getList", isTaxicab + " : " + a.toString() + " : " + b.toString());
                     TaxicabDatabase.getInstance(context).insert(a, b);
+                    progressDialog.setProgress(progress ++);
                 }
             }
         } else {
             //正或负或零
+            progressDialog.setMax(max.intValue());
+            handler.sendMessage(Message.obtain());
             for (BigInteger a = BigInteger.ZERO; a.compareTo(max.subtract(BigInteger.ONE)) < 0; a = a.add(BigInteger.ONE)) {
                 BigInteger b = a.add(BigInteger.ONE);
                 TaxicabDatabase.getInstance(context).insert(a, b);
                 BigInteger nb = BigInteger.ZERO.subtract(b);
                 TaxicabDatabase.getInstance(context).insert(a, nb);
+                progressDialog.setProgress(progress ++);
             }
         }
+        progressDialog.cancel();
 
 //        return TaxicabDatabase.getInstance(context).query();
         List<Taxicab> list = TaxicabDatabase.getInstance(context).query();
