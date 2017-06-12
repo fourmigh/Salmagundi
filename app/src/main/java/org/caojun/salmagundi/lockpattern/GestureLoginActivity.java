@@ -8,6 +8,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.alibaba.android.arouter.facade.annotation.Route;
+
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.lockpattern.utils.LockPatternUtils;
@@ -21,6 +24,7 @@ import java.util.List;
  * Created by CaoJun on 2017/2/21.
  */
 
+@Route(path = "/main/gesture/login")
 public class GestureLoginActivity extends BaseActivity {
 
     private static final long DELAY_TIME = 600l;

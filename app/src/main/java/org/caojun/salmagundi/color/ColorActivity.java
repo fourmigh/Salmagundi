@@ -18,6 +18,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.alibaba.android.arouter.facade.annotation.Route;
+
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.utils.DataStorageUtils;
@@ -27,6 +30,7 @@ import org.caojun.salmagundi.utils.DataStorageUtils;
  * Created by CaoJun on 2016/10/28.
  */
 
+@Route(path = "/main/color")
 public class ColorActivity extends BaseActivity {
 
     private EditText[] etColors;

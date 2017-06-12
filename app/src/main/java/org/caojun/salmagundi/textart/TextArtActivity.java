@@ -6,6 +6,9 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.alibaba.android.arouter.facade.annotation.Route;
+
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
 import java.util.Timer;
@@ -16,6 +19,7 @@ import java.util.TimerTask;
  * Created by CaoJun on 2017/1/23.
  */
 
+@Route(path = "/main/textart")
 public class TextArtActivity extends BaseActivity {
 
     private TextView tvInfo;

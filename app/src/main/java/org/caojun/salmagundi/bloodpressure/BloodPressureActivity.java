@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.alibaba.android.arouter.facade.annotation.Route;
+
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.bloodpressure.adapter.BloodPressureAdapter;
@@ -28,6 +31,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
  * Created by fourm on 2017/5/9.
  */
 
+@Route(path = "/main/bloodpressure")
 public class BloodPressureActivity extends BaseActivity {
     private StickyListHeadersListView listView;
     private BloodPressureAdapter adapter;

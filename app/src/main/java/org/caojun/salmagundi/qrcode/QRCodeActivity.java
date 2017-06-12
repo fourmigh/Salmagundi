@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.alibaba.android.arouter.facade.annotation.Route;
+
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.utils.FormatUtils;
@@ -23,6 +26,7 @@ import org.caojun.salmagundi.utils.FormatUtils;
  * Created by CaoJun on 2016/10/26.
  */
 
+@Route(path = "/main/qrcode")
 public class QRCodeActivity extends BaseActivity {
 
     private EditText etQRCode;

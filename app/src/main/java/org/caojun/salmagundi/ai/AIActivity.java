@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.turing.androidsdk.HttpRequestListener;
 import com.turing.androidsdk.TuringManager;
 import org.caojun.salmagundi.BaseActivity;
@@ -26,6 +28,7 @@ import org.json.JSONObject;
  * Created by CaoJun on 2017/1/19.
  */
 
+@Route(path = "/main/ai")
 public class AIActivity extends BaseActivity {
 
     private String[] names;

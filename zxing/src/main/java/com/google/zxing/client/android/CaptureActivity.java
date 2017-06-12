@@ -31,7 +31,6 @@ import com.google.zxing.client.android.result.ResultHandler;
 import com.google.zxing.client.android.result.ResultHandlerFactory;
 import com.google.zxing.client.android.result.supplement.SupplementalInfoRetriever;
 import com.google.zxing.client.android.share.ShareActivity;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -47,7 +46,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -63,7 +61,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Collection;
@@ -79,6 +76,7 @@ import java.util.Map;
  * @author dswitkin@google.com (Daniel Switkin)
  * @author Sean Owen
  */
+
 public final class CaptureActivity extends Activity implements SurfaceHolder.Callback {
 
   private static final String TAG = CaptureActivity.class.getSimpleName();
@@ -415,7 +413,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   @Override
   public void surfaceCreated(SurfaceHolder holder) {
     if (holder == null) {
-      Log.e(TAG, "*** WARNING *** surfaceCreated() gave us a null surface!");
+//      Log.e(TAG, "*** WARNING *** surfaceCreated() gave us a null surface!");
     }
     if (!hasSurface) {
       hasSurface = true;
@@ -720,7 +718,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       throw new IllegalStateException("No SurfaceHolder provided");
     }
     if (cameraManager.isOpen()) {
-      Log.w(TAG, "initCamera() while already open -- late SurfaceView callback?");
+//      Log.w(TAG, "initCamera() while already open -- late SurfaceView callback?");
       return;
     }
     try {
@@ -731,12 +729,12 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       }
       decodeOrStoreSavedBitmap(null, null);
     } catch (IOException ioe) {
-      Log.w(TAG, ioe);
+//      Log.w(TAG, ioe);
       displayFrameworkBugMessageAndExit();
     } catch (RuntimeException e) {
       // Barcode Scanner has seen crashes in the wild of this variety:
       // java.?lang.?RuntimeException: Fail to connect to camera service
-      Log.w(TAG, "Unexpected error initializing camera", e);
+//      Log.w(TAG, "Unexpected error initializing camera", e);
       displayFrameworkBugMessageAndExit();
     }
   }

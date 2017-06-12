@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.socks.library.KLog;
 
 import org.caojun.salmagundi.BaseActivity;
@@ -25,6 +26,7 @@ import rx.schedulers.Schedulers;
  * Created by CaoJun on 2017/1/19.
  */
 
+@Route(path = "/main/rxjava")
 public class RxJavaActivity extends BaseActivity {
 
     private TextView tvInfo;

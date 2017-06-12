@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.zxing.client.android.CaptureActivity;
 
 import org.caojun.salmagundi.ai.AIActivity;
@@ -38,6 +40,70 @@ import org.caojun.salmagundi.utils.DataStorageUtils;
 
 public class MainActivity extends Activity {
     private Bitmap bmGradient;
+    private final Integer[] mThumbIds = {
+            R.drawable.icon_bp,
+            R.drawable.icon_qrcode,
+            R.drawable.icon_color,
+            R.drawable.icon_bankcard,
+            R.drawable.launcher_icon,
+            R.drawable.icon_string,
+            R.drawable.icon_secure,
+            R.drawable.icon_rxjava,
+            R.drawable.icon_ai,
+            R.drawable.icon_textart,
+            R.drawable.icon_passwordstore,
+            R.drawable.icon_taxicab,
+            R.drawable.icon_cameracolor,
+            R.drawable.icon_sysinfo
+    };
+    private final Integer[] mTextIds = {
+            R.string.bp_title,
+            R.string.qrcode_title,
+            R.string.color_title,
+            R.string.bankcard_title,
+            R.string.zxing_title,
+            R.string.string_title,
+            R.string.secure_title,
+            R.string.rxjava_title,
+            R.string.ai_title,
+            R.string.textart_title,
+            R.string.passwordstore_title,
+            R.string.taxicab_title,
+            R.string.cc_title,
+            R.string.si_title
+    };
+    private final Class[] mActivitys = {
+            BloodPressureActivity.class,
+            QRCodeActivity.class,
+            ColorActivity.class,
+            BankCardActivity.class,
+            CaptureActivity.class,
+            StringActivity.class,
+            SecureActivity.class,
+            RxJavaActivity.class,
+            AIActivity.class,
+            TextArtActivity.class,
+            PasswordStoreActivity.class,
+            TaxicabActivity.class,
+            CameraColorActivity.class,
+            SysinfoActivity.class
+    };
+    private final String[] mARouterPaths = {
+            "/main/bloodpressure",
+            "/main/qrcode",
+            "/main/color",
+            "/main/nfc",
+            null,
+            "/main/string",
+            "/main/secure",
+            "/main/rxjava",
+            "/main/ai",
+            "/main/textart",
+            "/main/passwordstore",
+            "/main/taxicab",
+            "/main/cameracolor",
+            "/main/sysinfo"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +115,12 @@ public class MainActivity extends Activity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, (Class) adapter.getItem(position));
-                MainActivity.this.startActivity(intent);
+                if (TextUtils.isEmpty(mARouterPaths[position])) {
+                    Intent intent = new Intent(MainActivity.this, mActivitys[position]);
+                    MainActivity.this.startActivity(intent);
+                } else {
+                    ARouter.getInstance().build(mARouterPaths[position]).navigation();
+                }
             }
         });
     }
@@ -86,7 +156,7 @@ public class MainActivity extends Activity {
         }
 
         public Object getItem(int position) {
-            return mActivitys[position];
+            return position;
         }
 
         public long getItemId(int position) {
@@ -115,55 +185,6 @@ public class MainActivity extends Activity {
         }
 
         private Context mContext;
-
-        private Integer[] mThumbIds = {
-                R.drawable.icon_bp,
-                R.drawable.icon_qrcode,
-                R.drawable.icon_color,
-                R.drawable.icon_bankcard,
-                R.drawable.launcher_icon,
-                R.drawable.icon_string,
-                R.drawable.icon_secure,
-                R.drawable.icon_rxjava,
-                R.drawable.icon_ai,
-                R.drawable.icon_textart,
-                R.drawable.icon_passwordstore,
-                R.drawable.icon_taxicab,
-                R.drawable.icon_cameracolor,
-                R.drawable.icon_sysinfo
-        };
-        private Integer[] mTextIds = {
-                R.string.bp_title,
-                R.string.qrcode_title,
-                R.string.color_title,
-                R.string.bankcard_title,
-                R.string.zxing_title,
-                R.string.string_title,
-                R.string.secure_title,
-                R.string.rxjava_title,
-                R.string.ai_title,
-                R.string.textart_title,
-                R.string.passwordstore_title,
-                R.string.taxicab_title,
-                R.string.cc_title,
-                R.string.si_title
-        };
-        private Class[] mActivitys = {
-                BloodPressureActivity.class,
-                QRCodeActivity.class,
-                ColorActivity.class,
-                BankCardActivity.class,
-                CaptureActivity.class,
-                StringActivity.class,
-                SecureActivity.class,
-                RxJavaActivity.class,
-                AIActivity.class,
-                TextArtActivity.class,
-                PasswordStoreActivity.class,
-                TaxicabActivity.class,
-                CameraColorActivity.class,
-                SysinfoActivity.class
-        };
 
         private class ViewHolder {
             private ImageView imageView;

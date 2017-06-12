@@ -18,6 +18,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.bankcard.adapter.RecordAdapter;
@@ -34,6 +36,7 @@ import java.util.List;
  * Created by CaoJun on 2016/11/2.
  */
 
+@Route(path = "/main/nfc")
 public class BankCardActivity extends BaseActivity {
 
     private static final int RequestCode_OpenNFC = 1, RequestCode_CloseNFC = 2;

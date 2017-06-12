@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.socks.library.KLog;
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
@@ -31,6 +33,7 @@ import java.util.List;
  * Created by fourm on 2017/5/2.
  */
 
+@Route(path = "/main/taxicab")
 public class TaxicabActivity extends BaseActivity {
 
     private ListView lvTaxicab;

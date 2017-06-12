@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.alibaba.android.arouter.facade.annotation.Route;
+
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.lockpattern.GestureConstant;
@@ -23,6 +26,7 @@ import java.util.List;
  * Created by CaoJun on 2017/2/15.
  */
 
+@Route(path = "/main/passwordstore")
 public class PasswordStoreActivity extends BaseActivity {
 
     private ListView listView;
