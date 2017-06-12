@@ -1,10 +1,12 @@
 package org.caojun.salmagundi.sysinfo;
 
+import android.app.SearchManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.view.WindowManager;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -138,6 +140,17 @@ public class SysinfoActivity extends BaseActivity {
 //            sb.append("\n" + "TelephonyManager.isTtyModeSupported(): " + tm.isTtyModeSupported());
 //            sb.append("\n" + "TelephonyManager.isVoiceCapable(): " + tm.isVoiceCapable());
 //            sb.append("\n" + "TelephonyManager.isWorldPhone(): " + tm.isWorldPhone());
+
+        WindowManager wm = (WindowManager) this.getSystemService(WINDOW_SERVICE);
+        sb.append("\n" + "WindowManager.getDefaultDisplay().getName(): " + wm.getDefaultDisplay().getName());
+        sb.append("\n" + "WindowManager.getDefaultDisplay().getAppVsyncOffsetNanos(): " + wm.getDefaultDisplay().getAppVsyncOffsetNanos());
+        sb.append("\n" + "WindowManager.getDefaultDisplay().getDisplayId(): " + wm.getDefaultDisplay().getDisplayId());
+        sb.append("\n" + "WindowManager.getDefaultDisplay().getFlags(): " + wm.getDefaultDisplay().getFlags());
+        sb.append("\n" + "WindowManager.getDefaultDisplay().getPresentationDeadlineNanos(): " + wm.getDefaultDisplay().getPresentationDeadlineNanos());
+        sb.append("\n" + "WindowManager.getDefaultDisplay().getRefreshRate(): " + wm.getDefaultDisplay().getRefreshRate());
+        sb.append("\n" + "WindowManager.getDefaultDisplay().getRotation(): " + wm.getDefaultDisplay().getRotation());
+        sb.append("\n" + "WindowManager.getDefaultDisplay().getState(): " + wm.getDefaultDisplay().getState());
+        sb.append("\n" + "WindowManager.getDefaultDisplay().isValid(): " + wm.getDefaultDisplay().isValid());
         return sb.toString();
     }
 }
