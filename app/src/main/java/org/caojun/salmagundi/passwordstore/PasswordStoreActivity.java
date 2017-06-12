@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 
 import org.caojun.salmagundi.BaseActivity;
+import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.lockpattern.GestureConstant;
 import org.caojun.salmagundi.lockpattern.GestureLoginActivity;
@@ -26,7 +27,7 @@ import java.util.List;
  * Created by CaoJun on 2017/2/15.
  */
 
-@Route(path = "/main/passwordstore")
+@Route(path = Constant.ACTIVITY_PASSWORDSTORE)
 public class PasswordStoreActivity extends BaseActivity {
 
     private ListView listView;

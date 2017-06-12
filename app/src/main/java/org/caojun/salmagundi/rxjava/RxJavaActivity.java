@@ -8,6 +8,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.socks.library.KLog;
 
 import org.caojun.salmagundi.BaseActivity;
+import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.rxjava.data.Course;
 import org.caojun.salmagundi.rxjava.data.Student;
@@ -26,7 +27,7 @@ import rx.schedulers.Schedulers;
  * Created by CaoJun on 2017/1/19.
  */
 
-@Route(path = "/main/rxjava")
+@Route(path = Constant.ACTIVITY_RXJAVA)
 public class RxJavaActivity extends BaseActivity {
 
     private TextView tvInfo;

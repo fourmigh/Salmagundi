@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import com.alibaba.android.arouter.facade.annotation.Route;
 
 import org.caojun.salmagundi.BaseActivity;
+import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 
 /**
@@ -19,7 +20,7 @@ import org.caojun.salmagundi.R;
  * Created by CaoJun on 2016/12/28.
  */
 
-@Route(path = "/main/string")
+@Route(path = Constant.ACTIVITY_STRING)
 public class StringActivity extends BaseActivity {
 
     private Spinner spTranslateType;

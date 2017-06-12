@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 
 import org.caojun.salmagundi.BaseActivity;
+import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.utils.TimeUtils;
 
@@ -20,7 +21,7 @@ import org.caojun.salmagundi.utils.TimeUtils;
  * Created by CaoJun on 2017/6/9.
  */
 
-@Route(path = "/main/sysinfo")
+@Route(path = Constant.ACTIVITY_SYSINFO)
 public class SysinfoActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

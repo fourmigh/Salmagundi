@@ -17,6 +17,7 @@ import android.widget.ListView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.socks.library.KLog;
 import org.caojun.salmagundi.BaseActivity;
+import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.taxicab.adapter.TaxicabAdapter;
 import org.caojun.salmagundi.taxicab.ormlite.Taxicab;
@@ -33,7 +34,7 @@ import java.util.List;
  * Created by fourm on 2017/5/2.
  */
 
-@Route(path = "/main/taxicab")
+@Route(path = Constant.ACTIVITY_TAXICAB)
 public class TaxicabActivity extends BaseActivity {
 
     private ListView lvTaxicab;

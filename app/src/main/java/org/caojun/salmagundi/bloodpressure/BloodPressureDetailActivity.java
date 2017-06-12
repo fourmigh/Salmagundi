@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import com.alibaba.android.arouter.facade.annotation.Route;
 
 import org.caojun.salmagundi.BaseActivity;
+import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.bloodpressure.ormlite.BloodPressure;
 import org.caojun.salmagundi.bloodpressure.ormlite.BloodPressureDatabase;
@@ -28,7 +29,7 @@ import org.caojun.salmagundi.utils.TimeUtils;
  * Created by fourm on 2017/5/10.
  */
 
-@Route(path = "/main/bloodpressure/detail")
+@Route(path = Constant.ACTIVITY_BLOODPRESSURE_DETAIL)
 public class BloodPressureDetailActivity extends BaseActivity {
 
     private EditText etTime;

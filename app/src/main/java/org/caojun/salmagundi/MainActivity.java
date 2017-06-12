@@ -89,20 +89,20 @@ public class MainActivity extends Activity {
             SysinfoActivity.class
     };
     private final String[] mARouterPaths = {
-            "/main/bloodpressure",
-            "/main/qrcode",
-            "/main/color",
-            "/main/nfc",
+            Constant.ACTIVITY_BLOODPRESSURE,
+            Constant.ACTIVITY_QRCODE,
+            Constant.ACTIVITY_COLOR,
+            Constant.ACTIVITY_NFC,
             null,
-            "/main/string",
-            "/main/secure",
-            "/main/rxjava",
-            "/main/ai",
-            "/main/textart",
-            "/main/passwordstore",
-            "/main/taxicab",
-            "/main/cameracolor",
-            "/main/sysinfo"
+            Constant.ACTIVITY_STRING,
+            Constant.ACTIVITY_SECURE,
+            Constant.ACTIVITY_RXJAVA,
+            Constant.ACTIVITY_AI,
+            Constant.ACTIVITY_TEXTART,
+            Constant.ACTIVITY_PASSWORDSTORE,
+            Constant.ACTIVITY_TAXICAB,
+            Constant.ACTIVITY_CAMERACOLOR,
+            Constant.ACTIVITY_SYSINFO
     };
 
     @Override

@@ -19,6 +19,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.turing.androidsdk.HttpRequestListener;
 import com.turing.androidsdk.TuringManager;
 import org.caojun.salmagundi.BaseActivity;
+import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,7 +29,7 @@ import org.json.JSONObject;
  * Created by CaoJun on 2017/1/19.
  */
 
-@Route(path = "/main/ai")
+@Route(path = Constant.ACTIVITY_AI)
 public class AIActivity extends BaseActivity {
 
     private String[] names;

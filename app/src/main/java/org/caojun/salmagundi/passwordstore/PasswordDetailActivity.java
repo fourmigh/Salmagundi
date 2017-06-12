@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.maksim88.passwordedittext.PasswordEditText;
 import org.caojun.salmagundi.BaseActivity;
+import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.passwordstore.ormlite.Password;
 import org.caojun.salmagundi.passwordstore.ormlite.PasswordDatabase;
@@ -27,7 +28,7 @@ import org.caojun.salmagundi.passwordstore.ormlite.PasswordUtils;
  * Created by CaoJun on 2017/2/15.
  */
 
-@Route(path = "/main/passwordstore/detail")
+@Route(path = Constant.ACTIVITY_PASSWORDSTORE_DETAIL)
 public class PasswordDetailActivity extends BaseActivity {
 
     private Spinner spType;

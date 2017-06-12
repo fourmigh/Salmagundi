@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.alibaba.android.arouter.facade.annotation.Route;
 
 import org.caojun.salmagundi.BaseActivity;
+import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 //import org.caojun.salmagundi.secure.data.RSAKey;
 //import org.caojun.salmagundi.secure.data.RSAKeyDatabase;
@@ -34,7 +35,7 @@ import java.util.List;
  * Created by CaoJun on 2016/12/26.
  */
 
-@Route(path = "/main/secure")
+@Route(path = Constant.ACTIVITY_SECURE)
 public class SecureActivity extends BaseActivity {
     private Spinner spSecureType, spInput, spOutput, spRSAKey;
     private EditText etInput, etOutput, etKey, etPublicKey, etPrivateKey;

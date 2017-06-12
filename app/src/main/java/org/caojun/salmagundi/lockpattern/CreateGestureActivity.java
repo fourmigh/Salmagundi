@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 
 import org.caojun.salmagundi.BaseActivity;
+import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.lockpattern.utils.LockPatternUtils;
 import org.caojun.salmagundi.lockpattern.widget.LockPatternIndicator;
@@ -25,7 +26,7 @@ import java.util.List;
  * Created by CaoJun on 2017/2/21.
  */
 
-@Route(path = "/main/gesture/register")
+@Route(path = Constant.ACTIVITY_GESTURE_REGISTER)
 public class CreateGestureActivity extends BaseActivity {
 
     private static final long DELAY_TIME = 600l;

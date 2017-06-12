@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 
 import org.caojun.salmagundi.BaseActivity;
+import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.color.ColorUtils;
 
@@ -25,7 +26,7 @@ import org.caojun.salmagundi.color.ColorUtils;
  * Created by CaoJun on 2017/5/27.
  */
 
-@Route(path = "/main/cameracolor")
+@Route(path = Constant.ACTIVITY_CAMERACOLOR)
 public class CameraColorActivity extends BaseActivity {
 
     private LinearLayout llRoot;
