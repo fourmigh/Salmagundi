@@ -60,13 +60,13 @@ public class SysinfoActivity extends BaseActivity {
         sb.append("\n" + "_Build.RADIO: " + Build.RADIO);
         String time = TimeUtils.getTime("yyyy/MM/dd HH:mm:ss", Build.TIME);
         sb.append("\n" + "Build.TIME: " + Build.TIME + "(" + time + ")");
-        sb.append("\n" + "Build.VERSION.BASE_OS: " + Build.VERSION.BASE_OS);
+//        sb.append("\n" + "Build.VERSION.BASE_OS: " + Build.VERSION.BASE_OS);
         sb.append("\n" + "Build.VERSION.CODENAME: " + Build.VERSION.CODENAME);
         sb.append("\n" + "Build.VERSION.INCREMENTAL: " + Build.VERSION.INCREMENTAL);
         sb.append("\n" + "Build.VERSION.RELEASE: " + Build.VERSION.RELEASE);
-        sb.append("\n" + "Build.VERSION.SECURITY_PATCH: " + Build.VERSION.SECURITY_PATCH);
+//        sb.append("\n" + "Build.VERSION.SECURITY_PATCH: " + Build.VERSION.SECURITY_PATCH);
         sb.append("\n" + "_Build.VERSION.SDK: " + Build.VERSION.SDK);
-        sb.append("\n" + "Build.VERSION.PREVIEW_SDK_INT: " + Build.VERSION.PREVIEW_SDK_INT);
+//        sb.append("\n" + "Build.VERSION.PREVIEW_SDK_INT: " + Build.VERSION.PREVIEW_SDK_INT);
         sb.append("\n" + "Build.VERSION.SDK_INT: " + Build.VERSION.SDK_INT);
         sb.append("\n" + "Build.VERSION_CODES.BASE: " + Build.VERSION_CODES.BASE);
         sb.append("\n" + "Build.VERSION_CODES.BASE_1_1: " + Build.VERSION_CODES.BASE_1_1);
