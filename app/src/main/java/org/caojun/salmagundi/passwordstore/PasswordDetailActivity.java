@@ -14,7 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.maksim88.passwordedittext.PasswordEditText;
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
@@ -35,12 +37,15 @@ public class PasswordDetailActivity extends BaseActivity {
     private EditText etCompany, etUrl, etLength, etAccount;//, etPassword;
     private Button btnDelete, btnSave;
     private PasswordEditText pePassword;
-    private Password password;
+
+    @Autowired
+    protected Password password;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_passwordstore_detail);
+        ARouter.getInstance().inject(this);
 
         spType = (Spinner) this.findViewById(R.id.spType);
         etCompany = (EditText) this.findViewById(R.id.etCompany);
@@ -59,7 +64,7 @@ public class PasswordDetailActivity extends BaseActivity {
 //        etPassword.addTextChangedListener(textWatcher);
         pePassword.addTextChangedListener(textWatcher);
 
-        password = (Password) getIntent().getSerializableExtra("password");
+//        password = (Password) getIntent().getSerializableExtra("password");
 
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.password_type, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

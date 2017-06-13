@@ -1,9 +1,9 @@
 package org.caojun.salmagundi.passwordstore.ormlite;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import org.caojun.salmagundi.secure.DESede;
-import org.caojun.salmagundi.string.ConvertUtils;
 import java.io.Serializable;
 
 /**
@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 
 @DatabaseTable
-public class Password implements Serializable {
+public class Password implements Serializable, Parcelable {
 
     @DatabaseField(generatedId = true)
     private Integer id;
@@ -107,5 +107,45 @@ public class Password implements Serializable {
 
     public void setRealLength(byte realLength) {
         this.realLength = realLength;
+    }
+
+    public Password(Parcel in) {
+        id = in.readInt();
+        company = in.readString();
+        url = in.readString();
+        type = in.readByte();
+        length = in.readByte();
+        account = in.readString();
+        password = in.readString();
+        realLength = in.readByte();
+    }
+
+    public static final Creator<Password> CREATOR = new Creator<Password>() {
+        @Override
+        public Password createFromParcel(Parcel in) {
+            return new Password(in);
+        }
+
+        @Override
+        public Password[] newArray(int size) {
+            return new Password[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(company);
+        dest.writeString(url);
+        dest.writeByte(type);
+        dest.writeByte(length);
+        dest.writeString(account);
+        dest.writeString(password);
+        dest.writeByte(realLength);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 }

@@ -1,6 +1,5 @@
 package org.caojun.salmagundi.passwordstore;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,11 +12,9 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
-import org.caojun.salmagundi.lockpattern.GestureConstant;
 import org.caojun.salmagundi.passwordstore.adapter.PasswordAdapter;
 import org.caojun.salmagundi.passwordstore.ormlite.Password;
 import org.caojun.salmagundi.passwordstore.ormlite.PasswordDatabase;
-
 import java.util.List;
 
 /**
@@ -73,11 +70,7 @@ public class PasswordStoreActivity extends BaseActivity {
     private void doUpdate(int position) {
         Password password = (Password) adapter.getItem(position);
 
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("password", password);
-        Intent intent = new Intent(this, PasswordDetailActivity.class);
-        intent.putExtras(bundle);
-        this.startActivity(intent);
+        ARouter.getInstance().build(Constant.ACTIVITY_PASSWORDSTORE_DETAIL).withParcelable("password", password).navigation();
     }
 
     private void doAdd() {
