@@ -3,6 +3,44 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RadioGroup
+        android:id="@+id/rgType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ItemTheme"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="@string/bp_all" />
+
+        <RadioButton
+            android:id="@+id/rbBloodPressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/bp_bloodpressure" />
+
+        <RadioButton
+            android:id="@+id/rbMedicine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/bp_medicine" />
+
+        <RadioButton
+            android:id="@+id/rbWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/bp_weight" />
+
+    </RadioGroup>
+
     <se.emilsjolander.stickylistheaders.StickyListHeadersListView
         android:id="@+id/lvBloodPressure"
         android:layout_width="match_parent"

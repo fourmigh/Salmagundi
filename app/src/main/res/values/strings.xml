@@ -78,6 +78,7 @@
     <string name="bp_low">低压（舒张压）</string>
     <string name="bp_pulse">脉搏</string>
     <string name="bp_device">设备</string>
+    <string name="bp_all">全部</string>
     <string name="bp_bloodpressure">血压</string>
     <string name="bp_medicine">服药</string>
     <string name="bp_weight">体重</string>
