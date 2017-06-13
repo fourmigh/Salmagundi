@@ -109,7 +109,7 @@ public class GestureLoginActivity extends BaseActivity {
                 lockPatternView.setPattern(LockPatternView.DisplayMode.DEFAULT);
                 this.setResult(Activity.RESULT_OK);
                 this.finish();
-                LoginInterceptor.onLogined();
+                LoginInterceptor.onLoginSuccess();
                 break;
         }
     }

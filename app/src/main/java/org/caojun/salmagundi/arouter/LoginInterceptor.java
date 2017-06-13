@@ -39,7 +39,7 @@ public class LoginInterceptor implements IInterceptor {
     /**
      * 登录完成
      */
-    public static void onLogined() {
+    public static void onLoginSuccess() {
         if (LoginInterceptor.postcard != null && LoginInterceptor.interceptorCallback != null) {
             LoginInterceptor.interceptorCallback.onContinue(LoginInterceptor.postcard);
             LoginInterceptor.postcard = null;
