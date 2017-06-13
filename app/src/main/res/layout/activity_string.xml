@@ -38,7 +38,7 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/stat_notify_sync"
+                android:src="@android:drawable/stat_notify_sync"
                 android:id="@+id/ibExchange" />
 
             <android.support.design.widget.TextInputLayout
