@@ -109,11 +109,7 @@ public class GestureLoginActivity extends BaseActivity {
                 lockPatternView.setPattern(LockPatternView.DisplayMode.DEFAULT);
                 this.setResult(Activity.RESULT_OK);
                 this.finish();
-                if (LoginInterceptor.postcard != null && LoginInterceptor.interceptorCallback != null) {
-                    LoginInterceptor.interceptorCallback.onContinue(LoginInterceptor.postcard);
-                    LoginInterceptor.postcard = null;
-                    LoginInterceptor.interceptorCallback = null;
-                }
+                LoginInterceptor.onLogined();
                 break;
         }
     }

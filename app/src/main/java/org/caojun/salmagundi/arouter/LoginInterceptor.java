@@ -16,8 +16,8 @@ import org.caojun.salmagundi.Constant;
 @Interceptor(priority = 8, name = "登录拦截器")
 public class LoginInterceptor implements IInterceptor {
 
-    public static Postcard postcard;
-    public static InterceptorCallback interceptorCallback;
+    private static Postcard postcard;
+    private static InterceptorCallback interceptorCallback;
 
     @Override
     public void process(Postcard postcard, InterceptorCallback interceptorCallback) {
@@ -34,5 +34,16 @@ public class LoginInterceptor implements IInterceptor {
     @Override
     public void init(Context context) {
 
+    }
+
+    /**
+     * 登录完成
+     */
+    public static void onLogined() {
+        if (LoginInterceptor.postcard != null && LoginInterceptor.interceptorCallback != null) {
+            LoginInterceptor.interceptorCallback.onContinue(LoginInterceptor.postcard);
+            LoginInterceptor.postcard = null;
+            LoginInterceptor.interceptorCallback = null;
+        }
     }
 }
