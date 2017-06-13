@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
@@ -35,12 +37,15 @@ public class CreateGestureActivity extends BaseActivity {
     private LockPatternView lockPatternView;
     private TextView tvMessage;
     private Button btnReset;
-    private String hostGesture;
+
+    @Autowired
+    protected String hostGesture;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_gesture);
+        ARouter.getInstance().inject(this);
 
         lockPatternIndicator = (LockPatternIndicator) this.findViewById(R.id.lockPatternIndicator);
         lockPatternView = (LockPatternView) this.findViewById(R.id.lockPatternView);
@@ -72,7 +77,7 @@ public class CreateGestureActivity extends BaseActivity {
             }
         });
 
-        hostGesture = getIntent().getStringExtra(GestureConstant.HostGesture);
+//        hostGesture = getIntent().getStringExtra(GestureConstant.HostGesture);
         if (TextUtils.isEmpty(hostGesture)) {
             hostGesture = this.getClass().getName();
         }

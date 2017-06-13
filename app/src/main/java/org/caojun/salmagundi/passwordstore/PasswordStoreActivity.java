@@ -8,14 +8,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
-
+import com.alibaba.android.arouter.launcher.ARouter;
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.lockpattern.GestureConstant;
-import org.caojun.salmagundi.lockpattern.GestureLoginActivity;
 import org.caojun.salmagundi.passwordstore.adapter.PasswordAdapter;
 import org.caojun.salmagundi.passwordstore.ormlite.Password;
 import org.caojun.salmagundi.passwordstore.ormlite.PasswordDatabase;
@@ -27,14 +25,13 @@ import java.util.List;
  * Created by CaoJun on 2017/2/15.
  */
 
-@Route(path = Constant.ACTIVITY_PASSWORDSTORE)
+@Route(path = Constant.ACTIVITY_PASSWORDSTORE, extras = Constant.EXTRAS_LOGIN)
 public class PasswordStoreActivity extends BaseActivity {
 
     private ListView listView;
     private PasswordAdapter adapter;
     private List<Password> list;
     private Button btnAdd;
-    private boolean isLogined = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,32 +61,13 @@ public class PasswordStoreActivity extends BaseActivity {
         super.onResume();
         boolean isNew = list == null || adapter == null;
         list = PasswordDatabase.getInstance(this).query();
-        if(isNew) {
+        if (isNew) {
             adapter = new PasswordAdapter(this, list);
             listView.setAdapter(adapter);
         } else {
             adapter.setData(list);
             adapter.notifyDataSetChanged();
         }
-
-        if(!isLogined) {
-            Intent intent = new Intent(this, GestureLoginActivity.class);
-            intent.putExtra(GestureConstant.HostGesture, this.getClass().getName());
-            this.startActivityForResult(intent, GestureConstant.RequestCode_GestureLogin);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == GestureConstant.RequestCode_GestureLogin) {
-            if (resultCode == Activity.RESULT_OK) {
-                isLogined = true;
-            } else {
-                this.finish();
-            }
-            return;
-        }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void doUpdate(int position) {

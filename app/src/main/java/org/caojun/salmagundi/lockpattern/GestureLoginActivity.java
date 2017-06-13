@@ -9,11 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
+import org.caojun.salmagundi.arouter.LoginInterceptor;
 import org.caojun.salmagundi.lockpattern.utils.LockPatternUtils;
 import org.caojun.salmagundi.lockpattern.widget.LockPatternView;
 import org.caojun.salmagundi.utils.DataStorageUtils;
@@ -30,16 +33,18 @@ public class GestureLoginActivity extends BaseActivity {
 
     private static final long DELAY_TIME = 600l;
     private byte[] gesturePassword;
-    private String hostGesture;
-
     private LockPatternView lockPatternView;
     private TextView tvMessage;
     private Button btnForgetGesture;
+
+    @Autowired
+    protected String hostGesture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gesture_login);
+        ARouter.getInstance().inject(this);
 
         lockPatternView = (LockPatternView) this.findViewById(R.id.lockPatternView);
         tvMessage = (TextView) this.findViewById(R.id.tvMessage);
@@ -52,7 +57,7 @@ public class GestureLoginActivity extends BaseActivity {
             }
         });
 
-        hostGesture = getIntent().getStringExtra(GestureConstant.HostGesture);
+//        hostGesture = getIntent().getStringExtra(GestureConstant.HostGesture);
         if (TextUtils.isEmpty(hostGesture)) {
             hostGesture = this.getClass().getName();
         }
@@ -104,6 +109,11 @@ public class GestureLoginActivity extends BaseActivity {
                 lockPatternView.setPattern(LockPatternView.DisplayMode.DEFAULT);
                 this.setResult(Activity.RESULT_OK);
                 this.finish();
+                if (LoginInterceptor.postcard != null && LoginInterceptor.interceptorCallback != null) {
+                    LoginInterceptor.interceptorCallback.onContinue(LoginInterceptor.postcard);
+                    LoginInterceptor.postcard = null;
+                    LoginInterceptor.interceptorCallback = null;
+                }
                 break;
         }
     }
@@ -121,9 +131,10 @@ public class GestureLoginActivity extends BaseActivity {
     }
 
     private void doForgetGesture() {
-        Intent intent = new Intent(this, CreateGestureActivity.class);
-        intent.putExtra(GestureConstant.HostGesture, hostGesture);
-        this.startActivityForResult(intent, GestureConstant.RequestCode_GestureCreate);
+//        Intent intent = new Intent(this, CreateGestureActivity.class);
+//        intent.putExtra(GestureConstant.HostGesture, hostGesture);
+//        this.startActivityForResult(intent, GestureConstant.RequestCode_GestureCreate);
+        ARouter.getInstance().build(Constant.ACTIVITY_GESTURE_REGISTER).withString("hostGesture", hostGesture).navigation(this, GestureConstant.RequestCode_GestureCreate);
     }
 
     private enum Status {
@@ -140,5 +151,16 @@ public class GestureLoginActivity extends BaseActivity {
         }
         private int msgId;
         private String color;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == GestureConstant.RequestCode_GestureCreate) {
+            if (resultCode != Activity.RESULT_OK) {
+                this.finish();
+            }
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -23,4 +23,6 @@ public class Constant {
     public static final String ACTIVITY_PASSWORDSTORE_DETAIL = "/activity/passwordstore/detail";
     public static final String ACTIVITY_GESTURE_LOGIN = "/activity/gesture/login";
     public static final String ACTIVITY_GESTURE_REGISTER = "/activity/gesture/register";
+
+    public static final int EXTRAS_LOGIN = 0x00000001;//需要登录
 }
