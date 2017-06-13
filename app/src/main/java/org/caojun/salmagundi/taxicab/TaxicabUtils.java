@@ -77,7 +77,7 @@ public class TaxicabUtils {
         //过滤
         List<Taxicab> result = new ArrayList<>();
         for (int i = 1;i <= n;i ++) {
-            result.addAll(getTaxicab(i, max, list));
+            result.addAll(getTaxicab(isTaxicab, i, max, list));
         }
         return result;
     }
@@ -88,7 +88,7 @@ public class TaxicabUtils {
      * @param source 已升序排序的所有立方和数据
      * @return
      */
-    private static List<Taxicab> getTaxicab(int n, BigInteger max, List<Taxicab> source) {
+    private static List<Taxicab> getTaxicab(boolean isTaxicab, int n, BigInteger max, List<Taxicab> source) {
         if (n < 1 || source == null || source.isEmpty()) {
             return null;
         }
@@ -103,6 +103,10 @@ public class TaxicabUtils {
             boolean found = true;
             for (int j = 1;j < n;j ++) {
                 Taxicab taxicab = source.get(i + j);
+                if (isTaxicab && (taxicab.getA().compareTo(BigInteger.ZERO) <= 0 || taxicab.getB().compareTo(BigInteger.ZERO) <= 0)) {
+                    found = false;
+                    break;
+                }
                 if (taxicab.getA().compareTo(max) > 0 || taxicab.getB().compareTo(max) > 0) {
                     found = false;
                     break;
