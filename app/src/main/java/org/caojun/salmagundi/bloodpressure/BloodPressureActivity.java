@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
@@ -80,14 +81,16 @@ public class BloodPressureActivity extends BaseActivity {
     private void doUpdate(int position) {
         BloodPressure bloodPressure = (BloodPressure) adapter.getItem(position);
 
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("bloodPressure", bloodPressure);
-        Intent intent = new Intent(this, BloodPressureDetailActivity.class);
-        intent.putExtras(bundle);
-        this.startActivity(intent);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("bloodPressure", bloodPressure);
+//        Intent intent = new Intent(this, BloodPressureDetailActivity.class);
+//        intent.putExtras(bundle);
+//        this.startActivity(intent);
+        ARouter.getInstance().build(Constant.ACTIVITY_BLOODPRESSURE_DETAIL).withParcelable("bloodPressure", bloodPressure).navigation();
     }
 
     private void doAdd() {
-        this.startActivity(new Intent(this, BloodPressureDetailActivity.class));
+//        this.startActivity(new Intent(this, BloodPressureDetailActivity.class));
+        ARouter.getInstance().build(Constant.ACTIVITY_BLOODPRESSURE_DETAIL).navigation();
     }
 }

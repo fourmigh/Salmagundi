@@ -15,8 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
@@ -35,7 +36,6 @@ public class BloodPressureDetailActivity extends BaseActivity {
     private EditText etTime;
     private RadioGroup rgBloodPressure;
     private RadioButton rbBloodPressure, rbMedicine, rbWeight;
-
     private LinearLayout llBloodPressure;
     private RadioGroup rgHand;
     private RadioButton rbLeft, rbRight;
@@ -43,17 +43,18 @@ public class BloodPressureDetailActivity extends BaseActivity {
     private Spinner spDevice;
     private EditText etWeight;
     private Button btnSave, btnDelete;
-
-    private BloodPressure bloodPressure;
     private ArrayAdapter<CharSequence> adapter;
-
     private final String dateFormat = "yyyy/MM/dd HH:mm:ss";
     private final int[] IDType = {R.id.rbBloodPressure, R.id.rbMedicine, R.id.rbWeight};
+
+    @Autowired
+    protected BloodPressure bloodPressure;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bloodpressure_detail);
+        ARouter.getInstance().inject(this);
 
         etTime = (EditText) findViewById(R.id.etTime);
         rgBloodPressure = (RadioGroup) findViewById(R.id.rgBloodPressure);
@@ -72,26 +73,7 @@ public class BloodPressureDetailActivity extends BaseActivity {
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDelete = (Button) findViewById(R.id.btnDelete);
 
-        bloodPressure = (BloodPressure) getIntent().getSerializableExtra("bloodPressure");
-
-        adapter = ArrayAdapter.createFromResource(this, R.array.bloodpressure_device, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spDevice.setAdapter(adapter);
-
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doSave();
-            }
-        });
-
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doDelete();
-            }
-        });
-
+//        bloodPressure = (BloodPressure) getIntent().getSerializableExtra("bloodPressure");
         if (bloodPressure != null) {
             for (int i = 0;i < IDType.length;i ++) {
                 findViewById(IDType[i]).setEnabled(false);
@@ -125,6 +107,25 @@ public class BloodPressureDetailActivity extends BaseActivity {
         }
         doCheckSaveButton();
         doCheckDeleteButton();
+        setType(getIndexType());
+
+        adapter = ArrayAdapter.createFromResource(this, R.array.bloodpressure_device, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spDevice.setAdapter(adapter);
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doSave();
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doDelete();
+            }
+        });
 
         rgBloodPressure.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -152,8 +153,6 @@ public class BloodPressureDetailActivity extends BaseActivity {
                 doCheckSaveButton();
             }
         });
-
-        setType(getIndexType());
 
         etHigh.addTextChangedListener(textWatcher);
         etLow.addTextChangedListener(textWatcher);

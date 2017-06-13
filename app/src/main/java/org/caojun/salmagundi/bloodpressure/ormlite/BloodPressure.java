@@ -1,8 +1,9 @@
 package org.caojun.salmagundi.bloodpressure.ormlite;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-
 import java.io.Serializable;
 
 /**
@@ -11,7 +12,7 @@ import java.io.Serializable;
  */
 
 @DatabaseTable
-public class BloodPressure implements Serializable {
+public class BloodPressure implements Serializable, Parcelable {
 
     public static final byte Type_BloodPressure = 0;
     public static final byte Type_Medicine = 1;
@@ -137,5 +138,45 @@ public class BloodPressure implements Serializable {
 
     public void setType(byte type) {
         this.type = type;
+    }
+
+    public BloodPressure(Parcel in) {
+        time = in.readLong();
+        high = in.readInt();
+        low = in.readInt();
+        pulse = in.readInt();
+        isLeft = in.readByte() == 1;
+        device = in.readInt();
+        weight = in.readFloat();
+        type = in.readByte();
+    }
+
+    public static final Creator<BloodPressure> CREATOR = new Creator<BloodPressure>() {
+        @Override
+        public BloodPressure createFromParcel(Parcel in) {
+            return new BloodPressure(in);
+        }
+
+        @Override
+        public BloodPressure[] newArray(int size) {
+            return new BloodPressure[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(time);
+        dest.writeInt(high);
+        dest.writeInt(low);
+        dest.writeInt(pulse);
+        dest.writeByte((byte)(isLeft?1:0));
+        dest.writeInt(device);
+        dest.writeFloat(weight);
+        dest.writeByte(type);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 }

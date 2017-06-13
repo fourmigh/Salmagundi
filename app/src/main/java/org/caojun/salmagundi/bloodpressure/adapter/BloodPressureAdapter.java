@@ -12,8 +12,6 @@ import org.caojun.salmagundi.bloodpressure.BloodPressureUtils;
 import org.caojun.salmagundi.bloodpressure.ormlite.BloodPressure;
 import org.caojun.salmagundi.utils.TimeUtils;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;

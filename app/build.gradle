@@ -58,4 +58,5 @@ dependencies {
     //alibaba/ARouter
     compile 'com.alibaba:arouter-api:1.2.1.1'
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.1'
+    compile 'com.alibaba:fastjson:1.2.33'
 }
