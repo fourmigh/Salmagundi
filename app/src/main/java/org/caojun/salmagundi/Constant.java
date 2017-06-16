@@ -23,6 +23,12 @@ public class Constant {
     public static final String ACTIVITY_PASSWORDSTORE_DETAIL = "/activity/passwordstore/detail";
     public static final String ACTIVITY_GESTURE_LOGIN = "/activity/gesture/login";
     public static final String ACTIVITY_GESTURE_REGISTER = "/activity/gesture/register";
+    public static final String ACTIVITY_SHARECASE = "/activity/sharecase";
+    public static final String ACTIVITY_SHARECASE_DETAIL = "/activity/sharecase/detail";
+    public static final String ACTIVITY_ORDER = "/activity/order";
+    public static final String ACTIVITY_ORDER_DETAIL = "/activity/order/detail";
+    public static final String ACTIVITY_USER = "/activity/user";
+    public static final String ACTIVITY_USER_DETAIL = "/activity/user/detail";
 
     public static final int EXTRAS_LOGIN = 0x00000001;//需要登录
 }

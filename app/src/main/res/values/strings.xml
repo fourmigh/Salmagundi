@@ -93,4 +93,24 @@
 
     <!-- 系统信息 -->
     <string name="si_title">系统信息</string>
+
+    <!-- 共享箱 -->
+    <string name="sc_user_name">用户名</string>
+    <string name="sc_user_type">类型</string>
+    <string name="sc_user_income">收入</string>
+    <string name="sc_user_expend">支出</string>
+    <string name="sc_relate_sharecase">相关共享箱</string>
+    <string name="sc_relate_order">相关订单</string>
+    <string name="sc_sharecase_name">物品名</string>
+    <string name="sc_deposit">押金</string>
+    <string name="sc_rent">租金</string>
+    <string name="sc_commission">服务费</string>
+    <string name="sc_time_start">起始时间</string>
+    <string name="sc_time_end">结束时间</string>
+    <string name="sc_host">物品所有人</string>
+    <string name="sc_sharecase_id">共享箱ID</string>
+    <string name="sc_host_id">物品所有人ID</string>
+    <string name="sc_user_id">物品使用人ID</string>
+    <string name="sc_previous">上一笔</string>
+    <string name="sc_next">下一笔</string>
 </resources>
