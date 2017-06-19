@@ -1,17 +1,16 @@
 package org.caojun.salmagundi.lockpattern;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
@@ -19,7 +18,6 @@ import org.caojun.salmagundi.lockpattern.utils.LockPatternUtils;
 import org.caojun.salmagundi.lockpattern.widget.LockPatternIndicator;
 import org.caojun.salmagundi.lockpattern.widget.LockPatternView;
 import org.caojun.salmagundi.utils.DataStorageUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +38,8 @@ public class CreateGestureActivity extends BaseActivity {
 
     @Autowired
     protected String hostGesture;
+
+    private byte[] gesturePassword;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +77,6 @@ public class CreateGestureActivity extends BaseActivity {
             }
         });
 
-//        hostGesture = getIntent().getStringExtra(GestureConstant.HostGesture);
         if (TextUtils.isEmpty(hostGesture)) {
             hostGesture = this.getClass().getName();
         }
@@ -130,7 +129,10 @@ public class CreateGestureActivity extends BaseActivity {
     }
 
     private void setLockPatternSuccess() {
-        setResult(Activity.RESULT_OK);
+        Intent intent = new Intent();
+        intent.putExtra("gesturePassword", gesturePassword);
+        setResult(Activity.RESULT_OK, intent);
+//        setResult(Activity.RESULT_OK);
         finish();
     }
 
@@ -142,8 +144,10 @@ public class CreateGestureActivity extends BaseActivity {
     }
 
     private void saveChosenPattern(List<LockPatternView.Cell> cells) {
-        byte[] bytes = LockPatternUtils.patternToHash(cells);
-        DataStorageUtils.saveByteArray(this, GestureConstant.DataGesture, hostGesture, bytes);
+//        byte[] bytes = LockPatternUtils.patternToHash(cells);
+//        DataStorageUtils.saveByteArray(this, GestureConstant.DataGesture, hostGesture, bytes);
+        gesturePassword = LockPatternUtils.patternToHash(cells);
+        DataStorageUtils.saveByteArray(getApplicationContext(), GestureConstant.DataGesture, hostGesture, gesturePassword);
     }
 
     private enum Status {

@@ -8,19 +8,17 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.arouter.LoginInterceptor;
 import org.caojun.salmagundi.lockpattern.utils.LockPatternUtils;
 import org.caojun.salmagundi.lockpattern.widget.LockPatternView;
-import org.caojun.salmagundi.utils.DataStorageUtils;
-
+import org.caojun.salmagundi.string.ConvertUtils;
+//import org.caojun.salmagundi.utils.DataStorageUtils;
 import java.util.List;
 
 /**
@@ -32,13 +30,16 @@ import java.util.List;
 public class GestureLoginActivity extends BaseActivity {
 
     private static final long DELAY_TIME = 600l;
-    private byte[] gesturePassword;
     private LockPatternView lockPatternView;
+    private byte[] gesturePassword;
     private TextView tvMessage;
     private Button btnForgetGesture;
 
     @Autowired
     protected String hostGesture;
+
+    @Autowired
+    protected String gesture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,9 @@ public class GestureLoginActivity extends BaseActivity {
         if (TextUtils.isEmpty(hostGesture)) {
             hostGesture = this.getClass().getName();
         }
+        if (!TextUtils.isEmpty(gesture)) {
+            gesturePassword = ConvertUtils.hexToBytes(gesture);
+        }
 
         lockPatternView.setOnPatternListener(patternListener);
         updateStatus(Status.DEFAULT);
@@ -69,7 +73,7 @@ public class GestureLoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        gesturePassword = DataStorageUtils.loadByteArray(this, GestureConstant.DataGesture, hostGesture, Byte.MIN_VALUE);
+//        gesturePassword = DataStorageUtils.loadByteArray(this, GestureConstant.DataGesture, hostGesture, Byte.MIN_VALUE);
         if (needSetGesture()) {
             doForgetGesture();
         }
@@ -154,8 +158,9 @@ public class GestureLoginActivity extends BaseActivity {
         if (requestCode == GestureConstant.RequestCode_GestureCreate) {
             if (resultCode != Activity.RESULT_OK) {
                 this.finish();
+                return;
             }
-            return;
+            gesturePassword = data.getByteArrayExtra("gesturePassword");
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

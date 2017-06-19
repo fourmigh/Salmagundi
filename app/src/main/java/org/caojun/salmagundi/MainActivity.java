@@ -28,10 +28,14 @@ import org.caojun.salmagundi.cameracolor.CameraColorActivity;
 import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.color.ColorUtils;
+import org.caojun.salmagundi.lockpattern.CreateGestureActivity;
+import org.caojun.salmagundi.lockpattern.GestureConstant;
 import org.caojun.salmagundi.passwordstore.PasswordStoreActivity;
 import org.caojun.salmagundi.qrcode.QRCodeActivity;
 import org.caojun.salmagundi.rxjava.RxJavaActivity;
 import org.caojun.salmagundi.secure.SecureActivity;
+import org.caojun.salmagundi.sharecase.UserActivity;
+import org.caojun.salmagundi.string.ConvertUtils;
 import org.caojun.salmagundi.string.StringActivity;
 import org.caojun.salmagundi.sysinfo.SysinfoActivity;
 import org.caojun.salmagundi.taxicab.TaxicabActivity;
@@ -54,7 +58,8 @@ public class MainActivity extends Activity {
             R.drawable.icon_passwordstore,
             R.drawable.icon_taxicab,
             R.drawable.icon_cameracolor,
-            R.drawable.icon_sysinfo
+            R.drawable.icon_sysinfo,
+            R.drawable.icon_sharecase
     };
     private final Integer[] mTextIds = {
             R.string.bp_title,
@@ -70,7 +75,8 @@ public class MainActivity extends Activity {
             R.string.passwordstore_title,
             R.string.taxicab_title,
             R.string.cc_title,
-            R.string.si_title
+            R.string.si_title,
+            R.string.sc_title
     };
     private final Class[] mActivitys = {
             BloodPressureActivity.class,
@@ -86,7 +92,8 @@ public class MainActivity extends Activity {
             PasswordStoreActivity.class,
             TaxicabActivity.class,
             CameraColorActivity.class,
-            SysinfoActivity.class
+            SysinfoActivity.class,
+            UserActivity.class
     };
     private final String[] mARouterPaths = {
             Constant.ACTIVITY_BLOODPRESSURE,
@@ -102,7 +109,8 @@ public class MainActivity extends Activity {
             Constant.ACTIVITY_PASSWORDSTORE,
             Constant.ACTIVITY_TAXICAB,
             Constant.ACTIVITY_CAMERACOLOR,
-            Constant.ACTIVITY_SYSINFO
+            Constant.ACTIVITY_SYSINFO,
+            Constant.ACTIVITY_USER
     };
 
     @Override
@@ -115,7 +123,15 @@ public class MainActivity extends Activity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (TextUtils.isEmpty(mARouterPaths[position])) {
+                if (mActivitys[position].equals(PasswordStoreActivity.class)) {
+                    String hostGesture = PasswordStoreActivity.class.getName();
+                    byte[] gesturePassword = DataStorageUtils.loadByteArray(getApplicationContext(), GestureConstant.DataGesture, hostGesture, Byte.MIN_VALUE);
+                    String gesture = ConvertUtils.stringToHex(gesturePassword);
+                    ARouter.getInstance().build(mARouterPaths[position])
+                            .withString("hostGesture", hostGesture)
+                            .withString("gesture", gesture)
+                            .navigation();
+                } else if (TextUtils.isEmpty(mARouterPaths[position])) {
                     Intent intent = new Intent(MainActivity.this, mActivitys[position]);
                     MainActivity.this.startActivity(intent);
                 } else {

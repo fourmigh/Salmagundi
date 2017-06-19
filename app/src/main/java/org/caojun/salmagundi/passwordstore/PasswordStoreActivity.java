@@ -74,6 +74,7 @@ public class PasswordStoreActivity extends BaseActivity {
     }
 
     private void doAdd() {
-        this.startActivity(new Intent(this, PasswordDetailActivity.class));
+//        this.startActivity(new Intent(this, PasswordDetailActivity.class));
+        ARouter.getInstance().build(Constant.ACTIVITY_PASSWORDSTORE_DETAIL).navigation();
     }
 }

@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'caojun'
+            keyPassword 'zhidan'
+            storeFile file('D:/Fourmigh/Salmagundi/appstore/caojun.jks')
+            storePassword 'zhuwenxuan'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion '25.0.0'
     defaultConfig {
@@ -10,7 +18,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [ moduleName : project.getName() ]
+                arguments = [moduleName: project.getName()]
             }
         }
     }

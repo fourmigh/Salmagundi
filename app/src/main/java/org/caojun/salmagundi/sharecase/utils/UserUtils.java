@@ -3,6 +3,7 @@ package org.caojun.salmagundi.sharecase.utils;
 import android.content.Context;
 import android.text.TextUtils;
 import org.caojun.salmagundi.sharecase.ormlite.Order;
+import org.caojun.salmagundi.sharecase.ormlite.SerializedList;
 import org.caojun.salmagundi.sharecase.ormlite.Sharecase;
 import org.caojun.salmagundi.sharecase.ormlite.User;
 import org.caojun.salmagundi.sharecase.ormlite.UserDatabase;
@@ -81,16 +82,16 @@ public class UserUtils {
         if (context == null || user == null || sharecase == null || order == null) {
             return -1;
         }
-        List<Integer> idSharecases = user.getIdSharecases();
+        SerializedList<Integer> idSharecases = user.getIdSharecases();
         if (idSharecases == null || idSharecases.isEmpty()) {
-            idSharecases = new ArrayList<>();
+            idSharecases = new SerializedList<>();
         }
         idSharecases.add(sharecase.getId());
         user.setIdSharecases(idSharecases);
 
-        List<Integer> idOrders = user.getIdOrders();
+        SerializedList<Integer> idOrders = user.getIdOrders();
         if (idOrders == null || idOrders.isEmpty()) {
-            idOrders = new ArrayList<>();
+            idOrders = new SerializedList<>();
         }
         idOrders.add(order.getId());
         user.setIdOrders(idOrders);
@@ -105,7 +106,7 @@ public class UserUtils {
         if (host == null) {
             return false;
         }
-        List<Integer> idSharecasesHost = host.getIdSharecases();
+        SerializedList<Integer> idSharecasesHost = host.getIdSharecases();
         if (idSharecasesHost == null || idSharecasesHost.isEmpty()) {
             return false;
         }
@@ -120,9 +121,9 @@ public class UserUtils {
         idSharecasesHost.remove(order.getIdSharecase());
         host.setIdSharecases(idSharecasesHost);
 
-        List<Integer> idSharecasesUser = user.getIdSharecases();
+        SerializedList<Integer> idSharecasesUser = user.getIdSharecases();
         if (idSharecasesUser == null || idSharecasesUser.isEmpty()) {
-            idSharecasesUser = new ArrayList<>();
+            idSharecasesUser = new SerializedList<>();
         }
         idSharecasesUser.add(order.getIdSharecase());
         user.setIdSharecases(idSharecasesUser);
@@ -153,11 +154,11 @@ public class UserUtils {
         if (host == null) {
             return -1;
         }
-        List<Integer> idSharecases = host.getIdSharecases();
+        SerializedList<Integer> idSharecases = host.getIdSharecases();
         if (idSharecases == null || idSharecases.isEmpty()) {
             return -1;
         }
-        List<Integer> idOrders = host.getIdOrders();
+        SerializedList<Integer> idOrders = host.getIdOrders();
         if (idOrders == null || idOrders.isEmpty()) {
             return -1;
         }

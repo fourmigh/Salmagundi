@@ -95,6 +95,9 @@
     <string name="si_title">系统信息</string>
 
     <!-- 共享箱 -->
+    <string name="sc_title">共享箱</string>
+    <string name="sc_user_title">共享箱用户</string>
+    <string name="sc_user_detail_title">共享箱用户详情</string>
     <string name="sc_user_name">用户名</string>
     <string name="sc_user_type">类型</string>
     <string name="sc_user_income">收入</string>

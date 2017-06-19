@@ -1,6 +1,8 @@
 package org.caojun.salmagundi.arouter;
 
 import android.content.Context;
+import android.text.TextUtils;
+
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Interceptor;
 import com.alibaba.android.arouter.facade.callback.InterceptorCallback;
@@ -22,8 +24,13 @@ public class LoginInterceptor implements IInterceptor {
     @Override
     public void process(Postcard postcard, InterceptorCallback interceptorCallback) {
         if ((postcard.getExtra() & Constant.EXTRAS_LOGIN) == 1) {
+            String hostGesture = postcard.getExtras().getString("hostGesture");
+            String gesture = postcard.getExtras().getString("gesture");
             //需要登录
-            ARouter.getInstance().build(Constant.ACTIVITY_GESTURE_LOGIN).navigation();
+            ARouter.getInstance().build(Constant.ACTIVITY_GESTURE_LOGIN)
+                    .withString("hostGesture", hostGesture)
+                    .withString("gesture", gesture)
+                    .navigation();
             LoginInterceptor.postcard = postcard;
             LoginInterceptor.interceptorCallback = interceptorCallback;
             return;

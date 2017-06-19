@@ -3,6 +3,7 @@ package org.caojun.salmagundi.sharecase.ormlite;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 
 import java.io.Serializable;
@@ -17,6 +18,8 @@ public class User implements Serializable, Parcelable {
     public static final byte Type_Admin = 0;//共享箱所有人
     public static final byte Type_User = 1;//共享箱使用人（包括物品主人、租借物品人）
 
+    public User() {}
+
     public User(byte type, String name, byte[] gesturePassword) {
         this.setType(type);
         this.setName(name);
@@ -26,6 +29,8 @@ public class User implements Serializable, Parcelable {
     @DatabaseField(generatedId = true)
     private Integer id;
     @DatabaseField
+    private String hostGesture;//临时ID，用于保存手势密码
+    @DatabaseField
     private byte type;//类型（共享箱所有人、共享箱使用人）
     @DatabaseField
     private float income;//收入
@@ -33,12 +38,12 @@ public class User implements Serializable, Parcelable {
     private float expend;//支出
     @DatabaseField
     private String name;//账号
-    @DatabaseField
+    @DatabaseField(dataType = DataType.BYTE_ARRAY)
     private byte[] gesturePassword;
-    @DatabaseField
-    private List<Integer> idSharecases;//相关共享箱ID
-    @DatabaseField
-    private List<Integer> idOrders;//相关订单ID
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
+    private SerializedList<Integer> idSharecases;//相关共享箱ID
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
+    private SerializedList<Integer> idOrders;//相关订单ID
 
     public Integer getId() {
         return id;
@@ -46,6 +51,14 @@ public class User implements Serializable, Parcelable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getHostGesture() {
+        return hostGesture;
+    }
+
+    public void setHostGesture(String hostGesture) {
+        this.hostGesture = hostGesture;
     }
 
     public byte getType() {
@@ -88,19 +101,19 @@ public class User implements Serializable, Parcelable {
         this.gesturePassword = gesturePassword;
     }
 
-    public List<Integer> getIdSharecases() {
+    public SerializedList<Integer> getIdSharecases() {
         return idSharecases;
     }
 
-    public void setIdSharecases(List<Integer> idSharecases) {
+    public void setIdSharecases(SerializedList<Integer> idSharecases) {
         this.idSharecases = idSharecases;
     }
 
-    public List<Integer> getIdOrders() {
+    public SerializedList<Integer> getIdOrders() {
         return idOrders;
     }
 
-    public void setIdOrders(List<Integer> idOrders) {
+    public void setIdOrders(SerializedList<Integer> idOrders) {
         this.idOrders = idOrders;
     }
 
@@ -115,8 +128,8 @@ public class User implements Serializable, Parcelable {
             gesturePassword = new byte[lengthGesturePassword];
             in.readByteArray(gesturePassword);
         }
-        idSharecases = in.readArrayList(Integer.class.getClassLoader());
-        idOrders = in.readArrayList(Integer.class.getClassLoader());
+        idSharecases = (SerializedList)in.readArrayList(Integer.class.getClassLoader());
+        idOrders = (SerializedList)in.readArrayList(Integer.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {

@@ -9,6 +9,6 @@ import org.caojun.salmagundi.Constant;
  * Created by CaoJun on 2017/6/14.
  */
 
-@Route(path = Constant.ACTIVITY_USER_DETAIL)
+@Route(path = Constant.ACTIVITY_USER_DETAIL, extras = Constant.EXTRAS_LOGIN)
 public class UserDetailActivity extends BaseActivity {
 }

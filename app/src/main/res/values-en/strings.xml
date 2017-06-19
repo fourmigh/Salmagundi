@@ -94,6 +94,9 @@
     <string name="si_title">System Info</string>
 
     <!-- 共享箱 -->
+    <string name="sc_title">Share Case</string>
+    <string name="sc_user_title">Share Case User List</string>
+    <string name="sc_user_detail_title">Share Case User Detail</string>
     <string name="sc_user_name">Name</string>
     <string name="sc_user_type">Type</string>
     <string name="sc_user_income">Income</string>

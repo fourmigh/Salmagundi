@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.caojun.salmagundi"
-    android:versionCode="9"
-    android:versionName="1.0.8" >
+    android:versionCode="10"
+    android:versionName="1.0.9" >
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.NFC"/>
@@ -58,6 +58,10 @@
             android:label="@string/cc_title" />
         <activity android:name=".sysinfo.SysinfoActivity"
             android:label="@string/si_title" />
+        <activity android:name=".sharecase.UserActivity"
+            android:label="@string/sc_user_title" />
+        <activity android:name=".sharecase.UserDetailActivity"
+            android:label="@string/sc_user_detail_title" />
     </application>
 
 </manifest>
