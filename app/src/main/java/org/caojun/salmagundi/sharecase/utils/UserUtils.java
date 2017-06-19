@@ -40,40 +40,6 @@ public class UserUtils {
     }
 
     /**
-     * 更新收入
-     * @param context
-     * @param user
-     * @param income 增减值
-     * @return
-     */
-    public static int updateIncome(Context context, User user, float income) {
-        if (context == null || user == null || income == 0) {
-            return -1;
-        }
-        float oldIncome = user.getIncome();
-        float newIncom = oldIncome + income;
-        user.setIncome(newIncom);
-        return UserDatabase.getInstance(context).update(user);
-    }
-
-    /**
-     * 更新支出
-     * @param context
-     * @param user
-     * @param expend
-     * @return
-     */
-    public static int updateExpend(Context context, User user, float expend) {
-        if (context == null || user == null || expend == 0) {
-            return -1;
-        }
-        float oldExpend = user.getExpend();
-        float newExpend = oldExpend + expend;
-        user.setExpend(newExpend);
-        return UserDatabase.getInstance(context).update(user);
-    }
-
-    /**
      * 更新账号
      * @param context
      * @param user
@@ -131,30 +97,48 @@ public class UserUtils {
         return UserDatabase.getInstance(context).update(user);
     }
 
-    public static int borrowHost(Context context, User host, Order order) {
-        if (context == null || host == null || order == null) {
-            return -1;
-        }
-        List<Integer> idSharecases = host.getIdSharecases();
-        if (idSharecases == null || idSharecases.isEmpty()) {
-            return -1;
-        }
-        idSharecases.remove(order.getIdSharecase());
-        host.setIdSharecases(idSharecases);
-        return UserDatabase.getInstance(context).update(host);
-    }
-
-    public static int borrowUser(Context context, User user, Order order) {
+    public static boolean borrow(Context context, User user, Order order) {
         if (context == null || user == null || order == null) {
-            return -1;
+            return false;
         }
-        List<Integer> idSharecases = user.getIdSharecases();
-        if (idSharecases == null || idSharecases.isEmpty()) {
-            idSharecases = new ArrayList<>();
+        User host = UserUtils.getUser(context, order.getIdHost());
+        if (host == null) {
+            return false;
         }
-        idSharecases.add(order.getIdSharecase());
-        user.setIdSharecases(idSharecases);
-        return UserDatabase.getInstance(context).update(user);
+        List<Integer> idSharecasesHost = host.getIdSharecases();
+        if (idSharecasesHost == null || idSharecasesHost.isEmpty()) {
+            return false;
+        }
+        Sharecase sharecase = SharecaseUtils.getSharecase(context, order.getIdSharecase());
+        if (sharecase == null) {
+            return false;
+        }
+        User admin = UserUtils.getUser(context, sharecase.getIdAdmin());
+        if (admin == null) {
+            return false;
+        }
+        idSharecasesHost.remove(order.getIdSharecase());
+        host.setIdSharecases(idSharecasesHost);
+
+        List<Integer> idSharecasesUser = user.getIdSharecases();
+        if (idSharecasesUser == null || idSharecasesUser.isEmpty()) {
+            idSharecasesUser = new ArrayList<>();
+        }
+        idSharecasesUser.add(order.getIdSharecase());
+        user.setIdSharecases(idSharecasesUser);
+        float expendUser = user.getExpend() + order.getDeposit();
+        user.setExpend(expendUser);
+
+        float incomeAdmin = admin.getIncome() + order.getDeposit();
+        admin.setIncome(incomeAdmin);
+
+        int resHost = UserDatabase.getInstance(context).update(host);
+        int resUser = UserDatabase.getInstance(context).update(user);
+        int resAdmin = UserDatabase.getInstance(context).update(admin);
+        if (resHost > 0 && resUser > 0 && resAdmin > 0) {
+            return true;
+        }
+        return false;
     }
 
     public static int recycle(Context context, Order order) {
@@ -184,36 +168,59 @@ public class UserUtils {
         return UserDatabase.getInstance(context).update(host);
     }
 
-    /**
-     * 归还物品时计算物品所有人收支
-     * @param context
-     * @param host
-     * @param order
-     * @return
-     */
-    public static int restoreHost(Context context, User host, Order order) {
-
+    private static long getDay(long timeEnd, long timeStart) {
+        long time = timeEnd - timeStart;
+        return time / (1000 * 60 * 60 * 24);
     }
 
     /**
-     * 归还物品时计算物品使用人收支
+     * 归还物品时计算所有人的收支
      * @param context
-     * @param user
      * @param order
      * @return
      */
-    public static int restoreUser(Context context, User user, Order order) {
-
-    }
-
-    /**
-     * 归还物品时计算共享箱所有人收支
-     * @param context
-     * @param admin
-     * @param order
-     * @return
-     */
-    public static int restoreAdmin(Context context, User admin, Order order) {
-
+    public static boolean restore(Context context, Order order) {
+        if (context == null || order == null) {
+            return false;
+        }
+        User host = UserUtils.getUser(context, order.getIdHost());
+        if (host == null) {
+            return false;
+        }
+        User user = UserUtils.getUser(context, order.getIdUser());
+        if (user == null) {
+            return false;
+        }
+        Sharecase sharecase = SharecaseUtils.getSharecase(context, order.getIdSharecase());
+        if (sharecase == null) {
+            return false;
+        }
+        User admin = UserUtils.getUser(context, sharecase.getIdAdmin());
+        if (admin == null) {
+            return false;
+        }
+        long day = getDay(order.getTimeEnd(), order.getTimeStart());
+        float rent = order.getRent() * day;//总收入
+        float commission = order.getCommission() * rent;//服务费
+        float incomeHost = host.getIncome() + (rent - commission);//物品所有人收入
+        float expendHost = host.getExpend() + commission;//物品所有人支出
+        host.setIncome(incomeHost);
+        host.setExpend(expendHost);
+        float deposit = order.getDeposit();//押金
+        float expendUser = user.getExpend() + rent;//物品使用人支出
+        float incomeUser = user.getIncome() + deposit;//物品使用人收入
+        user.setExpend(expendUser);
+        user.setIncome(incomeUser);
+        float expendAdmin = admin.getExpend() + deposit;//共享箱所有人支出
+        float incomeAdmin = admin.getIncome() + commission;//共享箱所有人收入
+        admin.setExpend(expendAdmin);
+        admin.setIncome(incomeAdmin);
+        int resHost = UserDatabase.getInstance(context).update(host);
+        int resUser = UserDatabase.getInstance(context).update(user);
+        int resAdmin = UserDatabase.getInstance(context).update(admin);
+        if (resHost > 0 && resUser > 0 && resAdmin > 0) {
+            return true;
+        }
+        return false;
     }
 }

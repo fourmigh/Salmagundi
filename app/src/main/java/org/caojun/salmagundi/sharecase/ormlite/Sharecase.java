@@ -16,14 +16,14 @@ import java.util.List;
 
 public class Sharecase implements Serializable, Parcelable {
 
-    public Sharecase(float commission) {
+    public Sharecase(int idAdmin, float commission) {
+        this.setIdAdmin(idAdmin);
         this.setCommission(commission);
         this.setIdHost(-1);
-//        this.setIdUser(-1);
     }
 
     public boolean isEmpty() {
-        if (TextUtils.isEmpty(name) && rent == 0 && deposit == 0 && /*timeStart == 0 && timeEnd == 0 && */idHost < 0 && idOrder < 0) {
+        if (TextUtils.isEmpty(name) && rent == 0 && deposit == 0 && idHost < 0 && idOrder < 0) {
             return true;
         }
         return false;
@@ -39,12 +39,10 @@ public class Sharecase implements Serializable, Parcelable {
     private float deposit;//箱内物品押金（归共享箱所有人，归还物品时返还）
     @DatabaseField
     private float commission;//服务费（归共享箱平台所有，向物品主人收取，相当于收入所得税，收入的百分比）
-//    @DatabaseField
-//    private long timeStart;//物品租用起始时间
-//    @DatabaseField
-//    private long timeEnd;//物品租用结束时间（物品归还时，计算租金、服务费，归还押金）
     @DatabaseField
-    private Integer idHost;//物品主人ID
+    private Integer idAdmin;//共享箱所有人ID
+    @DatabaseField
+    private Integer idHost;//物品所有人ID
     @DatabaseField
     private Integer idOrder;//订单ID
     @DatabaseField
@@ -90,21 +88,13 @@ public class Sharecase implements Serializable, Parcelable {
         this.commission = commission;
     }
 
-//    public long getTimeStart() {
-//        return timeStart;
-//    }
-//
-//    public void setTimeStart(long timeStart) {
-//        this.timeStart = timeStart;
-//    }
+    public Integer getIdAdmin() {
+        return idAdmin;
+    }
 
-//    public long getTimeEnd() {
-//        return timeEnd;
-//    }
-//
-//    public void setTimeEnd(long timeEnd) {
-//        this.timeEnd = timeEnd;
-//    }
+    public void setIdAdmin(Integer idAdmin) {
+        this.idAdmin = idAdmin;
+    }
 
     public Integer getIdHost() {
         return idHost;
@@ -136,8 +126,7 @@ public class Sharecase implements Serializable, Parcelable {
         rent = in.readFloat();
         deposit = in.readFloat();
         commission = in.readFloat();
-//        timeStart = in.readLong();
-//        timeEnd = in.readLong();
+        idAdmin = in.readInt();
         idHost = in.readInt();
         idOrder = in.readInt();
         idOrders = in.readArrayList(Integer.class.getClassLoader());
@@ -162,8 +151,7 @@ public class Sharecase implements Serializable, Parcelable {
         dest.writeFloat(rent);
         dest.writeFloat(deposit);
         dest.writeFloat(commission);
-//        dest.writeLong(timeStart);
-//        dest.writeLong(timeEnd);
+        dest.writeInt(idAdmin);
         dest.writeInt(idHost);
         dest.writeInt(idOrder);
         dest.writeList(idOrders);

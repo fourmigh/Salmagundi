@@ -18,15 +18,15 @@ public class SharecaseUtils {
     /**
      * 只能由共享箱所有人新建箱子，并设定服务费
      * @param context
-     * @param user
+     * @param admin
      * @param commission
      * @return
      */
-    public int insert(Context context, User user, float commission) {
-        if (context == null || user == null || user.getType() != User.Type_Admin || commission < 0) {
+    public int insert(Context context, User admin, float commission) {
+        if (context == null || admin == null || admin.getType() != User.Type_Admin || commission < 0) {
             return -1;
         }
-        Sharecase sharecase = new Sharecase(commission);
+        Sharecase sharecase = new Sharecase(admin.getId(), commission);
         return SharecaseDatabase.getInstance(context).insert(sharecase);
     }
 
