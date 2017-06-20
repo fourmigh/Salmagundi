@@ -20,9 +20,9 @@ public class User implements Serializable, Parcelable {
 
     public User() {}
 
-    public User(byte type, String name, byte[] gesturePassword) {
+    public User(byte type, String hostGesture, byte[] gesturePassword) {
         this.setType(type);
-        this.setName(name);
+        this.setHostGesture(hostGesture);
         this.setGesturePassword(gesturePassword);
     }
 

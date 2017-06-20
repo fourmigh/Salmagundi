@@ -18,7 +18,6 @@ import org.caojun.salmagundi.arouter.LoginInterceptor;
 import org.caojun.salmagundi.lockpattern.utils.LockPatternUtils;
 import org.caojun.salmagundi.lockpattern.widget.LockPatternView;
 import org.caojun.salmagundi.string.ConvertUtils;
-//import org.caojun.salmagundi.utils.DataStorageUtils;
 import java.util.List;
 
 /**
@@ -111,9 +110,7 @@ public class GestureLoginActivity extends BaseActivity {
                 break;
             case CORRECT:
                 lockPatternView.setPattern(LockPatternView.DisplayMode.DEFAULT);
-                this.setResult(Activity.RESULT_OK);
-                this.finish();
-                LoginInterceptor.onLoginSuccess();
+                loginSuccess();
                 break;
         }
     }
@@ -161,7 +158,16 @@ public class GestureLoginActivity extends BaseActivity {
                 return;
             }
             gesturePassword = data.getByteArrayExtra("gesturePassword");
+            loginSuccess();
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void loginSuccess() {
+        Intent intent = new Intent();
+        intent.putExtra("gesturePassword", gesturePassword);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+        LoginInterceptor.onLoginSuccess();
     }
 }

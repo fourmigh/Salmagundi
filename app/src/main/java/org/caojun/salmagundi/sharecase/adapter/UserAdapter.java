@@ -64,7 +64,8 @@ public class UserAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         User user = (User) getItem(position);
-        //TODO
+        holder.tvLeft.setText(String.valueOf(user.getId()));
+        holder.tvRight.setText(user.getName());
 
         return convertView;
     }

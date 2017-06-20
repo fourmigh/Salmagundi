@@ -17,30 +17,6 @@ import java.util.List;
 public class UserUtils {
 
     /**
-     * 新增的第一个用户为共享箱所有人
-     * @param context
-     * @param name
-     * @param gesturePassword
-     * @return
-     */
-    public static int insertAdmin(Context context, String name, byte[] gesturePassword) {
-        User user = new User(User.Type_Admin, name, gesturePassword);
-        return UserDatabase.getInstance(context).insert(user);
-    }
-
-    /**
-     * 新增用户
-     * @param context
-     * @param name
-     * @param gesturePassword
-     * @return
-     */
-    public static int insertUser(Context context, String name, byte[] gesturePassword) {
-        User user = new User(User.Type_User, name, gesturePassword);
-        return UserDatabase.getInstance(context).insert(user);
-    }
-
-    /**
      * 更新账号
      * @param context
      * @param user
@@ -220,6 +196,19 @@ public class UserUtils {
         int resUser = UserDatabase.getInstance(context).update(user);
         int resAdmin = UserDatabase.getInstance(context).update(admin);
         if (resHost > 0 && resUser > 0 && resAdmin > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 第一个User必须为Admin
+     * @param context
+     * @return
+     */
+    public static boolean isAdmin(Context context) {
+        List<User> list = UserDatabase.getInstance(context).query();
+        if (list == null || list.isEmpty()) {
             return true;
         }
         return false;

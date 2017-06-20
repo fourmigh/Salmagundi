@@ -14,6 +14,8 @@ import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.sharecase.adapter.UserAdapter;
 import org.caojun.salmagundi.sharecase.ormlite.User;
 import org.caojun.salmagundi.sharecase.ormlite.UserDatabase;
+import org.caojun.salmagundi.utils.TimeUtils;
+
 import java.util.List;
 
 /**
@@ -72,6 +74,8 @@ public class UserActivity extends BaseActivity {
     }
 
     private void doAdd() {
-        ARouter.getInstance().build(Constant.ACTIVITY_USER_DETAIL).navigation();
+        long time = TimeUtils.getTime();
+        String hostGesture = String.valueOf(time);
+        ARouter.getInstance().build(Constant.ACTIVITY_USER_DETAIL).withString("hostGesture", hostGesture).navigation();
     }
 }
