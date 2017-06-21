@@ -14,6 +14,8 @@ import java.io.Serializable;
 
 public class Order implements Serializable, Parcelable {
 
+    public Order() {}
+
     public Order(int idSharecase, int idHost, String name, float rent, float deposit, float commission) {
         this.setIdSharecase(idSharecase);
         this.setIdHost(idHost);

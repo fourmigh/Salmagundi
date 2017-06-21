@@ -2,6 +2,7 @@ package org.caojun.salmagundi.sharecase.utils;
 
 import android.content.Context;
 import org.caojun.salmagundi.sharecase.ormlite.Order;
+import org.caojun.salmagundi.sharecase.ormlite.SerializedList;
 import org.caojun.salmagundi.sharecase.ormlite.Sharecase;
 import org.caojun.salmagundi.sharecase.ormlite.SharecaseDatabase;
 import org.caojun.salmagundi.sharecase.ormlite.User;
@@ -42,9 +43,9 @@ public class SharecaseUtils {
         if (context == null || sharecase == null || idOrder < 0) {
             return -1;
         }
-        List<Integer> idOrders = sharecase.getIdOrders();
+        SerializedList<Integer> idOrders = sharecase.getIdOrders();
         if (idOrders == null || idOrders.isEmpty()) {
-            idOrders = new ArrayList<>();
+            idOrders = new SerializedList<>();
         }
         idOrders.add(idOrder);
         sharecase.setIdOrders(idOrders);

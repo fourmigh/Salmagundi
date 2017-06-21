@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 
 import java.io.Serializable;
@@ -15,6 +16,8 @@ import java.util.List;
  */
 
 public class Sharecase implements Serializable, Parcelable {
+
+    public Sharecase() {}
 
     public Sharecase(int idAdmin, float commission) {
         this.setIdAdmin(idAdmin);
@@ -44,9 +47,9 @@ public class Sharecase implements Serializable, Parcelable {
     @DatabaseField
     private Integer idHost;//物品所有人ID
     @DatabaseField
-    private Integer idOrder;//订单ID
-    @DatabaseField
-    private List<Integer> idOrders;//相关订单ID
+    private Integer idOrder;//当前订单ID
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
+    private SerializedList<Integer> idOrders;//相关订单ID
 
     public Integer getId() {
         return id;
@@ -112,11 +115,11 @@ public class Sharecase implements Serializable, Parcelable {
         this.idOrder = idOrder;
     }
 
-    public List<Integer> getIdOrders() {
+    public SerializedList<Integer> getIdOrders() {
         return idOrders;
     }
 
-    public void setIdOrders(List<Integer> idOrders) {
+    public void setIdOrders(SerializedList<Integer> idOrders) {
         this.idOrders = idOrders;
     }
 
@@ -129,7 +132,7 @@ public class Sharecase implements Serializable, Parcelable {
         idAdmin = in.readInt();
         idHost = in.readInt();
         idOrder = in.readInt();
-        idOrders = in.readArrayList(Integer.class.getClassLoader());
+        idOrders = (SerializedList)in.readArrayList(Integer.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<Sharecase> CREATOR = new Parcelable.Creator<Sharecase>() {
@@ -153,7 +156,7 @@ public class Sharecase implements Serializable, Parcelable {
         dest.writeFloat(commission);
         dest.writeInt(idAdmin);
         dest.writeInt(idHost);
-        dest.writeInt(idOrder);
+        dest.writeInt(idOrder == null?-1:idOrder);
         dest.writeList(idOrders);
     }
 

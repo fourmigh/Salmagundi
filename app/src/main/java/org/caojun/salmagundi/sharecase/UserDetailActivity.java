@@ -118,7 +118,7 @@ public class UserDetailActivity extends BaseActivity {
             etExpend.setText(String.format("%1$.2f", user.getExpend()));
 
             SerializedList<Integer> idSharecases = user.getIdSharecases();
-            if (idSharecases == null || idSharecases.isEmpty()) {
+            if (user.getType() == User.Type_User && (idSharecases == null || idSharecases.isEmpty())) {
                 btnSharecase.setEnabled(false);
             }
 
@@ -192,7 +192,7 @@ public class UserDetailActivity extends BaseActivity {
     }
 
     private void showSharecase() {
-
+        ARouter.getInstance().build(Constant.ACTIVITY_SHARECASE).withSerializable("user", user).navigation();
     }
 
     private void showOrder() {

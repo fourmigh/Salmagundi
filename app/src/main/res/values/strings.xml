@@ -98,6 +98,8 @@
     <string name="sc_title">共享箱</string>
     <string name="sc_user_title">共享箱用户</string>
     <string name="sc_user_detail_title">共享箱用户详情</string>
+    <string name="sc_sharecase_title">共享箱</string>
+    <string name="sc_sharecase_detail_title">共享箱详情</string>
     <string name="sc_user_name">用户名</string>
     <string name="sc_user_type">类型</string>
     <string name="sc_user_income">收入</string>

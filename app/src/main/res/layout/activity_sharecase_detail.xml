@@ -15,6 +15,7 @@
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="ID"
@@ -23,10 +24,12 @@
                 <EditText
                     android:id="@+id/etID"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:enabled="false"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/sc_sharecase_name"
@@ -39,6 +42,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilRent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/sc_rent"
@@ -50,6 +54,21 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:digits=".0123456789" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilDeposit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/sc_deposit"
+                android:theme="@style/ItemTheme">
+
+                <EditText
+                    android:id="@+id/etDeposit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:digits=".0123456789"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -67,30 +86,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/sc_time_start"
-                android:theme="@style/ItemTheme">
-
-                <EditText
-                    android:id="@+id/etStart"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/sc_time_end"
-                android:theme="@style/ItemTheme">
-
-                <EditText
-                    android:id="@+id/etEnd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilHost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/sc_host"

@@ -62,6 +62,10 @@
             android:label="@string/sc_user_title" />
         <activity android:name=".sharecase.UserDetailActivity"
             android:label="@string/sc_user_detail_title" />
+        <activity android:name=".sharecase.SharecaseActivity"
+            android:label="@string/sc_sharecase_title" />
+        <activity android:name=".sharecase.SharecaseDetailActivity"
+            android:label="@string/sc_sharecase_detail_title" />
     </application>
 
 </manifest>

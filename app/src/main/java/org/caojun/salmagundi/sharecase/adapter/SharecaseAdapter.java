@@ -64,7 +64,8 @@ public class SharecaseAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         Sharecase sharecase = (Sharecase) getItem(position);
-        //TODO
+        holder.tvLeft.setText(String.valueOf(sharecase.getId()));
+        holder.tvRight.setText(sharecase.getName());
 
         return convertView;
     }
