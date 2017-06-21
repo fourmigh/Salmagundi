@@ -22,7 +22,8 @@ public class Sharecase implements Serializable, Parcelable {
     public Sharecase(int idAdmin, float commission) {
         this.setIdAdmin(idAdmin);
         this.setCommission(commission);
-        this.setIdHost(-1);
+        this.setIdHost(0);
+        this.setIdOrder(0);
     }
 
     public boolean isEmpty() {
@@ -156,7 +157,7 @@ public class Sharecase implements Serializable, Parcelable {
         dest.writeFloat(commission);
         dest.writeInt(idAdmin);
         dest.writeInt(idHost);
-        dest.writeInt(idOrder == null?-1:idOrder);
+        dest.writeInt(idOrder);
         dest.writeList(idOrders);
     }
 

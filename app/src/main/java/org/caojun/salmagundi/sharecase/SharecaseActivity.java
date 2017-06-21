@@ -16,6 +16,8 @@ import org.caojun.salmagundi.sharecase.adapter.SharecaseAdapter;
 import org.caojun.salmagundi.sharecase.ormlite.Sharecase;
 import org.caojun.salmagundi.sharecase.ormlite.SharecaseDatabase;
 import org.caojun.salmagundi.sharecase.ormlite.User;
+import org.caojun.salmagundi.sharecase.utils.SharecaseUtils;
+
 import java.util.List;
 
 /**

@@ -21,6 +21,7 @@ import org.caojun.salmagundi.sharecase.ormlite.Sharecase;
 import org.caojun.salmagundi.sharecase.ormlite.SharecaseDatabase;
 import org.caojun.salmagundi.sharecase.ormlite.User;
 import org.caojun.salmagundi.sharecase.utils.UserUtils;
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -96,7 +97,7 @@ public class SharecaseDetailActivity extends BaseActivity {
                 finish();
             }
         } else {
-            if (user.getId() == sharecase.getIdHost()) {
+            if (user.getId() == sharecase.getIdHost() || sharecase.getIdHost() == 0) {
                 //物品所有人
                 String name = etName.getText().toString();
                 String strRent = etRent.getText().toString();
@@ -106,6 +107,9 @@ public class SharecaseDetailActivity extends BaseActivity {
                 sharecase.setName(name);
                 sharecase.setRent(rent);
                 sharecase.setDeposit(deposit);
+                if (sharecase.getIdHost() == 0) {
+                    sharecase.setIdHost(user.getId());
+                }
             } else if (user.getType() == User.Type_Admin) {
                 //共享箱所有人
                 sharecase.setCommission(commission);
@@ -127,21 +131,24 @@ public class SharecaseDetailActivity extends BaseActivity {
             tilRent.setVisibility(View.GONE);
             tilDeposit.setVisibility(View.GONE);
             tilHost.setVisibility(View.GONE);
+            etCommission.setEnabled(true);
         } else {
             tilID.setVisibility(View.VISIBLE);
             tilName.setVisibility(View.VISIBLE);
             tilRent.setVisibility(View.VISIBLE);
             tilDeposit.setVisibility(View.VISIBLE);
             tilHost.setVisibility(View.VISIBLE);
-            if (user.getId() == sharecase.getIdHost()) {
+            if (user.getId() == sharecase.getIdHost() || sharecase.getIdHost() == 0) {
                 //物品所有人
                 etName.setEnabled(true);
                 etRent.setEnabled(true);
                 etDeposit.setEnabled(true);
-            } else if (user.getType() == User.Type_Admin) {
+                etCommission.setEnabled(user.getType() == User.Type_Admin);
+            } else {
                 etName.setEnabled(false);
                 etRent.setEnabled(false);
                 etDeposit.setEnabled(false);
+                etCommission.setEnabled(false);
             }
 
             etID.setText(String.valueOf(sharecase.getId()));
@@ -214,6 +221,11 @@ public class SharecaseDetailActivity extends BaseActivity {
             //共享箱所有人新建共享箱
             return true;
         } else {
+            String name = etName.getText().toString();
+            if (TextUtils.isEmpty(name)) {
+                return false;
+            }
+
             String strRent = etRent.getText().toString();
             if (!TextUtils.isEmpty(strRent)) {
                 try {
@@ -239,7 +251,7 @@ public class SharecaseDetailActivity extends BaseActivity {
                     return false;
                 }
             }
-            String name = etName.getText().toString();
+
             if (!TextUtils.isEmpty(sharecase.getName()) && !sharecase.getName().equals(name)) {
                 return true;
             }
@@ -248,7 +260,7 @@ public class SharecaseDetailActivity extends BaseActivity {
             if (commission != sharecase.getCommission()) {
                 return true;
             }
-            
+
             return false;
         }
     }

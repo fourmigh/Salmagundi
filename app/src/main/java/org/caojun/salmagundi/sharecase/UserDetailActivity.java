@@ -19,10 +19,13 @@ import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.lockpattern.GestureConstant;
 import org.caojun.salmagundi.sharecase.ormlite.SerializedList;
+import org.caojun.salmagundi.sharecase.ormlite.Sharecase;
+import org.caojun.salmagundi.sharecase.ormlite.SharecaseDatabase;
 import org.caojun.salmagundi.sharecase.ormlite.User;
 import org.caojun.salmagundi.sharecase.ormlite.UserDatabase;
 import org.caojun.salmagundi.sharecase.utils.UserUtils;
 import org.caojun.salmagundi.string.ConvertUtils;
+import java.util.List;
 
 /**
  * 用户详情
@@ -117,8 +120,14 @@ public class UserDetailActivity extends BaseActivity {
             etIncome.setText(String.format("%1$.2f", user.getIncome()));
             etExpend.setText(String.format("%1$.2f", user.getExpend()));
 
-            SerializedList<Integer> idSharecases = user.getIdSharecases();
-            if (user.getType() == User.Type_User && (idSharecases == null || idSharecases.isEmpty())) {
+//            SerializedList<Integer> idSharecases = user.getIdSharecases();
+//            List<Sharecase> sharecaseList = SharecaseDatabase.getInstance(this).query("idHost", 0);
+//            if (user.getType() == User.Type_User && (idSharecases == null || idSharecases.isEmpty()) && (sharecaseList == null || sharecaseList.isEmpty())) {
+//                btnSharecase.setEnabled(false);
+//            }
+
+            List<Sharecase> listSharecase = SharecaseDatabase.getInstance(this).query();
+            if (user.getType() == User.Type_User && (listSharecase == null || listSharecase.isEmpty())) {
                 btnSharecase.setEnabled(false);
             }
 
