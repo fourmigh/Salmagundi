@@ -154,6 +154,7 @@ public class GestureLoginActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == GestureConstant.RequestCode_GestureCreate) {
             if (resultCode != Activity.RESULT_OK) {
+                LoginInterceptor.onLoginCancel();
                 this.finish();
                 return;
             }

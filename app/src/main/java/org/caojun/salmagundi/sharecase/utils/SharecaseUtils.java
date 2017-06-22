@@ -1,13 +1,9 @@
 package org.caojun.salmagundi.sharecase.utils;
 
 import android.content.Context;
-import org.caojun.salmagundi.sharecase.ormlite.Order;
-import org.caojun.salmagundi.sharecase.ormlite.SerializedList;
 import org.caojun.salmagundi.sharecase.ormlite.Sharecase;
 import org.caojun.salmagundi.sharecase.ormlite.SharecaseDatabase;
 import org.caojun.salmagundi.sharecase.ormlite.User;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,30 +35,6 @@ public class SharecaseUtils {
         return list.get(0);
     }
 
-//    private static Sharecase addIdOrders(Context context, Sharecase sharecase, int idOrder) {
-//        if (context == null || sharecase == null || idOrder < 0) {
-//            return null;
-//        }
-//        SerializedList<Integer> idOrders = sharecase.getIdOrders();
-//        if (idOrders == null || idOrders.isEmpty()) {
-//            idOrders = new SerializedList<>();
-//        }
-//        idOrders.add(idOrder);
-//        sharecase.setIdOrders(idOrders);
-//        return SharecaseDatabase.getInstance(context).update(sharecase);
-//    }
-
-//    public static Sharecase loan(Context context, Sharecase sharecase, Order order) {
-//        if (context == null || sharecase == null || order == null) {
-//            return null;
-//        }
-//        sharecase.setName(order.getName());
-//        sharecase.setRent(order.getRent());
-//        sharecase.setDeposit(order.getDeposit());
-//        sharecase.setIdHost(order.getIdHost());
-//        return addIdOrders(context, sharecase, order.getId());
-//    }
-
     public static Sharecase recycle(Context context, Sharecase sharecase) {
         if (context == null || sharecase == null) {
             return null;
@@ -71,7 +43,6 @@ public class SharecaseUtils {
         sharecase.setRent(0);
         sharecase.setDeposit(0);
         sharecase.setIdHost(0);
-        sharecase.setIdOrder(0);
         return SharecaseDatabase.getInstance(context).update(sharecase);
     }
 }

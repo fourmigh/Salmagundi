@@ -99,6 +99,8 @@
     <string name="sc_user_detail_title">Share Case User Detail</string>
     <string name="sc_sharecase_title">Share Case</string>
     <string name="sc_sharecase_detail_title">Share Case Detail</string>
+    <string name="sc_order_title">Share Case Order</string>
+    <string name="sc_order_detail_title">Order Detail</string>
     <string name="sc_user_name">Name</string>
     <string name="sc_user_type">Type</string>
     <string name="sc_user_income">Income</string>

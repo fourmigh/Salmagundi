@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.sharecase.ormlite.Order;
+import org.caojun.salmagundi.utils.TimeUtils;
 
 import java.util.List;
 
@@ -66,7 +67,8 @@ public class OrderAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         Order order = (Order) getItem(position);
-        //TODO
+        holder.tvLeft.setText(TimeUtils.getTime("yyyy/MM/dd HH:mm:ss", order.getTimeStart()));
+        holder.tvRight.setText(order.getName());
 
         return convertView;
     }

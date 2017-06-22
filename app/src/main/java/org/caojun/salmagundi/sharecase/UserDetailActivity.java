@@ -14,8 +14,6 @@ import android.widget.EditText;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.socks.library.KLog;
-
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
@@ -90,12 +88,8 @@ public class UserDetailActivity extends BaseActivity {
 
         String gesture = null;
         if (user != null) {
-            KLog.d("user", "not null");
-            KLog.d("user", user.getId() + " : " + user.getName());
             gesture = ConvertUtils.stringToHex(user.getGesturePassword());
             hostGesture = user.getHostGesture();
-        } else {
-            KLog.d("user", "null");
         }
         ARouter.getInstance().build(Constant.ACTIVITY_GESTURE_LOGIN)
                 .withString("hostGesture", hostGesture)
@@ -126,12 +120,6 @@ public class UserDetailActivity extends BaseActivity {
             etType.setText(types[user.getType()]);
             etIncome.setText(String.format("%1$.2f", user.getIncome()));
             etExpend.setText(String.format("%1$.2f", user.getExpend()));
-
-//            SerializedList<Integer> idSharecases = user.getIdSharecases();
-//            List<Sharecase> sharecaseList = SharecaseDatabase.getInstance(this).query("idHost", 0);
-//            if (user.getType() == User.Type_User && (idSharecases == null || idSharecases.isEmpty()) && (sharecaseList == null || sharecaseList.isEmpty())) {
-//                btnSharecase.setEnabled(false);
-//            }
 
             List<Sharecase> listSharecase = SharecaseDatabase.getInstance(this).query();
             if (user.getType() == User.Type_User && (listSharecase == null || listSharecase.isEmpty())) {
@@ -213,6 +201,6 @@ public class UserDetailActivity extends BaseActivity {
     }
 
     private void showOrder() {
-
+        ARouter.getInstance().build(Constant.ACTIVITY_ORDER).withSerializable("user", user).navigation();
     }
 }

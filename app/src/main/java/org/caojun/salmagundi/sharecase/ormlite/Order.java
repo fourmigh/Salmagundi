@@ -21,7 +21,7 @@ public class Order implements Serializable, Parcelable {
         this.setRent(rent);
         this.setDeposit(deposit);
         this.setCommission(commission);
-        this.setIdUser(0);
+        this.setIdUser(idUser);
         this.setTimeStart(0);
         this.setTimeEnd(0);
     }

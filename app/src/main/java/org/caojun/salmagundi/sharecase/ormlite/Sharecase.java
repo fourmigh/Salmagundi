@@ -18,7 +18,7 @@ public class Sharecase implements Serializable, Parcelable {
         this.setIdAdmin(idAdmin);
         this.setCommission(commission);
         this.setIdHost(0);
-        this.setIdOrder(0);
+//        this.setIdOrder(0);
     }
 
     @DatabaseField(generatedId = true)
@@ -35,8 +35,8 @@ public class Sharecase implements Serializable, Parcelable {
     private Integer idAdmin;//共享箱所有人ID
     @DatabaseField
     private Integer idHost;//物品所有人ID
-    @DatabaseField
-    private Integer idOrder;//当前订单ID
+//    @DatabaseField
+//    private Integer idOrder;//当前订单ID
 
     public Integer getId() {
         return id;
@@ -94,13 +94,13 @@ public class Sharecase implements Serializable, Parcelable {
         this.idHost = idHost;
     }
 
-    public Integer getIdOrder() {
-        return idOrder;
-    }
-
-    public void setIdOrder(Integer idOrder) {
-        this.idOrder = idOrder;
-    }
+//    public Integer getIdOrder() {
+//        return idOrder;
+//    }
+//
+//    public void setIdOrder(Integer idOrder) {
+//        this.idOrder = idOrder;
+//    }
 
     public Sharecase(Parcel in) {
         id = in.readInt();
@@ -110,7 +110,7 @@ public class Sharecase implements Serializable, Parcelable {
         commission = in.readFloat();
         idAdmin = in.readInt();
         idHost = in.readInt();
-        idOrder = in.readInt();
+//        idOrder = in.readInt();
     }
 
     public static final Parcelable.Creator<Sharecase> CREATOR = new Parcelable.Creator<Sharecase>() {
@@ -134,7 +134,7 @@ public class Sharecase implements Serializable, Parcelable {
         dest.writeFloat(commission);
         dest.writeInt(idAdmin);
         dest.writeInt(idHost);
-        dest.writeInt(idOrder);
+//        dest.writeInt(idOrder);
     }
 
     @Override

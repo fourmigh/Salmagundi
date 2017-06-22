@@ -91,6 +91,15 @@ public class OrderDatabase extends OrmLiteSqliteOpenHelper {
         return null;
     }
 
+    public List<Order> queryIn(String columnName, Object... objects) {
+        try {
+            return dao.queryBuilder().where().in(columnName, objects).query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public boolean delete(Order order) {
         try {
             if (dao.delete(order) > 0) {

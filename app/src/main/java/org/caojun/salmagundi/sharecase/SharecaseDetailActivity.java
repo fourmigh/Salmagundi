@@ -12,22 +12,16 @@ import android.widget.EditText;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.socks.library.KLog;
-
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.sharecase.ormlite.Order;
-import org.caojun.salmagundi.sharecase.ormlite.OrderDatabase;
 import org.caojun.salmagundi.sharecase.ormlite.Sharecase;
 import org.caojun.salmagundi.sharecase.ormlite.SharecaseDatabase;
 import org.caojun.salmagundi.sharecase.ormlite.User;
 import org.caojun.salmagundi.sharecase.utils.OrderUtils;
 import org.caojun.salmagundi.sharecase.utils.SharecaseUtils;
 import org.caojun.salmagundi.sharecase.utils.UserUtils;
-import org.w3c.dom.Text;
-
-import java.util.List;
 
 /**
  * 共享箱详情
@@ -38,7 +32,7 @@ import java.util.List;
 public class SharecaseDetailActivity extends BaseActivity {
 
     private EditText etID, etName, etRent, etDeposit, etCommission, etHost;
-    private Button btnOrder, btnSave, btnSubmit, btnBorrow, btnUnshelve;
+    private Button btnSave, btnSubmit, btnBorrow, btnUnshelve;
     private TextInputLayout tilID, tilName, tilRent, tilDeposit, tilHost;
 
     @Autowired
@@ -64,7 +58,6 @@ public class SharecaseDetailActivity extends BaseActivity {
         tilRent = (TextInputLayout) findViewById(R.id.tilRent);
         tilDeposit = (TextInputLayout) findViewById(R.id.tilDeposit);
         tilHost = (TextInputLayout) findViewById(R.id.tilHost);
-        btnOrder = (Button) findViewById(R.id.btnOrder);
         btnSave = (Button) findViewById(R.id.btnSave);
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
         btnBorrow = (Button) findViewById(R.id.btnBorrow);
@@ -74,13 +67,6 @@ public class SharecaseDetailActivity extends BaseActivity {
         etRent.addTextChangedListener(textWatcher);
         etDeposit.addTextChangedListener(textWatcher);
         etCommission.addTextChangedListener(textWatcher);
-
-        btnOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showOrder();
-            }
-        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,49 +97,41 @@ public class SharecaseDetailActivity extends BaseActivity {
         });
     }
 
-    private void showOrder() {
-
-    }
-
     private void doSubmit() {
         doSave();
     }
 
     private void doBorrow() {
-        KLog.d("doBorrow", "1");
         if (user == null) {
-            KLog.d("doBorrow", "2");
             return;
         }
         //1、生成订单
         Order order = OrderUtils.loan(this, sharecase, sharecase.getIdHost(), sharecase.getName(), sharecase.getRent(), sharecase.getDeposit(), user.getId());
         if (order == null) {
-            KLog.d("doBorrow", "3");
             return;
         }
         //2、物品所有人/使用人，增加相关订单
         User host = UserUtils.getUser(this, sharecase.getIdHost());
         if (host == null) {
-            KLog.d("doBorrow", "4");
             return;
         }
-        host = UserUtils.loan(this, host, order);
+        host = UserUtils.addOrderId(this, host, order);
         if (host == null) {
-            KLog.d("doBorrow", "5");
+            return;
+        }
+        user = UserUtils.addOrderId(this, user, order);
+        if (user == null) {
             return;
         }
         if (!UserUtils.borrow(this, user, order)) {
-            KLog.d("doBorrow", "6");
             return;
         }
         //3、清空共享箱
         sharecase = SharecaseUtils.recycle(this, sharecase);
         if (sharecase == null) {
-            KLog.d("doBorrow", "7");
             return;
         }
         finish();
-        KLog.d("doBorrow", "8");
     }
 
     private void doUnshelve() {
@@ -271,12 +249,12 @@ public class SharecaseDetailActivity extends BaseActivity {
             }
         }
 
-        List<Order> orders = OrderDatabase.getInstance(this).query();
-        if (orders == null || orders.isEmpty()) {
-            btnOrder.setEnabled(false);
-        } else {
-            btnOrder.setEnabled(true);
-        }
+//        List<Order> orders = OrderDatabase.getInstance(this).query();
+//        if (orders == null || orders.isEmpty()) {
+//            btnOrder.setEnabled(false);
+//        } else {
+//            btnOrder.setEnabled(true);
+//        }
 
         doCheckSaveButton();
     }

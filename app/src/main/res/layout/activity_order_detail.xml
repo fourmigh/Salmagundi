@@ -155,7 +155,7 @@
             android:text="@string/sc_previous"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btnrevious"
+            android:id="@+id/btnRevious"
             android:layout_weight="1" />
 
         <Button

@@ -53,4 +53,9 @@ public class LoginInterceptor implements IInterceptor {
             LoginInterceptor.interceptorCallback = null;
         }
     }
+
+    public static void onLoginCancel() {
+        LoginInterceptor.postcard = null;
+        LoginInterceptor.interceptorCallback = null;
+    }
 }
