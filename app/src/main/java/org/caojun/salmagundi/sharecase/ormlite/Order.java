@@ -2,9 +2,7 @@ package org.caojun.salmagundi.sharecase.ormlite;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.j256.ormlite.field.DatabaseField;
-
 import java.io.Serializable;
 
 /**
@@ -16,14 +14,14 @@ public class Order implements Serializable, Parcelable {
 
     public Order() {}
 
-    public Order(int idSharecase, int idHost, String name, float rent, float deposit, float commission) {
+    public Order(int idSharecase, int idHost, String name, float rent, float deposit, float commission, int idUser) {
         this.setIdSharecase(idSharecase);
         this.setIdHost(idHost);
         this.setName(name);
         this.setRent(rent);
         this.setDeposit(deposit);
         this.setCommission(commission);
-        this.setIdUser(-1);
+        this.setIdUser(0);
         this.setTimeStart(0);
         this.setTimeEnd(0);
     }

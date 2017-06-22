@@ -2,10 +2,8 @@ package org.caojun.salmagundi.sharecase.ormlite;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -40,8 +38,6 @@ public class User implements Serializable, Parcelable {
     private String name;//账号
     @DatabaseField(dataType = DataType.BYTE_ARRAY)
     private byte[] gesturePassword;
-//    @DatabaseField(dataType = DataType.SERIALIZABLE)
-//    private SerializedList<Integer> idSharecases;//相关共享箱ID
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     private SerializedList<Integer> idOrders;//相关订单ID
 
@@ -101,14 +97,6 @@ public class User implements Serializable, Parcelable {
         this.gesturePassword = gesturePassword;
     }
 
-//    public SerializedList<Integer> getIdSharecases() {
-//        return idSharecases;
-//    }
-//
-//    public void setIdSharecases(SerializedList<Integer> idSharecases) {
-//        this.idSharecases = idSharecases;
-//    }
-
     public SerializedList<Integer> getIdOrders() {
         return idOrders;
     }
@@ -128,8 +116,13 @@ public class User implements Serializable, Parcelable {
             gesturePassword = new byte[lengthGesturePassword];
             in.readByteArray(gesturePassword);
         }
-//        idSharecases = (SerializedList)in.readArrayList(Integer.class.getClassLoader());
-        idOrders = (SerializedList)in.readArrayList(Integer.class.getClassLoader());
+        List<Integer> list = in.readArrayList(Integer.class.getClassLoader());
+        if (list != null && !list.isEmpty()) {
+            idOrders = new SerializedList<>();
+            for (int i = 0;i < list.size();i ++) {
+                idOrders.add(list.get(i));
+            }
+        }
     }
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
@@ -156,7 +149,6 @@ public class User implements Serializable, Parcelable {
         if (lengthGesturePassword > 0) {
             dest.writeByteArray(gesturePassword);
         }
-//        dest.writeList(idSharecases);
         dest.writeList(idOrders);
     }
 

@@ -3,6 +3,8 @@ package org.caojun.salmagundi.sharecase.utils;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.socks.library.KLog;
+
 import org.caojun.salmagundi.sharecase.ormlite.Order;
 import org.caojun.salmagundi.sharecase.ormlite.OrderDatabase;
 import org.caojun.salmagundi.sharecase.ormlite.Sharecase;
@@ -20,17 +22,15 @@ public class OrderUtils {
      * 共享箱空闲时才能放入物品，生成订单
      * @param context
      * @param sharecase
-     * @param host
-     * @param name
-     * @param rent
-     * @param deposit
      * @return
      */
-    public static Order loan(Context context, Sharecase sharecase, User host, String name, float rent, float deposit) {
-        if (context == null || sharecase == null || !sharecase.isEmpty() || host == null || TextUtils.isEmpty(name) || rent < 0 || deposit < 0) {
+    public static Order loan(Context context, Sharecase sharecase, int idHost, String name, float rent, float deposit, int idUser) {
+        if (context == null || sharecase == null || idHost <= 0 || TextUtils.isEmpty(name) || rent < 0 || deposit < 0 && idUser <= 0) {
+            KLog.d("loan", "1");
             return null;
         }
-        Order order = new Order(sharecase.getId(), host.getId(), name, rent, deposit, sharecase.getCommission());
+        Order order = new Order(sharecase.getId(), idHost, name, rent, deposit, sharecase.getCommission(), idUser);
+        KLog.d("loan", "2");
         return OrderDatabase.getInstance(context).insert(order);
     }
 
@@ -44,7 +44,7 @@ public class OrderUtils {
      * @return
      */
     public Order borrow(Context context, Order order, Sharecase sharecase, User user, int timeStart) {
-        if (context == null || order == null || sharecase == null || sharecase.isEmpty() || user == null || timeStart <= 0) {
+        if (context == null || order == null || sharecase == null || user == null || timeStart <= 0) {
             return null;
         }
         order.setIdUser(user.getId());
@@ -61,7 +61,7 @@ public class OrderUtils {
      * @return
      */
     public Order restore(Context context, Order order, Sharecase sharecase, long timeEnd) {
-        if (context == null || order == null || sharecase == null || !sharecase.isEmpty() || timeEnd <= 0) {
+        if (context == null || order == null || sharecase == null || timeEnd <= 0) {
             return null;
         }
         User host = UserUtils.getUser(context, order.getIdHost());
@@ -100,7 +100,7 @@ public class OrderUtils {
             return null;
         }
         Sharecase sharecase = SharecaseUtils.getSharecase(context, order.getIdSharecase());
-        if (sharecase == null || !sharecase.isEmpty()) {
+        if (sharecase == null) {
             return null;
         }
         User host = UserUtils.getUser(context, order.getIdHost());
@@ -110,7 +110,7 @@ public class OrderUtils {
         String name = order.getName();
         float rent = order.getRent();
         float deposit = order.getDeposit();
-        return loan(context, sharecase, host, name, rent, deposit);
+        return loan(context, sharecase, host.getId(), name, rent, deposit, 0);
     }
 
     public static boolean recycle(Context context, Order order) {

@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.socks.library.KLog;
+
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
@@ -69,7 +71,8 @@ public class UserActivity extends BaseActivity {
 
     private void doUpdate(int position) {
         User user = (User) adapter.getItem(position);
-
+        KLog.d("user", user == null?"null":"not null");
+        KLog.d("user", user.getId() + " : " + user.getName());
         ARouter.getInstance().build(Constant.ACTIVITY_USER_DETAIL).withParcelable("user", user).navigation();
     }
 

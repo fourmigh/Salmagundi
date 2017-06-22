@@ -14,6 +14,8 @@ import android.widget.EditText;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.socks.library.KLog;
+
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
@@ -88,7 +90,12 @@ public class UserDetailActivity extends BaseActivity {
 
         String gesture = null;
         if (user != null) {
+            KLog.d("user", "not null");
+            KLog.d("user", user.getId() + " : " + user.getName());
             gesture = ConvertUtils.stringToHex(user.getGesturePassword());
+            hostGesture = user.getHostGesture();
+        } else {
+            KLog.d("user", "null");
         }
         ARouter.getInstance().build(Constant.ACTIVITY_GESTURE_LOGIN)
                 .withString("hostGesture", hostGesture)

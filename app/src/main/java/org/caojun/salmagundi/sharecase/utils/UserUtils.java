@@ -54,8 +54,8 @@ public class UserUtils {
         return list.get(0);
     }
 
-    public static User loan(Context context, User user, /*Sharecase sharecase, */Order order) {
-        if (context == null || user == null || /*sharecase == null || */order == null) {
+    public static User loan(Context context, User host, /*Sharecase sharecase, */Order order) {
+        if (context == null || host == null || /*sharecase == null || */order == null) {
             return null;
         }
 //        SerializedList<Integer> idSharecases = user.getIdSharecases();
@@ -65,13 +65,13 @@ public class UserUtils {
 //        idSharecases.add(sharecase.getId());
 //        user.setIdSharecases(idSharecases);
 
-        SerializedList<Integer> idOrders = user.getIdOrders();
+        SerializedList<Integer> idOrders = host.getIdOrders();
         if (idOrders == null || idOrders.isEmpty()) {
             idOrders = new SerializedList<>();
         }
         idOrders.add(order.getId());
-        user.setIdOrders(idOrders);
-        return UserDatabase.getInstance(context).update(user);
+        host.setIdOrders(idOrders);
+        return UserDatabase.getInstance(context).update(host);
     }
 
     public static boolean borrow(Context context, User user, Order order) {

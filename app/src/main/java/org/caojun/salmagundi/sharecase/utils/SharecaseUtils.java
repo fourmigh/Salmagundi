@@ -39,32 +39,32 @@ public class SharecaseUtils {
         return list.get(0);
     }
 
-    private static Sharecase addIdOrders(Context context, Sharecase sharecase, int idOrder) {
-        if (context == null || sharecase == null || idOrder < 0) {
-            return null;
-        }
-        SerializedList<Integer> idOrders = sharecase.getIdOrders();
-        if (idOrders == null || idOrders.isEmpty()) {
-            idOrders = new SerializedList<>();
-        }
-        idOrders.add(idOrder);
-        sharecase.setIdOrders(idOrders);
-        return SharecaseDatabase.getInstance(context).update(sharecase);
-    }
+//    private static Sharecase addIdOrders(Context context, Sharecase sharecase, int idOrder) {
+//        if (context == null || sharecase == null || idOrder < 0) {
+//            return null;
+//        }
+//        SerializedList<Integer> idOrders = sharecase.getIdOrders();
+//        if (idOrders == null || idOrders.isEmpty()) {
+//            idOrders = new SerializedList<>();
+//        }
+//        idOrders.add(idOrder);
+//        sharecase.setIdOrders(idOrders);
+//        return SharecaseDatabase.getInstance(context).update(sharecase);
+//    }
 
-    public static Sharecase loan(Context context, Sharecase sharecase, Order order) {
-        if (context == null || sharecase == null || !sharecase.isEmpty() || order == null) {
-            return null;
-        }
-        sharecase.setName(order.getName());
-        sharecase.setRent(order.getRent());
-        sharecase.setDeposit(order.getDeposit());
-        sharecase.setIdHost(order.getIdHost());
-        return addIdOrders(context, sharecase, order.getId());
-    }
+//    public static Sharecase loan(Context context, Sharecase sharecase, Order order) {
+//        if (context == null || sharecase == null || order == null) {
+//            return null;
+//        }
+//        sharecase.setName(order.getName());
+//        sharecase.setRent(order.getRent());
+//        sharecase.setDeposit(order.getDeposit());
+//        sharecase.setIdHost(order.getIdHost());
+//        return addIdOrders(context, sharecase, order.getId());
+//    }
 
-    public static Sharecase borrow(Context context, Sharecase sharecase) {
-        if (context == null || sharecase == null || sharecase.isEmpty()) {
+    public static Sharecase recycle(Context context, Sharecase sharecase) {
+        if (context == null || sharecase == null) {
             return null;
         }
         sharecase.setName(null);
@@ -73,12 +73,5 @@ public class SharecaseUtils {
         sharecase.setIdHost(0);
         sharecase.setIdOrder(0);
         return SharecaseDatabase.getInstance(context).update(sharecase);
-    }
-
-    public static Sharecase recycle(Context context, Sharecase sharecase) {
-        if (context == null || sharecase == null || sharecase.isEmpty()) {
-            return null;
-        }
-        return borrow(context, sharecase);
     }
 }

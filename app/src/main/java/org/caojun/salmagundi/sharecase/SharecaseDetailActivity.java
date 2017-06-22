@@ -12,6 +12,8 @@ import android.widget.EditText;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.socks.library.KLog;
+
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
@@ -20,6 +22,7 @@ import org.caojun.salmagundi.sharecase.ormlite.OrderDatabase;
 import org.caojun.salmagundi.sharecase.ormlite.Sharecase;
 import org.caojun.salmagundi.sharecase.ormlite.SharecaseDatabase;
 import org.caojun.salmagundi.sharecase.ormlite.User;
+import org.caojun.salmagundi.sharecase.utils.OrderUtils;
 import org.caojun.salmagundi.sharecase.utils.SharecaseUtils;
 import org.caojun.salmagundi.sharecase.utils.UserUtils;
 import org.w3c.dom.Text;
@@ -117,10 +120,40 @@ public class SharecaseDetailActivity extends BaseActivity {
     }
 
     private void doBorrow() {
+        KLog.d("doBorrow", "1");
+        if (user == null) {
+            KLog.d("doBorrow", "2");
+            return;
+        }
         //1、生成订单
-
-        //2、清空共享箱
-        //3、物品所有人/使用人，增加相关订单
+        Order order = OrderUtils.loan(this, sharecase, sharecase.getIdHost(), sharecase.getName(), sharecase.getRent(), sharecase.getDeposit(), user.getId());
+        if (order == null) {
+            KLog.d("doBorrow", "3");
+            return;
+        }
+        //2、物品所有人/使用人，增加相关订单
+        User host = UserUtils.getUser(this, sharecase.getIdHost());
+        if (host == null) {
+            KLog.d("doBorrow", "4");
+            return;
+        }
+        host = UserUtils.loan(this, host, order);
+        if (host == null) {
+            KLog.d("doBorrow", "5");
+            return;
+        }
+        if (!UserUtils.borrow(this, user, order)) {
+            KLog.d("doBorrow", "6");
+            return;
+        }
+        //3、清空共享箱
+        sharecase = SharecaseUtils.recycle(this, sharecase);
+        if (sharecase == null) {
+            KLog.d("doBorrow", "7");
+            return;
+        }
+        finish();
+        KLog.d("doBorrow", "8");
     }
 
     private void doUnshelve() {
