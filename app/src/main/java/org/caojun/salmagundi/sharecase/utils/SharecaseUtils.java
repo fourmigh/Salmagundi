@@ -70,17 +70,13 @@ public class SharecaseUtils {
         sharecase.setName(null);
         sharecase.setRent(0);
         sharecase.setDeposit(0);
-        sharecase.setIdHost(-1);
-        sharecase.setIdOrder(-1);
+        sharecase.setIdHost(0);
+        sharecase.setIdOrder(0);
         return SharecaseDatabase.getInstance(context).update(sharecase);
     }
 
-    public static int recycle(Context context, Order order) {
-        if (context == null || order == null || order.isBorrowing()) {
-            return -1;
-        }
-        Sharecase sharecase = SharecaseUtils.getSharecase(context, order.getIdSharecase());
-        if (sharecase == null || sharecase.isEmpty()) {
+    public static int recycle(Context context, Sharecase sharecase) {
+        if (context == null || sharecase == null || sharecase.isEmpty()) {
             return -1;
         }
         return borrow(context, sharecase);

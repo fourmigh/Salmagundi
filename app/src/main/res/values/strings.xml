@@ -118,4 +118,7 @@
     <string name="sc_user_id">物品使用人ID</string>
     <string name="sc_previous">上一笔</string>
     <string name="sc_next">下一笔</string>
+    <string name="sc_submit">发布</string>
+    <string name="sc_borrow">租用</string>
+    <string name="sc_unshelve">下架</string>
 </resources>

@@ -148,10 +148,4 @@
         <item>共享箱所有人</item>
         <item>共享箱使用人</item>
     </string-array>
-
-    <string-array name="sharecase_action">
-        <item>保存</item><!--共享箱所人有新建箱子-->
-        <item>发布</item><!--共享箱使用人发布存入物品-->
-        <item>租用</item><!--共享箱使用人租用物品-->
-    </string-array>
 </resources>

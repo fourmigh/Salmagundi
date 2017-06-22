@@ -20,6 +20,7 @@ import org.caojun.salmagundi.sharecase.ormlite.OrderDatabase;
 import org.caojun.salmagundi.sharecase.ormlite.Sharecase;
 import org.caojun.salmagundi.sharecase.ormlite.SharecaseDatabase;
 import org.caojun.salmagundi.sharecase.ormlite.User;
+import org.caojun.salmagundi.sharecase.utils.SharecaseUtils;
 import org.caojun.salmagundi.sharecase.utils.UserUtils;
 import org.w3c.dom.Text;
 
@@ -34,7 +35,7 @@ import java.util.List;
 public class SharecaseDetailActivity extends BaseActivity {
 
     private EditText etID, etName, etRent, etDeposit, etCommission, etHost;
-    private Button btnOrder, btnSave;
+    private Button btnOrder, btnSave, btnSubmit, btnBorrow, btnUnshelve;
     private TextInputLayout tilID, tilName, tilRent, tilDeposit, tilHost;
 
     @Autowired
@@ -62,6 +63,9 @@ public class SharecaseDetailActivity extends BaseActivity {
         tilHost = (TextInputLayout) findViewById(R.id.tilHost);
         btnOrder = (Button) findViewById(R.id.btnOrder);
         btnSave = (Button) findViewById(R.id.btnSave);
+        btnSubmit = (Button) findViewById(R.id.btnSubmit);
+        btnBorrow = (Button) findViewById(R.id.btnBorrow);
+        btnUnshelve = (Button) findViewById(R.id.btnUnshelve);
 
         etName.addTextChangedListener(textWatcher);
         etRent.addTextChangedListener(textWatcher);
@@ -81,10 +85,48 @@ public class SharecaseDetailActivity extends BaseActivity {
                 doSave();
             }
         });
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doSubmit();
+            }
+        });
+
+        btnBorrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doBorrow();
+            }
+        });
+
+        btnUnshelve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doUnshelve();
+            }
+        });
     }
 
     private void showOrder() {
 
+    }
+
+    private void doSubmit() {
+        doSave();
+    }
+
+    private void doBorrow() {
+
+    }
+
+    private void doUnshelve() {
+        if (sharecase == null || user == null || user.getId() != sharecase.getIdHost()) {
+            return;
+        }
+        if (SharecaseUtils.recycle(this, sharecase) > 0) {
+            finish();
+        }
     }
 
     private void doSave() {
@@ -132,6 +174,11 @@ public class SharecaseDetailActivity extends BaseActivity {
             tilDeposit.setVisibility(View.GONE);
             tilHost.setVisibility(View.GONE);
             etCommission.setEnabled(true);
+
+            btnSave.setVisibility(View.VISIBLE);
+            btnSubmit.setVisibility(View.GONE);
+            btnBorrow.setVisibility(View.GONE);
+            btnUnshelve.setVisibility(View.GONE);
         } else {
             tilID.setVisibility(View.VISIBLE);
             tilName.setVisibility(View.VISIBLE);
@@ -159,6 +206,31 @@ public class SharecaseDetailActivity extends BaseActivity {
 
             User host = UserUtils.getUser(this, sharecase.getIdHost());
             etHost.setText(host == null?null:host.getName());
+
+            if (sharecase.getIdHost() == 0) {
+                //空共享箱
+                btnSubmit.setVisibility(View.VISIBLE);
+                btnBorrow.setVisibility(View.GONE);
+                btnUnshelve.setVisibility(View.GONE);
+
+                if (user.getType() == User.Type_Admin) {
+                    btnSave.setVisibility(View.VISIBLE);
+                } else {
+                    btnSave.setVisibility(View.GONE);
+                }
+            } else if (user.getId() == sharecase.getIdHost()) {
+                //物品所有人
+                btnSave.setVisibility(View.VISIBLE);
+                btnSubmit.setVisibility(View.GONE);
+                btnBorrow.setVisibility(View.GONE);
+                btnUnshelve.setVisibility(View.VISIBLE);
+            } else {
+                //可租用物品共享箱
+                btnSave.setVisibility(View.GONE);
+                btnSubmit.setVisibility(View.GONE);
+                btnBorrow.setVisibility(View.VISIBLE);
+                btnUnshelve.setVisibility(View.GONE);
+            }
         }
 
         List<Order> orders = OrderDatabase.getInstance(this).query();
@@ -189,7 +261,9 @@ public class SharecaseDetailActivity extends BaseActivity {
     };
 
     private void doCheckSaveButton() {
-        btnSave.setEnabled(canSave());
+        boolean canSave = canSave();
+        btnSave.setEnabled(canSave);
+        btnSubmit.setEnabled(canSave);
     }
 
     private boolean canSave() {

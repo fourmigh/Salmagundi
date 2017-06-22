@@ -119,5 +119,26 @@
             android:layout_height="wrap_content"
             android:id="@+id/btnSave"
             android:layout_weight="4" />
+
+        <Button
+            android:text="@string/sc_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnSubmit"
+            android:layout_weight="4" />
+
+        <Button
+            android:text="@string/sc_borrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnBorrow"
+            android:layout_weight="4" />
+
+        <Button
+            android:text="@string/sc_unshelve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnUnshelve"
+            android:layout_weight="4" />
     </LinearLayout>
 </LinearLayout>
