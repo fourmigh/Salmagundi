@@ -23,9 +23,9 @@ public class UserUtils {
      * @param name
      * @return
      */
-    public static int updateName(Context context, User user, String name) {
+    public static User updateName(Context context, User user, String name) {
         if (context == null || user == null || TextUtils.isEmpty(name)) {
-            return -1;
+            return null;
         }
         user.setName(name);
         return UserDatabase.getInstance(context).update(user);
@@ -38,9 +38,9 @@ public class UserUtils {
      * @param gesturePassword
      * @return
      */
-    public static int updateGesturePassword(Context context, User user, byte[] gesturePassword) {
+    public static User updateGesturePassword(Context context, User user, byte[] gesturePassword) {
         if (context == null || user == null || gesturePassword == null) {
-            return -1;
+            return null;
         }
         user.setGesturePassword(gesturePassword);
         return UserDatabase.getInstance(context).update(user);
@@ -54,16 +54,16 @@ public class UserUtils {
         return list.get(0);
     }
 
-    public static int loan(Context context, User user, Sharecase sharecase, Order order) {
-        if (context == null || user == null || sharecase == null || order == null) {
-            return -1;
+    public static User loan(Context context, User user, /*Sharecase sharecase, */Order order) {
+        if (context == null || user == null || /*sharecase == null || */order == null) {
+            return null;
         }
-        SerializedList<Integer> idSharecases = user.getIdSharecases();
-        if (idSharecases == null || idSharecases.isEmpty()) {
-            idSharecases = new SerializedList<>();
-        }
-        idSharecases.add(sharecase.getId());
-        user.setIdSharecases(idSharecases);
+//        SerializedList<Integer> idSharecases = user.getIdSharecases();
+//        if (idSharecases == null || idSharecases.isEmpty()) {
+//            idSharecases = new SerializedList<>();
+//        }
+//        idSharecases.add(sharecase.getId());
+//        user.setIdSharecases(idSharecases);
 
         SerializedList<Integer> idOrders = user.getIdOrders();
         if (idOrders == null || idOrders.isEmpty()) {
@@ -78,14 +78,14 @@ public class UserUtils {
         if (context == null || user == null || order == null) {
             return false;
         }
-        User host = UserUtils.getUser(context, order.getIdHost());
-        if (host == null) {
-            return false;
-        }
-        SerializedList<Integer> idSharecasesHost = host.getIdSharecases();
-        if (idSharecasesHost == null || idSharecasesHost.isEmpty()) {
-            return false;
-        }
+//        User host = UserUtils.getUser(context, order.getIdHost());
+//        if (host == null) {
+//            return false;
+//        }
+//        SerializedList<Integer> idSharecasesHost = host.getIdSharecases();
+//        if (idSharecasesHost == null || idSharecasesHost.isEmpty()) {
+//            return false;
+//        }
         Sharecase sharecase = SharecaseUtils.getSharecase(context, order.getIdSharecase());
         if (sharecase == null) {
             return false;
@@ -94,52 +94,52 @@ public class UserUtils {
         if (admin == null) {
             return false;
         }
-        idSharecasesHost.remove(order.getIdSharecase());
-        host.setIdSharecases(idSharecasesHost);
+//        idSharecasesHost.remove(order.getIdSharecase());
+//        host.setIdSharecases(idSharecasesHost);
 
-        SerializedList<Integer> idSharecasesUser = user.getIdSharecases();
-        if (idSharecasesUser == null || idSharecasesUser.isEmpty()) {
-            idSharecasesUser = new SerializedList<>();
-        }
-        idSharecasesUser.add(order.getIdSharecase());
-        user.setIdSharecases(idSharecasesUser);
+//        SerializedList<Integer> idSharecasesUser = user.getIdSharecases();
+//        if (idSharecasesUser == null || idSharecasesUser.isEmpty()) {
+//            idSharecasesUser = new SerializedList<>();
+//        }
+//        idSharecasesUser.add(order.getIdSharecase());
+//        user.setIdSharecases(idSharecasesUser);
         float expendUser = user.getExpend() + order.getDeposit();
         user.setExpend(expendUser);
 
         float incomeAdmin = admin.getIncome() + order.getDeposit();
         admin.setIncome(incomeAdmin);
 
-        int resHost = UserDatabase.getInstance(context).update(host);
-        int resUser = UserDatabase.getInstance(context).update(user);
-        int resAdmin = UserDatabase.getInstance(context).update(admin);
-        if (resHost > 0 && resUser > 0 && resAdmin > 0) {
+//        int resHost = UserDatabase.getInstance(context).update(host);
+        user = UserDatabase.getInstance(context).update(user);
+        admin = UserDatabase.getInstance(context).update(admin);
+        if (/*resHost > 0 && */user != null && admin != null) {
             return true;
         }
         return false;
     }
 
-    public static int recycle(Context context, Order order) {
+    public static User recycle(Context context, Order order) {
         if (context == null || order == null || order.isBorrowing()) {
-            return -1;
+            return null;
         }
         Sharecase sharecase = SharecaseUtils.getSharecase(context, order.getIdSharecase());
         if (sharecase == null) {
-            return -1;
+            return null;
         }
         User host = UserUtils.getUser(context, order.getIdHost());
         if (host == null) {
-            return -1;
+            return null;
         }
-        SerializedList<Integer> idSharecases = host.getIdSharecases();
-        if (idSharecases == null || idSharecases.isEmpty()) {
-            return -1;
-        }
+//        SerializedList<Integer> idSharecases = host.getIdSharecases();
+//        if (idSharecases == null || idSharecases.isEmpty()) {
+//            return -1;
+//        }
         SerializedList<Integer> idOrders = host.getIdOrders();
         if (idOrders == null || idOrders.isEmpty()) {
-            return -1;
+            return null;
         }
-        idSharecases.remove(sharecase.getId());
-        host.setIdSharecases(idSharecases);
+//        idSharecases.remove(sharecase.getId());
+//        host.setIdSharecases(idSharecases);
         idOrders.remove(order.getId());
         host.setIdOrders(idOrders);
         return UserDatabase.getInstance(context).update(host);
@@ -192,10 +192,10 @@ public class UserUtils {
         float incomeAdmin = admin.getIncome() + commission;//共享箱所有人收入
         admin.setExpend(expendAdmin);
         admin.setIncome(incomeAdmin);
-        int resHost = UserDatabase.getInstance(context).update(host);
-        int resUser = UserDatabase.getInstance(context).update(user);
-        int resAdmin = UserDatabase.getInstance(context).update(admin);
-        if (resHost > 0 && resUser > 0 && resAdmin > 0) {
+        host = UserDatabase.getInstance(context).update(host);
+        user = UserDatabase.getInstance(context).update(user);
+        admin = UserDatabase.getInstance(context).update(admin);
+        if (host != null && user != null && admin != null) {
             return true;
         }
         return false;

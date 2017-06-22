@@ -53,22 +53,24 @@ public class SharecaseDatabase extends OrmLiteSqliteOpenHelper {
         onCreate(db, connectionSource);
     }
 
-    public int insert(Sharecase sharecase) {
+    public Sharecase insert(Sharecase sharecase) {
         try {
-            return dao.create(sharecase);
+            return dao.createIfNotExists(sharecase);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
+        return null;
     }
 
-    public int update(Sharecase sharecase) {
+    public Sharecase update(Sharecase sharecase) {
         try {
-            return dao.update(sharecase);
+            if (dao.update(sharecase) > 0) {
+                return dao.queryForId(sharecase.getId());
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
+        return null;
     }
 
     public List<Sharecase> query() {
@@ -87,5 +89,16 @@ public class SharecaseDatabase extends OrmLiteSqliteOpenHelper {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean delete(Sharecase sharecase) {
+        try {
+            if (dao.delete(sharecase) > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

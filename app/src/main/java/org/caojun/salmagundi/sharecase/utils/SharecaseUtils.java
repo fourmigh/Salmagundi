@@ -23,9 +23,9 @@ public class SharecaseUtils {
      * @param commission
      * @return
      */
-    public int insert(Context context, User admin, float commission) {
+    public Sharecase insert(Context context, User admin, float commission) {
         if (context == null || admin == null || admin.getType() != User.Type_Admin || commission < 0) {
-            return -1;
+            return null;
         }
         Sharecase sharecase = new Sharecase(admin.getId(), commission);
         return SharecaseDatabase.getInstance(context).insert(sharecase);
@@ -39,9 +39,9 @@ public class SharecaseUtils {
         return list.get(0);
     }
 
-    private static int addIdOrders(Context context, Sharecase sharecase, int idOrder) {
+    private static Sharecase addIdOrders(Context context, Sharecase sharecase, int idOrder) {
         if (context == null || sharecase == null || idOrder < 0) {
-            return -1;
+            return null;
         }
         SerializedList<Integer> idOrders = sharecase.getIdOrders();
         if (idOrders == null || idOrders.isEmpty()) {
@@ -52,9 +52,9 @@ public class SharecaseUtils {
         return SharecaseDatabase.getInstance(context).update(sharecase);
     }
 
-    public static int loan(Context context, Sharecase sharecase, Order order) {
+    public static Sharecase loan(Context context, Sharecase sharecase, Order order) {
         if (context == null || sharecase == null || !sharecase.isEmpty() || order == null) {
-            return -1;
+            return null;
         }
         sharecase.setName(order.getName());
         sharecase.setRent(order.getRent());
@@ -63,9 +63,9 @@ public class SharecaseUtils {
         return addIdOrders(context, sharecase, order.getId());
     }
 
-    public static int borrow(Context context, Sharecase sharecase) {
+    public static Sharecase borrow(Context context, Sharecase sharecase) {
         if (context == null || sharecase == null || sharecase.isEmpty()) {
-            return -1;
+            return null;
         }
         sharecase.setName(null);
         sharecase.setRent(0);
@@ -75,9 +75,9 @@ public class SharecaseUtils {
         return SharecaseDatabase.getInstance(context).update(sharecase);
     }
 
-    public static int recycle(Context context, Sharecase sharecase) {
+    public static Sharecase recycle(Context context, Sharecase sharecase) {
         if (context == null || sharecase == null || sharecase.isEmpty()) {
-            return -1;
+            return null;
         }
         return borrow(context, sharecase);
     }

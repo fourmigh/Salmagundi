@@ -26,9 +26,9 @@ public class OrderUtils {
      * @param deposit
      * @return
      */
-    public static int loan(Context context, Sharecase sharecase, User host, String name, float rent, float deposit) {
+    public static Order loan(Context context, Sharecase sharecase, User host, String name, float rent, float deposit) {
         if (context == null || sharecase == null || !sharecase.isEmpty() || host == null || TextUtils.isEmpty(name) || rent < 0 || deposit < 0) {
-            return -1;
+            return null;
         }
         Order order = new Order(sharecase.getId(), host.getId(), name, rent, deposit, sharecase.getCommission());
         return OrderDatabase.getInstance(context).insert(order);
@@ -43,9 +43,9 @@ public class OrderUtils {
      * @param timeStart
      * @return
      */
-    public int borrow(Context context, Order order, Sharecase sharecase, User user, int timeStart) {
+    public Order borrow(Context context, Order order, Sharecase sharecase, User user, int timeStart) {
         if (context == null || order == null || sharecase == null || sharecase.isEmpty() || user == null || timeStart <= 0) {
-            return -1;
+            return null;
         }
         order.setIdUser(user.getId());
         order.setTimeStart(timeStart);
@@ -60,21 +60,21 @@ public class OrderUtils {
      * @param timeEnd
      * @return
      */
-    public int restore(Context context, Order order, Sharecase sharecase, long timeEnd) {
+    public Order restore(Context context, Order order, Sharecase sharecase, long timeEnd) {
         if (context == null || order == null || sharecase == null || !sharecase.isEmpty() || timeEnd <= 0) {
-            return -1;
+            return null;
         }
         User host = UserUtils.getUser(context, order.getIdHost());
         if (host == null) {
-            return -1;
+            return null;
         }
         User user = UserUtils.getUser(context, order.getIdUser());
         if (user == null) {
-            return -1;
+            return null;
         }
         Sharecase oldSharecase = SharecaseUtils.getSharecase(context, order.getIdSharecase());
         if (oldSharecase == null) {
-            return -1;
+            return null;
         }
         order.setIdSharecase(sharecase.getId());//将物品放入共享箱sharecase
         order.setTimeEnd(timeEnd);//记录归还时间
@@ -95,17 +95,17 @@ public class OrderUtils {
      * @param order
      * @return
      */
-    public static int reloan(Context context, Order order) {
+    public static Order reloan(Context context, Order order) {
         if (context == null || order == null) {
-            return -1;
+            return null;
         }
         Sharecase sharecase = SharecaseUtils.getSharecase(context, order.getIdSharecase());
         if (sharecase == null || !sharecase.isEmpty()) {
-            return -1;
+            return null;
         }
         User host = UserUtils.getUser(context, order.getIdHost());
         if (host == null) {
-            return -1;
+            return null;
         }
         String name = order.getName();
         float rent = order.getRent();
@@ -113,7 +113,7 @@ public class OrderUtils {
         return loan(context, sharecase, host, name, rent, deposit);
     }
 
-    public static int recycle(Context context, Order order) {
+    public static boolean recycle(Context context, Order order) {
         return OrderDatabase.getInstance(context).delete(order);
     }
 }

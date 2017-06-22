@@ -53,22 +53,24 @@ public class OrderDatabase extends OrmLiteSqliteOpenHelper {
         onCreate(db, connectionSource);
     }
 
-    public int insert(Order order) {
+    public Order insert(Order order) {
         try {
-            return dao.create(order);
+            return dao.createIfNotExists(order);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
+        return null;
     }
 
-    public int update(Order order) {
+    public Order update(Order order) {
         try {
-            return dao.update(order);
+            if (dao.update(order) > 0) {
+                return dao.queryForId(order.getId());
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
+        return null;
     }
 
     public List<Order> query() {
@@ -89,12 +91,14 @@ public class OrderDatabase extends OrmLiteSqliteOpenHelper {
         return null;
     }
 
-    public int delete(Order order) {
+    public boolean delete(Order order) {
         try {
-            return dao.delete(order);
+            if (dao.delete(order) > 0) {
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
+        return false;
     }
 }

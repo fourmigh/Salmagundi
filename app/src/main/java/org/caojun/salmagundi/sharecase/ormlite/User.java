@@ -40,8 +40,8 @@ public class User implements Serializable, Parcelable {
     private String name;//账号
     @DatabaseField(dataType = DataType.BYTE_ARRAY)
     private byte[] gesturePassword;
-    @DatabaseField(dataType = DataType.SERIALIZABLE)
-    private SerializedList<Integer> idSharecases;//相关共享箱ID
+//    @DatabaseField(dataType = DataType.SERIALIZABLE)
+//    private SerializedList<Integer> idSharecases;//相关共享箱ID
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     private SerializedList<Integer> idOrders;//相关订单ID
 
@@ -101,13 +101,13 @@ public class User implements Serializable, Parcelable {
         this.gesturePassword = gesturePassword;
     }
 
-    public SerializedList<Integer> getIdSharecases() {
-        return idSharecases;
-    }
-
-    public void setIdSharecases(SerializedList<Integer> idSharecases) {
-        this.idSharecases = idSharecases;
-    }
+//    public SerializedList<Integer> getIdSharecases() {
+//        return idSharecases;
+//    }
+//
+//    public void setIdSharecases(SerializedList<Integer> idSharecases) {
+//        this.idSharecases = idSharecases;
+//    }
 
     public SerializedList<Integer> getIdOrders() {
         return idOrders;
@@ -128,7 +128,7 @@ public class User implements Serializable, Parcelable {
             gesturePassword = new byte[lengthGesturePassword];
             in.readByteArray(gesturePassword);
         }
-        idSharecases = (SerializedList)in.readArrayList(Integer.class.getClassLoader());
+//        idSharecases = (SerializedList)in.readArrayList(Integer.class.getClassLoader());
         idOrders = (SerializedList)in.readArrayList(Integer.class.getClassLoader());
     }
 
@@ -156,7 +156,7 @@ public class User implements Serializable, Parcelable {
         if (lengthGesturePassword > 0) {
             dest.writeByteArray(gesturePassword);
         }
-        dest.writeList(idSharecases);
+//        dest.writeList(idSharecases);
         dest.writeList(idOrders);
     }
 

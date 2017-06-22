@@ -117,14 +117,18 @@ public class SharecaseDetailActivity extends BaseActivity {
     }
 
     private void doBorrow() {
+        //1、生成订单
 
+        //2、清空共享箱
+        //3、物品所有人/使用人，增加相关订单
     }
 
     private void doUnshelve() {
         if (sharecase == null || user == null || user.getId() != sharecase.getIdHost()) {
             return;
         }
-        if (SharecaseUtils.recycle(this, sharecase) > 0) {
+        sharecase = SharecaseUtils.recycle(this, sharecase);
+        if (sharecase != null) {
             finish();
         }
     }
@@ -134,8 +138,8 @@ public class SharecaseDetailActivity extends BaseActivity {
         float commission = Float.valueOf(strCommission);
         if (sharecase == null) {
             //共享箱所有人新建共享箱
-            Sharecase sharecase = new Sharecase(user.getId(), commission);
-            if (SharecaseDatabase.getInstance(this).insert(sharecase) > 0) {
+            Sharecase sharecase = SharecaseDatabase.getInstance(this).insert(new Sharecase(user.getId(), commission));
+            if (sharecase != null) {
                 finish();
             }
         } else {
@@ -158,7 +162,8 @@ public class SharecaseDetailActivity extends BaseActivity {
             } else {
                 return;
             }
-            if (SharecaseDatabase.getInstance(this).update(sharecase) > 0) {
+            sharecase = SharecaseDatabase.getInstance(this).update(sharecase);
+            if (sharecase != null) {
                 finish();
             }
         }

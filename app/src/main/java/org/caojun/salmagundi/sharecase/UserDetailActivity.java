@@ -195,7 +195,8 @@ public class UserDetailActivity extends BaseActivity {
     private void doSave() {
         String name = etName.getText().toString();
         user.setName(name);
-        if (UserDatabase.getInstance(this).insert(user) > 0) {
+        user = UserDatabase.getInstance(this).insert(user);
+        if (user != null) {
             finish();
         }
     }

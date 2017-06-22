@@ -54,22 +54,24 @@ public class UserDatabase extends OrmLiteSqliteOpenHelper {
         onCreate(db, connectionSource);
     }
 
-    public int insert(User user) {
+    public User insert(User user) {
         try {
-            return dao.create(user);
+            return dao.createIfNotExists(user);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
+        return null;
     }
 
-    public int update(User user) {
+    public User update(User user) {
         try {
-            return dao.update(user);
+            if (dao.update(user) > 0) {
+                return dao.queryForId(user.getId());
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
+        return null;
     }
 
     public List<User> query() {
