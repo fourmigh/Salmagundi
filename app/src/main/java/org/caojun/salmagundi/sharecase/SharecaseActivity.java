@@ -83,10 +83,10 @@ public class SharecaseActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         boolean isNew = list == null || adapter == null;
-        if (user != null) {
-            list = SharecaseDatabase.getInstance(this).query();
-        } else if (order != null) {
+        if (order != null) {
             list = SharecaseDatabase.getInstance(this).query("idHost", 0);
+        } else if (user != null) {
+            list = SharecaseDatabase.getInstance(this).query();
         }
         if (isNew) {
             adapter = new SharecaseAdapter(this, list);
