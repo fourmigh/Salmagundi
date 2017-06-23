@@ -90,51 +90,64 @@ public class UserUtils {
      * 归还物品时计算所有人的收支
      * @param context
      * @param order
-     * @return
+     * @return 返回物品使用人
      */
-    public static boolean restore(Context context, Order order) {
+    public static User restore(Context context, Order order, int idSharecase) {
         if (context == null || order == null) {
-            return false;
+            return null;
         }
         User host = UserUtils.getUser(context, order.getIdHost());
         if (host == null) {
-            return false;
+            return null;
         }
         User user = UserUtils.getUser(context, order.getIdUser());
         if (user == null) {
-            return false;
+            return null;
         }
-        Sharecase sharecase = SharecaseUtils.getSharecase(context, order.getIdSharecase());
+        Sharecase sharecase = SharecaseUtils.getSharecase(context, idSharecase);
         if (sharecase == null) {
-            return false;
+            return null;
         }
-        User admin = UserUtils.getUser(context, sharecase.getIdAdmin());
-        if (admin == null) {
-            return false;
-        }
+        //1、计算总收入
         long day = TimeUtils.getDays(order.getTimeEnd(), order.getTimeStart());
         float rent = order.getRent() * day;//总收入
+        //2、计算物品所有人
         float commission = order.getCommission() * rent / 100;//服务费
         float incomeHost = host.getIncome() + (rent - commission);//物品所有人收入
         float expendHost = host.getExpend() + commission;//物品所有人支出
         host.setIncome(incomeHost);
         host.setExpend(expendHost);
+        host = UserDatabase.getInstance(context).update(host);
+        if (host == null) {
+            return null;
+        }
+        //3、计算物品使用人
         float deposit = order.getDeposit();//押金
         float expendUser = user.getExpend() + rent;//物品使用人支出
         float incomeUser = user.getIncome() + deposit;//物品使用人收入
         user.setExpend(expendUser);
         user.setIncome(incomeUser);
+        user = UserDatabase.getInstance(context).update(user);
+        if (user == null) {
+            return null;
+        }
+        //4、计算共享箱所有人
+        User admin = UserUtils.getUser(context, sharecase.getIdAdmin());
+        if (admin == null) {
+            return null;
+        }
         float expendAdmin = admin.getExpend() + deposit;//共享箱所有人支出
         float incomeAdmin = admin.getIncome() + commission;//共享箱所有人收入
         admin.setExpend(expendAdmin);
         admin.setIncome(incomeAdmin);
-        host = UserDatabase.getInstance(context).update(host);
-        user = UserDatabase.getInstance(context).update(user);
         admin = UserDatabase.getInstance(context).update(admin);
-        if (host != null && user != null && admin != null) {
-            return true;
+        if (admin == null) {
+            return null;
         }
-        return false;
+        if (admin.getId() == user.getId()) {
+            return admin;
+        }
+        return user;
     }
 
     /**

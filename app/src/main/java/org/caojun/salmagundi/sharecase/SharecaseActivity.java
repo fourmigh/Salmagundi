@@ -105,8 +105,11 @@ public class SharecaseActivity extends BaseActivity {
         if (order == null) {
             return;
         }
-//        UserUtils.restore(this, order);
-        //TODO
+        Sharecase sharecase = (Sharecase) adapter.getItem(position);
+        user = UserUtils.restore(this, order, sharecase.getId());
+        if (user == null) {
+            return;
+        }
         finish();
     }
 

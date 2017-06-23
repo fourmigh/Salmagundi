@@ -16,12 +16,9 @@ import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.sharecase.ormlite.Order;
-import org.caojun.salmagundi.sharecase.ormlite.OrderDatabase;
 import org.caojun.salmagundi.sharecase.ormlite.User;
 import org.caojun.salmagundi.sharecase.utils.UserUtils;
 import org.caojun.salmagundi.utils.TimeUtils;
-
-import java.sql.Time;
 
 /**
  * 订单详情
@@ -92,6 +89,12 @@ public class OrderDetailActivity extends BaseActivity {
 
         btnRevious.setEnabled(position > 0);
         btnNext.setEnabled(position < size - 1);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         if (order.getIdUser() == user.getId() && order.getTimeEnd() == 0) {
             btnRestore.setVisibility(View.VISIBLE);
         } else {
