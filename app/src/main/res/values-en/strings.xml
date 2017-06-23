@@ -115,8 +115,7 @@
     <string name="sc_time_days">Days</string>
     <string name="sc_host">Host</string>
     <string name="sc_sharecase_id">Sharecase ID</string>
-    <string name="sc_host_id">Host ID</string>
-    <string name="sc_user_id">User ID</string>
+    <string name="sc_user">User ID</string>
     <string name="sc_submit">Submit</string>
     <string name="sc_borrow">Borrow</string>
     <string name="sc_unshelve">Unshelve</string>

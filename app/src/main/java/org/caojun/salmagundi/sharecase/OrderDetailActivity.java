@@ -28,7 +28,7 @@ import org.caojun.salmagundi.utils.TimeUtils;
 @Route(path = Constant.ACTIVITY_ORDER_DETAIL)
 public class OrderDetailActivity extends BaseActivity {
 
-    private EditText etID, etName, etSharecaseID, etHostID, etUserID, etRent, etDeposit, etCommission, etStart, etEnd, etDays;
+    private EditText etID, etName, etSharecaseID, etHost, etUser, etRent, etDeposit, etCommission, etStart, etEnd, etDays;
     private Button btnRevious, btnNext, btnRestore;
 
     @Autowired
@@ -54,8 +54,8 @@ public class OrderDetailActivity extends BaseActivity {
         etID = (EditText) findViewById(R.id.etID);
         etName = (EditText) findViewById(R.id.etName);
         etSharecaseID = (EditText) findViewById(R.id.etSharecaseID);
-        etHostID = (EditText) findViewById(R.id.etHostID);
-        etUserID = (EditText) findViewById(R.id.etUserID);
+        etHost = (EditText) findViewById(R.id.etHost);
+        etUser = (EditText) findViewById(R.id.etUser);
         etRent = (EditText) findViewById(R.id.etRent);
         etDeposit = (EditText) findViewById(R.id.etDeposit);
         etCommission = (EditText) findViewById(R.id.etCommission);
@@ -106,11 +106,11 @@ public class OrderDetailActivity extends BaseActivity {
         etSharecaseID.setText(String.valueOf(order.getIdSharecase()));
         User host = UserUtils.getUser(this, order.getIdHost());
         if (host != null) {
-            etHostID.setText(String.format("%s(%s)", host.getName(), host.getId()));
+            etHost.setText(String.format("%s(%s)", host.getName(), host.getId()));
         }
         User user = UserUtils.getUser(this, order.getIdUser());
         if (user != null) {
-            etUserID.setText(String.format("%s(%s)", user.getName(), user.getId()));
+            etUser.setText(String.format("%s(%s)", user.getName(), user.getId()));
         }
         etRent.setText(String.format("%1$.2f", order.getRent()));
         etDeposit.setText(String.format("%1$.2f", order.getDeposit()));

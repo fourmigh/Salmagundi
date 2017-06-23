@@ -56,11 +56,11 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/sc_host_id"
+                android:hint="@string/sc_host"
                 android:theme="@style/ItemTheme">
 
                 <EditText
-                    android:id="@+id/etHostID"
+                    android:id="@+id/etHost"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"/>
@@ -69,11 +69,11 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/sc_user_id"
+                android:hint="@string/sc_user"
                 android:theme="@style/ItemTheme">
 
                 <EditText
-                    android:id="@+id/etUserID"
+                    android:id="@+id/etUser"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"/>

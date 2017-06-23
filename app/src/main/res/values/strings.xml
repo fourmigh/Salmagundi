@@ -117,8 +117,7 @@
     <string name="sc_time_days">总天数</string>
     <string name="sc_host">物品所有人</string>
     <string name="sc_sharecase_id">共享箱ID</string>
-    <string name="sc_host_id">物品所有人ID</string>
-    <string name="sc_user_id">物品使用人ID</string>
+    <string name="sc_user">物品使用人</string>
     <string name="sc_previous">上一笔</string>
     <string name="sc_next">下一笔</string>
     <string name="sc_submit">发布</string>
