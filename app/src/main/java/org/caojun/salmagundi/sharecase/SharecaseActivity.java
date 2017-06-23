@@ -16,9 +16,14 @@ import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.sharecase.adapter.SharecaseAdapter;
+import org.caojun.salmagundi.sharecase.ormlite.Order;
+import org.caojun.salmagundi.sharecase.ormlite.OrderDatabase;
 import org.caojun.salmagundi.sharecase.ormlite.Sharecase;
 import org.caojun.salmagundi.sharecase.ormlite.SharecaseDatabase;
 import org.caojun.salmagundi.sharecase.ormlite.User;
+import org.caojun.salmagundi.sharecase.utils.UserUtils;
+import org.caojun.salmagundi.utils.TimeUtils;
+
 import java.util.List;
 
 /**
@@ -35,7 +40,10 @@ public class SharecaseActivity extends BaseActivity {
     private Button btnAdd;
 
     @Autowired
-    protected User user;
+    protected User user;//用户选择共享箱出租（包括共享箱所有人管理共享箱）
+
+    @Autowired
+    protected Order order;//物品使用人选择空余共享箱归还物品
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +57,11 @@ public class SharecaseActivity extends BaseActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                doUpdate(position);
+                if (order == null && user != null) {
+                    doUpdate(position);
+                } else if (order != null && user != null) {
+                    doSelect(position);
+                }
             }
         });
 
@@ -60,14 +72,22 @@ public class SharecaseActivity extends BaseActivity {
             }
         });
 
-        btnAdd.setVisibility(user.getType() == User.Type_Admin?View.VISIBLE:View.GONE);
+        if (order == null && user != null) {
+            btnAdd.setVisibility(user.getType() == User.Type_Admin ? View.VISIBLE : View.GONE);
+        } else if (order != null && user != null) {
+            btnAdd.setVisibility(View.GONE);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         boolean isNew = list == null || adapter == null;
-        list = SharecaseDatabase.getInstance(this).query();
+        if (user != null) {
+            list = SharecaseDatabase.getInstance(this).query();
+        } else if (order != null) {
+            list = SharecaseDatabase.getInstance(this).query("idHost", 0);
+        }
         if (isNew) {
             adapter = new SharecaseAdapter(this, list);
             listView.setAdapter(adapter);
@@ -75,6 +95,19 @@ public class SharecaseActivity extends BaseActivity {
             adapter.setData(list);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    private void doSelect(int position) {
+        //选中后归还物品
+        long timeEnd = TimeUtils.getTime();
+        order.setTimeEnd(timeEnd);
+        order = OrderDatabase.getInstance(this).update(order);
+        if (order == null) {
+            return;
+        }
+//        UserUtils.restore(this, order);
+        //TODO
+        finish();
     }
 
     private void doUpdate(int position) {
@@ -101,7 +134,12 @@ public class SharecaseActivity extends BaseActivity {
     @Override
     public void finish() {
         Intent intent = new Intent();
-        intent.putExtra("user", (Parcelable) user);
+        if (user != null) {
+            intent.putExtra("user", (Parcelable) user);
+        }
+        if (order != null) {
+            intent.putExtra("order", (Parcelable) order);
+        }
         setResult(Activity.RESULT_OK, intent);
         super.finish();
     }

@@ -3,6 +3,7 @@ package org.caojun.salmagundi.sharecase;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.WindowManager;
@@ -91,7 +92,11 @@ public class OrderDetailActivity extends BaseActivity {
 
         btnRevious.setEnabled(position > 0);
         btnNext.setEnabled(position < size - 1);
-        btnRestore.setVisibility(order.getIdUser() == user.getId()?View.VISIBLE:View.GONE);
+        if (order.getIdUser() == user.getId() && order.getTimeEnd() == 0) {
+            btnRestore.setVisibility(View.VISIBLE);
+        } else {
+            btnRestore.setVisibility(View.GONE);
+        }
 
         etID.setText(String.valueOf(order.getId()));
         etName.setText(order.getName());
@@ -120,13 +125,10 @@ public class OrderDetailActivity extends BaseActivity {
     }
 
     private void doRestore() {
-        long timeEnd = TimeUtils.getTime();
-        order.setTimeEnd(timeEnd);
-        order = OrderDatabase.getInstance(this).update(order);
-        if (order == null) {
-            return;
-        }
-        UserUtils.restore(this, order);
+        ARouter.getInstance().build(Constant.ACTIVITY_SHARECASE)
+                .withParcelable("user", user)
+                .withParcelable("order", order)
+                .navigation(this, SharecaseConstant.RequestCode_Restore);
     }
 
     private void doRevious() {
@@ -142,6 +144,23 @@ public class OrderDetailActivity extends BaseActivity {
     private void showDetial() {
         Intent intent = new Intent();
         intent.putExtra("position", position);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == SharecaseConstant.RequestCode_Restore && data != null) {
+            user = data.getParcelableExtra("user");
+            order = data.getParcelableExtra("order");
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("user", (Parcelable) user);
         setResult(Activity.RESULT_OK, intent);
         finish();
     }

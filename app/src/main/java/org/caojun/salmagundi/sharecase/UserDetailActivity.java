@@ -210,10 +210,14 @@ public class UserDetailActivity extends BaseActivity {
     }
 
     private void showSharecase() {
-        ARouter.getInstance().build(Constant.ACTIVITY_SHARECASE).withSerializable("user", user).navigation(this, SharecaseConstant.RequestCode_TransferUser);
+        ARouter.getInstance().build(Constant.ACTIVITY_SHARECASE)
+                .withSerializable("user", user)
+                .navigation(this, SharecaseConstant.RequestCode_TransferUser);
     }
 
     private void showOrder() {
-        ARouter.getInstance().build(Constant.ACTIVITY_ORDER).withSerializable("user", user).navigation();
+        ARouter.getInstance().build(Constant.ACTIVITY_ORDER)
+                .withSerializable("user", user)
+                .navigation(this, SharecaseConstant.RequestCode_TransferUser);
     }
 }

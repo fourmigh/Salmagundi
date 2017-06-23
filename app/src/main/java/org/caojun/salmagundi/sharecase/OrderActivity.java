@@ -91,6 +91,10 @@ public class OrderActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SharecaseConstant.RequestCode_ShowDetail && resultCode == Activity.RESULT_OK && data != null) {
+            User user = data.getParcelableExtra("user");
+            if (user != null) {
+                this.user = user;
+            }
             int position = data.getIntExtra("position", -1);
             if (position >= 0 && position < list.size()) {
                 showDetail(position);
