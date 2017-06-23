@@ -152,7 +152,7 @@ public class SharecaseDetailActivity extends BaseActivity {
 
     private void doSave() {
         String strCommission = etCommission.getText().toString();
-        float commission = Float.valueOf(strCommission);
+        byte commission = Byte.valueOf(strCommission);
         if (sharecase == null) {
             //共享箱所有人新建共享箱
             Sharecase sharecase = SharecaseDatabase.getInstance(this).insert(new Sharecase(user.getId(), commission));
@@ -224,7 +224,7 @@ public class SharecaseDetailActivity extends BaseActivity {
             etName.setText(sharecase.getName());
             etRent.setText(String.format("%1$.2f", sharecase.getRent()));
             etDeposit.setText(String.format("%1$.2f", sharecase.getDeposit()));
-            etCommission.setText(String.format("%1$.2f", sharecase.getCommission()));
+            etCommission.setText(String.format("%d%%", sharecase.getCommission()));
 
             User host = UserUtils.getUser(this, sharecase.getIdHost());
             etHost.setText(host == null?null:host.getName());
@@ -300,8 +300,13 @@ public class SharecaseDetailActivity extends BaseActivity {
         if (TextUtils.isEmpty(strCommission)) {
             return false;
         }
+        byte commission = 0;
         try {
-            Float.valueOf(strCommission);
+            commission = Byte.valueOf(strCommission);
+            if (commission < 0 || commission > 100)
+            {
+                return false;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -345,7 +350,6 @@ public class SharecaseDetailActivity extends BaseActivity {
                 return true;
             }
 
-            float commission = Float.valueOf(strCommission);
             if (commission != sharecase.getCommission()) {
                 return true;
             }

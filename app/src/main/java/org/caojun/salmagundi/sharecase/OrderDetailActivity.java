@@ -102,7 +102,7 @@ public class OrderDetailActivity extends BaseActivity {
         }
         etRent.setText(String.format("%1$.2f", order.getRent()));
         etDeposit.setText(String.format("%1$.2f", order.getDeposit()));
-        etCommission.setText(String.format("%1$.2f", order.getCommission()));
+        etCommission.setText(String.format("%d%%", order.getCommission()));
         etStart.setText(TimeUtils.getTime("yyyy/MM/dd HH:mm:ss", order.getTimeStart()));
         if (order.getTimeEnd() > 0) {
             etEnd.setText(TimeUtils.getTime("yyyy/MM/dd HH:mm:ss", order.getTimeEnd()));

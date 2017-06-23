@@ -16,36 +16,6 @@ import java.util.List;
 
 public class UserUtils {
 
-    /**
-     * 更新账号
-     * @param context
-     * @param user
-     * @param name
-     * @return
-     */
-    public static User updateName(Context context, User user, String name) {
-        if (context == null || user == null || TextUtils.isEmpty(name)) {
-            return null;
-        }
-        user.setName(name);
-        return UserDatabase.getInstance(context).update(user);
-    }
-
-    /**
-     * 更新手势密码
-     * @param context
-     * @param user
-     * @param gesturePassword
-     * @return
-     */
-    public static User updateGesturePassword(Context context, User user, byte[] gesturePassword) {
-        if (context == null || user == null || gesturePassword == null) {
-            return null;
-        }
-        user.setGesturePassword(gesturePassword);
-        return UserDatabase.getInstance(context).update(user);
-    }
-
     public static User getUser(Context context, int id) {
         List<User> list = UserDatabase.getInstance(context).query("id", id);
         if (list == null || list.isEmpty() || list.size() > 1) {
@@ -147,7 +117,7 @@ public class UserUtils {
         }
         long day = getDay(order.getTimeEnd(), order.getTimeStart());
         float rent = order.getRent() * day;//总收入
-        float commission = order.getCommission() * rent;//服务费
+        float commission = order.getCommission() * rent / 100;//服务费
         float incomeHost = host.getIncome() + (rent - commission);//物品所有人收入
         float expendHost = host.getExpend() + commission;//物品所有人支出
         host.setIncome(incomeHost);

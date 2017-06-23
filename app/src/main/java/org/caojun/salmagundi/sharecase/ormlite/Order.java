@@ -17,7 +17,7 @@ public class Order implements Serializable, Parcelable {
 
     public Order() {}
 
-    public Order(int idSharecase, int idHost, String name, float rent, float deposit, float commission, int idUser) {
+    public Order(int idSharecase, int idHost, String name, float rent, float deposit, byte commission, int idUser) {
         this.setIdSharecase(idSharecase);
         this.setIdHost(idHost);
         this.setName(name);
@@ -55,7 +55,7 @@ public class Order implements Serializable, Parcelable {
     @DatabaseField
     private float deposit;//箱内物品押金（归共享箱平台所有，归还物品时返还）
     @DatabaseField
-    private float commission;//服务费（归共享箱平台所有，向物品主人收取，相当于收入所得税，收入的百分比）
+    private byte commission;//服务费（归共享箱平台所有，向物品主人收取，相当于收入所得税，收入的百分比0-100）
     @DatabaseField
     private long timeStart;//物品租用起始时间
     @DatabaseField
@@ -117,11 +117,11 @@ public class Order implements Serializable, Parcelable {
         this.deposit = deposit;
     }
 
-    public float getCommission() {
+    public byte getCommission() {
         return commission;
     }
 
-    public void setCommission(float commission) {
+    public void setCommission(byte commission) {
         this.commission = commission;
     }
 
@@ -149,7 +149,7 @@ public class Order implements Serializable, Parcelable {
         name = in.readString();
         rent = in.readFloat();
         deposit = in.readFloat();
-        commission = in.readFloat();
+        commission = in.readByte();
         timeStart = in.readLong();
         timeEnd = in.readLong();
     }
@@ -175,7 +175,7 @@ public class Order implements Serializable, Parcelable {
         dest.writeString(name);
         dest.writeFloat(rent);
         dest.writeFloat(deposit);
-        dest.writeFloat(commission);
+        dest.writeByte(commission);
         dest.writeLong(timeStart);
         dest.writeLong(timeEnd);
     }

@@ -12,20 +12,20 @@ import java.util.List;
 
 public class SharecaseUtils {
 
-    /**
-     * 只能由共享箱所有人新建箱子，并设定服务费
-     * @param context
-     * @param admin
-     * @param commission
-     * @return
-     */
-    public Sharecase insert(Context context, User admin, float commission) {
-        if (context == null || admin == null || admin.getType() != User.Type_Admin || commission < 0) {
-            return null;
-        }
-        Sharecase sharecase = new Sharecase(admin.getId(), commission);
-        return SharecaseDatabase.getInstance(context).insert(sharecase);
-    }
+//    /**
+//     * 只能由共享箱所有人新建箱子，并设定服务费
+//     * @param context
+//     * @param admin
+//     * @param commission
+//     * @return
+//     */
+//    public Sharecase insert(Context context, User admin, byte commission) {
+//        if (context == null || admin == null || admin.getType() != User.Type_Admin || commission < 0) {
+//            return null;
+//        }
+//        Sharecase sharecase = new Sharecase(admin.getId(), commission);
+//        return SharecaseDatabase.getInstance(context).insert(sharecase);
+//    }
 
     public static Sharecase getSharecase(Context context, int id) {
         List<Sharecase> list = SharecaseDatabase.getInstance(context).query("id", id);

@@ -14,11 +14,10 @@ public class Sharecase implements Serializable, Parcelable {
 
     public Sharecase() {}
 
-    public Sharecase(int idAdmin, float commission) {
+    public Sharecase(int idAdmin, byte commission) {
         this.setIdAdmin(idAdmin);
         this.setCommission(commission);
         this.setIdHost(0);
-//        this.setIdOrder(0);
     }
 
     @DatabaseField(generatedId = true)
@@ -30,13 +29,11 @@ public class Sharecase implements Serializable, Parcelable {
     @DatabaseField
     private float deposit;//箱内物品押金（归共享箱所有人，归还物品时返还）
     @DatabaseField
-    private float commission;//服务费（归共享箱平台所有，向物品主人收取，相当于收入所得税，收入的百分比）
+    private byte commission;//服务费（归共享箱平台所有，向物品主人收取，相当于收入所得税，收入的百分比0-100）
     @DatabaseField
     private Integer idAdmin;//共享箱所有人ID
     @DatabaseField
     private Integer idHost;//物品所有人ID
-//    @DatabaseField
-//    private Integer idOrder;//当前订单ID
 
     public Integer getId() {
         return id;
@@ -70,11 +67,11 @@ public class Sharecase implements Serializable, Parcelable {
         this.deposit = deposit;
     }
 
-    public float getCommission() {
+    public byte getCommission() {
         return commission;
     }
 
-    public void setCommission(float commission) {
+    public void setCommission(byte commission) {
         this.commission = commission;
     }
 
@@ -94,23 +91,14 @@ public class Sharecase implements Serializable, Parcelable {
         this.idHost = idHost;
     }
 
-//    public Integer getIdOrder() {
-//        return idOrder;
-//    }
-//
-//    public void setIdOrder(Integer idOrder) {
-//        this.idOrder = idOrder;
-//    }
-
     public Sharecase(Parcel in) {
         id = in.readInt();
         name = in.readString();
         rent = in.readFloat();
         deposit = in.readFloat();
-        commission = in.readFloat();
+        commission = in.readByte();
         idAdmin = in.readInt();
         idHost = in.readInt();
-//        idOrder = in.readInt();
     }
 
     public static final Parcelable.Creator<Sharecase> CREATOR = new Parcelable.Creator<Sharecase>() {
@@ -131,10 +119,9 @@ public class Sharecase implements Serializable, Parcelable {
         dest.writeString(name);
         dest.writeFloat(rent);
         dest.writeFloat(deposit);
-        dest.writeFloat(commission);
+        dest.writeByte(commission);
         dest.writeInt(idAdmin);
         dest.writeInt(idHost);
-//        dest.writeInt(idOrder);
     }
 
     @Override

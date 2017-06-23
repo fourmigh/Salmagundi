@@ -45,6 +45,8 @@ public class UserDetailActivity extends BaseActivity {
     @Autowired
     protected String hostGesture;
 
+    private boolean isNew = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +92,8 @@ public class UserDetailActivity extends BaseActivity {
         if (user != null) {
             gesture = ConvertUtils.stringToHex(user.getGesturePassword());
             hostGesture = user.getHostGesture();
+        } else {
+            isNew = true;
         }
         ARouter.getInstance().build(Constant.ACTIVITY_GESTURE_LOGIN)
                 .withString("hostGesture", hostGesture)
@@ -195,7 +199,11 @@ public class UserDetailActivity extends BaseActivity {
     private void doSave() {
         String name = etName.getText().toString();
         user.setName(name);
-        user = UserDatabase.getInstance(this).insert(user);
+        if (isNew) {
+            user = UserDatabase.getInstance(this).insert(user);
+        } else {
+            user = UserDatabase.getInstance(this).update(user);
+        }
         if (user != null) {
             finish();
         }

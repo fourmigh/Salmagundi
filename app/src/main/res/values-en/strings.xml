@@ -109,7 +109,7 @@
     <string name="sc_relate_order">Orders</string>
     <string name="sc_sharecase_name">Name</string>
     <string name="sc_rent">Rent</string>
-    <string name="sc_commission">Commission</string>
+    <string name="sc_commission">Commission（0-100）</string>
     <string name="sc_time_start">Start Time</string>
     <string name="sc_time_end">End Time</string>
     <string name="sc_host">Host</string>
