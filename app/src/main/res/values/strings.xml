@@ -123,4 +123,5 @@
     <string name="sc_submit">发布</string>
     <string name="sc_borrow">租用</string>
     <string name="sc_unshelve">下架</string>
+    <string name="sc_restore">归还</string>
 </resources>

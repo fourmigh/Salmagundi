@@ -83,6 +83,7 @@ public class OrderActivity extends BaseActivity {
         ARouter.getInstance().build(Constant.ACTIVITY_ORDER_DETAIL)
                 .withParcelable("order", order)
                 .withInt("size", list.size())
+                .withParcelable("user", user)
                 .withInt("position", position)
                 .navigation(this, SharecaseConstant.RequestCode_ShowDetail);
     }

@@ -28,7 +28,7 @@ import org.caojun.salmagundi.utils.TimeUtils;
 public class OrderDetailActivity extends BaseActivity {
 
     private EditText etID, etName, etSharecaseID, etHostID, etUserID, etRent, etDeposit, etCommission, etStart, etEnd;
-    private Button btnRevious, btnNext;
+    private Button btnRevious, btnNext, btnRestore;
 
     @Autowired
     protected int position;
@@ -38,6 +38,9 @@ public class OrderDetailActivity extends BaseActivity {
 
     @Autowired
     protected Order order;
+
+    @Autowired
+    protected User user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class OrderDetailActivity extends BaseActivity {
         etEnd = (EditText) findViewById(R.id.etEnd);
         btnRevious = (Button) findViewById(R.id.btnRevious);
         btnNext = (Button) findViewById(R.id.btnNext);
+        btnRestore = (Button) findViewById(R.id.btnRestore);
 
         btnRevious.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,17 +78,16 @@ public class OrderDetailActivity extends BaseActivity {
             }
         });
 
+        btnRestore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doRestore();
+            }
+        });
+
         btnRevious.setEnabled(position > 0);
         btnNext.setEnabled(position < size - 1);
-
-        if (position < 0) {
-            position = 0;
-            return;
-        }
-        if (position >= size) {
-            position = size - 1;
-            return;
-        }
+        btnRestore.setVisibility(order.getIdUser() == user.getId()?View.VISIBLE:View.GONE);
 
         etID.setText(String.valueOf(order.getId()));
         etName.setText(order.getName());
@@ -104,6 +107,10 @@ public class OrderDetailActivity extends BaseActivity {
         if (order.getTimeEnd() > 0) {
             etEnd.setText(TimeUtils.getTime("yyyy/MM/dd HH:mm:ss", order.getTimeEnd()));
         }
+    }
+
+    private void doRestore() {
+
     }
 
     private void doRevious() {
