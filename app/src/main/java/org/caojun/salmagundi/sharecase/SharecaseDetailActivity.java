@@ -1,6 +1,9 @@
 package org.caojun.salmagundi.sharecase;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
@@ -131,6 +134,9 @@ public class SharecaseDetailActivity extends BaseActivity {
         if (sharecase == null) {
             return;
         }
+        Intent intent = new Intent();
+        intent.putExtra("user", (Parcelable) user);
+        setResult(Activity.RESULT_OK, intent);
         finish();
     }
 
@@ -248,13 +254,6 @@ public class SharecaseDetailActivity extends BaseActivity {
                 btnUnshelve.setVisibility(View.GONE);
             }
         }
-
-//        List<Order> orders = OrderDatabase.getInstance(this).query();
-//        if (orders == null || orders.isEmpty()) {
-//            btnOrder.setEnabled(false);
-//        } else {
-//            btnOrder.setEnabled(true);
-//        }
 
         doCheckSaveButton();
     }

@@ -1,6 +1,9 @@
 package org.caojun.salmagundi.sharecase;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
@@ -78,11 +81,26 @@ public class SharecaseActivity extends BaseActivity {
         ARouter.getInstance().build(Constant.ACTIVITY_SHARECASE_DETAIL)
                 .withSerializable("user", user)
                 .withParcelable("sharecase", sharecase)
-                .navigation();
+                .navigation(this, SharecaseConstant.RequestCode_TransferUser);
     }
 
     private void doAdd() {
-
         ARouter.getInstance().build(Constant.ACTIVITY_SHARECASE_DETAIL).withSerializable("user", user).navigation();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SharecaseConstant.RequestCode_TransferUser && resultCode == Activity.RESULT_OK && data != null) {
+            user = data.getParcelableExtra("user");
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void finish() {
+        Intent intent = new Intent();
+        intent.putExtra("user", (Parcelable) user);
+        setResult(Activity.RESULT_OK, intent);
+        super.finish();
     }
 }

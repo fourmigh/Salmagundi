@@ -183,6 +183,11 @@ public class UserDetailActivity extends BaseActivity {
             } else {
                 user.setGesturePassword(gesturePassword);
             }
+        } else if (requestCode == SharecaseConstant.RequestCode_TransferUser) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                user = data.getParcelableExtra("user");
+                return;
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -197,7 +202,7 @@ public class UserDetailActivity extends BaseActivity {
     }
 
     private void showSharecase() {
-        ARouter.getInstance().build(Constant.ACTIVITY_SHARECASE).withSerializable("user", user).navigation();
+        ARouter.getInstance().build(Constant.ACTIVITY_SHARECASE).withSerializable("user", user).navigation(this, SharecaseConstant.RequestCode_TransferUser);
     }
 
     private void showOrder() {

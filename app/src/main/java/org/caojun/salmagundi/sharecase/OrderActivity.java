@@ -28,8 +28,6 @@ import java.util.List;
 @Route(path = Constant.ACTIVITY_ORDER)
 public class OrderActivity extends BaseActivity {
 
-    public static final int RequestCode_ShowDetail = 1;
-
     private ListView listView;
     private OrderAdapter adapter;
     private List<Order> list;
@@ -86,12 +84,12 @@ public class OrderActivity extends BaseActivity {
                 .withParcelable("order", order)
                 .withInt("size", list.size())
                 .withInt("position", position)
-                .navigation(this, RequestCode_ShowDetail);
+                .navigation(this, SharecaseConstant.RequestCode_ShowDetail);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RequestCode_ShowDetail && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == SharecaseConstant.RequestCode_ShowDetail && resultCode == Activity.RESULT_OK && data != null) {
             int position = data.getIntExtra("position", -1);
             if (position >= 0 && position < list.size()) {
                 showDetail(position);
