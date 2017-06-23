@@ -2,14 +2,10 @@ package org.caojun.salmagundi.sharecase.utils;
 
 import android.content.Context;
 import android.text.TextUtils;
-
-import com.socks.library.KLog;
-
 import org.caojun.salmagundi.sharecase.ormlite.Order;
 import org.caojun.salmagundi.sharecase.ormlite.OrderDatabase;
 import org.caojun.salmagundi.sharecase.ormlite.Sharecase;
 import org.caojun.salmagundi.sharecase.ormlite.User;
-
 import java.util.List;
 
 /**
@@ -26,11 +22,9 @@ public class OrderUtils {
      */
     public static Order loan(Context context, Sharecase sharecase, int idHost, String name, float rent, float deposit, int idUser) {
         if (context == null || sharecase == null || idHost <= 0 || TextUtils.isEmpty(name) || rent < 0 || deposit < 0 && idUser <= 0) {
-            KLog.d("loan", "1");
             return null;
         }
         Order order = new Order(sharecase.getId(), idHost, name, rent, deposit, sharecase.getCommission(), idUser);
-        KLog.d("loan", "2");
         return OrderDatabase.getInstance(context).insert(order);
     }
 

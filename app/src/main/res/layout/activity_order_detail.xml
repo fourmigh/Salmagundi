@@ -143,6 +143,19 @@
                     android:layout_height="wrap_content"
                     android:enabled="false"/>
             </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/sc_time_days"
+                android:theme="@style/ItemTheme">
+
+                <EditText
+                    android:id="@+id/etDays"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"/>
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
     </ScrollView>
 

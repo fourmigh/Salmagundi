@@ -27,6 +27,7 @@ public class Order implements Serializable, Parcelable {
         this.setIdUser(idUser);
         this.setTimeStart(TimeUtils.getTime());
         this.setTimeEnd(0);
+        this.setDays(0);
     }
 
     /**
@@ -60,6 +61,8 @@ public class Order implements Serializable, Parcelable {
     private long timeStart;//物品租用起始时间
     @DatabaseField
     private long timeEnd;//物品租用结束时间（物品归还时，计算租金、服务费，归还押金）
+    @DatabaseField
+    private long days;//物品租用天数
 
     public Integer getId() {
         return id;
@@ -141,6 +144,14 @@ public class Order implements Serializable, Parcelable {
         this.timeEnd = timeEnd;
     }
 
+    public long getDays() {
+        return days;
+    }
+
+    public void setDays(long days) {
+        this.days = days;
+    }
+
     public Order(Parcel in) {
         id = in.readInt();
         idSharecase = in.readInt();
@@ -152,6 +163,7 @@ public class Order implements Serializable, Parcelable {
         commission = in.readByte();
         timeStart = in.readLong();
         timeEnd = in.readLong();
+        days = in.readLong();
     }
 
     public static final Creator<Order> CREATOR = new Creator<Order>() {
@@ -178,6 +190,7 @@ public class Order implements Serializable, Parcelable {
         dest.writeByte(commission);
         dest.writeLong(timeStart);
         dest.writeLong(timeEnd);
+        dest.writeLong(days);
     }
 
     @Override

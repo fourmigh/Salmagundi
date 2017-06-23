@@ -57,4 +57,9 @@ public class TimeUtils {
         Date date = new Date();
         return date.getTime();
     }
+
+    public static long getDays(long timeEnd, long timeStart) {
+        long time = timeEnd - timeStart;
+        return time / (1000 * 60 * 60 * 24);
+    }
 }

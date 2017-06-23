@@ -3,22 +3,16 @@ package org.caojun.salmagundi.rxjava;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.socks.library.KLog;
-
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.rxjava.data.Course;
 import org.caojun.salmagundi.rxjava.data.Student;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import rx.Observable;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 

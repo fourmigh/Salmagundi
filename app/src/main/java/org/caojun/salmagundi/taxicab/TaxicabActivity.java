@@ -13,9 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.socks.library.KLog;
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
@@ -114,7 +112,6 @@ public class TaxicabActivity extends BaseActivity {
         new Thread() {
             @Override
             public void run() {
-                KLog.d("runDoOK", "handleMessage");
                 String strMax = etMax.getText().toString();
                 BigInteger max = checkMax(strMax);
                 if (max == null) {

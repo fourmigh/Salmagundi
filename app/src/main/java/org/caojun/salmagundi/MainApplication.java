@@ -1,10 +1,8 @@
 package org.caojun.salmagundi;
 
 import android.app.Application;
-
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.socks.library.KLog;
-
 import static org.caojun.salmagundi.BuildConfig.DEBUG;
 
 /**

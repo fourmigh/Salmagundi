@@ -1,35 +1,21 @@
 package org.caojun.salmagundi.bloodpressure;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RadioGroup;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.socks.library.KLog;
-
 import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.bloodpressure.adapter.BloodPressureAdapter;
 import org.caojun.salmagundi.bloodpressure.ormlite.BloodPressure;
 import org.caojun.salmagundi.bloodpressure.ormlite.BloodPressureDatabase;
-import org.caojun.salmagundi.lockpattern.GestureConstant;
-import org.caojun.salmagundi.lockpattern.GestureLoginActivity;
-import org.caojun.salmagundi.passwordstore.PasswordDetailActivity;
-import org.caojun.salmagundi.passwordstore.adapter.PasswordAdapter;
-import org.caojun.salmagundi.passwordstore.ormlite.Password;
-import org.caojun.salmagundi.passwordstore.ormlite.PasswordDatabase;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
@@ -70,7 +56,6 @@ public class BloodPressureActivity extends BaseActivity {
         rgType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                KLog.d("onCheckedChanged", "checkedId: " + checkedId);
                 showList(checkedId);
             }
         });

@@ -224,7 +224,7 @@ public class SharecaseDetailActivity extends BaseActivity {
             etName.setText(sharecase.getName());
             etRent.setText(String.format("%1$.2f", sharecase.getRent()));
             etDeposit.setText(String.format("%1$.2f", sharecase.getDeposit()));
-            etCommission.setText(String.format("%d%%", sharecase.getCommission()));
+            etCommission.setText(String.valueOf(sharecase.getCommission()));
 
             User host = UserUtils.getUser(this, sharecase.getIdHost());
             etHost.setText(host == null?null:host.getName());

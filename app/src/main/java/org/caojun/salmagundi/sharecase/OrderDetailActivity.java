@@ -15,9 +15,12 @@ import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.sharecase.ormlite.Order;
+import org.caojun.salmagundi.sharecase.ormlite.OrderDatabase;
 import org.caojun.salmagundi.sharecase.ormlite.User;
 import org.caojun.salmagundi.sharecase.utils.UserUtils;
 import org.caojun.salmagundi.utils.TimeUtils;
+
+import java.sql.Time;
 
 /**
  * 订单详情
@@ -27,7 +30,7 @@ import org.caojun.salmagundi.utils.TimeUtils;
 @Route(path = Constant.ACTIVITY_ORDER_DETAIL)
 public class OrderDetailActivity extends BaseActivity {
 
-    private EditText etID, etName, etSharecaseID, etHostID, etUserID, etRent, etDeposit, etCommission, etStart, etEnd;
+    private EditText etID, etName, etSharecaseID, etHostID, etUserID, etRent, etDeposit, etCommission, etStart, etEnd, etDays;
     private Button btnRevious, btnNext, btnRestore;
 
     @Autowired
@@ -60,6 +63,7 @@ public class OrderDetailActivity extends BaseActivity {
         etCommission = (EditText) findViewById(R.id.etCommission);
         etStart = (EditText) findViewById(R.id.etStart);
         etEnd = (EditText) findViewById(R.id.etEnd);
+        etDays = (EditText) findViewById(R.id.etDays);
         btnRevious = (Button) findViewById(R.id.btnRevious);
         btnNext = (Button) findViewById(R.id.btnNext);
         btnRestore = (Button) findViewById(R.id.btnRestore);
@@ -102,15 +106,27 @@ public class OrderDetailActivity extends BaseActivity {
         }
         etRent.setText(String.format("%1$.2f", order.getRent()));
         etDeposit.setText(String.format("%1$.2f", order.getDeposit()));
-        etCommission.setText(String.format("%d%%", order.getCommission()));
+        etCommission.setText(String.valueOf(order.getCommission()));
         etStart.setText(TimeUtils.getTime("yyyy/MM/dd HH:mm:ss", order.getTimeStart()));
         if (order.getTimeEnd() > 0) {
             etEnd.setText(TimeUtils.getTime("yyyy/MM/dd HH:mm:ss", order.getTimeEnd()));
         }
+        if (order.getDays() > 0) {
+            etDays.setText(String.valueOf(order.getDays()));
+        } else {
+            long days = TimeUtils.getDays(TimeUtils.getTime(), order.getTimeStart());
+            etDays.setText(String.valueOf(days));
+        }
     }
 
     private void doRestore() {
-
+        long timeEnd = TimeUtils.getTime();
+        order.setTimeEnd(timeEnd);
+        order = OrderDatabase.getInstance(this).update(order);
+        if (order == null) {
+            return;
+        }
+        UserUtils.restore(this, order);
     }
 
     private void doRevious() {

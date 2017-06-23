@@ -7,6 +7,8 @@ import org.caojun.salmagundi.sharecase.ormlite.SerializedList;
 import org.caojun.salmagundi.sharecase.ormlite.Sharecase;
 import org.caojun.salmagundi.sharecase.ormlite.User;
 import org.caojun.salmagundi.sharecase.ormlite.UserDatabase;
+import org.caojun.salmagundi.utils.TimeUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,11 +86,6 @@ public class UserUtils {
         return UserDatabase.getInstance(context).update(host);
     }
 
-    private static long getDay(long timeEnd, long timeStart) {
-        long time = timeEnd - timeStart;
-        return time / (1000 * 60 * 60 * 24);
-    }
-
     /**
      * 归还物品时计算所有人的收支
      * @param context
@@ -115,7 +112,7 @@ public class UserUtils {
         if (admin == null) {
             return false;
         }
-        long day = getDay(order.getTimeEnd(), order.getTimeStart());
+        long day = TimeUtils.getDays(order.getTimeEnd(), order.getTimeStart());
         float rent = order.getRent() * day;//总收入
         float commission = order.getCommission() * rent / 100;//服务费
         float incomeHost = host.getIncome() + (rent - commission);//物品所有人收入

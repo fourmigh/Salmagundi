@@ -1,18 +1,14 @@
 package org.caojun.salmagundi.taxicab.ormlite;
 
 import android.content.Context;
-
 import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.List;
-
 import android.database.sqlite.SQLiteDatabase;
-
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import com.socks.library.KLog;
 
 /**
  * Created by fourm on 2017/5/3.
@@ -61,9 +57,6 @@ public class TaxicabDatabase extends OrmLiteSqliteOpenHelper {
     public int insert(BigInteger a, BigInteger b) {
         Taxicab taxicab = new Taxicab(a, b);
         try {
-            KLog.d("Taxicab", "a: " + taxicab.getA().toString());
-            KLog.d("Taxicab", "b: " + taxicab.getB().toString());
-            KLog.d("Taxicab", "taxicab: " + taxicab.getTaxicab().toString());
             if (taxicab.getTaxicab().compareTo(BigInteger.ZERO) > 0) {
                 return taxicabDao.create(taxicab);
             }
