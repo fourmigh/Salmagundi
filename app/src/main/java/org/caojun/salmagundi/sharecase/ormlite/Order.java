@@ -3,6 +3,9 @@ package org.caojun.salmagundi.sharecase.ormlite;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.j256.ormlite.field.DatabaseField;
+
+import org.caojun.salmagundi.utils.TimeUtils;
+
 import java.io.Serializable;
 
 /**
@@ -22,7 +25,7 @@ public class Order implements Serializable, Parcelable {
         this.setDeposit(deposit);
         this.setCommission(commission);
         this.setIdUser(idUser);
-        this.setTimeStart(0);
+        this.setTimeStart(TimeUtils.getTime());
         this.setTimeEnd(0);
     }
 
