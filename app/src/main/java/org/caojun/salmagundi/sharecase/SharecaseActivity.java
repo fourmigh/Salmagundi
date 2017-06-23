@@ -59,6 +59,8 @@ public class SharecaseActivity extends BaseActivity {
                 doAdd();
             }
         });
+
+        btnAdd.setVisibility(user.getType() == User.Type_Admin?View.VISIBLE:View.GONE);
     }
 
     @Override
