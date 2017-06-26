@@ -25,6 +25,7 @@ import org.caojun.salmagundi.ai.AIActivity;
 import org.caojun.salmagundi.bankcard.BankCardActivity;
 import org.caojun.salmagundi.bloodpressure.BloodPressureActivity;
 import org.caojun.salmagundi.cameracolor.CameraColorActivity;
+import org.caojun.salmagundi.clicaptcha.CaptchaActivity;
 import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.color.ColorUtils;
@@ -59,7 +60,8 @@ public class MainActivity extends Activity {
             R.drawable.icon_taxicab,
             R.drawable.icon_cameracolor,
             R.drawable.icon_sysinfo,
-            R.drawable.icon_sharecase
+            R.drawable.icon_sharecase,
+            R.drawable.icon_captcha
     };
     private final Integer[] mTextIds = {
             R.string.bp_title,
@@ -76,7 +78,8 @@ public class MainActivity extends Activity {
             R.string.taxicab_title,
             R.string.cc_title,
             R.string.si_title,
-            R.string.sc_title
+            R.string.sc_title,
+            R.string.captcha_title
     };
     private final Class[] mActivitys = {
             BloodPressureActivity.class,
@@ -93,7 +96,8 @@ public class MainActivity extends Activity {
             TaxicabActivity.class,
             CameraColorActivity.class,
             SysinfoActivity.class,
-            UserActivity.class
+            UserActivity.class,
+            CaptchaActivity.class
     };
     private final String[] mARouterPaths = {
             Constant.ACTIVITY_BLOODPRESSURE,
@@ -110,7 +114,8 @@ public class MainActivity extends Activity {
             Constant.ACTIVITY_TAXICAB,
             Constant.ACTIVITY_CAMERACOLOR,
             Constant.ACTIVITY_SYSINFO,
-            Constant.ACTIVITY_USER
+            Constant.ACTIVITY_USER,
+            Constant.ACTIVITY_CAPTCHA
     };
 
     @Override

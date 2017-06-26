@@ -29,6 +29,7 @@ public class Constant {
     public static final String ACTIVITY_ORDER_DETAIL = "/activity/order/detail";
     public static final String ACTIVITY_USER = "/activity/user";
     public static final String ACTIVITY_USER_DETAIL = "/activity/user/detail";
+    public static final String ACTIVITY_CAPTCHA = "/activity/captcha";
 
     public static final int EXTRAS_LOGIN = 0x00000001;//需要登录
 }

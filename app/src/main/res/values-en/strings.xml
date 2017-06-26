@@ -120,4 +120,7 @@
     <string name="sc_borrow">Borrow</string>
     <string name="sc_unshelve">Unshelve</string>
     <string name="sc_restore">Restore</string>
+
+    <!-- Captcha -->
+    <string name="captcha_title">Captcha</string>
 </resources>
