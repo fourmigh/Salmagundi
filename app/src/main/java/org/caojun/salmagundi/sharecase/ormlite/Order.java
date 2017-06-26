@@ -27,7 +27,7 @@ public class Order implements Serializable, Parcelable {
         this.setIdUser(idUser);
         this.setTimeStart(TimeUtils.getTime());
         this.setTimeEnd(0);
-        this.setDays(0);
+        this.setDays(-1);
     }
 
     /**

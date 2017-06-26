@@ -119,7 +119,7 @@ public class OrderDetailActivity extends BaseActivity {
         if (order.getTimeEnd() > 0) {
             etEnd.setText(TimeUtils.getTime("yyyy/MM/dd HH:mm:ss", order.getTimeEnd()));
         }
-        if (order.getDays() > 0) {
+        if (order.getDays() >= 0) {
             etDays.setText(String.valueOf(order.getDays()));
         } else {
             long days = TimeUtils.getDays(TimeUtils.getTime(), order.getTimeStart());
