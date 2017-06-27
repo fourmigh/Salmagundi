@@ -6,15 +6,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
+import android.view.View;
 import java.util.Random;
 
 /**
  * Created by CaoJun on 2017/6/26.
  */
 
-public class CaptchaImageButton extends AppCompatImageButton {
+public class CaptchaImage extends View {
 
     private Random mRandom;
     private Paint linePaint, textPaint;
@@ -30,15 +30,15 @@ public class CaptchaImageButton extends AppCompatImageButton {
 
     public static final int SIZE = 100;
 
-    public CaptchaImageButton(Context context) {
+    public CaptchaImage(Context context) {
         this(context, null);
     }
 
-    public CaptchaImageButton(Context context, AttributeSet attrs) {
+    public CaptchaImage(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CaptchaImageButton(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CaptchaImage(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView();
     }

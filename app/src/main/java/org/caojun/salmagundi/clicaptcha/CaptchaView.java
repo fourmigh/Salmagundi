@@ -5,11 +5,7 @@ import android.graphics.Canvas;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.RelativeLayout;
-
 import com.socks.library.KLog;
-
-import java.util.Random;
 
 /**
  * Created by CaoJun on 2017/6/26.
@@ -17,19 +13,14 @@ import java.util.Random;
 
 public class CaptchaView extends View {
 
-    public interface OnCodeClickListener {
-        void onClick(String s);
-    }
-
     private static final byte N = 4;
-    private static final int SIZE = N * CaptchaImageButton.SIZE;
     //将背景分成WIDTH*HEIGHT个格子
     private static final byte WIDTH = N + 2;
     private static final byte HEIGHT = N + 1;
     private static final byte COUNT = WIDTH * HEIGHT;
     private byte[] idCount = new byte[COUNT];
 
-    private CaptchaImageButton[] buttons;
+    private CaptchaImage[] buttons;
 
     public CaptchaView(Context context) {
         this(context, null);
@@ -45,34 +36,24 @@ public class CaptchaView extends View {
     }
 
     private void initView(Context context) {
-        init(context, N, new OnCodeClickListener() {
-            @Override
-            public void onClick(String s) {
-                KLog.d("OnCodeClickListener", s);
-            }
-        });
+        init(context, N);
+        this.setClickable(true);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(WIDTH * CaptchaImageButton.SIZE, HEIGHT * CaptchaImageButton.SIZE);
+        setMeasuredDimension(WIDTH * CaptchaImage.SIZE, HEIGHT * CaptchaImage.SIZE);
     }
 
-    public void init(Context context, byte n, final OnCodeClickListener onCodeClickListener) {
-        if (n <= 0 || onCodeClickListener == null) {
+    public void init(Context context, byte n) {
+        if (n <= 0) {
             return;
         }
-        buttons = new CaptchaImageButton[n];
+        buttons = new CaptchaImage[n];
         for (byte i = 0;i < n;i ++) {
-            buttons[i] = new CaptchaImageButton(context);
-            final int index = i;
-            buttons[i].setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onCodeClickListener.onClick(buttons[index].getCode());
-                }
-            });
+            buttons[i] = new CaptchaImage(context);
+            buttons[i].setClickable(true);
             int id = getRandomId();
             KLog.d("getRandom", "id: " + id);
             while (idCount[id] > 0) {
@@ -106,8 +87,8 @@ public class CaptchaView extends View {
             int id = idCount[i] - 1;
             int x0 = i % WIDTH;
             int y0 = i / WIDTH;
-            int x = x0 * CaptchaImageButton.SIZE;
-            int y = y0 * CaptchaImageButton.SIZE;
+            int x = x0 * CaptchaImage.SIZE;
+            int y = y0 * CaptchaImage.SIZE;
             canvas.translate(x , y);
             buttons[id].draw(canvas);
             canvas.translate(-x, -y);
