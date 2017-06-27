@@ -7,6 +7,7 @@ import java.util.Random;
  */
 
 public class CaptchaUtils {
+
     public static String getRandomChar() {
         Random random = new Random();
         int hightPos = (176 + Math.abs(random.nextInt(39)));
@@ -20,5 +21,9 @@ public class CaptchaUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static int getRandom(int min, int max) {
+        return (int)(Math.random() * (max + 1 - min) + min);
     }
 }

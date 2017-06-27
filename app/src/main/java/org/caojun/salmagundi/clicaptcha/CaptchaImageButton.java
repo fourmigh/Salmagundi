@@ -28,7 +28,7 @@ public class CaptchaImageButton extends AppCompatImageButton {
     private float[] verts = new float[COUNT * 2];
     private String code;
 
-    private static final int SIZE = 100;
+    public static final int SIZE = 100;
 
     public CaptchaImageButton(Context context) {
         this(context, null);
