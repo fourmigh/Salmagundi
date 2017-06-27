@@ -16,6 +16,9 @@ import java.util.Random;
 
 public class CaptchaImage extends View {
 
+    public static final int SIZE = 100;
+    public static final int BG_COLOR = 0xfff9dec1;
+
     private Random mRandom;
     private Paint linePaint, textPaint;
     private int mWidth, mHeight;
@@ -27,8 +30,6 @@ public class CaptchaImage extends View {
     private int COUNT = (WIDTH + 1) * (HEIGHT + 1);
     private float[] verts = new float[COUNT * 2];
     private String code;
-
-    public static final int SIZE = 100;
 
     public CaptchaImage(Context context) {
         this(context, null);
@@ -88,7 +89,7 @@ public class CaptchaImage extends View {
         mBitmap = Bitmap.createBitmap(mWidth,mHeight, Bitmap.Config.ARGB_8888);
         Canvas mCanvas = new Canvas(mBitmap);
         //画背景
-        mCanvas.drawColor(0xfff9dec1);
+        mCanvas.drawColor(BG_COLOR);
 
         int offsetDegree = mRandom.nextInt(15);
         // 这里只会产生0和1，如果是1那么正旋转正角度，否则旋转负角度

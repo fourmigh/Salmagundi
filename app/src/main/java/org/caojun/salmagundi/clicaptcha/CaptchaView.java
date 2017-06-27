@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import com.socks.library.KLog;
 
 /**
  * Created by CaoJun on 2017/6/26.
@@ -55,7 +54,6 @@ public class CaptchaView extends View {
             buttons[i] = new CaptchaImage(context);
             buttons[i].setClickable(true);
             int id = getRandomId();
-            KLog.d("getRandom", "id: " + id);
             while (idCount[id] > 0) {
                 id = getRandomId();
             }
@@ -74,7 +72,7 @@ public class CaptchaView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawColor(0xfff9dec1);
+        canvas.drawColor(CaptchaImage.BG_COLOR);
         for (byte i = 0;i < COUNT;i ++) {
             if (idCount[i] == 0) {
                 continue;
@@ -87,18 +85,15 @@ public class CaptchaView extends View {
             canvas.translate(x , y);
             buttons[id].draw(canvas);
             canvas.translate(-x, -y);
-            KLog.d("onDraw", id + " : " + buttons[id].getCode());
-            KLog.d("onDraw", x0 + " : " + y0);
         }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            KLog.d("onTouchEvent", event.getX() + " : " + event.getY() + " : " + event.getAction());
             int id = getButtonID(event.getX(), event.getY());
             if (id > 0) {
-                KLog.d("onTouchEvent", buttons[id - 1].getCode());
+                //TODO
                 return false;
             }
         }
@@ -109,8 +104,6 @@ public class CaptchaView extends View {
         int x0 = (int)(x / CaptchaImage.SIZE);
         int y0 = (int)(y / CaptchaImage.SIZE);
         int id = y0 * WIDTH + x0;
-        KLog.d("getButtonID", x0 + " : " + y0);
-        KLog.d("getButtonID", "id: " + id);
         return idCount[id];
     }
 }
