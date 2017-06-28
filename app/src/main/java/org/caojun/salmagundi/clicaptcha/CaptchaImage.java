@@ -70,7 +70,8 @@ public class CaptchaImage extends View {
 
         textPaint = new Paint();
         textPaint.setAntiAlias(true);
-        textPaint.setTextSize((int)(SIZE * 0.8));
+        int size = (int)(SIZE * Math.min(Math.random() + 0.6, 0.9));
+        textPaint.setTextSize(size);
         textPaint.setShadowLayer(5,3,3,0xFF999999);
         textPaint.setTypeface(Typeface.DEFAULT_BOLD);
         textPaint.setTextScaleX(0.8F);
