@@ -13,6 +13,11 @@ import android.view.View;
 
 public class CaptchaView extends View {
 
+    public interface OnCaptchaListener {
+        void onError(int count);
+        void onSuccess();
+    }
+
     private static final byte N = 4;
     //将背景分成WIDTH*HEIGHT个格子
     private static final byte WIDTH = N + 2;
@@ -21,6 +26,8 @@ public class CaptchaView extends View {
     private byte[] idCount = new byte[COUNT];
 
     private CaptchaImage[] buttons;
+    private OnCaptchaListener onCaptchaListener;
+    private int index, count;
 
     public CaptchaView(Context context) {
         this(context, null);
@@ -35,24 +42,33 @@ public class CaptchaView extends View {
         initView(context);
     }
 
-    private void initView(Context context) {
-        init(context, N);
+    public void setOnCaptchaListener(OnCaptchaListener onCaptchaListener) {
+        this.onCaptchaListener = onCaptchaListener;
+        index = 0;
+        count = 0;
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(WIDTH * CaptchaImage.SIZE, HEIGHT * CaptchaImage.SIZE);
-    }
-
-    public void init(Context context, byte n) {
-        if (n <= 0) {
-            return;
+    public void refresh() {
+        index = 0;
+        count = 0;
+        for (byte i = 0;i < idCount.length;i ++) {
+            idCount[i] = 0;
         }
-        buttons = new CaptchaImage[n];
-        for (byte i = 0;i < n;i ++) {
+        for (byte i = 0;i < N;i ++) {
+            buttons[i].refresh();
+            int id = getRandomId();
+            while (idCount[id] > 0) {
+                id = getRandomId();
+            }
+            idCount[id] = (byte)(i + 1);
+        }
+        this.invalidate();
+    }
+
+    private void initView(Context context) {
+        buttons = new CaptchaImage[N];
+        for (byte i = 0;i < N;i ++) {
             buttons[i] = new CaptchaImage(context);
-            buttons[i].setClickable(true);
             int id = getRandomId();
             while (idCount[id] > 0) {
                 id = getRandomId();
@@ -61,12 +77,29 @@ public class CaptchaView extends View {
         }
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        setMeasuredDimension(WIDTH * CaptchaImage.SIZE, HEIGHT * CaptchaImage.SIZE);
+    }
+
     private int getRandomId() {
         int id = CaptchaUtils.getRandom(WIDTH + 1, COUNT - WIDTH - 2);
         while (id % WIDTH == 0 || id % WIDTH == WIDTH - 1) {
             id = CaptchaUtils.getRandom(WIDTH + 1, COUNT - WIDTH - 2);
         }
         return id;
+    }
+
+    public String[] getCode() {
+        if (buttons == null) {
+            return null;
+        }
+        String[] strings = new String[buttons.length];
+        for (int i = 0;i < buttons.length;i ++) {
+            strings[i] = buttons[i].getCode();
+        }
+        return strings;
     }
 
     @Override
@@ -92,8 +125,17 @@ public class CaptchaView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             int id = getButtonID(event.getX(), event.getY());
-            if (id > 0) {
-                //TODO
+            if (id > 0 && onCaptchaListener != null) {
+                if (id - 1 == index) {
+                    index ++;
+                    if (index == N) {
+                        count = 0;
+                        onCaptchaListener.onSuccess();
+                    }
+                } else {
+                    index = 0;
+                    onCaptchaListener.onError(++ count);
+                }
                 return false;
             }
         }

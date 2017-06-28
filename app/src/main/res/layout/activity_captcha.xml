@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <org.caojun.salmagundi.clicaptcha.CaptchaView
+        android:id="@+id/captchaView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp" />
@@ -14,6 +15,6 @@
         android:id="@+id/tvInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="TextView" />
+        android:textSize="20sp"
+        android:gravity="center" />
 </LinearLayout>

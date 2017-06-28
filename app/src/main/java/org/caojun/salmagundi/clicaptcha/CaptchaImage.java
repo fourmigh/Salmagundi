@@ -42,6 +42,7 @@ public class CaptchaImage extends View {
     public CaptchaImage(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView();
+        refresh();
     }
 
     @Override
@@ -55,11 +56,8 @@ public class CaptchaImage extends View {
     }
 
     private void initView() {
-        code = CaptchaUtils.getRandomChar();
         mWidth = SIZE;
         mHeight = SIZE;
-
-        mRandom = new Random();
 
         linePaint = new Paint();
         linePaint.setAntiAlias(true);
@@ -67,7 +65,11 @@ public class CaptchaImage extends View {
         linePaint.setColor(Color.BLACK);
         linePaint.setStrokeWidth(5);
         linePaint.setStrokeCap(Paint.Cap.ROUND);
+    }
 
+    public void refresh() {
+        code = CaptchaUtils.getRandomChar();
+        mRandom = new Random();
         textPaint = new Paint();
         textPaint.setAntiAlias(true);
         int size = (int)(SIZE * Math.min(Math.random() + 0.6, 0.9));
@@ -79,6 +81,7 @@ public class CaptchaImage extends View {
         textPaint.setTextAlign(Paint.Align.CENTER);
 
         createCodeBitmap();
+        this.invalidate();
     }
 
     @Override
@@ -98,7 +101,8 @@ public class CaptchaImage extends View {
         mCanvas.save();
         mCanvas.rotate(offsetDegree,mWidth/2,mHeight/2);
         // 给画笔设置随机颜色，+20是为了去除一些边界值
-        textPaint.setARGB(255, mRandom.nextInt(200) + 20, mRandom.nextInt(200) + 20, mRandom.nextInt(200) + 20);
+//        textPaint.setARGB(255, mRandom.nextInt(200) + 20, mRandom.nextInt(200) + 20, mRandom.nextInt(200) + 20);
+        textPaint.setARGB(mRandom.nextInt(255), mRandom.nextInt(255), mRandom.nextInt(255), mRandom.nextInt(255));
         mCanvas.drawText(code, mWidth / 2, mHeight * 3 / 4, textPaint);
         mCanvas.restore();
 

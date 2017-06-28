@@ -123,4 +123,5 @@
 
     <!-- Captcha -->
     <string name="captcha_title">Captcha</string>
+    <string name="captcha_check_info"><Data><![CDATA[Please click in turn "<font color="#ff0000"><b>%1$s</b></font>","<font color="#ff0000"><b>%2$s</b></font>","<font color="#ff0000"><b>%3$s</b></font>","<font color="#ff0000"><b>%4$s</b></font>"]]></Data></string>
 </resources>
