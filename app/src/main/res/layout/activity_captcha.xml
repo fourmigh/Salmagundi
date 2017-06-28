@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
+    android:layout_margin="10dp"
     android:orientation="vertical">
 
     <org.caojun.salmagundi.clicaptcha.CaptchaView
@@ -10,13 +11,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        android:src="@drawable/captcha_dao"
-        android:layout_margin="10dp" />
+        android:src="@drawable/captcha_dao" />
 
     <TextView
         android:id="@+id/tvInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
+        android:layout_marginTop="10dp"
         android:gravity="center" />
 </LinearLayout>

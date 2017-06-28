@@ -71,7 +71,8 @@
         <activity android:name=".sharecase.OrderDetailActivity"
             android:label="@string/sc_order_detail_title" />
         <activity android:name=".clicaptcha.CaptchaActivity"
-        android:label="@string/captcha_title" />
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
+            android:label="@string/captcha_title" />
         <activity android:name=".clicaptcha.CaptchaDemo"
             android:label="@string/captcha_title" />
     </application>

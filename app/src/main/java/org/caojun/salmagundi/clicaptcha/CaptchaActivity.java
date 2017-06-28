@@ -40,6 +40,8 @@ public class CaptchaActivity extends Activity {
         this.setContentView(R.layout.activity_captcha);
         ARouter.getInstance().inject(this);
 
+        this.setFinishOnTouchOutside(false);
+
         if (failureTimes == 0) {
             failureTimes = getIntent().getIntExtra(FailureTimes, 0);
         }
