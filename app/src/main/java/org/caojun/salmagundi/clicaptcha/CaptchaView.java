@@ -85,10 +85,42 @@ public class CaptchaView extends View {
 
     private int getRandomId() {
         int id = CaptchaUtils.getRandom(WIDTH + 1, COUNT - WIDTH - 2);
-        while (id % WIDTH == 0 || id % WIDTH == WIDTH - 1) {
+        while (id % WIDTH == 0 || id % WIDTH == WIDTH - 1 || hasNeighbor(id)) {
             id = CaptchaUtils.getRandom(WIDTH + 1, COUNT - WIDTH - 2);
         }
         return id;
+    }
+
+    private boolean hasNeighbor(int id) {
+        int left = id - 1;
+        if (left % WIDTH < WIDTH - 1) {
+            //有左邻居
+            if (idCount[left] > 0) {
+                return true;
+            }
+        }
+        int right = id  + 1;
+        if (right % WIDTH > 0) {
+            //有右邻居
+            if (idCount[right] > 0) {
+                return true;
+            }
+        }
+        int up = id - WIDTH;
+        if (up >= 0) {
+            //有上邻居
+            if (idCount[up] > 0) {
+                return true;
+            }
+        }
+        int down = id + WIDTH;
+        if (down < COUNT) {
+            //有下邻居
+            if (idCount[down] > 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public String[] getCode() {
