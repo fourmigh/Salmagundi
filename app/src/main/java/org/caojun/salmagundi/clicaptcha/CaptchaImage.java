@@ -17,7 +17,6 @@ import java.util.Random;
 public class CaptchaImage extends View {
 
     public static final int SIZE = 100;
-    public static final int BG_COLOR = 0xfff9dec1;
 
     private Random mRandom;
     private Paint linePaint, textPaint;
@@ -92,17 +91,14 @@ public class CaptchaImage extends View {
     private void createCodeBitmap() {
         mBitmap = Bitmap.createBitmap(mWidth,mHeight, Bitmap.Config.ARGB_8888);
         Canvas mCanvas = new Canvas(mBitmap);
-        //画背景
-        mCanvas.drawColor(BG_COLOR);
 
         int offsetDegree = mRandom.nextInt(15);
         // 这里只会产生0和1，如果是1那么正旋转正角度，否则旋转负角度
         offsetDegree = mRandom.nextInt(2) == 1?offsetDegree:-offsetDegree;
         mCanvas.save();
         mCanvas.rotate(offsetDegree,mWidth/2,mHeight/2);
-        // 给画笔设置随机颜色，+20是为了去除一些边界值
-//        textPaint.setARGB(255, mRandom.nextInt(200) + 20, mRandom.nextInt(200) + 20, mRandom.nextInt(200) + 20);
-        textPaint.setARGB(mRandom.nextInt(255), mRandom.nextInt(255), mRandom.nextInt(255), mRandom.nextInt(255));
+        // 给画笔设置随机颜色
+        textPaint.setARGB(255, mRandom.nextInt(255), mRandom.nextInt(255), mRandom.nextInt(255));
         mCanvas.drawText(code, mWidth / 2, mHeight * 3 / 4, textPaint);
         mCanvas.restore();
 
@@ -115,7 +111,7 @@ public class CaptchaImage extends View {
         for(int i = 0;i < HEIGHT + 1;i++){
             float fy = bitmapheight / HEIGHT * i;
             for(int j = 0;j < WIDTH + 1;j++){
-                float fx=bitmapwidth/WIDTH*j;
+                float fx = bitmapwidth / WIDTH * j;
                 //偶数位记录x坐标  奇数位记录Y坐标
                 verts[index * 2] = fx;
                 verts[index * 2 + 1] = fy;

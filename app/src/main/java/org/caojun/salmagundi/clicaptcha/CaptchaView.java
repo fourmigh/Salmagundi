@@ -3,15 +3,15 @@ package org.caojun.salmagundi.clicaptcha;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 
 /**
  * Created by CaoJun on 2017/6/26.
  */
 
-public class CaptchaView extends View {
+public class CaptchaView extends AppCompatImageView {
 
     public interface OnCaptchaListener {
         void onError(int count);
@@ -137,7 +137,6 @@ public class CaptchaView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawColor(CaptchaImage.BG_COLOR);
         for (byte i = 0;i < COUNT;i ++) {
             if (idCount[i] == 0) {
                 continue;
