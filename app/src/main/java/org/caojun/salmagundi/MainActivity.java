@@ -26,6 +26,7 @@ import org.caojun.salmagundi.bankcard.BankCardActivity;
 import org.caojun.salmagundi.bloodpressure.BloodPressureActivity;
 import org.caojun.salmagundi.cameracolor.CameraColorActivity;
 import org.caojun.salmagundi.clicaptcha.CaptchaActivity;
+import org.caojun.salmagundi.clicaptcha.CaptchaDemo;
 import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.color.ColorUtils;
@@ -97,7 +98,7 @@ public class MainActivity extends Activity {
             CameraColorActivity.class,
             SysinfoActivity.class,
             UserActivity.class,
-            CaptchaActivity.class
+            CaptchaDemo.class
     };
     private final String[] mARouterPaths = {
             Constant.ACTIVITY_BLOODPRESSURE,
@@ -115,7 +116,7 @@ public class MainActivity extends Activity {
             Constant.ACTIVITY_CAMERACOLOR,
             Constant.ACTIVITY_SYSINFO,
             Constant.ACTIVITY_USER,
-            Constant.ACTIVITY_CAPTCHA
+            Constant.ACTIVITY_CAPTCHA_DEMO
     };
 
     @Override
