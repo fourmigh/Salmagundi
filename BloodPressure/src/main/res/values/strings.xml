@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">血压日记</string>
+
+    <string name="bp_title">血压日记</string>
+    <string name="bp_detail_title">日记详情</string>
+    <string name="bp_time">时间</string>
+    <string name="bp_high">高压（收缩压）</string>
+    <string name="bp_low">低压（舒张压）</string>
+    <string name="bp_pulse">脉搏</string>
+    <string name="bp_device">设备</string>
+    <string name="bp_all">全部</string>
+    <string name="bp_bloodpressure">血压</string>
+    <string name="bp_medicine">服药</string>
+    <string name="bp_weight">体重</string>
+    <string name="bp_left">左手</string>
+    <string name="bp_right">右手</string>
+    <string name="bp_weight_unit">%s公斤</string>
+    <string name="bp_add">添加</string>
+    <string name="bp_delete">删除</string>
+    <string name="bp_save">保存</string>
+</resources>

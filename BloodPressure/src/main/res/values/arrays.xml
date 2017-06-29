@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="bloodpressure_type">
+        <item>低</item>
+        <item>正常</item>
+        <item>轻度</item>
+        <item>中度</item>
+        <item>严重</item>
+        <item>其他</item>
+    </string-array>
+</resources>

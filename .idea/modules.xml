@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/BloodPressure/BloodPressure.iml" filepath="$PROJECT_DIR$/BloodPressure/BloodPressure.iml" />
       <module fileurl="file://$PROJECT_DIR$/Salmagundi.iml" filepath="$PROJECT_DIR$/Salmagundi.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/zxing/zxing.iml" filepath="$PROJECT_DIR$/zxing/zxing.iml" />
