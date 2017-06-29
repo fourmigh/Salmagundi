@@ -22,6 +22,7 @@
         <item>ASCII码 -> 字符串</item>
         <item>字符串 -> 十六进制</item>
         <item>十六进制 -> 字符串</item>
+        <item>正序 -> 反序</item>
     </string-array>
 
     <string-array name="secure_type">

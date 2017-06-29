@@ -441,4 +441,16 @@ public class ConvertUtils {
             return null;
         }
     }
+
+    public static String reverse(String text) {
+        if (TextUtils.isEmpty(text)) {
+            return text;
+        }
+        int length = text.length();
+        StringBuffer sb = new StringBuffer(length);
+        for (int i = length - 1;i >= 0;i --) {
+            sb.append(text.substring(i, i + 1));
+        }
+        return sb.toString();
+    }
 }

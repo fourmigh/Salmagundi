@@ -135,6 +135,9 @@ public class StringActivity extends BaseActivity {
             case 20://十六进制 -> 字符串
                 strOutput = ConvertUtils.hexToString(strInput);
                 break;
+            case 21://正序 -> 反序
+                strOutput = ConvertUtils.reverse(strInput);
+                break;
         }
         etOutput.setText(strOutput);
     }

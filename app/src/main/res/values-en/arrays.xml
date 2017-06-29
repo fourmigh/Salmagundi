@@ -22,6 +22,7 @@
         <item>ASCII -> String</item>
         <item>String -> HEX</item>
         <item>HEX -> String</item>
+        <item>Positive -> Reverse</item>
     </string-array>
 
     <string-array name="secure_type">
