@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -93,8 +94,12 @@ public class CaptchaActivity extends Activity {
             }
         });
 
-        animation = AnimationUtils.loadAnimation(this, R.anim.rotate);
+        animation = new RotateAnimation(0,359,
+                Animation.RELATIVE_TO_SELF,0.5f,
+                Animation.RELATIVE_TO_SELF,0.5f);
+        animation.setDuration(500);
         animation.setInterpolator(new LinearInterpolator());
+        animation.setRepeatCount(0);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
