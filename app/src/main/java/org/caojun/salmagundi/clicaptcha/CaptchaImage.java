@@ -1,12 +1,14 @@
 package org.caojun.salmagundi.clicaptcha;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
 import java.util.Random;
 
@@ -16,7 +18,7 @@ import java.util.Random;
 
 public class CaptchaImage extends View {
 
-    public static final int SIZE = 100;
+    public static int SIZE = 100;
 
     private Random mRandom;
     private Paint linePaint, textPaint;
@@ -55,6 +57,11 @@ public class CaptchaImage extends View {
     }
 
     private void initView() {
+
+        Resources resources = this.getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        SIZE = dm.widthPixels / 7;
+
         mWidth = SIZE;
         mHeight = SIZE;
 
