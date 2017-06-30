@@ -15,10 +15,10 @@ public class CaptchaView extends AppCompatImageView {
 
     public interface OnCaptchaListener {
         void onError(int count);
-        void onSuccess();
+        void onSuccess(int index);
     }
 
-    private static final byte N = 4;
+    public static final byte N = 4;
     //将背景分成WIDTH*HEIGHT个格子
     private static final byte WIDTH = N + 2;
     private static final byte HEIGHT = N + 1;
@@ -159,13 +159,15 @@ public class CaptchaView extends AppCompatImageView {
             if (id > 0 && onCaptchaListener != null) {
                 if (id - 1 == index) {
                     index ++;
+                    onCaptchaListener.onSuccess(index);
                     if (index == N) {
                         count = 0;
-                        onCaptchaListener.onSuccess();
+                        index = 0;
                     }
                 } else {
                     index = 0;
-                    onCaptchaListener.onError(++ count);
+                    count ++;
+                    onCaptchaListener.onError(count);
                 }
                 return false;
             }

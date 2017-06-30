@@ -36,6 +36,8 @@ public class CaptchaActivity extends Activity {
     private TextView tvInfo;
     private ImageView ivRefresh;
 
+    private final int[] idInfo = {R.string.captcha_check_info_0, R.string.captcha_check_info_1, R.string.captcha_check_info_2, R.string.captcha_check_info_3, R.string.captcha_check_info_4};
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,14 +59,20 @@ public class CaptchaActivity extends Activity {
         captchaView.setOnCaptchaListener(new CaptchaView.OnCaptchaListener() {
             @Override
             public void onError(int count) {
+                String[] code = captchaView.getCode();
+                tvInfo.setText(Html.fromHtml(getString(idInfo[0], code[0], code[1], code[2], code[3])));
                 if (failureTimes > 0 && count >= failureTimes) {
                     doFinish(Result_Fail);
                 }
             }
 
             @Override
-            public void onSuccess() {
-                doFinish(Result_Success);
+            public void onSuccess(int index) {
+                String[] code = captchaView.getCode();
+                tvInfo.setText(Html.fromHtml(getString(idInfo[index], code[0], code[1], code[2], code[3])));
+                if (index >= CaptchaView.N) {
+                    doFinish(Result_Success);
+                }
             }
         });
 
@@ -94,7 +102,7 @@ public class CaptchaActivity extends Activity {
         if (code == null) {
             tvInfo.setVisibility(View.GONE);
         } else {
-            tvInfo.setText(Html.fromHtml(getString(R.string.captcha_check_info, code[0], code[1], code[2], code[3])));
+            tvInfo.setText(Html.fromHtml(getString(idInfo[0], code[0], code[1], code[2], code[3])));
             tvInfo.setVisibility(View.VISIBLE);
         }
     }
