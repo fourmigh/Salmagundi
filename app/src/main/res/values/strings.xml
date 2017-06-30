@@ -127,5 +127,6 @@
 
     <!-- Captcha -->
     <string name="captcha_title">Captcha</string>
+    <string name="captcha_refresh">点击刷新</string>
     <string name="captcha_check_info"><Data><![CDATA[请依次点击“<font color="#ff0000"><b>%1$s</b></font>”、“<font color="#ff0000"><b>%2$s</b></font>”、“<font color="#ff0000"><b>%3$s</b></font>”、“<font color="#ff0000"><b>%4$s</b></font>”]]></Data></string>
 </resources>

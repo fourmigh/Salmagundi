@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
@@ -33,6 +34,7 @@ public class CaptchaActivity extends Activity {
 
     private CaptchaView captchaView;
     private TextView tvInfo;
+    private ImageView ivRefresh;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class CaptchaActivity extends Activity {
 
         captchaView = (CaptchaView) findViewById(R.id.captchaView);
         tvInfo = (TextView) findViewById(R.id.tvInfo);
+        ivRefresh = (ImageView) findViewById(R.id.ivRefresh);
 
         refresh();
 
@@ -65,7 +68,7 @@ public class CaptchaActivity extends Activity {
             }
         });
 
-        tvInfo.setOnClickListener(new View.OnClickListener() {
+        ivRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 captchaView.refresh();
