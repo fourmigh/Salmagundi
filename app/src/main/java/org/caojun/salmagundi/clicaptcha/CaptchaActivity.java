@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +38,8 @@ public class CaptchaActivity extends Activity {
     private CaptchaView captchaView;
     private TextView tvInfo;
     private ImageView ivRefresh;
+
+    private Animation animation;
 
     private final int[] idInfo = {R.string.captcha_check_info_0, R.string.captcha_check_info_1, R.string.captcha_check_info_2, R.string.captcha_check_info_3, R.string.captcha_check_info_4};
 
@@ -79,8 +84,31 @@ public class CaptchaActivity extends Activity {
         ivRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (animation != null) {
+                    ivRefresh.startAnimation(animation);
+
+                }
                 captchaView.refresh();
                 refresh();
+            }
+        });
+
+        animation = AnimationUtils.loadAnimation(this, R.anim.rotate);
+        animation.setInterpolator(new LinearInterpolator());
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                ivRefresh.setEnabled(false);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                ivRefresh.setEnabled(true);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
             }
         });
     }
