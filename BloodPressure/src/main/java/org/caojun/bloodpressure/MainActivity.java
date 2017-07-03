@@ -1,13 +1,11 @@
 package org.caojun.bloodpressure;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-
+import android.widget.Button;
 import com.alibaba.android.arouter.launcher.ARouter;
+import org.caojun.bloodpressure.utils.BloodPressureUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,18 +13,45 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        final Button btnImport = (Button) findViewById(R.id.btnImport);
+        final Button btnExport = (Button) findViewById(R.id.btnExport);
+        final Button btnSkip = (Button) findViewById(R.id.btnSkip);
+
+        btnImport.setEnabled(BloodPressureUtils.fileExists());
+        btnExport.setEnabled(BloodPressureUtils.listExisits(this));
+
+        btnImport.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                if (BloodPressureUtils.importToDB(MainActivity.this)) {
+                    gotoNext();
+                }
             }
         });
 
+        btnExport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (BloodPressureUtils.exportFromDB(MainActivity.this)) {
+                    gotoNext();
+                }
+            }
+        });
+
+        btnSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoNext();
+            }
+        });
+
+        if (!btnImport.isEnabled() && !btnExport.isEnabled()) {
+            gotoNext();
+        }
+    }
+
+    private void gotoNext() {
         ARouter.getInstance().build(Constant.ACTIVITY_BLOODPRESSURE).navigation();
         finish();
     }

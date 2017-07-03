@@ -18,4 +18,8 @@
     <string name="bp_add">添加</string>
     <string name="bp_delete">删除</string>
     <string name="bp_save">保存</string>
+    <string name="bp_import">导入</string>
+    <string name="bp_export">导出</string>
+    <string name="bp_skip">跳过</string>
+    <string name="bp_main_tips">小提示：\n\n为防止数据因应用删除后丢失，您可以选择将数据导出；\n也可将数据文件拷贝至另一部手机后导入。</string>
 </resources>

@@ -1,7 +1,10 @@
 package org.caojun.bloodpressure.ormlite;
 
+import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import java.io.Serializable;
@@ -164,5 +167,41 @@ public class BloodPressure implements Serializable, Parcelable {
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(time).append("，");
+        sb.append(high).append("，");
+        sb.append(low).append("，");
+        sb.append(pulse).append("，");
+        sb.append((byte)(isLeft?1:0)).append("，");
+        sb.append(weight).append("，");
+        sb.append(type).append("。");
+        return sb.toString();
+    }
+
+    public BloodPressure toBloodPressure(String string) {
+        if (TextUtils.isEmpty(string) || string.indexOf("，") <= 0) {
+            return null;
+        }
+        String[] strings = string.split("，");
+        if (strings == null || strings.length != 7) {
+            return null;
+        }
+        try {
+            time = Long.parseLong(strings[0]);
+            high = Integer.parseInt(strings[1]);
+            low = Integer.parseInt(strings[2]);
+            pulse = Integer.parseInt(strings[3]);
+            isLeft = Byte.parseByte(strings[4]) == 1;
+            weight = Float.parseFloat(strings[5]);
+            type = Byte.parseByte(strings[6]);
+            return this;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

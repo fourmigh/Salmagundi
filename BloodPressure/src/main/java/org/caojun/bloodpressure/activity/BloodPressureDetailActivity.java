@@ -183,8 +183,9 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
         if(bloodPressure == null) {
             return;
         }
-        BloodPressureDatabase.getInstance(this).delete(bloodPressure);
-        finish();
+        if (BloodPressureDatabase.getInstance(this).delete(bloodPressure)) {
+            finish();
+        }
     }
 
     private void doSave() {

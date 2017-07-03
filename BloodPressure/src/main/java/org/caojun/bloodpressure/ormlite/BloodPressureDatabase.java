@@ -53,19 +53,28 @@ public class BloodPressureDatabase extends OrmLiteSqliteOpenHelper {
         onCreate(database, connectionSource);
     }
 
+    public boolean insert(BloodPressure bloodPressure) {
+        try {
+            return bloodPressureDao.create(bloodPressure) == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     /**
      * 服药记录
      * @param time
      * @return
      */
-    public int insert(long time) {
+    public boolean insert(long time) {
         BloodPressure bloodPressure = new BloodPressure(time);
         try {
-            return bloodPressureDao.create(bloodPressure);
+            return bloodPressureDao.create(bloodPressure) == 1;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
+        return false;
     }
 
     /**
@@ -74,14 +83,14 @@ public class BloodPressureDatabase extends OrmLiteSqliteOpenHelper {
      * @param weight
      * @return
      */
-    public int insert(long time, float weight) {
+    public boolean insert(long time, float weight) {
         BloodPressure bloodPressure = new BloodPressure(time, weight);
         try {
-            return bloodPressureDao.create(bloodPressure);
+            return bloodPressureDao.create(bloodPressure) == 1;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
+        return false;
     }
 
     /**
@@ -93,40 +102,40 @@ public class BloodPressureDatabase extends OrmLiteSqliteOpenHelper {
      * @param isLeft
      * @return
      */
-    public int insert(long time, int high, int low, int pulse, boolean isLeft) {
+    public boolean insert(long time, int high, int low, int pulse, boolean isLeft) {
         BloodPressure bloodPressure = new BloodPressure(time, high, low, pulse, isLeft);
         try {
-            return bloodPressureDao.create(bloodPressure);
+            return bloodPressureDao.create(bloodPressure) == 1;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
+        return false;
     }
 
-    public int update(BloodPressure bloodPressure) {
+    public boolean update(BloodPressure bloodPressure) {
         try {
-            return bloodPressureDao.update(bloodPressure);
+            return bloodPressureDao.update(bloodPressure) == 1;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
+        return false;
     }
 
     public List<BloodPressure> query() {
         try {
-            return bloodPressureDao.queryBuilder().query();
+            return bloodPressureDao.queryBuilder().orderBy("time", true).query();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public int delete(BloodPressure bloodPressure) {
+    public boolean delete(BloodPressure bloodPressure) {
         try {
-            return bloodPressureDao.delete(bloodPressure);
+            return bloodPressureDao.delete(bloodPressure) == 1;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
+        return false;
     }
 }
