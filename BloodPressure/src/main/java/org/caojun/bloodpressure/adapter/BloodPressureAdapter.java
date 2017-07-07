@@ -100,7 +100,7 @@ public class BloodPressureAdapter extends BaseAdapter implements StickyListHeade
                 int height = DataStorageUtils.loadInt(context, Constant.BMI_NAME, Constant.BMI_KEY_HEIGHT, 0);
                 if (height > 0) {
                     byte standard = DataStorageUtils.loadByte(context, Constant.BMI_NAME, Constant.BMI_KEY_STANDARD, Constant.BMI_CHINA);
-                    float bmi = weight / (height * height / 10000);
+                    float bmi = (weight * 10000) / (height * height);
                     byte b = 0;
                     DecimalFormat decimalFormat = new DecimalFormat(".0");
                     switch (standard) {
