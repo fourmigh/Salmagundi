@@ -179,4 +179,17 @@ public class BloodPressure implements Serializable, Parcelable {
     public int describeContents() {
         return 0;
     }
+
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(time).append("，");
+        sb.append(high).append("，");
+        sb.append(low).append("，");
+        sb.append(pulse).append("，");
+        sb.append((byte)(isLeft?1:0)).append("，");
+        sb.append(weight).append("，");
+        sb.append(type).append("。");
+        return sb.toString();
+    }
 }

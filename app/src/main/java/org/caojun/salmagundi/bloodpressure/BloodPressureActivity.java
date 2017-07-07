@@ -27,7 +27,7 @@ public class BloodPressureActivity extends BaseActivity {
     private StickyListHeadersListView listView;
     private BloodPressureAdapter adapter;
     private List<BloodPressure> list, listType;
-    private Button btnAdd;
+    private Button btnAdd, btnExport;
     private RadioGroup rgType;
 
     @Override
@@ -37,6 +37,7 @@ public class BloodPressureActivity extends BaseActivity {
 
         listView = (StickyListHeadersListView) this.findViewById(R.id.lvBloodPressure);
         btnAdd = (Button) this.findViewById(R.id.btnAdd);
+        btnExport = (Button) findViewById(R.id.btnExport);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -49,6 +50,15 @@ public class BloodPressureActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 doAdd();
+            }
+        });
+
+        btnExport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (BloodPressureUtils.exportFromDB(BloodPressureActivity.this)) {
+                    btnExport.setEnabled(false);
+                }
             }
         });
 

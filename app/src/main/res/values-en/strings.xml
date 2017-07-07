@@ -84,6 +84,7 @@
     <string name="bp_left">Left Hand</string>
     <string name="bp_right">Right Hand</string>
     <string name="bp_weight_unit">%skg</string>
+    <string name="bp_export">Export</string>
 
     <!-- 摄像头取色 -->
     <string name="cc_title">Camera Color</string>

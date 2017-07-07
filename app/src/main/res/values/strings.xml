@@ -85,6 +85,7 @@
     <string name="bp_left">左手</string>
     <string name="bp_right">右手</string>
     <string name="bp_weight_unit">%s公斤</string>
+    <string name="bp_export">导出</string>
 
     <!-- 摄像头取色 -->
     <string name="cc_title">摄像头取色</string>
