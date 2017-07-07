@@ -8,4 +8,13 @@
         <item>严重</item>
         <item>其他</item>
     </string-array>
+
+    <string-array name="bmi_type">
+        <item>偏瘦</item>
+        <item>正常</item>
+        <item>偏胖</item>
+        <item>肥胖</item>
+        <item>重度肥胖</item>
+        <item>极重度肥胖</item>
+    </string-array>
 </resources>

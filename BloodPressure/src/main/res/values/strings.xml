@@ -12,9 +12,11 @@
     <string name="bp_bloodpressure">血压</string>
     <string name="bp_medicine">服药</string>
     <string name="bp_weight">体重</string>
+    <string name="bp_height">身高（单位：厘米）</string>
     <string name="bp_left">左手</string>
     <string name="bp_right">右手</string>
     <string name="bp_weight_unit">%s公斤</string>
+    <string name="bp_bmi_unit">%s(%s)</string>
     <string name="bp_add">添加</string>
     <string name="bp_delete">删除</string>
     <string name="bp_save">保存</string>
@@ -22,4 +24,9 @@
     <string name="bp_export">导出</string>
     <string name="bp_skip">跳过</string>
     <string name="bp_main_tips">小提示：\n\n为防止数据因应用删除后丢失，您可以选择将数据导出；\n也可将数据文件拷贝至另一部手机后导入。</string>
+    <string name="bp_bmi_tips">小提示：\n\n设置身高后，即可在体重后显示您的BMI指数。\n体质指数（BMI）= 体重（kg）÷ 身高的平方（m）\n各标准的参考值略有不同。</string>
+    <string name="bp_china">中国标准</string>
+    <string name="bp_asia">亚洲标准</string>
+    <string name="bp_who">WHO标准</string>
+    <string name="bp_bmi">BMI</string>
 </resources>

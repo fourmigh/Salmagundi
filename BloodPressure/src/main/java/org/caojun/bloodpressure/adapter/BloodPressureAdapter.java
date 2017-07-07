@@ -6,14 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
+import org.caojun.bloodpressure.Constant;
 import org.caojun.bloodpressure.R;
 import org.caojun.bloodpressure.ormlite.BloodPressure;
+import org.caojun.bloodpressure.utils.BMIUtils;
 import org.caojun.bloodpressure.utils.BloodPressureUtils;
+import org.caojun.bloodpressure.utils.DataStorageUtils;
 import org.caojun.bloodpressure.utils.TimeUtils;
-
+import java.text.DecimalFormat;
 import java.util.List;
-
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 /**
@@ -92,7 +93,32 @@ public class BloodPressureAdapter extends BaseAdapter implements StickyListHeade
                 holder.tvRemark.setText(R.string.bp_medicine);
                 break;
             case BloodPressure.Type_Weight:
-                holder.tvRemark.setText(context.getString(R.string.bp_weight_unit, String.valueOf(bloodPressure.getWeight())));
+//                holder.tvRemark.setText(context.getString(R.string.bp_weight_unit, String.valueOf(bloodPressure.getWeight())));
+
+                float weight = bloodPressure.getWeight();
+                String text = context.getString(R.string.bp_weight_unit, String.valueOf(weight));
+                int height = DataStorageUtils.loadInt(context, Constant.BMI_NAME, Constant.BMI_KEY_HEIGHT, 0);
+                if (height > 0) {
+                    byte standard = DataStorageUtils.loadByte(context, Constant.BMI_NAME, Constant.BMI_KEY_STANDARD, Constant.BMI_CHINA);
+                    float bmi = weight / (height * height / 10000);
+                    byte b = 0;
+                    DecimalFormat decimalFormat = new DecimalFormat(".0");
+                    switch (standard) {
+                        case Constant.BMI_CHINA:
+                            b = BMIUtils.getChina(bmi);
+                            break;
+                        case Constant.BMI_ASIA:
+                            b = BMIUtils.getAsia(bmi);
+                            break;
+                        case Constant.BMI_WHO:
+                            b = BMIUtils.getWHO(bmi);
+                            break;
+                    }
+                    String[] types = context.getResources().getStringArray(R.array.bmi_type);
+                    String strBMI = context.getString(R.string.bp_bmi_unit, types[b], decimalFormat.format(bmi));
+                    text += "  " + strBMI;
+                }
+                holder.tvRemark.setText(text);
                 break;
         }
         holder.tvTime.setText(time);

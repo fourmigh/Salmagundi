@@ -23,13 +23,20 @@
         android:id="@+id/btnExport"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:text="@string/bp_export" />
+
+    <Button
+        android:id="@+id/btnBMI"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/bp_bmi" />
 
     <Button
         android:id="@+id/btnSkip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:text="@string/bp_skip" />
 
 </LinearLayout>

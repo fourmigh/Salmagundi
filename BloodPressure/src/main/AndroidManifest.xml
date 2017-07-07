@@ -27,6 +27,8 @@
             android:label="@string/bp_title"/>
         <activity android:name=".activity.BloodPressureDetailActivity"
             android:label="@string/bp_detail_title"/>
+        <activity android:name=".activity.BMIActivity"
+            android:label="@string/bp_bmi"/>
     </application>
 
 </manifest>

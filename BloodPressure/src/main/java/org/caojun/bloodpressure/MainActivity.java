@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         final Button btnImport = (Button) findViewById(R.id.btnImport);
         final Button btnExport = (Button) findViewById(R.id.btnExport);
         final Button btnSkip = (Button) findViewById(R.id.btnSkip);
+        final Button btnBMI = (Button) findViewById(R.id.btnBMI);
 
         btnImport.setEnabled(BloodPressureUtils.fileExists());
         btnExport.setEnabled(BloodPressureUtils.listExisits(this));
@@ -43,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 gotoNext();
+            }
+        });
+
+        btnBMI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build(Constant.ACTIVITY_BMI).navigation();
             }
         });
 
