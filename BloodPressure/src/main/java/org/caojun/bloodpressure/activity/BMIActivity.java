@@ -85,6 +85,7 @@ public class BMIActivity extends AppCompatActivity {
         int height = DataStorageUtils.loadInt(this, Constant.BMI_NAME, Constant.BMI_KEY_HEIGHT, 0);
         if (height > 0) {
             etHeight.setText(String.valueOf(height));
+            etHeight.setSelection(etHeight.getText().toString().length());
         }
 
         setStandard(getIndexStandard());
