@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.caojun.salmagundi.R;
@@ -56,7 +57,8 @@ public class HistoryAdapter extends BaseAdapter {
         if(view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.item_history, null);
             holder = new ViewHolder();
-            holder.tvYear = (TextView) view.findViewById(R.id.tvYear);
+            holder.tvYearPicture = (TextView) view.findViewById(R.id.tvYearPicture);
+            holder.tvYearNoPicture = (TextView) view.findViewById(R.id.tvYearNoPicture);
             holder.tvTitle = (TextView) view.findViewById(R.id.tvTitle);
             view.setTag(holder);
         } else {
@@ -64,13 +66,22 @@ public class HistoryAdapter extends BaseAdapter {
         }
 
         History history = (History) getItem(i);
-        holder.tvYear.setText(context.getString(R.string.th_year_value, history.getYear()));
         holder.tvTitle.setText(history.getTitle());
+        String content = context.getString(R.string.th_year_value, history.getYear());
+        if (history.getContent().contains("<img ")) {
+            holder.tvYearPicture.setText(content);
+            holder.tvYearPicture.setVisibility(View.VISIBLE);
+            holder.tvYearNoPicture.setVisibility(View.GONE);
+        } else {
+            holder.tvYearNoPicture.setText(content);
+            holder.tvYearNoPicture.setVisibility(View.VISIBLE);
+            holder.tvYearPicture.setVisibility(View.GONE);
+        }
 
         return view;
     }
 
     private class ViewHolder {
-        TextView tvYear, tvTitle;
+        TextView tvYearPicture, tvYearNoPicture, tvTitle;
     }
 }
