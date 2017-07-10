@@ -83,7 +83,7 @@ public class TodayActivity extends BaseActivity {
 
         Calendar calendar = TimeUtils.getCalendar();
         month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
-        day = String.valueOf(calendar.get(Calendar.DAY_OF_WEEK));
+        day = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
 
         etMonth.setText(month);
         etDay.setText(day);
