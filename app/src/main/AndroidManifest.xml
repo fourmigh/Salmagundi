@@ -63,7 +63,7 @@
         <activity android:name=".sharecase.UserDetailActivity"
             android:label="@string/sc_user_detail_title" />
         <activity android:name=".sharecase.SharecaseActivity"
-        android:label="@string/sc_sharecase_title" />
+            android:label="@string/sc_sharecase_title" />
         <activity android:name=".sharecase.SharecaseDetailActivity"
             android:label="@string/sc_sharecase_detail_title" />
         <activity android:name=".sharecase.OrderActivity"
@@ -75,6 +75,13 @@
             android:label="@string/captcha_title" />
         <activity android:name=".clicaptcha.CaptchaDemo"
             android:label="@string/captcha_title" />
+        <activity android:name=".today.TodayActivity"
+            android:label="@string/th_title"/>
+        <service android:name=".today.GetService">
+            <intent-filter>
+                <action android:name="org.caojun.salmagundi.today.SERVICE"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

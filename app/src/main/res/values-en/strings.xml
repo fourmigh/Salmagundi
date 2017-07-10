@@ -130,4 +130,7 @@
     <string name="captcha_check_info_2"><Data><![CDATA[Please click in turn "<font color="#00ff00"><b>%1$s</b></font>","<font color="#00ff00"><b>%2$s</b></font>","<font color="#ff0000"><b>%3$s</b></font>","<font color="#ff0000"><b>%4$s</b></font>"]]></Data></string>
     <string name="captcha_check_info_3"><Data><![CDATA[Please click in turn "<font color="#00ff00"><b>%1$s</b></font>","<font color="#00ff00"><b>%2$s</b></font>","<font color="#00ff00"><b>%3$s</b></font>","<font color="#ff0000"><b>%4$s</b></font>"]]></Data></string>
     <string name="captcha_check_info_4"><Data><![CDATA[Please click in turn "<font color="#00ff00"><b>%1$s</b></font>","<font color="#00ff00"><b>%2$s</b></font>","<font color="#00ff00"><b>%3$s</b></font>","<font color="#00ff00"><b>%4$s</b></font>"]]></Data></string>
+
+    <!-- 历史上的今天 -->
+    <string name="th_title">Today History</string>
 </resources>

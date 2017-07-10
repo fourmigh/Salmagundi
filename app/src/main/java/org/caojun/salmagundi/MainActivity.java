@@ -42,6 +42,8 @@ import org.caojun.salmagundi.string.StringActivity;
 import org.caojun.salmagundi.sysinfo.SysinfoActivity;
 import org.caojun.salmagundi.taxicab.TaxicabActivity;
 import org.caojun.salmagundi.textart.TextArtActivity;
+import org.caojun.salmagundi.today.TodayActivity;
+import org.caojun.salmagundi.today.TodayConstant;
 import org.caojun.salmagundi.utils.DataStorageUtils;
 
 public class MainActivity extends Activity {
@@ -62,7 +64,8 @@ public class MainActivity extends Activity {
             R.drawable.icon_cameracolor,
             R.drawable.icon_sysinfo,
             R.drawable.icon_sharecase,
-            R.drawable.icon_captcha
+            R.drawable.icon_captcha,
+            R.drawable.icon_today
     };
     private final Integer[] mTextIds = {
             R.string.bp_title,
@@ -80,7 +83,8 @@ public class MainActivity extends Activity {
             R.string.cc_title,
             R.string.si_title,
             R.string.sc_title,
-            R.string.captcha_title
+            R.string.captcha_title,
+            R.string.th_title
     };
     private final Class[] mActivitys = {
             BloodPressureActivity.class,
@@ -98,7 +102,8 @@ public class MainActivity extends Activity {
             CameraColorActivity.class,
             SysinfoActivity.class,
             UserActivity.class,
-            CaptchaDemo.class
+            CaptchaDemo.class,
+            TodayActivity.class
     };
     private final String[] mARouterPaths = {
             Constant.ACTIVITY_BLOODPRESSURE,
@@ -116,7 +121,8 @@ public class MainActivity extends Activity {
             Constant.ACTIVITY_CAMERACOLOR,
             Constant.ACTIVITY_SYSINFO,
             Constant.ACTIVITY_USER,
-            Constant.ACTIVITY_CAPTCHA_DEMO
+            Constant.ACTIVITY_CAPTCHA_DEMO,
+            Constant.ACTIVITY_TODAY
     };
 
     @Override
