@@ -76,12 +76,15 @@
         <activity android:name=".clicaptcha.CaptchaDemo"
             android:label="@string/captcha_title" />
         <activity android:name=".today.TodayActivity"
+            android:windowSoftInputMode="stateHidden"
             android:label="@string/th_title"/>
         <service android:name=".today.GetService">
             <intent-filter>
                 <action android:name="org.caojun.salmagundi.today.SERVICE"/>
             </intent-filter>
         </service>
+        <activity android:name=".today.WebviewActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" />
     </application>
 
 </manifest>

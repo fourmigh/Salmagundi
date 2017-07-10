@@ -133,4 +133,7 @@
 
     <!-- 历史上的今天 -->
     <string name="th_title">Today History</string>
+    <string name="th_month">Month</string>
+    <string name="th_day">Day</string>
+    <string name="th_year_value">Year %s</string>
 </resources>

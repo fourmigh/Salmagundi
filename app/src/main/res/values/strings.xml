@@ -137,4 +137,7 @@
 
     <!-- 历史上的今天 -->
     <string name="th_title">历史上的今天</string>
+    <string name="th_month">月</string>
+    <string name="th_day">日</string>
+    <string name="th_year_value">%s年</string>
 </resources>

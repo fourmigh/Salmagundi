@@ -32,6 +32,7 @@ public class Constant {
     public static final String ACTIVITY_CAPTCHA = "/activity/captcha";
     public static final String ACTIVITY_CAPTCHA_DEMO = "/activity/captcha/demo";
     public static final String ACTIVITY_TODAY = "/activity/today";
+    public static final String ACTIVITY_WEBVIEW = "/activity/webview";
 
     public static final int EXTRAS_LOGIN = 0x00000001;//需要登录
 }
