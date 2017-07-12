@@ -1,42 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
     tools:context="org.caojun.bloodpressure.MainActivity">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:text="@string/bp_main_tips" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="@string/bp_main_tips" />
 
-    <Button
-        android:id="@+id/btnImport"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/bp_import" />
+        <Button
+            android:id="@+id/btnImport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bp_import" />
 
-    <Button
-        android:id="@+id/btnExport"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:text="@string/bp_export" />
+        <Button
+            android:id="@+id/btnExport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bp_export" />
 
-    <Button
-        android:id="@+id/btnBMI"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/bp_bmi" />
+        <Button
+            android:id="@+id/btnToday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:text="@string/th_title" />
 
-    <Button
-        android:id="@+id/btnSkip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/bp_skip" />
+        <Button
+            android:id="@+id/btnBMI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/bp_bmi" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btnSkip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bp_skip" />
+
+    </LinearLayout>
+
+</ScrollView>

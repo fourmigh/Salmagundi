@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.caojun.bloodpressure"
-    android:versionCode="4"
-    android:versionName="1.2.1">
+    android:versionCode="5"
+    android:versionName="1.3.0">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".MainApplication"
@@ -29,6 +30,12 @@
             android:label="@string/bp_detail_title"/>
         <activity android:name=".activity.BMIActivity"
             android:label="@string/bp_bmi"/>
+        <activity android:name=".activity.TodayActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:label="@string/th_title"/>
+        <service android:name=".service.GetTodayService" />
+        <activity android:name=".activity.WebviewActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" />
     </application>
 
 </manifest>

@@ -23,10 +23,15 @@
     <string name="bp_import">导入</string>
     <string name="bp_export">导出</string>
     <string name="bp_skip">跳过</string>
-    <string name="bp_main_tips">小提示：\n\n为防止数据因应用删除后丢失，您可以选择将数据导出；\n也可将数据文件拷贝至另一部手机后导入。</string>
+    <string name="bp_main_tips">小提示：\n\n为防止数据因应用删除后丢失，您可以选择将数据导出；\n也可将数据文件拷贝至另一部手机后导入。\n如果您每天都记录，不妨顺便了解一下历史上的今天都发生过什么事。</string>
     <string name="bp_bmi_tips">小提示：\n\n设置身高后，即可在体重后显示您的BMI指数。\n体质指数（BMI）= 体重（kg）÷ 身高（m）的平方\n各标准的参考值略有不同。</string>
     <string name="bp_china">中国标准</string>
     <string name="bp_asia">亚洲标准</string>
     <string name="bp_who">WHO标准</string>
     <string name="bp_bmi">BMI</string>
+
+    <string name="th_title">历史上的今天</string>
+    <string name="th_month">月</string>
+    <string name="th_day">日</string>
+    <string name="th_year_value">%s年</string>
 </resources>

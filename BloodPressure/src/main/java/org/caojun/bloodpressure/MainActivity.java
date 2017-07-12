@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         final Button btnExport = (Button) findViewById(R.id.btnExport);
         final Button btnSkip = (Button) findViewById(R.id.btnSkip);
         final Button btnBMI = (Button) findViewById(R.id.btnBMI);
+        final Button btnToday = (Button) findViewById(R.id.btnToday);
 
         btnImport.setEnabled(BloodPressureUtils.fileExists());
         btnExport.setEnabled(BloodPressureUtils.listExisits(this));
@@ -57,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
         if (!btnImport.isEnabled() && !btnExport.isEnabled()) {
             gotoNext();
         }
+
+        btnToday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build(Constant.ACTIVITY_TODAY).navigation();
+            }
+        });
     }
 
     private void gotoNext() {

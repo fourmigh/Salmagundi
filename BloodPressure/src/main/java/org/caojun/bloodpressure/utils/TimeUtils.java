@@ -3,6 +3,7 @@ package org.caojun.bloodpressure.utils;
 import android.text.TextUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -62,5 +63,13 @@ public class TimeUtils {
     public static long getDays(long timeEnd, long timeStart) {
         long time = timeEnd - timeStart;
         return time / (1000 * 60 * 60 * 24);
+    }
+
+    public static Calendar getCalendar(String timeZone) {
+        return Calendar.getInstance(TimeZone.getTimeZone(timeZone));
+    }
+
+    public static Calendar getCalendar() {
+        return getCalendar(LocalTimeZone);
     }
 }
