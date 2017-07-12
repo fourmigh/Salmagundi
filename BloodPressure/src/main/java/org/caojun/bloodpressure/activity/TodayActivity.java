@@ -16,15 +16,13 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-
 import org.caojun.bloodpressure.Constant;
 import org.caojun.bloodpressure.R;
 import org.caojun.bloodpressure.adapter.HistoryAdapter;
 import org.caojun.bloodpressure.ormlite.History;
 import org.caojun.bloodpressure.ormlite.HistoryDatabase;
-import org.caojun.bloodpressure.service.GetTodayService;
+import org.caojun.bloodpressure.service.HttpGetService;
 import org.caojun.bloodpressure.utils.TimeUtils;
-
 import java.util.Calendar;
 import java.util.List;
 
@@ -35,6 +33,8 @@ import java.util.List;
 @Route(path = Constant.ACTIVITY_TODAY)
 public class TodayActivity extends AppCompatActivity {
 
+    private static final String APPKEY = "1ab67e3f8447a83b";
+    private static final String URL = "http://api.jisuapi.com/todayhistory/query";
     private GetBroadcastReceiver mGetBroadcastReceiver;
     private Intent mIntent;
     private ListView listView;
@@ -46,7 +46,7 @@ public class TodayActivity extends AppCompatActivity {
     public class GetBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String result = intent.getStringExtra("result");
+            String result = intent.getStringExtra(HttpGetService.RESULT);
             JSONObject json = JSONObject.parseObject(result);
             int status = json.getIntValue("status");
             if (status != 0) {
@@ -89,7 +89,7 @@ public class TodayActivity extends AppCompatActivity {
         if (!showList()) {
             mGetBroadcastReceiver = new GetBroadcastReceiver();
             IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(Constant.BroadcastAction);
+            intentFilter.addAction(HttpGetService.BroadcastAction);
             registerReceiver(mGetBroadcastReceiver, intentFilter);
             startGetTodayService();
         }
@@ -115,9 +115,11 @@ public class TodayActivity extends AppCompatActivity {
     }
 
     private void startGetTodayService() {
-        mIntent = new Intent(this, GetTodayService.class);
-        mIntent.putExtra("month", month);
-        mIntent.putExtra("day", day);
+        mIntent = new Intent(this, HttpGetService.class);
+//        mIntent.putExtra("month", month);
+//        mIntent.putExtra("day", day);
+        String url = URL + "?appkey=" + APPKEY + "&month=" + month + "&day=" + day;
+        mIntent.putExtra(HttpGetService.URL, url);
         startService(mIntent);
     }
 

@@ -18,6 +18,4 @@ public class Constant {
     public static final byte BMI_CHINA = 0;
     public static final byte BMI_ASIA = 1;
     public static final byte BMI_WHO = 2;
-
-    public static final String BroadcastAction = "org.caojun.today.RECEIVER";
 }

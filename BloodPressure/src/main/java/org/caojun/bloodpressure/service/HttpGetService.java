@@ -13,10 +13,14 @@ import java.net.URL;
  * Created by CaoJun on 2017/7/10.
  */
 
-public class GetTodayService extends Service {
+/**
+ * 通用的HttpGet服务，以广播形式返回结果
+ */
+public class HttpGetService extends Service {
 
-    private static final String APPKEY = "1ab67e3f8447a83b";
-    private static final String URL = "http://api.jisuapi.com/todayhistory/query";
+    public static final String BroadcastAction = "org.caojun.httpget.RECEIVER";
+    public static final String RESULT = "RESULT";
+    public static final String URL = "URL";
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -39,15 +43,13 @@ public class GetTodayService extends Service {
         new Thread() {
             @Override
             public void run() {
-                String month = intent.getStringExtra("month");
-                String day = intent.getStringExtra("day");
-                doGet(month, day);
+                String url = intent.getStringExtra(URL);
+                doGet(url);
             }
         }.start();
     }
 
-    private void doGet(String month, String day) {
-        String url = URL + "?appkey=" + APPKEY + "&month=" + month + "&day=" + day;
+    private void doGet(String url) {
         try {
             HttpURLConnection connection = (HttpURLConnection)(new URL(url)).openConnection();
             connection.setRequestMethod("GET");
@@ -63,8 +65,8 @@ public class GetTodayService extends Service {
                 String result = new String(bos.toByteArray());
                 is.close();
 
-                Intent intent = new Intent(Constant.BroadcastAction);
-                intent.putExtra("result", result);
+                Intent intent = new Intent(BroadcastAction);
+                intent.putExtra(RESULT, result);
                 sendBroadcast(intent);
             }
         } catch (Exception e) {
