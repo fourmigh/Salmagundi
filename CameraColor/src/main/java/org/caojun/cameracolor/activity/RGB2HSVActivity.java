@@ -2,8 +2,6 @@ package org.caojun.cameracolor.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -137,7 +135,7 @@ public class RGB2HSVActivity extends AppCompatActivity {
                     setEditTextColor(etColor[index], progress);
                     resetEditTextRGB();
                     setHSV();
-                    resetImageView(Integer.parseInt(HEX, 16));
+                    resetImageView();
                 }
 
                 @Override
@@ -166,7 +164,7 @@ public class RGB2HSVActivity extends AppCompatActivity {
             etRGB.setText(HEX);
             etRGB.setSelection(HEX.length());
 
-            final int color = Integer.parseInt(HEX, 16);
+            int color = Integer.parseInt(HEX, 16);
             int[] colors = {Color.red(color), Color.green(color), Color.blue(color)};
             for (int i = 0;i < colors.length;i ++) {
                 setEditTextColor(etColor[i], colors[i]);
@@ -180,27 +178,14 @@ public class RGB2HSVActivity extends AppCompatActivity {
                 @Override
                 public void onGlobalLayout() {
                     ivColor.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    resetImageView(color);
+                    resetImageView();
                 }
             });
         }
     }
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            int color = msg.getData().getInt("color");
-            ivColor.setBackgroundColor(color);
-        }
-    };
-
-    private void resetImageView(int color) {
-//        Bundle bundle = new Bundle();
-//        bundle.putInt("color", color);
-//        Message msg = new Message();
-//        msg.setData(bundle);
-//        handler.sendMessage(msg);
-
+    private void resetImageView() {
+        int color = getColor();
         ivColor.setBackgroundColor(color);
     }
 
@@ -234,12 +219,16 @@ public class RGB2HSVActivity extends AppCompatActivity {
     }
 
     private void resetEditTextRGB() {
-        int r = sbColor[0].getProgress();
-        int g = sbColor[1].getProgress();
-        int b = sbColor[2].getProgress();
-        int color = Color.argb(0xFF, r, g, b);
+        int color = getColor();
         HEX = ColorUtils.toHexEncoding(color);
         etRGB.setText(HEX.toUpperCase());
         etRGB.setSelection(HEX.length());
+    }
+
+    private int getColor() {
+        int r = sbColor[0].getProgress();
+        int g = sbColor[1].getProgress();
+        int b = sbColor[2].getProgress();
+        return Color.argb(0xFF, r, g, b);
     }
 }
