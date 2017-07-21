@@ -10,8 +10,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.TextureView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private TextureView mTextureView;
     private ImageView ivColor;
     private TextView tvRGB, tvHEX;
-    private LinearLayout llColor;
+    private Button btnRGB2HSV, btnHSV2RGB;
     private String HEX;
 
     private Handler handler = new Handler() {
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             HEX = hex.toUpperCase();
 
             tvRGB.setText(getString(R.string.color_rgb, String.valueOf(red), String.valueOf(green), String.valueOf(blue)));
-            tvHEX.setText(getString(R.string.color_hex, hex, HEX));
+            tvHEX.setText(getString(R.string.color_hex, HEX));
 
             ivColor.setBackgroundColor(rgb);
 
@@ -78,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
         ivColor = (ImageView) findViewById(R.id.ivColor);
         tvRGB = (TextView) findViewById(R.id.tvRGB);
         tvHEX = (TextView) findViewById(R.id.tvHEX);
-        llColor = (LinearLayout) findViewById(R.id.llColor);
+        btnRGB2HSV = (Button) findViewById(R.id.btnRGB2HSV);
+        btnHSV2RGB = (Button) findViewById(R.id.btnHSV2RGB);
 
         rlRoot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,13 +88,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        llColor.setOnClickListener(new View.OnClickListener() {
+        btnRGB2HSV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (TextUtils.isEmpty(HEX)) {
                     return;
                 }
                 ARouter.getInstance().build(Constant.ACTIVITY_RGB2HSV).withString("HEX", HEX).navigation();
+            }
+        });
+        btnHSV2RGB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (TextUtils.isEmpty(HEX)) {
+                    return;
+                }
+                ARouter.getInstance().build(Constant.ACTIVITY_HSV2RGB).withString("HEX", HEX).navigation();
             }
         });
 
