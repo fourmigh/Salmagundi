@@ -58,7 +58,6 @@ dependencies {
     compile 'commons-codec:commons-codec:20041127.091804'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
-    compile 'com.github.zhaokaiqiang.klog:library:1.6.0'
     compile 'com.maksim88:PasswordEditText:v0.9'
     compile 'com.j256.ormlite:ormlite-android:5.0'
     compile 'se.emilsjolander:stickylistheaders:2.7.0'

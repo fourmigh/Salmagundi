@@ -1,2 +1,2 @@
-include ':app', ':BloodPressure'
+include ':app', ':BloodPressure', ':CameraColor'
 include ':zxing'
