@@ -22,6 +22,9 @@
         <activity android:name=".activity.RGB2HSVActivity"
             android:windowSoftInputMode="stateHidden"
             android:label="@string/rgb2hsv_title"/>
+        <activity android:name=".activity.HSV2RGBActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:label="@string/hsv2rgb_title"/>
     </application>
 
 </manifest>

@@ -6,4 +6,5 @@ package org.caojun.cameracolor;
 
 public class Constant {
     public static final String ACTIVITY_RGB2HSV = "/activity/rgb2hsv";
+    public static final String ACTIVITY_HSV2RGB = "/activity/hsv2rgb";
 }

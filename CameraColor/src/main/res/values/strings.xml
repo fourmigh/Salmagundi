@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CameraColor</string>
     <string name="color_rgb">R: %s  G: %s  B: %s</string>
-    <string name="color_hex">hex: #%s  HEX: #%s</string>
+    <string name="color_hex">HEX: #%s</string>
     <string name="crosshair">瞄准线</string>
     <string name="color">颜色</string>
     <string name="input_rgb_hex">输入RGB HEX(#)</string>
@@ -16,4 +16,8 @@
     <string name="input_s_unit">%</string>
     <string name="input_v">Value(V)</string>
     <string name="input_v_unit">%</string>
+    <string name="rgb_hex">RGB HEX(#)</string>
+    <string name="rgb2hsv">RGB\n转\nHSV</string>
+    <string name="hsv2rgb">HSV\n转\nRGB</string>
+    <string name="hsv2rgb_title">HSV转RGB</string>
 </resources>
