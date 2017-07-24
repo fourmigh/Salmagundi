@@ -12,11 +12,11 @@ android {
     }
 
     compileSdkVersion 25
-    buildToolsVersion '25.0.3'
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "org.caojun.cameracolor"
-        minSdkVersion 21
+        minSdkVersion 15
         targetSdkVersion 25
         javaCompileOptions {
             annotationProcessorOptions {
@@ -36,10 +36,9 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:25.3.1'
-    testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:design:25.3.1'
-    compile 'com.alibaba:arouter-api:1.2.1.1'
-    annotationProcessor 'com.alibaba:arouter-compiler:1.1.2.1'
-    compile 'com.alibaba:fastjson:1.2.33'
-    compile 'com.github.zhaokaiqiang.klog:library:1.6.0'
+    compile 'com.alibaba:arouter-api:latest.release'
+    annotationProcessor 'com.alibaba:arouter-compiler:latest.release'
+    compile 'com.alibaba:fastjson:latest.release'
+    compile 'com.github.zhaokaiqiang.klog:library:latest.release'
 }
