@@ -12,6 +12,7 @@ import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -22,7 +23,7 @@ import org.caojun.cameracolor.utils.ColorUtils;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RelativeLayout rlRoot;
+    private LinearLayout llRoot;
     private TextureView mTextureView;
     private ImageView ivColor;
     private TextView tvRGB, tvHEX;
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        rlRoot = (RelativeLayout) findViewById(R.id.rlRoot);
+        llRoot = (LinearLayout) findViewById(R.id.llRoot);
         mTextureView = (TextureView) findViewById(R.id.textureView);
         ivColor = (ImageView) findViewById(R.id.ivColor);
         tvRGB = (TextView) findViewById(R.id.tvRGB);
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         btnRGB2HSV = (Button) findViewById(R.id.btnRGB2HSV);
         btnHSV2RGB = (Button) findViewById(R.id.btnHSV2RGB);
 
-        rlRoot.setOnClickListener(new View.OnClickListener() {
+        llRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 CameraColorUtils.getInstance().takeColor();

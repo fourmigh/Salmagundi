@@ -18,7 +18,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import org.caojun.cameracolor.Constant;
 import org.caojun.cameracolor.R;
 import org.caojun.cameracolor.utils.ColorUtils;
-import java.text.DecimalFormat;
+import java.math.BigDecimal;
 
 /**
  * HSV转RGB
@@ -64,7 +64,7 @@ public class HSV2RGBActivity extends AppCompatActivity {
                         if (color < 0) {
                             color = 0;
                         }
-                        refreshData(index, color);
+                        refreshData(index, color, false);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -84,7 +84,7 @@ public class HSV2RGBActivity extends AppCompatActivity {
                         if (color > MaxHSV[index]) {
                             color = MaxHSV[index];
                         }
-                        refreshData(index, color);
+                        refreshData(index, color, false);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -122,7 +122,7 @@ public class HSV2RGBActivity extends AppCompatActivity {
                     } else if (color < 0) {
                         color = 0;
                     }
-                    refreshData(index, color);
+                    refreshData(index, color, true);
                 }
             });
         }
@@ -136,7 +136,7 @@ public class HSV2RGBActivity extends AppCompatActivity {
                     if (!fromUser) {
                         return;
                     }
-                    refreshData(index, progress);
+                    refreshData(index, progress, false);
                 }
 
                 @Override
@@ -162,26 +162,21 @@ public class HSV2RGBActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (!TextUtils.isEmpty(HEX)) {
-            etRGB.setText(HEX);
-            etRGB.setSelection(HEX.length());
+            setEditTextColor(etRGB, HEX);
 
             int color = Integer.parseInt(HEX, 16);
             float hsv[] = {0, 0, 0};
             ColorUtils.RGBtoHSV(Color.red(color), Color.green(color), Color.blue(color), hsv);
             for (int i = 0;i < hsv.length;i ++) {
-                String text;
-                switch(i) {
-                    case 0:
-                        text = String.valueOf((int)hsv[i]);
-                        break;
-                    default:
-                        hsv[i] *= 100;
-                        DecimalFormat decimalFormat = new DecimalFormat("0.0");
-                        text = decimalFormat.format(hsv[i]);
-                        break;
+                if (i > 0) {
+                    hsv[i] *= 100;
+                    BigDecimal b = new BigDecimal(hsv[i]);
+                    hsv[i] = b.setScale(1,  BigDecimal.ROUND_HALF_UP).floatValue();
+                } else {
+                    BigDecimal b = new BigDecimal(hsv[i]);
+                    hsv[i] = (int) b.setScale(0,  BigDecimal.ROUND_HALF_UP).floatValue();
                 }
-                setEditTextColor(etColor[i], text);
-                sbColor[i].setProgress((int) hsv[i]);
+                refreshData(i, hsv[i], false);
             }
 
             setRGB();
@@ -207,8 +202,7 @@ public class HSV2RGBActivity extends AppCompatActivity {
         int[] color = {Color.red(rgb), Color.green(rgb), Color.blue(rgb)};
         for (int i = 0;i < etRGBs.length;i ++) {
             String text = String.valueOf(color[i]);
-            etRGBs[i].setText(text);
-            etRGBs[i].setSelection(text.length());
+            setEditTextColor(etRGBs[i], text);
         }
     }
 
@@ -219,9 +213,8 @@ public class HSV2RGBActivity extends AppCompatActivity {
 
     private void resetEditTextRGB() {
         int color = getColor();
-        HEX = ColorUtils.toHexEncoding(color);
-        etRGB.setText(HEX.toUpperCase());
-        etRGB.setSelection(HEX.length());
+        HEX = ColorUtils.toHexEncoding(color).toUpperCase();
+        setEditTextColor(etRGB, HEX);
     }
 
     private int getColor() {
@@ -236,12 +229,14 @@ public class HSV2RGBActivity extends AppCompatActivity {
     }
 
     private boolean isCalculating = false;
-    private void refreshData(int index, float value) {
+    private void refreshData(int index, float value, boolean isEditText) {
         isCalculating = true;
-        if (value == (int)value) {
-            setEditTextColor(etColor[index], String.valueOf((int)value));
-        } else {
-            setEditTextColor(etColor[index], String.valueOf(value));
+        if (!isEditText) {
+            if (index == 0 && value == (int) value) {
+                setEditTextColor(etColor[index], String.valueOf((int) value));
+            } else {
+                setEditTextColor(etColor[index], String.valueOf(value));
+            }
         }
         resetEditTextRGB();
         setRGB();
