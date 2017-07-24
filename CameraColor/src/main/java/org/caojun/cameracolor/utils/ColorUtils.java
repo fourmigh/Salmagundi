@@ -291,8 +291,6 @@ public class ColorUtils {
         hsv[0] = (h * 60f) % 360f;
         hsv[1] = s;
         hsv[2] = v / 255;
-
-//        BigDecimal bd = new BigDecimal((double)ft);
     }
 
     public static int HSVtoRGB (float[] hsv) {

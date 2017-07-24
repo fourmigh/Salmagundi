@@ -64,9 +64,7 @@ public class HSV2RGBActivity extends AppCompatActivity {
                         if (color < 0) {
                             color = 0;
                         }
-                        int icolor = (int) color;
-                        setEditTextColor(etColor[index], icolor == color?String.valueOf(icolor):String.valueOf(color));
-                        sbColor[index].setProgress(icolor);
+                        refreshData(index, color);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -86,9 +84,7 @@ public class HSV2RGBActivity extends AppCompatActivity {
                         if (color > MaxHSV[index]) {
                             color = MaxHSV[index];
                         }
-                        int icolor = (int) color;
-                        setEditTextColor(etColor[index], icolor == color?String.valueOf(icolor):String.valueOf(color));
-                        sbColor[index].setProgress(icolor);
+                        refreshData(index, color);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -112,6 +108,9 @@ public class HSV2RGBActivity extends AppCompatActivity {
 
                 @Override
                 public void afterTextChanged(Editable s) {
+                    if (isCalculating) {
+                        return;
+                    }
                     String text = s.toString();
                     if (TextUtils.isEmpty(text)) {
                         sbColor[index].setProgress(0);
@@ -123,7 +122,7 @@ public class HSV2RGBActivity extends AppCompatActivity {
                     } else if (color < 0) {
                         color = 0;
                     }
-                    sbColor[index].setProgress((int) color);
+                    refreshData(index, color);
                 }
             });
         }
@@ -137,10 +136,7 @@ public class HSV2RGBActivity extends AppCompatActivity {
                     if (!fromUser) {
                         return;
                     }
-                    setEditTextColor(etColor[index], String.valueOf(progress));
-                    resetEditTextRGB();
-                    setRGB();
-                    resetImageView();
+                    refreshData(index, progress);
                 }
 
                 @Override
@@ -229,10 +225,28 @@ public class HSV2RGBActivity extends AppCompatActivity {
     }
 
     private int getColor() {
-        int h = sbColor[0].getProgress();
-        int s = sbColor[1].getProgress();
-        int v = sbColor[2].getProgress();
+        String strH = etColor[0].getText().toString();
+        float h = TextUtils.isEmpty(strH)?0:Float.parseFloat(strH);
+        String strS = etColor[1].getText().toString();
+        float s = TextUtils.isEmpty(strS)?0:Float.parseFloat(strS);
+        String strV = etColor[2].getText().toString();
+        float v = TextUtils.isEmpty(strV)?0:Float.parseFloat(strV);
         float hsv[] = {h, s, v};
         return ColorUtils.HSVtoRGB(hsv);
+    }
+
+    private boolean isCalculating = false;
+    private void refreshData(int index, float value) {
+        isCalculating = true;
+        if (value == (int)value) {
+            setEditTextColor(etColor[index], String.valueOf((int)value));
+        } else {
+            setEditTextColor(etColor[index], String.valueOf(value));
+        }
+        resetEditTextRGB();
+        setRGB();
+        resetImageView();
+        sbColor[index].setProgress((int)Math.rint((double)value));
+        isCalculating = false;
     }
 }
