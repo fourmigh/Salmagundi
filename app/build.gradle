@@ -13,8 +13,8 @@ android {
     buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "org.caojun.salmagundi"
-        minSdkVersion 21
-        targetSdkVersion 25
+        minSdkVersion 15
+        targetSdkVersion 22
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [moduleName: project.getName()]
