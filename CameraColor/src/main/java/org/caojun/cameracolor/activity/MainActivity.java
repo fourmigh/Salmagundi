@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView ivColor;
     private TextView tvRGB, tvHEX;
     private Button btnRGB2HSV, btnHSV2RGB;
-    private String HEX;
+    private String HEX = "000000";
 
     private Handler handler = new Handler() {
         @Override

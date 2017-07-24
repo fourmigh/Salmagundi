@@ -171,6 +171,7 @@ public class HSV2RGBActivity extends AppCompatActivity {
                 if (i > 0) {
                     hsv[i] *= 100;
                     BigDecimal b = new BigDecimal(hsv[i]);
+                    //四舍五入，保留一位小数
                     hsv[i] = b.setScale(1,  BigDecimal.ROUND_HALF_UP).floatValue();
                 } else {
                     BigDecimal b = new BigDecimal(hsv[i]);
