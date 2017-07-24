@@ -15,7 +15,6 @@ import android.widget.SeekBar;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.socks.library.KLog;
 import org.caojun.cameracolor.Constant;
 import org.caojun.cameracolor.R;
 import org.caojun.cameracolor.utils.ColorUtils;
@@ -185,7 +184,6 @@ public class HSV2RGBActivity extends AppCompatActivity {
                         text = decimalFormat.format(hsv[i]);
                         break;
                 }
-                KLog.d("HSV2RGBActivity", i + " : " + text);
                 setEditTextColor(etColor[i], text);
                 sbColor[i].setProgress((int) hsv[i]);
             }
@@ -209,7 +207,7 @@ public class HSV2RGBActivity extends AppCompatActivity {
     }
 
     private void setRGB() {
-        int rgb = getColor();
+        int rgb = Integer.parseInt(HEX, 16);
         int[] color = {Color.red(rgb), Color.green(rgb), Color.blue(rgb)};
         for (int i = 0;i < etRGBs.length;i ++) {
             String text = String.valueOf(color[i]);
@@ -219,7 +217,6 @@ public class HSV2RGBActivity extends AppCompatActivity {
     }
 
     private void setEditTextColor(EditText editText, String value) {
-        KLog.d("HSV2RGBActivity", "setEditTextColor: " + value);
         editText.setText(value);
         editText.setSelection(value.length());
     }
@@ -235,7 +232,7 @@ public class HSV2RGBActivity extends AppCompatActivity {
         int h = sbColor[0].getProgress();
         int s = sbColor[1].getProgress();
         int v = sbColor[2].getProgress();
-        float hsv[] = {h, s / 100, v / 100};
+        float hsv[] = {h, s, v};
         return ColorUtils.HSVtoRGB(hsv);
     }
 }

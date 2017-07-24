@@ -5,8 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import java.math.BigDecimal;
-
 /**
  * Created by CaoJun on 2017/5/27.
  */
@@ -302,8 +300,8 @@ public class ColorUtils {
         final float s = hsv[1];
         final float v = hsv[2];
 
-        final float c = v * s;
-        final float m = v - c;
+        final float c = v * s / 10000;
+        final float m = v / 100 - c;
         final float x = c * (1f - Math.abs((h / 60f % 2f) - 1f));
 
         final int hueSegment = (int) h / 60;
@@ -348,6 +346,6 @@ public class ColorUtils {
         g = (g + m) * 255;
         b = (b + m) * 255;
 
-        return Color.rgb((int)r, (int)g, (int)b);
+        return Color.rgb((int)Math.rint((double)r), (int)Math.rint((double)g), (int)Math.rint((double)b));
     }
 }
