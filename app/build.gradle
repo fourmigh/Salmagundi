@@ -48,19 +48,19 @@ apply plugin: 'org.greenrobot.greendao'
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:design:25.2.0'
-    compile 'com.github.zhaokaiqiang.klog:library:1.6.0'
-    compile 'org.greenrobot:greendao:3.2.2'
+    compile 'com.android.support:design:25.4.0'
+    compile 'com.github.zhaokaiqiang.klog:library:latest.release'
+    compile 'org.greenrobot:greendao:latest.release'
     compile project(':zxing')
-    compile 'commons-lang:commons-lang:20030203.000129'
-    compile 'commons-codec:commons-codec:20041127.091804'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.1.6'
-    compile 'com.maksim88:PasswordEditText:v0.9'
-    compile 'com.j256.ormlite:ormlite-android:5.0'
-    compile 'se.emilsjolander:stickylistheaders:2.7.0'
+    compile 'commons-lang:commons-lang:latest.release'
+    compile 'commons-codec:commons-codec:latest.release'
+    compile 'io.reactivex:rxandroid:latest.release'
+    compile 'io.reactivex:rxjava:latest.release'
+    compile 'com.maksim88:PasswordEditText:latest.release'
+    compile 'com.j256.ormlite:ormlite-android:latest.release'
+    compile 'se.emilsjolander:stickylistheaders:latest.release'
     //alibaba/ARouter
-    compile 'com.alibaba:arouter-api:1.2.1.1'
-    annotationProcessor 'com.alibaba:arouter-compiler:1.1.2.1'
-    compile 'com.alibaba:fastjson:1.2.33'
+    compile 'com.alibaba:arouter-api:latest.release'
+    annotationProcessor 'com.alibaba:arouter-compiler:latest.release'
+    compile 'com.alibaba:fastjson:latest.release'
 }
