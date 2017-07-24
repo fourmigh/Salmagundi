@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CameraColor</string>
+    <string name="app_name">攫色</string>
     <string name="color_rgb">R: %s  G: %s  B: %s</string>
     <string name="color_hex">HEX: #%s</string>
     <string name="crosshair">瞄准线</string>
