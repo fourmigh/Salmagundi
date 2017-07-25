@@ -16,8 +16,8 @@ android {
 
     defaultConfig {
         applicationId "org.caojun.cameracolor"
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion 21
+        targetSdkVersion 22
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [moduleName: project.getName()]

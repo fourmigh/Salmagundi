@@ -21,17 +21,20 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Size;
 import android.util.SparseIntArray;
 import android.view.Surface;
 import android.view.TextureView;
-
+import android.widget.Toast;
+import org.caojun.cameracolor.R;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,6 +49,8 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class CameraColorUtils {
+
+    private boolean isInited = false;
 
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
 
@@ -189,7 +194,7 @@ public class CameraColorUtils {
                                 mPreviewRequest = mPreviewRequestBuilder.build();
                                 mCaptureSession.setRepeatingRequest(mPreviewRequest,
                                         mCaptureCallback, mBackgroundHandler);
-                            } catch (CameraAccessException e) {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
@@ -200,12 +205,15 @@ public class CameraColorUtils {
                         }
                     }, null
             );
-        } catch (CameraAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void closeCamera() {
+        if (!isInited) {
+            return;
+        }
         try {
             mCameraOpenCloseLock.acquire();
             if (null != mCaptureSession) {
@@ -220,7 +228,7 @@ public class CameraColorUtils {
                 mImageReader.close();
                 mImageReader = null;
             }
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Interrupted while trying to lock camera closing.", e);
         } finally {
             mCameraOpenCloseLock.release();
@@ -236,17 +244,17 @@ public class CameraColorUtils {
             mState = STATE_WAITING_LOCK;
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
                     mBackgroundHandler);
-        } catch (CameraAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void openCamera(int width, int height) {
+        isInited = false;
         if (activity == null) {
             return;
         }
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestCameraPermission();
             return;
         }
@@ -255,18 +263,23 @@ public class CameraColorUtils {
         CameraManager manager = (CameraManager) activity.getSystemService(Context.CAMERA_SERVICE);
         try {
             if (!mCameraOpenCloseLock.tryAcquire(2500, TimeUnit.MILLISECONDS)) {
-                throw new RuntimeException("Time out waiting to lock camera opening.");
+//                throw new RuntimeException("Time out waiting to lock camera opening.");
             }
             manager.openCamera(mCameraId, mStateCallback, mBackgroundHandler);
-        } catch (CameraAccessException e) {
+            isInited = true;
+        } catch (SecurityException e) {
+            requestCameraPermission();
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Interrupted while trying to lock camera opening.", e);
         }
     }
 
     private void requestCameraPermission() {
-        //TODO
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA}, 321);
+        } else {
+            Toast.makeText(activity, R.string.request_camera, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private static Size chooseOptimalSize(Size[] choices, int textureViewWidth,
@@ -578,11 +591,8 @@ public class CameraColorUtils {
                 mCameraId = cameraId;
                 return;
             }
-        } catch (CameraAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (NullPointerException e) {
-            // Currently an NPE is thrown when the Camera2API is used but not supported on the
-            // device this code runs.
         }
     }
 
@@ -602,7 +612,7 @@ public class CameraColorUtils {
             mState = STATE_WAITING_PRECAPTURE;
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
                     mBackgroundHandler);
-        } catch (CameraAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -627,7 +637,7 @@ public class CameraColorUtils {
             mState = STATE_PREVIEW;
             mCaptureSession.setRepeatingRequest(mPreviewRequest, mCaptureCallback,
                     mBackgroundHandler);
-        } catch (CameraAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -664,7 +674,7 @@ public class CameraColorUtils {
 
             mCaptureSession.stopRepeating();
             mCaptureSession.capture(captureBuilder.build(), CaptureCallback, null);
-        } catch (CameraAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

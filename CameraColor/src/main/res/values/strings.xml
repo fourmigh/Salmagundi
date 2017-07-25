@@ -20,4 +20,5 @@
     <string name="rgb2hsv">RGB\n转\nHSV</string>
     <string name="hsv2rgb">HSV\n转\nRGB</string>
     <string name="hsv2rgb_title">HSV转RGB</string>
+    <string name="request_camera">请手动打开相机权限，才能攫取颜色。</string>
 </resources>
