@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 
@@ -19,7 +17,7 @@ import org.caojun.salmagundi.R;
  */
 
 @Route(path = Constant.ACTIVITY_CAPTCHA_DEMO)
-public class CaptchaDemo extends BaseActivity {
+public class CaptchaDemo extends Activity {
 
     private static final int RequestCode_Captcha = 1;
 

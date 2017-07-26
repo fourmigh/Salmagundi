@@ -1,5 +1,6 @@
 package org.caojun.salmagundi.cameracolor;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -13,10 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
-
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.color.ColorUtils;
@@ -27,7 +25,7 @@ import org.caojun.salmagundi.color.ColorUtils;
  */
 
 @Route(path = Constant.ACTIVITY_CAMERACOLOR)
-public class CameraColorActivity extends BaseActivity {
+public class CameraColorActivity extends Activity {
 
     private LinearLayout llRoot;
     private TextureView mTextureView;

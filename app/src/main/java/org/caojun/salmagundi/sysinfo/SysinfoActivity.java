@@ -1,6 +1,6 @@
 package org.caojun.salmagundi.sysinfo;
 
-import android.app.SearchManager;
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,10 +9,7 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
-
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.utils.TimeUtils;
@@ -22,7 +19,7 @@ import org.caojun.salmagundi.utils.TimeUtils;
  */
 
 @Route(path = Constant.ACTIVITY_SYSINFO)
-public class SysinfoActivity extends BaseActivity {
+public class SysinfoActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,5 +1,6 @@
 package org.caojun.salmagundi.taxicab;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,7 +15,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.taxicab.adapter.TaxicabAdapter;
@@ -33,7 +33,7 @@ import java.util.List;
  */
 
 @Route(path = Constant.ACTIVITY_TAXICAB)
-public class TaxicabActivity extends BaseActivity {
+public class TaxicabActivity extends Activity {
 
     private ListView lvTaxicab;
     private EditText etMax;

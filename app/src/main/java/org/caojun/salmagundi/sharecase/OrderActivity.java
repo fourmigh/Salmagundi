@@ -10,7 +10,6 @@ import android.widget.ListView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.sharecase.adapter.OrderAdapter;
@@ -26,7 +25,7 @@ import java.util.List;
  */
 
 @Route(path = Constant.ACTIVITY_ORDER)
-public class OrderActivity extends BaseActivity {
+public class OrderActivity extends Activity {
 
     private ListView listView;
     private OrderAdapter adapter;

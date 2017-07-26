@@ -1,10 +1,10 @@
 package org.caojun.salmagundi.rxjava;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.rxjava.data.Course;
@@ -22,7 +22,7 @@ import rx.schedulers.Schedulers;
  */
 
 @Route(path = Constant.ACTIVITY_RXJAVA)
-public class RxJavaActivity extends BaseActivity {
+public class RxJavaActivity extends Activity {
 
     private TextView tvInfo;
     private List<Student> students;

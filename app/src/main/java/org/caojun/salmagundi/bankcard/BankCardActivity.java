@@ -1,5 +1,6 @@
 package org.caojun.salmagundi.bankcard;
 
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -11,16 +12,10 @@ import android.nfc.tech.NfcV;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
-
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.bankcard.adapter.RecordAdapter;
@@ -28,7 +23,6 @@ import org.caojun.salmagundi.bankcard.nfc.PBOC;
 import org.caojun.salmagundi.bankcard.nfc.TradeType;
 import org.caojun.salmagundi.bankcard.pboc.Card;
 import org.caojun.salmagundi.bankcard.pboc.Record;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -38,7 +32,7 @@ import java.util.List;
  */
 
 @Route(path = Constant.ACTIVITY_NFC)
-public class BankCardActivity extends BaseActivity {
+public class BankCardActivity extends Activity {
 
     private static final int RequestCode_OpenNFC = 1, RequestCode_CloseNFC = 2;
     private ListView lvRecord;

@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 
-import org.caojun.salmagundi.BaseActivity;
+import org.caojun.salmagundi.GalleryActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.utils.FormatUtils;
@@ -28,7 +28,7 @@ import org.caojun.salmagundi.utils.FormatUtils;
  */
 
 @Route(path = Constant.ACTIVITY_QRCODE)
-public class QRCodeActivity extends BaseActivity {
+public class QRCodeActivity extends GalleryActivity {
 
     private EditText etQRCode;
     private ImageView ivQRCode;

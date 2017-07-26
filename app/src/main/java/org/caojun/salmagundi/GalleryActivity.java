@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.LayoutRes;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import org.caojun.salmagundi.utils.PackageUtils;
@@ -17,7 +16,7 @@ import org.caojun.salmagundi.utils.PackageUtils;
  * Created by CaoJun on 2016/10/31.
  */
 
-public class BaseActivity extends Activity {
+public class GalleryActivity extends Activity {
 
     protected ImageButton ibGallery3d;
     private Drawable iconGallery3d;
@@ -34,9 +33,9 @@ public class BaseActivity extends Activity {
             new Thread() {
                 @Override
                 public void run() {
-                    PackageInfo packageInfo = PackageUtils.getPackageInfo(BaseActivity.this, "com.android.gallery3d");
+                    PackageInfo packageInfo = PackageUtils.getPackageInfo(GalleryActivity.this, "com.android.gallery3d");
                     if (packageInfo != null) {
-                        PackageManager pm = BaseActivity.this.getPackageManager();
+                        PackageManager pm = GalleryActivity.this.getPackageManager();
                         iconGallery3d = packageInfo.applicationInfo.loadIcon(pm);
                         labelGallery3d = packageInfo.applicationInfo.loadLabel(pm).toString();
                         handlerGallery3d.sendMessage(Message.obtain());

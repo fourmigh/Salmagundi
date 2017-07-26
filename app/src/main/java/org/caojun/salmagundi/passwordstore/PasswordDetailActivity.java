@@ -1,5 +1,6 @@
 package org.caojun.salmagundi.passwordstore;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -13,12 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.maksim88.passwordedittext.PasswordEditText;
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.passwordstore.ormlite.Password;
@@ -31,7 +30,7 @@ import org.caojun.salmagundi.passwordstore.ormlite.PasswordUtils;
  */
 
 @Route(path = Constant.ACTIVITY_PASSWORDSTORE_DETAIL)
-public class PasswordDetailActivity extends BaseActivity {
+public class PasswordDetailActivity extends Activity {
 
     private Spinner spType;
     private EditText etCompany, etUrl, etLength, etAccount;//, etPassword;

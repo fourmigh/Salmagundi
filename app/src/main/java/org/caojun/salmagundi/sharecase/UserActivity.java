@@ -1,5 +1,6 @@
 package org.caojun.salmagundi.sharecase;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -8,7 +9,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.sharecase.adapter.UserAdapter;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 
 @Route(path = Constant.ACTIVITY_USER)
-public class UserActivity extends BaseActivity {
+public class UserActivity extends Activity {
     private ListView listView;
     private UserAdapter adapter;
     private List<User> list;

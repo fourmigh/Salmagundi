@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.arouter.LoginInterceptor;
@@ -26,7 +25,7 @@ import java.util.List;
  */
 
 @Route(path = Constant.ACTIVITY_GESTURE_LOGIN)
-public class GestureLoginActivity extends BaseActivity {
+public class GestureLoginActivity extends Activity {
 
     private static final long DELAY_TIME = 600l;
     private LockPatternView lockPatternView;

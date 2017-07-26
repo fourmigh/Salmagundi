@@ -1,5 +1,6 @@
 package org.caojun.salmagundi.bloodpressure;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -18,8 +19,6 @@ import android.widget.Spinner;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.bloodpressure.ormlite.BloodPressure;
@@ -31,7 +30,7 @@ import org.caojun.salmagundi.utils.TimeUtils;
  */
 
 @Route(path = Constant.ACTIVITY_BLOODPRESSURE_DETAIL)
-public class BloodPressureDetailActivity extends BaseActivity {
+public class BloodPressureDetailActivity extends Activity {
 
     private EditText etTime;
     private RadioGroup rgBloodPressure;

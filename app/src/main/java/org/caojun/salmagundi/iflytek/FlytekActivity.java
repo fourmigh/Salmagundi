@@ -1,13 +1,11 @@
 package org.caojun.salmagundi.iflytek;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
-
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 
@@ -17,7 +15,7 @@ import org.caojun.salmagundi.R;
  */
 
 @Route(path = Constant.ACTIVITY_FLYTEK)
-public class FlytekActivity extends BaseActivity {
+public class FlytekActivity extends Activity {
 
     private final int[] IDButtons = {R.id.btnEnglish, R.id.btnFrench, R.id.btnRussian, R.id.btnSpanish, R.id.btnHindi, R.id.btnVietnamese};
     private final int[] IDEditTexts = {R.id.etEnglish, R.id.etFrench, R.id.etRussian, R.id.etSpanish, R.id.etHindi, R.id.etVietnamese};

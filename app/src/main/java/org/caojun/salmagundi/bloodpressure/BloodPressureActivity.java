@@ -1,5 +1,6 @@
 package org.caojun.salmagundi.bloodpressure;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -8,7 +9,6 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.bloodpressure.adapter.BloodPressureAdapter;
@@ -23,7 +23,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
  */
 
 @Route(path = Constant.ACTIVITY_BLOODPRESSURE)
-public class BloodPressureActivity extends BaseActivity {
+public class BloodPressureActivity extends Activity {
     private StickyListHeadersListView listView;
     private BloodPressureAdapter adapter;
     private List<BloodPressure> list, listType;

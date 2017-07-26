@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 
-import org.caojun.salmagundi.BaseActivity;
+import org.caojun.salmagundi.GalleryActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.utils.DataStorageUtils;
@@ -32,7 +32,7 @@ import org.caojun.salmagundi.utils.DataStorageUtils;
  */
 
 @Route(path = Constant.ACTIVITY_COLOR)
-public class ColorActivity extends BaseActivity {
+public class ColorActivity extends GalleryActivity {
 
     private EditText[] etColors;
     private final int[] ResIdColors = {R.id.etStartRed, R.id.etStartGreen, R.id.etStartBlue, R.id.etEndRed, R.id.etEndGreen, R.id.etEndBlue};

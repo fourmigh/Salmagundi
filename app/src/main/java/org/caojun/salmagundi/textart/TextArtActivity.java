@@ -1,15 +1,13 @@
 package org.caojun.salmagundi.textart;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
-
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import java.util.Timer;
@@ -21,7 +19,7 @@ import java.util.TimerTask;
  */
 
 @Route(path = Constant.ACTIVITY_TEXTART)
-public class TextArtActivity extends BaseActivity {
+public class TextArtActivity extends Activity {
 
     private TextView tvInfo;
     private ScrollView scrollView;

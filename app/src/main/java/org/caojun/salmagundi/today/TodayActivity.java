@@ -1,5 +1,6 @@
 package org.caojun.salmagundi.today;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,14 +12,11 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.socks.library.KLog;
-
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.today.adapter.HistoryAdapter;
@@ -34,7 +32,7 @@ import java.util.List;
  */
 
 @Route(path = Constant.ACTIVITY_TODAY)
-public class TodayActivity extends BaseActivity {
+public class TodayActivity extends Activity {
 
     private GetBroadcastReceiver mGetBroadcastReceiver;
     private Intent mIntent;

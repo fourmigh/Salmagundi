@@ -1,5 +1,6 @@
 package org.caojun.salmagundi.ai;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -14,11 +15,9 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.turing.androidsdk.HttpRequestListener;
 import com.turing.androidsdk.TuringManager;
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.json.JSONArray;
@@ -30,7 +29,7 @@ import org.json.JSONObject;
  */
 
 @Route(path = Constant.ACTIVITY_AI)
-public class AIActivity extends BaseActivity {
+public class AIActivity extends Activity {
 
     private String[] names;
     private boolean isAITurn = false;//是否轮到AI

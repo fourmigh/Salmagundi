@@ -14,7 +14,6 @@ import android.widget.EditText;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.lockpattern.GestureConstant;
@@ -33,7 +32,7 @@ import java.util.List;
  */
 
 @Route(path = Constant.ACTIVITY_USER_DETAIL)
-public class UserDetailActivity extends BaseActivity {
+public class UserDetailActivity extends Activity {
 
     private EditText etID, etName, etType, etIncome, etExpend;
     private TextInputLayout tilID, tilIncome, tilExpend;

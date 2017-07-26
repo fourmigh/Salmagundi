@@ -1,7 +1,6 @@
 package org.caojun.salmagundi.secure;
 
-import android.content.ContentValues;
-import android.database.Cursor;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -16,14 +15,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
-
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
-//import org.caojun.salmagundi.secure.data.RSAKey;
-//import org.caojun.salmagundi.secure.data.RSAKeyDatabase;
 import org.caojun.salmagundi.secure.greendao.RSAKey;
 import org.caojun.salmagundi.secure.greendao.RSAKeyDatabase;
 import org.caojun.salmagundi.string.ConvertUtils;
@@ -36,7 +30,7 @@ import java.util.List;
  */
 
 @Route(path = Constant.ACTIVITY_SECURE)
-public class SecureActivity extends BaseActivity {
+public class SecureActivity extends Activity {
     private Spinner spSecureType, spInput, spOutput, spRSAKey;
     private EditText etInput, etOutput, etKey, etPublicKey, etPrivateKey;
     private TextInputLayout tilKey;

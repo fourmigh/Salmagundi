@@ -1,5 +1,6 @@
 package org.caojun.salmagundi.string;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -8,10 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
-
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 
@@ -21,7 +19,7 @@ import org.caojun.salmagundi.R;
  */
 
 @Route(path = Constant.ACTIVITY_STRING)
-public class StringActivity extends BaseActivity {
+public class StringActivity extends Activity {
 
     private Spinner spTranslateType;
     private EditText etInput, etOutput;

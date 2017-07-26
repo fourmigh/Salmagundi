@@ -1,6 +1,6 @@
 package org.caojun.salmagundi.passwordstore;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.passwordstore.adapter.PasswordAdapter;
@@ -23,7 +22,7 @@ import java.util.List;
  */
 
 @Route(path = Constant.ACTIVITY_PASSWORDSTORE, extras = Constant.EXTRAS_LOGIN)
-public class PasswordStoreActivity extends BaseActivity {
+public class PasswordStoreActivity extends Activity {
 
     private ListView listView;
     private PasswordAdapter adapter;

@@ -15,7 +15,6 @@ import android.widget.EditText;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import org.caojun.salmagundi.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.salmagundi.sharecase.ormlite.Order;
@@ -32,7 +31,7 @@ import org.caojun.salmagundi.sharecase.utils.UserUtils;
  */
 
 @Route(path = Constant.ACTIVITY_SHARECASE_DETAIL)
-public class SharecaseDetailActivity extends BaseActivity {
+public class SharecaseDetailActivity extends Activity {
 
     private EditText etID, etName, etRent, etDeposit, etCommission, etHost;
     private Button btnSave, btnSubmit, btnBorrow, btnUnshelve;
