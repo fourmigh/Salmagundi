@@ -140,4 +140,40 @@
     <string name="th_month">月</string>
     <string name="th_day">日</string>
     <string name="th_year_value">%s年</string>
+
+    <!-- 讯飞语音 -->
+    <string name="ft_title">讯飞语音</string>
+    <string name="ft_play">播放</string>
+    <string name="ft_english">英语</string>
+    <string name="ft_french">法语</string>
+    <string name="ft_russian">俄语</string>
+    <string name="ft_spanish">西班牙语</string>
+    <string name="ft_hindi">印地语</string>
+    <string name="ft_vietnamese">越南语</string>
+    <string-array name="stream_entries">
+        <item>通话</item>
+        <item>系统</item>
+        <item>铃声</item>
+        <item>音乐</item>
+        <item>闹铃</item>
+        <item>通知</item>
+    </string-array>
+    <string-array name="stream_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string name="speed_preference">请输入语速(0-100)</string>
+    <string name="speed_preference_summary">默认值：50</string>
+    <string name="speed_preference_title">语速</string>
+    <string name="pitch_preference">请输入音调(0-100)</string>
+    <string name="pitch_preference_summary">默认值：50</string>
+    <string name="pitch_preference_title">音调</string>
+    <string name="volume_preference">请输入音量(0-100)</string>
+    <string name="volume_preference_summary">默认值：50</string>
+    <string name="volume_preference_title">音量</string>
+    <string name="stream_preference_title">音频流类型</string>
 </resources>

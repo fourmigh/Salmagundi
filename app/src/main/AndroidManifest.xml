@@ -85,6 +85,9 @@
         </service>
         <activity android:name=".today.WebviewActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" />
+        <activity android:name=".iflytek.FlytekActivity"
+            android:label="@string/ft_title" />
+        <activity android:name=".iflytek.TtsSettings" />
     </application>
 
 </manifest>

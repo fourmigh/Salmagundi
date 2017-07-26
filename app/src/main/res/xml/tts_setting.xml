@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <org.caojun.salmagundi.iflytek.SeekBarPreference
+        android:dialogTitle="@string/speed_preference"
+        android:key="speed_preference"
+        android:defaultValue="50"
+        android:summary="@string/speed_preference_summary"
+        android:title="@string/speed_preference_title"
+        android:max="100"/>
+    <org.caojun.salmagundi.iflytek.SeekBarPreference
+        android:dialogTitle="@string/pitch_preference"
+        android:key="pitch_preference"
+        android:defaultValue="50"
+        android:summary="@string/pitch_preference_summary"
+        android:title="@string/pitch_preference_title"
+        android:max="100"/>
+    <org.caojun.salmagundi.iflytek.SeekBarPreference
+        android:dialogTitle="@string/volume_preference"
+        android:key="volume_preference"
+        android:defaultValue="50"
+        android:summary="@string/volume_preference_summary"
+        android:title="@string/volume_preference_title"
+        android:max="100"/>
+    <org.caojun.salmagundi.iflytek.SeekBarPreference
+        android:defaultValue="3"
+        android:entries="@array/stream_entries"
+        android:entryValues="@array/stream_values"
+        android:key="stream_preference"
+        android:title="@string/stream_preference_title" />
+
+</PreferenceScreen>

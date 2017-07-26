@@ -136,4 +136,31 @@
     <string name="th_month">Month</string>
     <string name="th_day">Day</string>
     <string name="th_year_value">Year %s</string>
+
+    <!-- 讯飞语音 -->
+    <string name="ft_play">Play</string>
+    <string name="ft_english">English</string>
+    <string name="ft_french">French</string>
+    <string name="ft_russian">Russian</string>
+    <string name="ft_spanish">Spanish</string>
+    <string name="ft_hindi">Hindi</string>
+    <string name="ft_vietnamese">Vietnamese</string>
+    <string-array name="stream_entries">
+        <item>Call</item>
+        <item>System</item>
+        <item>Ringtone</item>
+        <item>Music</item>
+        <item>Alarm</item>
+        <item>Notifications</item>
+    </string-array>
+    <string name="speed_preference">Please input speed(0-100)</string>
+    <string name="speed_preference_summary">Default value: 50</string>
+    <string name="speed_preference_title">Speed</string>
+    <string name="pitch_preference">Please input pitch(0-100)</string>
+    <string name="pitch_preference_summary">Default value: 50</string>
+    <string name="pitch_preference_title">Pitch</string>
+    <string name="volume_preference">Please input volume(0-100)</string>
+    <string name="volume_preference_summary">Default value: 50</string>
+    <string name="volume_preference_title">Volume</string>
+    <string name="stream_preference_title">Audio stream type</string>
 </resources>

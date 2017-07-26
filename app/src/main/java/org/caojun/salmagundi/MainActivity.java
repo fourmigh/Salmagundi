@@ -30,6 +30,7 @@ import org.caojun.salmagundi.clicaptcha.CaptchaDemo;
 import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.color.ColorUtils;
+import org.caojun.salmagundi.iflytek.FlytekActivity;
 import org.caojun.salmagundi.lockpattern.CreateGestureActivity;
 import org.caojun.salmagundi.lockpattern.GestureConstant;
 import org.caojun.salmagundi.passwordstore.PasswordStoreActivity;
@@ -65,7 +66,8 @@ public class MainActivity extends Activity {
             R.drawable.icon_sysinfo,
             R.drawable.icon_sharecase,
             R.drawable.icon_captcha,
-            R.drawable.icon_today
+            R.drawable.icon_today,
+            R.drawable.icon_flytek
     };
     private final Integer[] mTextIds = {
             R.string.bp_title,
@@ -84,7 +86,8 @@ public class MainActivity extends Activity {
             R.string.si_title,
             R.string.sc_title,
             R.string.captcha_title,
-            R.string.th_title
+            R.string.th_title,
+            R.string.ft_title
     };
     private final Class[] mActivitys = {
             BloodPressureActivity.class,
@@ -103,7 +106,8 @@ public class MainActivity extends Activity {
             SysinfoActivity.class,
             UserActivity.class,
             CaptchaDemo.class,
-            TodayActivity.class
+            TodayActivity.class,
+            FlytekActivity.class
     };
     private final String[] mARouterPaths = {
             Constant.ACTIVITY_BLOODPRESSURE,
@@ -122,7 +126,8 @@ public class MainActivity extends Activity {
             Constant.ACTIVITY_SYSINFO,
             Constant.ACTIVITY_USER,
             Constant.ACTIVITY_CAPTCHA_DEMO,
-            Constant.ACTIVITY_TODAY
+            Constant.ACTIVITY_TODAY,
+            Constant.ACTIVITY_FLYTEK
     };
 
     @Override
