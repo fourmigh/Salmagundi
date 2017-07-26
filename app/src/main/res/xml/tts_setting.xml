@@ -22,11 +22,11 @@
         android:summary="@string/volume_preference_summary"
         android:title="@string/volume_preference_title"
         android:max="100"/>
-    <org.caojun.salmagundi.iflytek.SeekBarPreference
+    <!--<ListPreference
         android:defaultValue="3"
         android:entries="@array/stream_entries"
         android:entryValues="@array/stream_values"
         android:key="stream_preference"
-        android:title="@string/stream_preference_title" />
+        android:title="@string/stream_preference_title" />-->
 
 </PreferenceScreen>

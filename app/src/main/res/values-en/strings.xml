@@ -163,4 +163,5 @@
     <string name="volume_preference_summary">Default value: 50</string>
     <string name="volume_preference_title">Volume</string>
     <string name="stream_preference_title">Audio stream type</string>
+    <string name="action_settings">Settings</string>
 </resources>
