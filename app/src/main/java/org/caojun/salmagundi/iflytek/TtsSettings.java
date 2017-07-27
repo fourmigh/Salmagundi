@@ -19,6 +19,7 @@ public class TtsSettings extends PreferenceActivity implements Preference.OnPref
 //    private SeekBarPreference mPitchPreference;
 //    private SeekBarPreference mVolumePreference;
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

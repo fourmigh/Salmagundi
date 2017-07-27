@@ -22,11 +22,11 @@
         android:summary="Default value: 50"
         android:title="Volume"
         android:max="100"/>
-    <!--<ListPreference
+    <ListPreference
         android:defaultValue="3"
         android:entries="@array/stream_entries"
         android:entryValues="@array/stream_values"
         android:key="stream_preference"
-        android:title="Audio stream type" />-->
+        android:title="Audio stream type" />
 
 </PreferenceScreen>

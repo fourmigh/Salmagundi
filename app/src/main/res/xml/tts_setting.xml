@@ -22,11 +22,11 @@
         android:summary="默认值：50"
         android:title="音量"
         android:max="100"/>
-    <!--<ListPreference
+    <ListPreference
         android:defaultValue="3"
         android:entries="@array/stream_entries"
         android:entryValues="@array/stream_values"
         android:key="stream_preference"
-        android:title="音频流类型" />-->
+        android:title="音频流类型" />
 
 </PreferenceScreen>
