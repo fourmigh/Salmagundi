@@ -19,3 +19,6 @@
 #alibaba/ARouter
 -keep public class com.alibaba.android.arouter.routes.**{*;}
 -keep class * implements com.alibaba.android.arouter.facade.template.ISyringe{*;}
+#讯飞语音
+-keep class com.iflytek.**{*;}
+-keepattributes Signature
