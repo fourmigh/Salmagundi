@@ -166,15 +166,5 @@
         <item>4</item>
         <item>5</item>
     </string-array>
-    <string name="speed_preference">请输入语速(0-100)</string>
-    <string name="speed_preference_summary">默认值：50</string>
-    <string name="speed_preference_title">语速</string>
-    <string name="pitch_preference">请输入音调(0-100)</string>
-    <string name="pitch_preference_summary">默认值：50</string>
-    <string name="pitch_preference_title">音调</string>
-    <string name="volume_preference">请输入音量(0-100)</string>
-    <string name="volume_preference_summary">默认值：50</string>
-    <string name="volume_preference_title">音量</string>
-    <string name="stream_preference_title">音频流类型</string>
     <string name="action_settings">设置</string>
 </resources>

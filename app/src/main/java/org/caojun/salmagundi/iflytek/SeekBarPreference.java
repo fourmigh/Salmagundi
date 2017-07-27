@@ -17,16 +17,13 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
 
     private static final String ANDROIDNS = "http://schemas.android.com/apk/res/android";
     private SeekBar mSeekBar;
-    private TextView mSplashText,mValueText;
+    private TextView mValueText;
     private Context mContext;
-    private String mDialogMessage, mSuffix;
     private int mDefault = 50, mMax = 100, mValue = 50;
 
     public SeekBarPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-        mDialogMessage = attrs.getAttributeValue(ANDROIDNS,"dialogTitle");
-        mSuffix = attrs.getAttributeValue(ANDROIDNS,"title");
         mDefault = attrs.getAttributeIntValue(ANDROIDNS,"defaultValue", 0);
         mMax = attrs.getAttributeIntValue(ANDROIDNS,"max", 100);
     }
@@ -37,11 +34,6 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
         LinearLayout layout = new LinearLayout(mContext);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setPadding(6,6,6,6);
-
-        mSplashText = new TextView(mContext);
-        if (mDialogMessage != null)
-            mSplashText.setText(mDialogMessage);
-        layout.addView(mSplashText);
 
         mValueText = new TextView(mContext);
         mValueText.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -84,7 +76,7 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
 
     public void onProgressChanged(SeekBar seek, int value, boolean fromTouch) {
         String t = String.valueOf(value);
-        mValueText.setText(mSuffix == null ? t : t.concat(mSuffix));
+        mValueText.setText(String.valueOf(value));
         if (shouldPersist()) {
             persistInt(value);
         }
