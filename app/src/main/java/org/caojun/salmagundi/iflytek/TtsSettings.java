@@ -15,20 +15,13 @@ import org.caojun.salmagundi.R;
 public class TtsSettings extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
 
     public static final String PREFER_NAME = "com.iflytek.setting";
-//    private SeekBarPreference mSpeedPreference;
-//    private SeekBarPreference mPitchPreference;
-//    private SeekBarPreference mVolumePreference;
 
-    @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 指定保存文件名字
         getPreferenceManager().setSharedPreferencesName(PREFER_NAME);
         addPreferencesFromResource(R.xml.tts_setting);
-//        mSpeedPreference = (SeekBarPreference) findPreference("speed_preference");
-//        mPitchPreference = (SeekBarPreference) findPreference("pitch_preference");
-//        mVolumePreference = (SeekBarPreference) findPreference("volume_preference");
     }
 
     @Override
