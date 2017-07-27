@@ -154,4 +154,11 @@
         <item>Notifications</item>
     </string-array>
     <string name="action_settings">Settings</string>
+    <string name="ft_init_error">Flytek TTS init failed, error code: %s</string>
+    <string formatted="false" name="tts_toast_format">Buffer progress: %d%%, Play progress: %d%%</string>
+    <string name="ft_start">Start</string>
+    <string name="ft_pause">Pause</string>
+    <string name="ft_resume">Resume</string>
+    <string name="ft_done">Done</string>
+    <string name="ft_tts_error">Flytek TTS failed, error code: %s</string>
 </resources>

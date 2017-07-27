@@ -167,4 +167,11 @@
         <item>5</item>
     </string-array>
     <string name="action_settings">设置</string>
+    <string name="ft_init_error">讯飞语音初始化失败，错误码：%s</string>
+    <string formatted="false" name="tts_toast_format">缓冲进度为%d%%，播放进度为%d%%</string>
+    <string name="ft_start">开始播放</string>
+    <string name="ft_pause">暂停播放</string>
+    <string name="ft_resume">继续播放</string>
+    <string name="ft_done">播放完成</string>
+    <string name="ft_tts_error">讯飞语音失败，错误码：%s</string>
 </resources>
