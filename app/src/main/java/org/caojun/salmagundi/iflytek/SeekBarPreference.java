@@ -1,6 +1,7 @@
 package org.caojun.salmagundi.iflytek;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -13,7 +14,7 @@ import android.widget.TextView;
  * Created by CaoJun on 2017/7/26.
  */
 
-public class SeekBarPreference extends DialogPreference implements SeekBar.OnSeekBarChangeListener {
+public class SeekBarPreference extends DialogPreference implements DialogInterface.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
     private static final String ANDROIDNS = "http://schemas.android.com/apk/res/android";
     private SeekBar mSeekBar;
@@ -74,12 +75,10 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
         }
     }
 
+    @Override
     public void onProgressChanged(SeekBar seek, int value, boolean fromTouch) {
         String t = String.valueOf(value);
-        mValueText.setText(String.valueOf(value));
-        if (shouldPersist()) {
-            persistInt(value);
-        }
+        mValueText.setText(t);
         callChangeListener(new Integer(value));
     }
 
@@ -101,14 +100,15 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
         return mMax;
     }
 
-    public void setProgress(int progress) {
-        mValue = progress;
-        if (mSeekBar != null) {
-            mSeekBar.setProgress(progress);
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        switch (which) {
+            case DialogInterface.BUTTON_POSITIVE:
+                if (shouldPersist()) {
+                    persistInt(mSeekBar.getProgress());
+                }
+                break;
         }
-    }
-
-    public int getProgress() {
-        return mValue;
+        super.onClick(dialog, which);
     }
 }
