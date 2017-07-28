@@ -34,4 +34,8 @@
     <string name="th_month">月</string>
     <string name="th_day">日</string>
     <string name="th_year_value">%s年</string>
+
+    <string name="bp_bloodpressure_msg">该量血压了，看看有没有降一点了！</string>
+    <string name="bp_medicine_msg">高血压了，药不能停！</string>
+    <string name="bp_weight_msg">今天体重多少了？</string>
 </resources>

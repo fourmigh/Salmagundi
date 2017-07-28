@@ -1,5 +1,8 @@
 package org.caojun.bloodpressure.activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -18,9 +21,11 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import org.caojun.bloodpressure.Constant;
 import org.caojun.bloodpressure.R;
+import org.caojun.bloodpressure.broadcast.AlarmReceiver;
 import org.caojun.bloodpressure.ormlite.BloodPressure;
 import org.caojun.bloodpressure.ormlite.BloodPressureDatabase;
 import org.caojun.bloodpressure.utils.TimeUtils;
+import java.util.Calendar;
 
 /**
  * Created by fourm on 2017/5/10.
@@ -31,7 +36,7 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
 
     private EditText etTime;
     private RadioGroup rgBloodPressure;
-    private RadioButton rbBloodPressure, rbMedicine, rbWeight;
+    private RadioButton[] rbBloodPressures;
     private LinearLayout llBloodPressure;
     private RadioGroup rgHand;
     private RadioButton rbLeft, rbRight;
@@ -40,6 +45,7 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
     private Button btnSave, btnDelete;
     private final String dateFormat = "yyyy/MM/dd HH:mm:ss";
     private final int[] IDType = {R.id.rbBloodPressure, R.id.rbMedicine, R.id.rbWeight};
+    private final int[] ResId = {R.string.bp_bloodpressure_msg, R.string.bp_medicine_msg, R.string.bp_weight_msg};
 
     @Autowired
     protected BloodPressure bloodPressure;
@@ -52,9 +58,13 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
 
         etTime = (EditText) findViewById(R.id.etTime);
         rgBloodPressure = (RadioGroup) findViewById(R.id.rgBloodPressure);
-        rbBloodPressure = (RadioButton) findViewById(R.id.rbBloodPressure);
-        rbMedicine = (RadioButton) findViewById(R.id.rbMedicine);
-        rbWeight = (RadioButton) findViewById(R.id.rbWeight);
+//        rbBloodPressure = (RadioButton) findViewById(R.id.rbBloodPressure);
+//        rbMedicine = (RadioButton) findViewById(R.id.rbMedicine);
+//        rbWeight = (RadioButton) findViewById(R.id.rbWeight);
+        rbBloodPressures = new RadioButton[IDType.length];
+        for (int i = 0;i < IDType.length;i ++) {
+            rbBloodPressures[i] = (RadioButton) findViewById(IDType[i]);
+        }
         llBloodPressure = (LinearLayout) findViewById(R.id.llBloodPressure);
         rgHand = (RadioGroup) findViewById(R.id.rgHand);
         rbLeft = (RadioButton) findViewById(R.id.rbLeft);
@@ -96,9 +106,10 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
             String time = TimeUtils.getTime(dateFormat, t);
             etTime.setText(time);
         }
-        doCheckSaveButton();
-        doCheckDeleteButton();
-        setType(getIndexType());
+
+        int type = getIntent().getIntExtra("type", getIndexType());
+        setType(type);
+        rbBloodPressures[type].setChecked(true);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +144,9 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
         etLow.addTextChangedListener(textWatcher);
         etPulse.addTextChangedListener(textWatcher);
         etWeight.addTextChangedListener(textWatcher);
+
+        doCheckSaveButton();
+        doCheckDeleteButton();
     }
 
     private TextWatcher textWatcher = new TextWatcher() {
@@ -158,7 +172,6 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
                 return i;
             }
         }
-        rbBloodPressure.setChecked(true);
         return BloodPressure.Type_BloodPressure;
     }
 
@@ -228,6 +241,8 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
                     break;
             }
         }
+        //设置提醒
+        setAlarm(type);
         finish();
     }
 
@@ -293,7 +308,8 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
                 case BloodPressure.Type_Medicine:
                     return false;
                 case BloodPressure.Type_Weight:
-                    float weight = Float.parseFloat(etWeight.getText().toString());
+                    String text = etWeight.getText().toString();
+                    float weight = TextUtils.isEmpty(text)?0:Float.parseFloat(text);
                     return bloodPressure.getWeight() != weight;
                 default:
                     return false;
@@ -307,7 +323,21 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
     }
 
     private void doCheckDeleteButton() {
-//        btnDelete.setEnabled(bloodPressure != null);
         btnDelete.setVisibility(bloodPressure == null?View.GONE:View.VISIBLE);
+    }
+
+    private void setAlarm(int type) {
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        intent.putExtra("msg", getString(ResId[type]));
+        intent.putExtra("type", type);
+        PendingIntent sender = PendingIntent.getBroadcast(this, type, intent, 0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.add(Calendar.HOUR, 24);
+//        calendar.add(Calendar.SECOND, 10);
+
+        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
     }
 }
