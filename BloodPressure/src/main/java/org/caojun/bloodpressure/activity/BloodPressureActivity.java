@@ -147,7 +147,7 @@ public class BloodPressureActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.menuNotificaiton) {
-            //TODO
+            ARouter.getInstance().build(Constant.ACTIVITY_NOTIFICATION_SETTINGS).navigation();
             return true;
         }
         if (id == R.id.menuData) {

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="notificaiton_preference"
+        android:title="通知开关" />
+    <org.caojun.bloodpressure.preference.SeekBarPreference
+        android:dialogTitle="请输入量血压频率(0-24小时)"
+        android:key="bloodpressure_preference"
+        android:defaultValue="24"
+        android:summary="新增或修改血压记录后间隔设定时间提醒"
+        android:title="量血压频率"
+        android:max="24"/>
+    <org.caojun.bloodpressure.preference.SeekBarPreference
+        android:dialogTitle="请输入服药频率(0-24小时)"
+        android:key="medicine_preference"
+        android:defaultValue="24"
+        android:summary="新增服药记录后间隔设定时间提醒"
+        android:title="服药频率"
+        android:max="24"/>
+    <org.caojun.bloodpressure.preference.SeekBarPreference
+        android:dialogTitle="请输入称体重频率(0-24小时)"
+        android:key="weight_preference"
+        android:defaultValue="24"
+        android:summary="新增或修改体重记录后间隔设定时间提醒"
+        android:title="称体重频率"
+        android:max="24"/>
+
+</PreferenceScreen>

@@ -11,6 +11,7 @@ public class Constant {
     public static final String ACTIVITY_TODAY = "/activity/today";
     public static final String ACTIVITY_WEBVIEW = "/activity/webview";
     public static final String ACTIVITY_DATA = "/activity/data";
+    public static final String ACTIVITY_NOTIFICATION_SETTINGS = "/activity/notificaiton/settings";
 
     public static final String BMI_NAME = "BMI_NAME";
     public static final String BMI_KEY_HEIGHT = "BMI_KEY_HEIGHT";

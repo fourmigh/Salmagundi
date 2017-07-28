@@ -5,9 +5,11 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.NotificationCompat;
 import org.caojun.bloodpressure.R;
 import org.caojun.bloodpressure.activity.BloodPressureDetailActivity;
+import org.caojun.bloodpressure.activity.NotificaitonSettings;
 
 /**
  * Created by CaoJun on 2017/7/28.
@@ -16,6 +18,13 @@ import org.caojun.bloodpressure.activity.BloodPressureDetailActivity;
 public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        SharedPreferences mSharedPreferences = context.getSharedPreferences(NotificaitonSettings.PREFER_NAME, Context.MODE_PRIVATE);
+        boolean notificaiton_preference = mSharedPreferences.getBoolean("notificaiton_preference", false);
+        if (!notificaiton_preference) {
+            return;
+        }
+
         String msg = intent.getStringExtra("msg");
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setAutoCancel(true);//点击后消失

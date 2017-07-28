@@ -2,7 +2,9 @@ package org.caojun.bloodpressure.activity;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -46,6 +48,7 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
     private final String dateFormat = "yyyy/MM/dd HH:mm:ss";
     private final int[] IDType = {R.id.rbBloodPressure, R.id.rbMedicine, R.id.rbWeight};
     private final int[] ResId = {R.string.bp_bloodpressure_msg, R.string.bp_medicine_msg, R.string.bp_weight_msg};
+    private final String[] KeySettings = {"bloodpressure_preference", "medicine_preference", "weight_preference"};
 
     @Autowired
     protected BloodPressure bloodPressure;
@@ -334,10 +337,16 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.HOUR, 24);
+        calendar.add(Calendar.HOUR, getAlarmTime(type));
 //        calendar.add(Calendar.SECOND, 10);
 
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
         manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
+    }
+
+    private int getAlarmTime(int type) {
+        SharedPreferences mSharedPreferences = getSharedPreferences(NotificaitonSettings.PREFER_NAME, Context.MODE_PRIVATE);
+        int time = mSharedPreferences.getInt(KeySettings[type], 24);
+        return time;
     }
 }

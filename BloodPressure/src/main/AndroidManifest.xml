@@ -37,6 +37,8 @@
         <receiver android:name=".broadcast.AlarmReceiver" android:process=":remote"/>
         <activity android:name=".activity.DataActivity"
             android:label="@string/menu_data"/>
+        <activity android:name=".activity.NotificaitonSettings"
+            android:label="@string/menu_notificaiton"/>
     </application>
 
 </manifest>
