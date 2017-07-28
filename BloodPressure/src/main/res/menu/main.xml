@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menuToday"
+        android:orderInCategory="100"
+        android:title="@string/menu_today"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menuBMI"
+        android:orderInCategory="100"
+        android:title="@string/menu_bmi"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menuNotificaiton"
+        android:orderInCategory="100"
+        android:title="@string/menu_notificaiton"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menuData"
+        android:orderInCategory="100"
+        android:title="@string/menu_data"
+        app:showAsAction="never" />
+</menu>
