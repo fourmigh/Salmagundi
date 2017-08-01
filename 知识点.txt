@@ -25,3 +25,4 @@
 25、汉字转拼音（包括进制转换、字符格式转换等）：工程app（string.ConvertUtils）
 26、系统信息：工程app（sysinfo.SysinfoActivity）
 27、的士数：工程app（taxicab.*）
+28、菜单：工程BloodPressure（BloodPressureActivity）
