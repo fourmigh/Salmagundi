@@ -61,4 +61,14 @@ public class BMIUtils {
         }
         return 5;//极重度肥胖
     }
+
+    /**
+     * 计算BMI
+     * @param height 单位：厘米
+     * @param weight 单位：公斤
+     * @return
+     */
+    public static float getBMI(int height, float weight) {
+        return (weight * 10000) / (height * height);
+    }
 }

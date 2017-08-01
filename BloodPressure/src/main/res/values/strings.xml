@@ -15,6 +15,7 @@
     <string name="bp_height">身高（单位：厘米）</string>
     <string name="bp_left">左手</string>
     <string name="bp_right">右手</string>
+    <string name="bp_height_unit">%s厘米</string>
     <string name="bp_weight_unit">%s公斤</string>
     <string name="bp_bmi_unit">%s(%s)</string>
     <string name="bp_add">添加</string>
@@ -43,4 +44,7 @@
     <string name="menu_data">导入/导出</string>
     <string name="menu_today">历史上的今天</string>
     <string name="menu_notificaiton">通知</string>
+
+    <string name="bp_bmi_cal">BMI计算</string>
+    <string name="bp_bmi_cal_tips">体质指数（BMI）= 体重（kg）÷ 身高（m）的平方</string>
 </resources>

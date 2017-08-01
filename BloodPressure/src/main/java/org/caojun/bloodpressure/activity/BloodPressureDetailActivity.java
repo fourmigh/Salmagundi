@@ -26,6 +26,7 @@ import org.caojun.bloodpressure.R;
 import org.caojun.bloodpressure.broadcast.AlarmReceiver;
 import org.caojun.bloodpressure.ormlite.BloodPressure;
 import org.caojun.bloodpressure.ormlite.BloodPressureDatabase;
+import org.caojun.bloodpressure.utils.DataStorageUtils;
 import org.caojun.bloodpressure.utils.TimeUtils;
 import java.util.Calendar;
 
@@ -222,6 +223,7 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
                 case BloodPressure.Type_Weight:
                     float weight = Float.parseFloat(etWeight.getText().toString());
                     BloodPressureDatabase.getInstance(this).insert(time, weight);
+                    DataStorageUtils.saveFloat(this, Constant.BMI_NAME, Constant.BMI_KEY_WEIGHT, weight);
                     break;
             }
         } else {
@@ -241,6 +243,7 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
                     float weight = Float.parseFloat(etWeight.getText().toString());
                     bloodPressure.setWeight(weight);
                     BloodPressureDatabase.getInstance(this).update(bloodPressure);
+                    DataStorageUtils.saveFloat(this, Constant.BMI_NAME, Constant.BMI_KEY_WEIGHT, weight);
                     break;
             }
         }
