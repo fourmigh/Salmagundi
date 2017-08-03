@@ -1,10 +1,8 @@
 package org.caojun.salmagundi.calendar;
 
-import android.app.Activity;
 import android.os.Bundle;
-
+import android.support.v7.app.AppCompatActivity;
 import com.alibaba.android.arouter.facade.annotation.Route;
-
 import org.caojun.salmagundi.Constant;
 
 /**
@@ -13,7 +11,7 @@ import org.caojun.salmagundi.Constant;
  */
 
 @Route(path = Constant.ACTIVITY_CALENDAR_EVENT)
-public class EventActivity extends Activity {
+public class EventActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,8 +1,9 @@
 package org.caojun.salmagundi.calendar;
 
-import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -16,7 +17,7 @@ import org.caojun.salmagundi.calendar.utils.CalendarUtils;
  */
 
 @Route(path = Constant.ACTIVITY_CALENDAR)
-public class CalendarActivity extends Activity {
+public class CalendarActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +41,21 @@ public class CalendarActivity extends Activity {
             }
         });
 
-        Cursor cursor = CalendarUtils.getAccounts(this);
-        if (cursor == null || cursor.getCount() < 1) {
+        Cursor accounts = CalendarUtils.getAccounts(this);
+        if (accounts == null || accounts.getCount() < 1) {
+            //添加事件须先有账号
             btnEventList.setEnabled(false);
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case CalendarUtils.ReequestCode_ReadCalendar:
+                break;
+            case CalendarUtils.ReequestCode_WriteCalendar:
+                break;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

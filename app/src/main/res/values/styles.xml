@@ -15,6 +15,7 @@
 
     <style name="ItemTheme">
         <item name="android:layout_margin">4dp</item>
+        <item name="android:padding">4dp</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

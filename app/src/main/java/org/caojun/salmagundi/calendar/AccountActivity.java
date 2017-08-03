@@ -1,13 +1,9 @@
 package org.caojun.salmagundi.calendar;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-
+import android.support.v7.app.AppCompatActivity;
 import com.alibaba.android.arouter.facade.annotation.Route;
-
 import org.caojun.salmagundi.Constant;
-import org.caojun.salmagundi.R;
 
 /**
  * 账号详情
@@ -15,7 +11,7 @@ import org.caojun.salmagundi.R;
  */
 
 @Route(path = Constant.ACTIVITY_CALENDAR_ACCOUNT)
-public class AccountActivity extends Activity {
+public class AccountActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

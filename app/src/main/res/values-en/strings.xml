@@ -168,4 +168,8 @@
     <string name="cal_account_title">Calendar - Account Detail</string>
     <string name="cal_eventlist_title">Calendar - Event List</string>
     <string name="cal_event_title">Calendar - Event Detail</string>
+    <string name="cal_accountname">Account Name</string>
+    <string name="cal_accounttype">Account Type</string>
+    <string name="cal_eventtitle">Event Title</string>
+    <string name="cal_eventdescription">Event Description</string>
 </resources>

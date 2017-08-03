@@ -181,4 +181,8 @@
     <string name="cal_account_title">日历-账号详情</string>
     <string name="cal_eventlist_title">日历-事件列表</string>
     <string name="cal_event_title">日历-事件详情</string>
+    <string name="cal_accountname">账号名称</string>
+    <string name="cal_accounttype">账号类型</string>
+    <string name="cal_eventtitle">事件标题</string>
+    <string name="cal_eventdescription">事件描述</string>
 </resources>
