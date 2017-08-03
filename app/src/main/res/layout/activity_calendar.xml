@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnAccountList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cal_accountlist_title"
+        android:theme="@style/ItemTheme" />
+
+    <Button
+        android:id="@+id/btnEventList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cal_eventlist_title"
+        android:theme="@style/ItemTheme" />
+</LinearLayout>

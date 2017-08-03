@@ -174,4 +174,11 @@
     <string name="ft_resume">继续播放</string>
     <string name="ft_done">播放完成</string>
     <string name="ft_tts_error">讯飞语音失败，错误码：%s</string>
+
+    <!-- 日历 -->
+    <string name="cal_title">日历</string>
+    <string name="cal_accountlist_title">日历-账号列表</string>
+    <string name="cal_account_title">日历-账号详情</string>
+    <string name="cal_eventlist_title">日历-事件列表</string>
+    <string name="cal_event_title">日历-事件详情</string>
 </resources>

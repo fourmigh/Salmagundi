@@ -24,6 +24,7 @@ import com.google.zxing.client.android.CaptureActivity;
 import org.caojun.salmagundi.ai.AIActivity;
 import org.caojun.salmagundi.bankcard.BankCardActivity;
 import org.caojun.salmagundi.bloodpressure.BloodPressureActivity;
+import org.caojun.salmagundi.calendar.CalendarActivity;
 import org.caojun.salmagundi.cameracolor.CameraColorActivity;
 import org.caojun.salmagundi.clicaptcha.CaptchaActivity;
 import org.caojun.salmagundi.clicaptcha.CaptchaDemo;
@@ -67,7 +68,8 @@ public class MainActivity extends Activity {
             R.drawable.icon_sharecase,
             R.drawable.icon_captcha,
             R.drawable.icon_today,
-            R.drawable.icon_flytek
+            R.drawable.icon_flytek,
+            R.drawable.icon_calendar
     };
     private final Integer[] mTextIds = {
             R.string.bp_title,
@@ -87,7 +89,8 @@ public class MainActivity extends Activity {
             R.string.sc_title,
             R.string.captcha_title,
             R.string.th_title,
-            R.string.ft_title
+            R.string.ft_title,
+            R.string.cal_title,
     };
     private final Class[] mActivitys = {
             BloodPressureActivity.class,
@@ -107,7 +110,8 @@ public class MainActivity extends Activity {
             UserActivity.class,
             CaptchaDemo.class,
             TodayActivity.class,
-            FlytekActivity.class
+            FlytekActivity.class,
+            CalendarActivity.class
     };
     private final String[] mARouterPaths = {
             Constant.ACTIVITY_BLOODPRESSURE,
@@ -127,7 +131,8 @@ public class MainActivity extends Activity {
             Constant.ACTIVITY_USER,
             Constant.ACTIVITY_CAPTCHA_DEMO,
             Constant.ACTIVITY_TODAY,
-            Constant.ACTIVITY_FLYTEK
+            Constant.ACTIVITY_FLYTEK,
+            Constant.ACTIVITY_CALENDAR
     };
 
     @Override

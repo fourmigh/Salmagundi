@@ -92,6 +92,16 @@
             android:label="@string/ft_title"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".iflytek.TtsSettings" />
+        <activity android:name=".calendar.CalendarActivity"
+            android:label="@string/cal_title" />
+        <activity android:name=".calendar.AccountListActivity"
+            android:label="@string/cal_accountlist_title" />
+        <activity android:name=".calendar.AccountActivity"
+            android:label="@string/cal_account_title" />
+        <activity android:name=".calendar.EventListActivity"
+            android:label="@string/cal_eventlist_title" />
+        <activity android:name=".calendar.EventActivity"
+            android:label="@string/cal_event_title" />
     </application>
 
 </manifest>

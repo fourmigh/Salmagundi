@@ -35,6 +35,11 @@ public class Constant {
     public static final String ACTIVITY_WEBVIEW = "/activity/webview";
     public static final String ACTIVITY_FLYTEK = "/activity/iflytek";
     public static final String ACTIVITY_FLYTEK_TTSSETTINGS = "/activity/iflytek/ttssettings";
+    public static final String ACTIVITY_CALENDAR = "/activity/calendar";
+    public static final String ACTIVITY_CALENDAR_ACCOUNTLIST = "/activity/calendar/accountlist";
+    public static final String ACTIVITY_CALENDAR_ACCOUNT = "/activity/calendar/account";
+    public static final String ACTIVITY_CALENDAR_EVENTLIST = "/activity/calendar/eventlist";
+    public static final String ACTIVITY_CALENDAR_EVENT = "/activity/calendar/event";
 
     public static final int EXTRAS_LOGIN = 0x00000001;//需要登录
 }

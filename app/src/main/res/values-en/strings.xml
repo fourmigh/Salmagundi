@@ -161,4 +161,11 @@
     <string name="ft_resume">Resume</string>
     <string name="ft_done">Done</string>
     <string name="ft_tts_error">Flytek TTS failed, error code: %s</string>
+
+    <!-- 日历 -->
+    <string name="cal_title">Calendar</string>
+    <string name="cal_accountlist_title">Calendar - Account List</string>
+    <string name="cal_account_title">Calendar - Account Detail</string>
+    <string name="cal_eventlist_title">Calendar - Event List</string>
+    <string name="cal_event_title">Calendar - Event Detail</string>
 </resources>
