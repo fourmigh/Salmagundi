@@ -1,11 +1,13 @@
 package org.caojun.salmagundi.calendar;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -42,6 +44,19 @@ public class AccountListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ARouter.getInstance().build(Constant.ACTIVITY_CALENDAR_ACCOUNT).navigation(AccountListActivity.this, RequestCode_AddAccount);
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Cursor cursor = (Cursor) adapter.getItem(position);
+                ContentValues contentValues = new ContentValues();
+                String[] columnNames = cursor.getColumnNames();
+                for (int i = 0;i < cursor.getColumnCount();i ++) {
+                    contentValues.put(columnNames[i], cursor.getString(cursor.getColumnIndex(columnNames[i])));
+                }
+                ARouter.getInstance().build(Constant.ACTIVITY_CALENDAR_ACCOUNT).withParcelable("contentValues", contentValues).navigation(AccountListActivity.this, RequestCode_AddAccount);
             }
         });
     }
