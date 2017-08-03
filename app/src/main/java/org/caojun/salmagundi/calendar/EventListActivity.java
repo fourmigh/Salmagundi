@@ -73,7 +73,10 @@ public class EventListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RequestCode_AddEvent && resultCode != Activity.RESULT_OK) {
-            finish();
+            cursor = TextUtils.isEmpty(accountID)?CalendarUtils.getEvents(this):CalendarUtils.getEvents(this, accountID);
+            if (cursor == null || cursor.getCount() < 1) {
+                finish();
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

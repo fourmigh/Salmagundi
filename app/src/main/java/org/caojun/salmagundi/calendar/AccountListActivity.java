@@ -68,7 +68,10 @@ public class AccountListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RequestCode_AddAccount && resultCode != Activity.RESULT_OK) {
-            finish();
+            cursor = CalendarUtils.getAccounts(this);
+            if (cursor == null || cursor.getCount() < 1) {
+                finish();
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
