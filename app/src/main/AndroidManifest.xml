@@ -105,6 +105,9 @@
             android:label="@string/cal_eventlist_title" />
         <activity android:name=".calendar.EventActivity"
             android:label="@string/cal_event_title" />
+        <activity android:name=".chinesename.ChineseNameActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:label="@string/cn_title"/>
     </application>
 
 </manifest>

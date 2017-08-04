@@ -26,6 +26,7 @@ import org.caojun.salmagundi.bankcard.BankCardActivity;
 import org.caojun.salmagundi.bloodpressure.BloodPressureActivity;
 import org.caojun.salmagundi.calendar.CalendarActivity;
 import org.caojun.salmagundi.cameracolor.CameraColorActivity;
+import org.caojun.salmagundi.chinesename.ChineseNameActivity;
 import org.caojun.salmagundi.clicaptcha.CaptchaActivity;
 import org.caojun.salmagundi.clicaptcha.CaptchaDemo;
 import org.caojun.salmagundi.color.Color;
@@ -69,7 +70,8 @@ public class MainActivity extends Activity {
             R.drawable.icon_captcha,
             R.drawable.icon_today,
             R.drawable.icon_flytek,
-            R.drawable.icon_calendar
+            R.drawable.icon_calendar,
+            R.drawable.icon_chinesename
     };
     private final Integer[] mTextIds = {
             R.string.bp_title,
@@ -91,6 +93,7 @@ public class MainActivity extends Activity {
             R.string.th_title,
             R.string.ft_title,
             R.string.cal_title,
+            R.string.cn_title
     };
     private final Class[] mActivitys = {
             BloodPressureActivity.class,
@@ -111,7 +114,8 @@ public class MainActivity extends Activity {
             CaptchaDemo.class,
             TodayActivity.class,
             FlytekActivity.class,
-            CalendarActivity.class
+            CalendarActivity.class,
+            ChineseNameActivity.class
     };
     private final String[] mARouterPaths = {
             Constant.ACTIVITY_BLOODPRESSURE,
@@ -132,7 +136,8 @@ public class MainActivity extends Activity {
             Constant.ACTIVITY_CAPTCHA_DEMO,
             Constant.ACTIVITY_TODAY,
             Constant.ACTIVITY_FLYTEK,
-            Constant.ACTIVITY_CALENDAR
+            Constant.ACTIVITY_CALENDAR,
+            Constant.ACTIVITY_CHINESENAME
     };
 
     @Override

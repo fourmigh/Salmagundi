@@ -185,4 +185,10 @@
     <string name="cal_accounttype">账号类型</string>
     <string name="cal_eventtitle">事件标题</string>
     <string name="cal_eventdescription">事件描述</string>
+
+    <!-- 取中文名 -->
+    <string name="cn_title">取中文名</string>
+    <string name="cn_surname">姓氏</string>
+    <string name="cn_name">名字</string>
+    <string name="cn_generate">取名</string>
 </resources>

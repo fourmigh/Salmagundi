@@ -172,4 +172,10 @@
     <string name="cal_accounttype">Account Type</string>
     <string name="cal_eventtitle">Event Title</string>
     <string name="cal_eventdescription">Event Description</string>
+
+    <!-- 取中文名 -->
+    <string name="cn_title">Chinese Name</string>
+    <string name="cn_surname">Surname</string>
+    <string name="cn_name">Name</string>
+    <string name="cn_generate">Generate</string>
 </resources>

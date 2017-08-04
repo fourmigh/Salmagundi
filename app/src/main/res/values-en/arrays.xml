@@ -149,4 +149,19 @@
         <item>Sharecase Owner</item>
         <item>Sharecase User</item>
     </string-array>
+
+    <string-array name="surname_type">
+        <item>Single</item>
+        <item>Compound</item>
+        <item>Random</item>
+        <item>Custom</item>
+    </string-array>
+
+    <string-array name="name_type">
+        <item>Single</item>
+        <item>Double</item>
+        <item>Same</item>
+        <item>Random</item>
+        <item>Custom</item>
+    </string-array>
 </resources>
