@@ -26,3 +26,4 @@
 26、系统信息：工程app（sysinfo.SysinfoActivity）
 27、的士数：工程app（taxicab.*）
 28、菜单：工程BloodPressure（BloodPressureActivity）
+29、随即汉字：工程app（clicaptcha.CaptchaUtils）
