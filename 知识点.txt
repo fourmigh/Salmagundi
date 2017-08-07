@@ -27,3 +27,5 @@
 27、的士数：工程app（taxicab.*）
 28、菜单：工程BloodPressure（BloodPressureActivity）
 29、随即汉字：工程app（clicaptcha.CaptchaUtils）
+30、获取当前语言：工程app（chinesename.ChineseNameUtils）
+31、获取当前时区：工程app（utils.TimeUtils）
