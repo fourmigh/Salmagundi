@@ -2,40 +2,35 @@ package org.caojun.rcn.utils
 
 import android.text.TextUtils
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.TimeZone
+import java.util.Date
+import java.util.Calendar
 
 /**
  * Created by CaoJun on 2017/8/7.
  */
 private val LocalTimeZone = TimeZone.getDefault()
 
-private fun getSimpleDateFormat(dateFormat: String): SimpleDateFormat? {
+private fun getSimpleDateFormat(dateFormat: String): SimpleDateFormat {
     return getSimpleDateFormat(dateFormat, LocalTimeZone)
 }
 
-private fun getSimpleDateFormat(dateFormat: String, /*String timeZone*/timeZone: TimeZone): SimpleDateFormat? {
-    try {
-        val df = SimpleDateFormat(dateFormat)
-        //            df.setTimeZone(TimeZone.getTimeZone(timeZone));
-        df.timeZone = timeZone
-        return df
-    } catch (e: Exception) {
-        e.printStackTrace()
-    }
-
-    return null
+private fun getSimpleDateFormat(dateFormat: String, timeZone: TimeZone): SimpleDateFormat {
+    val df = SimpleDateFormat(dateFormat)
+    df.timeZone = timeZone
+    return df
 }
 
-fun getTime(dateFormat: String, timeZone: TimeZone, time: Long): String? {
+fun getTime(dateFormat: String, timeZone: TimeZone, time: Long): String {
     if (TextUtils.isEmpty(dateFormat)) {
-        return null
+        return ""
     }
-    val df = getSimpleDateFormat(dateFormat, timeZone) ?: return null
+    val df = getSimpleDateFormat(dateFormat, timeZone)
     val date = Date(time)
     return df.format(date)
 }
 
-fun getTime(dateFormat: String, time: Long): String? {
+fun getTime(dateFormat: String, time: Long): String {
     return getTime(dateFormat, LocalTimeZone, time)
 }
 
@@ -43,7 +38,7 @@ fun getTime(dateFormat: String): String? {
     return getTime(dateFormat, LocalTimeZone)
 }
 
-fun getTime(dateFormat: String, timeZone: TimeZone): String? {
+fun getTime(dateFormat: String, timeZone: TimeZone): String {
     return getTime(dateFormat, timeZone, getTime())
 }
 
