@@ -13,16 +13,18 @@ import java.util.TimeZone;
 
 public class TimeUtils {
 
-    private static final String LocalTimeZone = "GMT+8";
+//    private static final String LocalTimeZone = "GMT+8";
+    private static final TimeZone LocalTimeZone = TimeZone.getDefault();
 
     private static SimpleDateFormat getSimpleDateFormat(String dateFormat) {
         return getSimpleDateFormat(dateFormat, LocalTimeZone);
     }
 
-    private static SimpleDateFormat getSimpleDateFormat(String dateFormat, String timeZone) {
+    private static SimpleDateFormat getSimpleDateFormat(String dateFormat, /*String timeZone*/TimeZone timeZone) {
         try {
             SimpleDateFormat df = new SimpleDateFormat(dateFormat);
-            df.setTimeZone(TimeZone.getTimeZone(timeZone));
+//            df.setTimeZone(TimeZone.getTimeZone(timeZone));
+            df.setTimeZone(timeZone);
             return df;
         } catch (Exception e) {
             e.printStackTrace();
@@ -30,7 +32,7 @@ public class TimeUtils {
         return null;
     }
 
-    public static String getTime(String dateFormat, String timeZone, long time) {
+    public static String getTime(String dateFormat, TimeZone timeZone, long time) {
         if (TextUtils.isEmpty(dateFormat)) {
             return null;
         }
@@ -50,7 +52,7 @@ public class TimeUtils {
         return getTime(dateFormat, LocalTimeZone);
     }
 
-    public static String getTime(String dateFormat, String timeZone) {
+    public static String getTime(String dateFormat, TimeZone timeZone) {
         return getTime(dateFormat, timeZone, getTime());
     }
 
@@ -64,8 +66,8 @@ public class TimeUtils {
         return time / (1000 * 60 * 60 * 24);
     }
 
-    public static Calendar getCalendar(String timeZone) {
-        return Calendar.getInstance(TimeZone.getTimeZone(timeZone));
+    public static Calendar getCalendar(TimeZone timeZone) {
+        return Calendar.getInstance(timeZone);
     }
 
     public static Calendar getCalendar() {
