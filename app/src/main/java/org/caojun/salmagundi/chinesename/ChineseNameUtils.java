@@ -31,16 +31,24 @@ public class ChineseNameUtils {
     }
 
     public static String getSurname(Context context, int type) {
+        String surname;
         switch (type) {
             case Type_Surname_Single:
-                return getSingleSurname(context);
+                surname = getSingleSurname(context);
+                break;
             case Type_Surname_Compound:
-                return getCompoundSurname(context);
+                surname = getCompoundSurname(context);
+                break;
             case Type_Surname_Random:
-                return getSurname(context);
+                surname = getSurname(context);
+                break;
             default:
                 return null;
         }
+        if (Locale.getDefault().equals(Locale.TRADITIONAL_CHINESE)) {
+            surname = ChineseUtils.toTraditional(surname);
+        }
+        return surname;
     }
 
     private static String getSurname(Context context) {
