@@ -11,7 +11,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "1.0."
 
     }
     buildTypes {
@@ -33,4 +33,5 @@ dependencies {
     compile 'com.alibaba:arouter-api:latest.release'
     annotationProcessor 'com.alibaba:arouter-compiler:latest.release'
     compile 'com.alibaba:fastjson:latest.release'
+    compile 'com.luhuiguo:chinese-utils:latest.release'
 }
