@@ -72,15 +72,6 @@ public class DiaryDatabase extends OrmLiteSqliteOpenHelper {
         return false;
     }
 
-    public boolean delete(Diary diary) {
-        try {
-            return diaryDao.delete(diary) == 1;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
     public List<Diary> query() {
         try {
             return diaryDao.queryBuilder().query();
