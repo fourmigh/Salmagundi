@@ -17,7 +17,7 @@ private fun getSimpleDateFormat(dateFormat: String): SimpleDateFormat {
 
 private fun getSimpleDateFormat(dateFormat: String, timeZone: TimeZone): SimpleDateFormat {
     val df = SimpleDateFormat(dateFormat)
-    df.timeZone = timeZone
+    df.setTimeZone(timeZone)
     return df
 }
 
