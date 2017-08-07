@@ -1,7 +1,12 @@
 package org.caojun.salmagundi.chinesename;
 
 import android.content.Context;
+
+import com.luhuiguo.chinese.ChineseUtils;
+
 import org.caojun.salmagundi.R;
+
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -85,7 +90,11 @@ public class ChineseNameUtils {
         b[0] = (Integer.valueOf(hightPos)).byteValue();
         b[1] = (Integer.valueOf(lowPos)).byteValue();
         try {
-            return new String(b, "GBK");
+            String chinese = new String(b, "GBK");
+            if (Locale.getDefault().equals(Locale.TRADITIONAL_CHINESE)) {
+                chinese = ChineseUtils.toTraditional(chinese);
+            }
+            return chinese;
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">随机中文名</string>
+    <string name="surname">姓氏</string>
+    <string name="name">名字</string>
+    <string name="generate">取名</string>
 </resources>

@@ -27,4 +27,10 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:latest.release"
     implementation 'com.android.support:appcompat-v7:26.0.0'
     implementation 'com.android.support.constraint:constraint-layout:latest.release'
+    implementation 'com.google.android.gms:play-services-ads:latest.release'
+    compile 'com.github.zhaokaiqiang.klog:library:latest.release'
+    compile 'com.j256.ormlite:ormlite-android:latest.release'
+    compile 'com.alibaba:arouter-api:latest.release'
+    annotationProcessor 'com.alibaba:arouter-compiler:latest.release'
+    compile 'com.alibaba:fastjson:latest.release'
 }
