@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         if (isFullName) {
             val urls = resources.getStringArray(R.array.search_url)
 //            val index = ChineseNameUtils.getRandom(0, urls.size - 1)
-            val index = 0
+            val index = 2
             url = urls[index] + text
             KLog.d("url", url)
         }
