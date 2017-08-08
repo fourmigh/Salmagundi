@@ -18,7 +18,7 @@ object ChineseNameUtils {
     val Type_Name_Custom = 4//自定义
 
     val Type_Surname_Single = 0//单姓
-    val Type_Surname_Compound = 1//双姓
+    val Type_Surname_Compound = 1//复姓
     val Type_Surname_Random = 2//随机
     val Type_Surname_Custom = 3//自定义
 
