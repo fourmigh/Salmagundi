@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import com.socks.library.KLog
 import org.caojun.rcn.utils.ChineseNameUtils
 
 class MainActivity : AppCompatActivity() {
@@ -47,14 +48,16 @@ class MainActivity : AppCompatActivity() {
 
         rgSurname.setOnCheckedChangeListener({ group, _ ->
             isSurnameChecked = true
-            btnGenerate.isEnabled = isSurnameChecked and isNameChecked
+//            btnGenerate.isEnabled = isSurnameChecked and isNameChecked
+            checkButtonEnable(group, rgName, btnGenerate)
             val index = group.indexOfChild(group.findViewById(group.checkedRadioButtonId))
             etSurname.isEnabled = index == group.childCount - 1
         })
 
         rgName.setOnCheckedChangeListener({ group, _ ->
             isNameChecked = true
-            btnGenerate.isEnabled = isSurnameChecked and isNameChecked
+//            btnGenerate.isEnabled = isSurnameChecked and isNameChecked
+            checkButtonEnable(rgSurname, group, btnGenerate)
             val index = group.indexOfChild(group.findViewById(group.checkedRadioButtonId))
             etName.isEnabled = index == group.childCount - 1
         })
@@ -102,7 +105,11 @@ class MainActivity : AppCompatActivity() {
         }
         var url = "http://hanyu.baidu.com/zici/s?wd=" + text
         if (isFullName) {
-            url = "https://www.baidu.com/baidu?wd=" + text
+            val urls = resources.getStringArray(R.array.search_url)
+//            val index = ChineseNameUtils.getRandom(0, urls.size - 1)
+            val index = 0
+            url = urls[index] + text
+            KLog.d("url", url)
         }
         webView.loadUrl(url)
     }
@@ -117,5 +124,17 @@ class MainActivity : AppCompatActivity() {
             return
         }
         showExplain(webView, surname + name, true)
+    }
+
+    private fun checkButtonEnable(rgSurname:RadioGroup, rgName:RadioGroup, btnGenerate:Button) {
+        btnGenerate.isEnabled = isSurnameChecked and isNameChecked
+        if (btnGenerate.isEnabled) {
+            val indexSurname = rgSurname.indexOfChild(rgSurname.findViewById(rgSurname.checkedRadioButtonId))
+            val indexName = rgName.indexOfChild(rgName.findViewById(rgName.checkedRadioButtonId))
+            if (indexSurname == rgSurname.childCount - 1 && indexName == rgName.childCount - 1) {
+                //姓和名都选中自定义
+                btnGenerate.isEnabled = false
+            }
+        }
     }
 }

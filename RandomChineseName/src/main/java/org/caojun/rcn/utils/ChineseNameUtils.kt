@@ -22,7 +22,7 @@ object ChineseNameUtils {
     val Type_Surname_Random = 2//随机
     val Type_Surname_Custom = 3//自定义
 
-    private fun getRandom(min: Int, max: Int): Int {
+    fun getRandom(min: Int, max: Int): Int {
         return (Math.random() * (max + 1 - min) + min).toInt()
     }
 
@@ -42,7 +42,7 @@ object ChineseNameUtils {
 
     private fun getSurname(context: Context): String {
         val surnames = context.resources.getStringArray(R.array.surname)
-        val index = getRandom(0, surnames.size)
+        val index = getRandom(0, surnames.size - 1)
         val surname = surnames[index]
         return surname
     }
@@ -63,7 +63,7 @@ object ChineseNameUtils {
         return surname
     }
 
-    fun getName(type: Int): String? {
+    fun getName(type: Int): String {
         var type = type
         when (type) {
             Type_Name_Single -> return getSingleName()
@@ -73,7 +73,7 @@ object ChineseNameUtils {
                 type = getRandom(Type_Name_Single, Type_Name_Same).toByte().toInt()
                 return getName(type)
             }
-            else -> return null
+            else -> return ""
         }
     }
 
