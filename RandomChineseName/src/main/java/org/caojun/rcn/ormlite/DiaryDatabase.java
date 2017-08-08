@@ -80,4 +80,13 @@ public class DiaryDatabase extends OrmLiteSqliteOpenHelper {
         }
         return null;
     }
+
+    public List<Diary> query(String columnName, Object value) {
+        try {
+            return diaryDao.queryBuilder().where().eq(columnName, value).query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

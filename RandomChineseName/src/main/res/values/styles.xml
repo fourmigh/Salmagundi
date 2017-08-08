@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ItemTheme">
+        <item name="android:layout_margin">4dp</item>
+    </style>
+
 </resources>

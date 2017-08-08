@@ -9,7 +9,7 @@ import java.util.Random
 /**
  * Created by CaoJun on 2017/8/7.
  */
-class ChineseNameUtils {
+object ChineseNameUtils {
 
     val Type_Name_Single = 0//单名
     val Type_Name_Double = 1//双名
@@ -26,13 +26,13 @@ class ChineseNameUtils {
         return (Math.random() * (max + 1 - min) + min).toInt()
     }
 
-    fun getSurname(context: Context, type: Int): String? {
+    fun getSurname(context: Context, type: Int): String {
         var surname: String
         when (type) {
             Type_Surname_Single -> surname = getSingleSurname(context)
             Type_Surname_Compound -> surname = getCompoundSurname(context)
             Type_Surname_Random -> surname = getSurname(context)
-            else -> return null
+            else -> return ""
         }
         if (Locale.getDefault() == Locale.TRADITIONAL_CHINESE) {
             surname = ChineseUtils.toTraditional(surname)
@@ -85,7 +85,7 @@ class ChineseNameUtils {
         b[0] = Integer.valueOf(hightPos).toByte()
         b[1] = Integer.valueOf(lowPos).toByte()
         try {
-            var chinese = b.toString(charset("BGK"))
+            var chinese = b.toString(charset("GBK"))
             if (Locale.getDefault() == Locale.TRADITIONAL_CHINESE) {
                 chinese = ChineseUtils.toTraditional(chinese)
             }

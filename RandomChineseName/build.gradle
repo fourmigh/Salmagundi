@@ -30,8 +30,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:latest.release'
     compile 'com.github.zhaokaiqiang.klog:library:latest.release'
     compile 'com.j256.ormlite:ormlite-android:latest.release'
-    compile 'com.alibaba:arouter-api:latest.release'
-    annotationProcessor 'com.alibaba:arouter-compiler:latest.release'
-    compile 'com.alibaba:fastjson:latest.release'
     compile 'com.luhuiguo:chinese-utils:latest.release'
 }

@@ -9,7 +9,7 @@ import java.util.Calendar
 /**
  * Created by CaoJun on 2017/8/7.
  */
-class TimeUtils {
+object TimeUtils {
 
     private val LocalTimeZone = TimeZone.getDefault()
 
@@ -36,7 +36,7 @@ class TimeUtils {
         return getTime(dateFormat, LocalTimeZone, time)
     }
 
-    fun getTime(dateFormat: String): String? {
+    fun getTime(dateFormat: String): String {
         return getTime(dateFormat, LocalTimeZone)
     }
 
