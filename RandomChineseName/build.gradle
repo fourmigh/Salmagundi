@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
@@ -11,7 +12,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0."
+        versionName "1.0.0"
 
     }
     buildTypes {
@@ -27,8 +28,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:latest.release"
     implementation 'com.android.support:appcompat-v7:26.0.0'
     implementation 'com.android.support.constraint:constraint-layout:latest.release'
-    implementation 'com.google.android.gms:play-services-ads:latest.release'
     compile 'com.github.zhaokaiqiang.klog:library:latest.release'
     compile 'com.j256.ormlite:ormlite-android:latest.release'
     compile 'com.luhuiguo:chinese-utils:latest.release'
+    implementation 'com.google.android.gms:play-services-ads:latest.release'
 }

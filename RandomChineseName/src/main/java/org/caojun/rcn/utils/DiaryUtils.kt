@@ -1,6 +1,7 @@
 package org.caojun.rcn.utils
 
 import android.content.Context
+import org.caojun.rcn.R
 import org.caojun.rcn.ormlite.Diary
 import org.caojun.rcn.ormlite.DiaryDatabase
 
@@ -21,7 +22,9 @@ object DiaryUtils {
         var time = TimeUtils.getTime(dateFormat)
         var list = DiaryDatabase.getInstance(context).query("day", time)
         if (list == null || list.size != 1) {
-            return null
+            val diary = Diary(time, context.getResources().getInteger(R.integer.init_count).toByte())
+            insert(context, diary)
+            return diary
         }
         return list.get(0)
     }

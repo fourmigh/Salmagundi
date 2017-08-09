@@ -1,6 +1,10 @@
 <resources>
+    <string name="admob_app_id">ca-app-pub-1853289657839918~7396164908</string>
+    <string name="admob_video_unit_id">ca-app-pub-1853289657839918/6218814606</string>
+    <string name="admob_page_unit_id">ca-app-pub-1853289657839918/7895514897</string>
     <string name="app_name">Random Chinese Name</string>
     <string name="surname">Surname</string>
     <string name="name">Name</string>
-    <string name="generate">Generate</string>
+    <string name="generate">Generate(%s)</string>
+    <string name="ad_no_loaded">The ads are not loaded. Please wait for a while or tomorrow.</string>
 </resources>
