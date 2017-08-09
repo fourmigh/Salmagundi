@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/surname" />
 
-            <RadioGroup
+            <org.caojun.widget.MultiRadioGroup
                 android:id="@+id/rgSurname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/name" />
 
-            <RadioGroup
+            <org.caojun.widget.MultiRadioGroup
                 android:id="@+id/rgName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,6 +53,7 @@
                     android:id="@+id/etSurname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
                     android:layout_weight="1"
                     android:gravity="right"
                     android:maxLength="5"
@@ -63,6 +64,7 @@
                     android:id="@+id/etName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
                     android:layout_weight="1"
                     android:gravity="left"
                     android:maxLength="2"

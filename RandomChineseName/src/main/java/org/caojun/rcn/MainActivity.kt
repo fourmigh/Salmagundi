@@ -4,7 +4,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.webkit.WebView
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.Toast
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
@@ -15,7 +18,7 @@ import com.socks.library.KLog
 import org.caojun.rcn.utils.ChineseNameUtils
 import org.caojun.rcn.utils.DiaryUtils
 import com.google.android.gms.ads.InterstitialAd
-
+import org.caojun.widget.MultiRadioGroup
 
 
 class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
@@ -37,8 +40,8 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
         var btnName: Button = findViewById(R.id.btnName)
         var etSurname: EditText = findViewById(R.id.etSurname)
         var etName: EditText = findViewById(R.id.etName)
-        var rgSurname: RadioGroup = findViewById(R.id.rgSurname)
-        var rgName: RadioGroup = findViewById(R.id.rgName)
+        var rgSurname: MultiRadioGroup = findViewById(R.id.rgSurname)
+        var rgName: MultiRadioGroup = findViewById(R.id.rgName)
         var webView: WebView = findViewById(R.id.webView);
         btnGenerate = findViewById(R.id.btnGenerate)
 
@@ -60,14 +63,14 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
 
         rgSurname.setOnCheckedChangeListener({ group, _ ->
             isSurnameChecked = true
-            checkButtonEnable(group, rgName)
+            checkButtonEnable(rgSurname, rgName)
             val index = group.indexOfChild(group.findViewById(group.checkedRadioButtonId))
             etSurname.isEnabled = index == group.childCount - 1
         })
 
         rgName.setOnCheckedChangeListener({ group, _ ->
             isNameChecked = true
-            checkButtonEnable(rgSurname, group)
+            checkButtonEnable(rgSurname, rgName)
             val index = group.indexOfChild(group.findViewById(group.checkedRadioButtonId))
             etName.isEnabled = index == group.childCount - 1
         })
@@ -93,7 +96,7 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
         checkButtonCount(false, false)
     }
 
-    private fun doGenerate(rgSurname:RadioGroup, etSurname:EditText, rgName:RadioGroup, etName:EditText) {
+    private fun doGenerate(rgSurname:MultiRadioGroup, etSurname:EditText, rgName:MultiRadioGroup, etName:EditText) {
         if (checkButtonCount(true, false)) {
             showAd()
             return
@@ -141,7 +144,7 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
         showExplain(webView, surname + name, true)
     }
 
-    private fun checkButtonEnable(rgSurname:RadioGroup, rgName:RadioGroup) {
+    private fun checkButtonEnable(rgSurname:MultiRadioGroup, rgName:MultiRadioGroup) {
         btnGenerate?.isEnabled = isSurnameChecked and isNameChecked
         if (btnGenerate!!.isEnabled) {
             val indexSurname = rgSurname.indexOfChild(rgSurname.findViewById(rgSurname.checkedRadioButtonId))
