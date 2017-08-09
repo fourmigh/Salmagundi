@@ -115,7 +115,7 @@ public class ChineseNameActivity extends AppCompatActivity {
         btnGenerate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                doGenerate();
+                doGenerate();
             }
         });
     }
