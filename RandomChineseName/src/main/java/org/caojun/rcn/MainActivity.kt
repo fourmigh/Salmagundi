@@ -229,7 +229,8 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
     }
 
     private fun loadAd(loadVideo:Boolean) {
-        val adRequest = AdRequest.Builder().setRequestAgent("android_studio:ad_template").build()
+        val adRequest = AdRequest.Builder().build()
+//        val adRequest = AdRequest.Builder().setRequestAgent("android_studio:ad_template").build()
 //        val adRequest = AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build()
         if (loadVideo) {
             if (!mRewardedVideoAd!!.isLoaded) {
