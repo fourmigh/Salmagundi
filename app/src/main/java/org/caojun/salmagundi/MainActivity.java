@@ -32,6 +32,7 @@ import org.caojun.salmagundi.clicaptcha.CaptchaDemo;
 import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.color.ColorUtils;
+import org.caojun.salmagundi.family.FamilyActivity;
 import org.caojun.salmagundi.iflytek.FlytekActivity;
 import org.caojun.salmagundi.lockpattern.CreateGestureActivity;
 import org.caojun.salmagundi.lockpattern.GestureConstant;
@@ -71,7 +72,8 @@ public class MainActivity extends Activity {
             R.drawable.icon_today,
             R.drawable.icon_flytek,
             R.drawable.icon_calendar,
-            R.drawable.icon_chinesename
+            R.drawable.icon_chinesename,
+            R.drawable.icon_family
     };
     private final Integer[] mTextIds = {
             R.string.bp_title,
@@ -93,7 +95,8 @@ public class MainActivity extends Activity {
             R.string.th_title,
             R.string.ft_title,
             R.string.cal_title,
-            R.string.cn_title
+            R.string.cn_title,
+            R.string.fa_title
     };
     private final Class[] mActivitys = {
             BloodPressureActivity.class,
@@ -115,7 +118,8 @@ public class MainActivity extends Activity {
             TodayActivity.class,
             FlytekActivity.class,
             CalendarActivity.class,
-            ChineseNameActivity.class
+            ChineseNameActivity.class,
+            FamilyActivity.class
     };
     private final String[] mARouterPaths = {
             Constant.ACTIVITY_BLOODPRESSURE,
@@ -137,7 +141,8 @@ public class MainActivity extends Activity {
             Constant.ACTIVITY_TODAY,
             Constant.ACTIVITY_FLYTEK,
             Constant.ACTIVITY_CALENDAR,
-            Constant.ACTIVITY_CHINESENAME
+            Constant.ACTIVITY_CHINESENAME,
+            Constant.ACTIVITY_FAMILY
     };
 
     @Override

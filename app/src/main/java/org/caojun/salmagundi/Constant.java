@@ -41,6 +41,7 @@ public class Constant {
     public static final String ACTIVITY_CALENDAR_EVENTLIST = "/activity/calendar/eventlist";
     public static final String ACTIVITY_CALENDAR_EVENT = "/activity/calendar/event";
     public static final String ACTIVITY_CHINESENAME = "/activity/chinesename";
+    public static final String ACTIVITY_FAMILY = "/activity/family";
 
     public static final int EXTRAS_LOGIN = 0x00000001;//需要登录
 }

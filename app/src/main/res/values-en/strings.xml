@@ -178,4 +178,7 @@
     <string name="cn_surname">Surname</string>
     <string name="cn_name">Name</string>
     <string name="cn_generate">Generate</string>
+
+    <!-- 亲属关系 -->
+    <string name="fa_title">Family</string>
 </resources>

@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     signingConfigs {
@@ -64,4 +65,8 @@ dependencies {
     annotationProcessor 'com.alibaba:arouter-compiler:latest.release'
     compile 'com.alibaba:fastjson:latest.release'
     compile 'com.luhuiguo:chinese-utils:latest.release'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:latest.release"
+}
+repositories {
+    mavenCentral()
 }

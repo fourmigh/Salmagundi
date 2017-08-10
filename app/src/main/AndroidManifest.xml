@@ -108,6 +108,9 @@
         <activity android:name=".chinesename.ChineseNameActivity"
             android:windowSoftInputMode="stateHidden"
             android:label="@string/cn_title"/>
+        <activity android:name=".family.FamilyActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:label="@string/fa_title"/>
     </application>
 
 </manifest>

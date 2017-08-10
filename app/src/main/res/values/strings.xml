@@ -191,4 +191,7 @@
     <string name="cn_surname">姓氏</string>
     <string name="cn_name">名字</string>
     <string name="cn_generate">取名</string>
+
+    <!-- 亲属关系 -->
+    <string name="fa_title">亲属关系</string>
 </resources>
