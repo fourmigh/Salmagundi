@@ -31,3 +31,4 @@
 31、获取当前时区：工程app（utils.TimeUtils）
 32、AdMob：工程RandomChineseName（rcn.MainActivity）
 33、自动换行RadioGroup：工程RandomChineseName（widget.MultiRadioGroup）
+34、自定义数字键盘：工程BloodPressure（widget.DigitalKeyboard）
