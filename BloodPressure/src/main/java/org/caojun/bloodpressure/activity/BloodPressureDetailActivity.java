@@ -13,6 +13,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +30,8 @@ import org.caojun.bloodpressure.ormlite.BloodPressure;
 import org.caojun.bloodpressure.ormlite.BloodPressureDatabase;
 import org.caojun.bloodpressure.utils.DataStorageUtils;
 import org.caojun.bloodpressure.utils.TimeUtils;
+import org.caojun.widget.DigitalKeyboard;
+
 import java.util.Calendar;
 
 /**
@@ -38,19 +41,27 @@ import java.util.Calendar;
 @Route(path = Constant.ACTIVITY_BLOODPRESSURE_DETAIL)
 public class BloodPressureDetailActivity extends AppCompatActivity {
 
+    private final static int EditText_High = 0;
+    private final static int EditText_Low = 1;
+    private final static int EditText_Pulse = 2;
+    private final static int EditText_Weight = 3;
+    private final static int[] ResInputId = {R.id.etHigh, R.id.etLow, R.id.etPulse, R.id.etWeight};
     private EditText etTime;
     private RadioGroup rgBloodPressure;
     private RadioButton[] rbBloodPressures;
     private LinearLayout llBloodPressure;
     private RadioGroup rgHand;
     private RadioButton rbLeft, rbRight;
-    private EditText etHigh, etLow, etPulse;
-    private EditText etWeight;
+//    private EditText etHigh, etLow, etPulse;
+//    private EditText etWeight;
+    private EditText[] etInput;
     private Button btnSave, btnDelete;
     private final String dateFormat = "yyyy/MM/dd HH:mm:ss";
     private final int[] IDType = {R.id.rbBloodPressure, R.id.rbMedicine, R.id.rbWeight};
     private final int[] ResId = {R.string.bp_bloodpressure_msg, R.string.bp_medicine_msg, R.string.bp_weight_msg};
     private final String[] KeySettings = {"bloodpressure_preference", "medicine_preference", "weight_preference"};
+
+    private DigitalKeyboard digitalKeyboard;
 
     @Autowired
     protected BloodPressure bloodPressure;
@@ -74,17 +85,30 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
         rgHand = (RadioGroup) findViewById(R.id.rgHand);
         rbLeft = (RadioButton) findViewById(R.id.rbLeft);
         rbRight = (RadioButton) findViewById(R.id.rbRight);
-        etHigh = (EditText) findViewById(R.id.etHigh);
-        etLow = (EditText) findViewById(R.id.etLow);
-        etPulse = (EditText) findViewById(R.id.etPulse);
-        etWeight = (EditText) findViewById(R.id.etWeight);
+//        etHigh = (EditText) findViewById(R.id.etHigh);
+//        etLow = (EditText) findViewById(R.id.etLow);
+//        etPulse = (EditText) findViewById(R.id.etPulse);
+//        etWeight = (EditText) findViewById(R.id.etWeight);
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDelete = (Button) findViewById(R.id.btnDelete);
 
-        etHigh.setInputType(InputType.TYPE_NULL);
-        etLow.setInputType(InputType.TYPE_NULL);
-        etPulse.setInputType(InputType.TYPE_NULL);
-        etWeight.setInputType(InputType.TYPE_NULL);
+        digitalKeyboard = (DigitalKeyboard) findViewById(R.id.digitalKeyboard);
+
+//        etHigh.setInputType(InputType.TYPE_NULL);
+//        etLow.setInputType(InputType.TYPE_NULL);
+//        etPulse.setInputType(InputType.TYPE_NULL);
+//        etWeight.setInputType(InputType.TYPE_NULL);
+
+        etInput = new EditText[ResInputId.length];
+        for (int i = 0;i < ResInputId.length;i ++) {
+            etInput[i] = (EditText) findViewById(ResInputId[i]);
+            etInput[i].setOnTouchListener(onTouchListener);
+            etInput[i].addTextChangedListener(textWatcher);
+        }
+//        etHigh.setOnTouchListener(onTouchListener);
+//        etLow.setOnTouchListener(onTouchListener);
+//        etPulse.setOnTouchListener(onTouchListener);
+//        etWeight.setOnTouchListener(onTouchListener);
 
         if (bloodPressure != null) {
             for (int i = 0;i < IDType.length;i ++) {
@@ -95,9 +119,9 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
             ((RadioButton) findViewById(IDType[bloodPressure.getType()])).setChecked(true);
             switch (bloodPressure.getType()) {
                 case BloodPressure.Type_BloodPressure:
-                    etHigh.setText(String.valueOf(bloodPressure.getHigh()));
-                    etLow.setText(String.valueOf(bloodPressure.getLow()));
-                    etPulse.setText(String.valueOf(bloodPressure.getPulse()));
+                    etInput[EditText_High].setText(String.valueOf(bloodPressure.getHigh()));
+                    etInput[EditText_Low].setText(String.valueOf(bloodPressure.getLow()));
+                    etInput[EditText_Pulse].setText(String.valueOf(bloodPressure.getPulse()));
                     if (bloodPressure.isLeft()) {
                         rbLeft.setChecked(true);
                     } else {
@@ -107,7 +131,7 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
                 case BloodPressure.Type_Medicine:
                     break;
                 case BloodPressure.Type_Weight:
-                    etWeight.setText(String.valueOf(bloodPressure.getWeight()));
+                    etInput[EditText_Weight].setText(String.valueOf(bloodPressure.getWeight()));
                     break;
             }
         } else {
@@ -150,14 +174,23 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
             }
         });
 
-        etHigh.addTextChangedListener(textWatcher);
-        etLow.addTextChangedListener(textWatcher);
-        etPulse.addTextChangedListener(textWatcher);
-        etWeight.addTextChangedListener(textWatcher);
+//        etHigh.addTextChangedListener(textWatcher);
+//        etLow.addTextChangedListener(textWatcher);
+//        etPulse.addTextChangedListener(textWatcher);
+//        etWeight.addTextChangedListener(textWatcher);
 
         doCheckSaveButton();
         doCheckDeleteButton();
     }
+
+    private View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            EditText editText = (EditText) v;
+            digitalKeyboard.setEditText(editText);
+            return false;
+        }
+    };
 
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -189,15 +222,15 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
         switch (type) {
             case BloodPressure.Type_BloodPressure:
                 llBloodPressure.setVisibility(View.VISIBLE);
-                etWeight.setVisibility(View.GONE);
+                etInput[EditText_Weight].setVisibility(View.GONE);
                 break;
             case BloodPressure.Type_Medicine:
                 llBloodPressure.setVisibility(View.GONE);
-                etWeight.setVisibility(View.GONE);
+                etInput[EditText_Weight].setVisibility(View.GONE);
                 break;
             case BloodPressure.Type_Weight:
                 llBloodPressure.setVisibility(View.GONE);
-                etWeight.setVisibility(View.VISIBLE);
+                etInput[EditText_Weight].setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -217,9 +250,9 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
             long time = Long.parseLong((String) etTime.getTag());
             switch (type) {
                 case BloodPressure.Type_BloodPressure:
-                    int high = Integer.parseInt(etHigh.getText().toString());
-                    int low = Integer.parseInt(etLow.getText().toString());
-                    int pulse = Integer.parseInt(etPulse.getText().toString());
+                    int high = Integer.parseInt(etInput[EditText_High].getText().toString());
+                    int low = Integer.parseInt(etInput[EditText_Low].getText().toString());
+                    int pulse = Integer.parseInt(etInput[EditText_Pulse].getText().toString());
                     boolean isLeft = rbLeft.isChecked();
                     BloodPressureDatabase.getInstance(this).insert(time, high, low, pulse, isLeft);
                     break;
@@ -227,7 +260,7 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
                     BloodPressureDatabase.getInstance(this).insert(time);
                     break;
                 case BloodPressure.Type_Weight:
-                    float weight = Float.parseFloat(etWeight.getText().toString());
+                    float weight = Float.parseFloat(etInput[EditText_Weight].getText().toString());
                     BloodPressureDatabase.getInstance(this).insert(time, weight);
                     DataStorageUtils.saveFloat(this, Constant.BMI_NAME, Constant.BMI_KEY_WEIGHT, weight);
                     break;
@@ -235,9 +268,9 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
         } else {
             switch (type) {
                 case BloodPressure.Type_BloodPressure:
-                    int high = Integer.parseInt(etHigh.getText().toString());
-                    int low = Integer.parseInt(etLow.getText().toString());
-                    int pulse = Integer.parseInt(etPulse.getText().toString());
+                    int high = Integer.parseInt(etInput[EditText_High].getText().toString());
+                    int low = Integer.parseInt(etInput[EditText_Low].getText().toString());
+                    int pulse = Integer.parseInt(etInput[EditText_Pulse].getText().toString());
                     boolean isLeft = rbLeft.isChecked();
                     bloodPressure.setHigh(high);
                     bloodPressure.setLow(low);
@@ -246,7 +279,7 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
                     BloodPressureDatabase.getInstance(this).update(bloodPressure);
                     break;
                 case BloodPressure.Type_Weight:
-                    float weight = Float.parseFloat(etWeight.getText().toString());
+                    float weight = Float.parseFloat(etInput[EditText_Weight].getText().toString());
                     bloodPressure.setWeight(weight);
                     BloodPressureDatabase.getInstance(this).update(bloodPressure);
                     DataStorageUtils.saveFloat(this, Constant.BMI_NAME, Constant.BMI_KEY_WEIGHT, weight);
@@ -263,11 +296,11 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
             //添加
             switch (getIndexType()) {
                 case BloodPressure.Type_BloodPressure:
-                    String high = etHigh.getText().toString();
+                    String high = etInput[EditText_High].getText().toString();
                     if (TextUtils.isEmpty(high)) {
                         return false;
                     }
-                    String low = etLow.getText().toString();
+                    String low = etInput[EditText_Low].getText().toString();
                     if (TextUtils.isEmpty(low)) {
                         return false;
                     }
@@ -278,7 +311,7 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
                     } catch (NumberFormatException e) {
                         return false;
                     }
-                    String pulse = etPulse.getText().toString();
+                    String pulse = etInput[EditText_Pulse].getText().toString();
                     if (TextUtils.isEmpty(pulse)) {
                         return false;
                     }
@@ -291,7 +324,7 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
                 case BloodPressure.Type_Medicine:
                     return true;
                 case BloodPressure.Type_Weight:
-                    String weight = etWeight.getText().toString();
+                    String weight = etInput[EditText_Weight].getText().toString();
                     return !TextUtils.isEmpty(weight);
                 default:
                     return false;
@@ -300,15 +333,15 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
             //修改
             switch (getIndexType()) {
                 case BloodPressure.Type_BloodPressure:
-                    int high = Integer.parseInt(etHigh.getText().toString());
+                    int high = Integer.parseInt(etInput[EditText_High].getText().toString());
                     if (high != bloodPressure.getHigh()) {
                         return true;
                     }
-                    int low = Integer.parseInt(etLow.getText().toString());
+                    int low = Integer.parseInt(etInput[EditText_Low].getText().toString());
                     if (low != bloodPressure.getLow()) {
                         return true;
                     }
-                    int pulse = Integer.parseInt(etPulse.getText().toString());
+                    int pulse = Integer.parseInt(etInput[EditText_Pulse].getText().toString());
                     if (pulse != bloodPressure.getPulse()) {
                         return true;
                     }
@@ -320,7 +353,7 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
                 case BloodPressure.Type_Medicine:
                     return false;
                 case BloodPressure.Type_Weight:
-                    String text = etWeight.getText().toString();
+                    String text = etInput[EditText_Weight].getText().toString();
                     float weight = TextUtils.isEmpty(text)?0:Float.parseFloat(text);
                     return bloodPressure.getWeight() != weight;
                 default:
@@ -357,5 +390,14 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
         SharedPreferences mSharedPreferences = getSharedPreferences(NotificaitonSettings.PREFER_NAME, Context.MODE_PRIVATE);
         int time = mSharedPreferences.getInt(KeySettings[type], 24);
         return time;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (digitalKeyboard != null && digitalKeyboard.getVisibility() == View.VISIBLE) {
+            digitalKeyboard.close();
+            return;
+        }
+        super.onBackPressed();
     }
 }

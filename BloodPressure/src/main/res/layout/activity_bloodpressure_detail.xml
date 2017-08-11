@@ -141,8 +141,7 @@
                     android:id="@+id/etWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:digits=".0123456789"
+                    android:inputType="numberDecimal"
                     android:maxLength="4" />
             </android.support.design.widget.TextInputLayout>
 
