@@ -1,10 +1,5 @@
 package org.caojun.bloodpressure.activity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -24,13 +19,11 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import org.caojun.bloodpressure.Constant;
 import org.caojun.bloodpressure.R;
-import org.caojun.bloodpressure.broadcast.AlarmReceiver;
 import org.caojun.bloodpressure.ormlite.BloodPressure;
 import org.caojun.bloodpressure.ormlite.BloodPressureDatabase;
 import org.caojun.bloodpressure.utils.DataStorageUtils;
 import org.caojun.bloodpressure.utils.TimeUtils;
 import org.caojun.widget.DigitalKeyboard;
-import java.util.Calendar;
 
 /**
  * Created by fourm on 2017/5/10.
@@ -317,7 +310,7 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
             }
         }
         //设置提醒
-        setAlarm(type);
+//        setAlarm(type);
         finish();
     }
 
@@ -402,26 +395,26 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
         btnDelete.setVisibility(bloodPressure == null?View.GONE:View.VISIBLE);
     }
 
-    private void setAlarm(int type) {
-        Intent intent = new Intent(this, AlarmReceiver.class);
-        intent.putExtra("msg", getString(ResId[type]));
-        intent.putExtra("type", type);
-        PendingIntent sender = PendingIntent.getBroadcast(this, type, intent, 0);
+//    private void setAlarm(int type) {
+//        Intent intent = new Intent(this, AlarmReceiver.class);
+//        intent.putExtra("msg", getString(ResId[type]));
+//        intent.putExtra("type", type);
+//        PendingIntent sender = PendingIntent.getBroadcast(this, type, intent, 0);
+//
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTimeInMillis(System.currentTimeMillis());
+//        calendar.add(Calendar.HOUR, getAlarmTime(type));
+////        calendar.add(Calendar.SECOND, 10);
+//
+//        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//        manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
+//    }
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.HOUR, getAlarmTime(type));
-//        calendar.add(Calendar.SECOND, 10);
-
-        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
-    }
-
-    private int getAlarmTime(int type) {
-        SharedPreferences mSharedPreferences = getSharedPreferences(NotificaitonSettings.PREFER_NAME, Context.MODE_PRIVATE);
-        int time = mSharedPreferences.getInt(KeySettings[type], 24);
-        return time;
-    }
+//    private int getAlarmTime(int type) {
+//        SharedPreferences mSharedPreferences = getSharedPreferences(NotificaitonSettings.PREFER_NAME, Context.MODE_PRIVATE);
+//        int time = mSharedPreferences.getInt(KeySettings[type], 24);
+//        return time;
+//    }
 
     @Override
     public void onBackPressed() {
