@@ -146,10 +146,10 @@ public class BloodPressureActivity extends AppCompatActivity {
             ARouter.getInstance().build(Constant.ACTIVITY_BMI).navigation();
             return true;
         }
-        if (id == R.id.menuNotificaiton) {
-            ARouter.getInstance().build(Constant.ACTIVITY_NOTIFICATION_SETTINGS).navigation();
-            return true;
-        }
+//        if (id == R.id.menuNotificaiton) {
+//            ARouter.getInstance().build(Constant.ACTIVITY_NOTIFICATION_SETTINGS).navigation();
+//            return true;
+//        }
         if (id == R.id.menuData) {
             ARouter.getInstance().build(Constant.ACTIVITY_DATA).navigation();
             return true;
