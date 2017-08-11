@@ -2,16 +2,13 @@ package org.caojun.widget;
 
 import android.content.Context;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
-
-import com.socks.library.KLog;
-
 import org.caojun.bloodpressure.R;
 
 /**
@@ -21,7 +18,7 @@ import org.caojun.bloodpressure.R;
 public class DigitalKeyboard extends TableLayout implements View.OnClickListener {
 
     public interface OnClickListener {
-        void onClick(int key);
+        boolean onClick(int key);
     }
 
     public static final int Key0 = 0;
@@ -74,6 +71,14 @@ public class DigitalKeyboard extends TableLayout implements View.OnClickListener
         buttons[KeyNext].setEnabled(onClickListener != null);
     }
 
+    public void setPreviousEnabled(boolean enabled) {
+        buttons[KeyPrevious].setEnabled(enabled);
+    }
+
+    public void setNextEnabled(boolean enabled) {
+        buttons[KeyNext].setEnabled(enabled);
+    }
+
     public void setEditText(EditText editText) {
         resetEditText();
 
@@ -113,6 +118,14 @@ public class DigitalKeyboard extends TableLayout implements View.OnClickListener
             if (v.getId() == ResId[i]) {
                 if (i <= KeyDot) {
                     String text = editText.getText().toString();
+                    if (i == KeyDot && text.contains(".")) {
+                        //不能输入多个.
+                        return;
+                    }
+                    if (!TextUtils.isEmpty(text) && Double.valueOf(text) == 0 && i <= Key9) {
+                        //数值为0，再输入数字时，将0清除
+                        text = "";
+                    }
                     text += context.getString(StringResId[i]);
                     setEditTextContent(text);
                 } else {
@@ -128,7 +141,7 @@ public class DigitalKeyboard extends TableLayout implements View.OnClickListener
                         case KeyNext:
                             if (onClickListener != null) {
                                 close();
-                                onClickListener.onClick(i);
+                                buttons[i].setEnabled(onClickListener.onClick(i));
                             }
                             break;
                         case KeyClose:

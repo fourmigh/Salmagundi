@@ -23,6 +23,8 @@ import android.widget.RadioGroup;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.socks.library.KLog;
+
 import org.caojun.bloodpressure.Constant;
 import org.caojun.bloodpressure.R;
 import org.caojun.bloodpressure.broadcast.AlarmReceiver;
@@ -63,6 +65,8 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
 
     private DigitalKeyboard digitalKeyboard;
 
+    private int indexFocused = EditText_High;
+
     @Autowired
     protected BloodPressure bloodPressure;
 
@@ -74,9 +78,6 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
 
         etTime = (EditText) findViewById(R.id.etTime);
         rgBloodPressure = (RadioGroup) findViewById(R.id.rgBloodPressure);
-//        rbBloodPressure = (RadioButton) findViewById(R.id.rbBloodPressure);
-//        rbMedicine = (RadioButton) findViewById(R.id.rbMedicine);
-//        rbWeight = (RadioButton) findViewById(R.id.rbWeight);
         rbBloodPressures = new RadioButton[IDType.length];
         for (int i = 0;i < IDType.length;i ++) {
             rbBloodPressures[i] = (RadioButton) findViewById(IDType[i]);
@@ -85,19 +86,46 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
         rgHand = (RadioGroup) findViewById(R.id.rgHand);
         rbLeft = (RadioButton) findViewById(R.id.rbLeft);
         rbRight = (RadioButton) findViewById(R.id.rbRight);
-//        etHigh = (EditText) findViewById(R.id.etHigh);
-//        etLow = (EditText) findViewById(R.id.etLow);
-//        etPulse = (EditText) findViewById(R.id.etPulse);
-//        etWeight = (EditText) findViewById(R.id.etWeight);
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDelete = (Button) findViewById(R.id.btnDelete);
 
         digitalKeyboard = (DigitalKeyboard) findViewById(R.id.digitalKeyboard);
-
-//        etHigh.setInputType(InputType.TYPE_NULL);
-//        etLow.setInputType(InputType.TYPE_NULL);
-//        etPulse.setInputType(InputType.TYPE_NULL);
-//        etWeight.setInputType(InputType.TYPE_NULL);
+        digitalKeyboard.setOnClickListener(new DigitalKeyboard.OnClickListener() {
+            @Override
+            public boolean onClick(int key) {
+                if (getIndexType() == BloodPressure.Type_BloodPressure) {
+                    int index = 0;
+                    for (int i = 0;i < etInput.length - 1;i ++) {
+                        if (etInput[i].isFocused()) {
+                            index = i;
+                            break;
+                        }
+                    }
+                    etInput[index].clearFocus();
+                    switch (key) {
+                        case DigitalKeyboard.KeyPrevious:
+                            index --;
+                            if (index < EditText_High) {
+                                index = EditText_Pulse;
+                            }
+//                            etInput[index].requestFocus();
+//                            digitalKeyboard.setEditText(etInput[index]);
+                            setFocusedEditText(index);
+                            return true;
+                        case DigitalKeyboard.KeyNext:
+                            index ++;
+                            if (index > EditText_Pulse) {
+                                index = EditText_High;
+                            }
+//                            etInput[index].requestFocus();
+//                            digitalKeyboard.setEditText(etInput[index]);
+                            setFocusedEditText(index);
+                            return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         etInput = new EditText[ResInputId.length];
         for (int i = 0;i < ResInputId.length;i ++) {
@@ -105,10 +133,6 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
             etInput[i].setOnTouchListener(onTouchListener);
             etInput[i].addTextChangedListener(textWatcher);
         }
-//        etHigh.setOnTouchListener(onTouchListener);
-//        etLow.setOnTouchListener(onTouchListener);
-//        etPulse.setOnTouchListener(onTouchListener);
-//        etWeight.setOnTouchListener(onTouchListener);
 
         if (bloodPressure != null) {
             for (int i = 0;i < IDType.length;i ++) {
@@ -174,11 +198,6 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
             }
         });
 
-//        etHigh.addTextChangedListener(textWatcher);
-//        etLow.addTextChangedListener(textWatcher);
-//        etPulse.addTextChangedListener(textWatcher);
-//        etWeight.addTextChangedListener(textWatcher);
-
         doCheckSaveButton();
         doCheckDeleteButton();
     }
@@ -188,6 +207,12 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
         public boolean onTouch(View v, MotionEvent event) {
             EditText editText = (EditText) v;
             digitalKeyboard.setEditText(editText);
+            for (int i = 0;i < ResInputId.length - 1;i ++) {
+                if (ResInputId[i] == v.getId()) {
+                    indexFocused = i;
+                    break;
+                }
+            }
             return false;
         }
     };
@@ -219,20 +244,37 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
     }
 
     private void setType(int type) {
+        digitalKeyboard.close();
         switch (type) {
             case BloodPressure.Type_BloodPressure:
                 llBloodPressure.setVisibility(View.VISIBLE);
                 etInput[EditText_Weight].setVisibility(View.GONE);
+//                etInput[indexFocused].requestFocus();
+//                digitalKeyboard.setEditText(etInput[indexFocused]);
+                setFocusedEditText(indexFocused);
+                digitalKeyboard.setPreviousEnabled(true);
+                digitalKeyboard.setNextEnabled(true);
                 break;
             case BloodPressure.Type_Medicine:
                 llBloodPressure.setVisibility(View.GONE);
                 etInput[EditText_Weight].setVisibility(View.GONE);
+                digitalKeyboard.close();
                 break;
             case BloodPressure.Type_Weight:
                 llBloodPressure.setVisibility(View.GONE);
                 etInput[EditText_Weight].setVisibility(View.VISIBLE);
+                etInput[EditText_Weight].requestFocus();
+                digitalKeyboard.setEditText(etInput[EditText_Weight]);
+                digitalKeyboard.setPreviousEnabled(false);
+                digitalKeyboard.setNextEnabled(false);
                 break;
         }
+    }
+
+    private void setFocusedEditText(int index) {
+        indexFocused = index;
+        etInput[index].requestFocus();
+        digitalKeyboard.setEditText(etInput[index]);
     }
 
     private void doDelete() {
