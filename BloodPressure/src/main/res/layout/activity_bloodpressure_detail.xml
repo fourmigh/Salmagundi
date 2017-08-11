@@ -6,7 +6,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -168,4 +168,9 @@
             android:id="@+id/btnSave"
             android:layout_weight="3" />
     </LinearLayout>
+
+    <org.caojun.widget.DigitalKeyboard
+        android:id="@+id/digitalKeyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.BloodPressureDetailActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
             android:label="@string/bp_detail_title"/>
         <activity android:name=".activity.BMIActivity"
             android:label="@string/bp_bmi"/>

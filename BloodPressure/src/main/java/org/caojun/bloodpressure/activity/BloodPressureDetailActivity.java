@@ -10,6 +10,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
@@ -79,6 +80,11 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
         etWeight = (EditText) findViewById(R.id.etWeight);
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDelete = (Button) findViewById(R.id.btnDelete);
+
+        etHigh.setInputType(InputType.TYPE_NULL);
+        etLow.setInputType(InputType.TYPE_NULL);
+        etPulse.setInputType(InputType.TYPE_NULL);
+        etWeight.setInputType(InputType.TYPE_NULL);
 
         if (bloodPressure != null) {
             for (int i = 0;i < IDType.length;i ++) {
