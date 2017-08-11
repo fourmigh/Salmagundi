@@ -119,11 +119,15 @@ public class DigitalKeyboard extends TableLayout implements View.OnClickListener
                 if (i <= KeyDot) {
                     String text = editText.getText().toString();
                     if (i == KeyDot && text.contains(".")) {
-                        //不能输入多个.
+                        //不能输入多个“.”
                         return;
                     }
-                    if (!TextUtils.isEmpty(text) && Double.valueOf(text) == 0 && i <= Key9) {
-                        //数值为0，再输入数字时，将0清除
+                    if (text.equals(".")) {
+                        //第一个字符为“.”，前面补0
+                        text = 0 + text;
+                    }
+                    if (!TextUtils.isEmpty(text) && text.indexOf(".") < 0 && Double.valueOf(text) == 0 && i >= Key1 && i <= Key9) {
+                        //数值为0，且没有“.”，再输入数字时，将0清除
                         text = "";
                     }
                     text += context.getString(StringResId[i]);

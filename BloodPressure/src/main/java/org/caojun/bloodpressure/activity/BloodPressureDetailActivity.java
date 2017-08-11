@@ -354,8 +354,9 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
                 case BloodPressure.Type_Medicine:
                     return true;
                 case BloodPressure.Type_Weight:
-                    String weight = etInput[EditText_Weight].getText().toString();
-                    return !TextUtils.isEmpty(weight);
+                    String text = etInput[EditText_Weight].getText().toString();
+                    float weight = TextUtils.isEmpty(text)?0:(text.equals(".")?0:Float.valueOf(text));
+                    return weight != 0;
                 default:
                     return false;
             }
@@ -384,8 +385,8 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
                     return false;
                 case BloodPressure.Type_Weight:
                     String text = etInput[EditText_Weight].getText().toString();
-                    float weight = TextUtils.isEmpty(text)?0:Float.parseFloat(text);
-                    return bloodPressure.getWeight() != weight;
+                    float weight = TextUtils.isEmpty(text)?0:(text.equals(".")?0:Float.valueOf(text));
+                    return bloodPressure.getWeight() != weight && weight != 0;
                 default:
                     return false;
             }
