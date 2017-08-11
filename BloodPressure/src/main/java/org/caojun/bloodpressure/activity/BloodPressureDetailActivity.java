@@ -10,7 +10,6 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
@@ -23,8 +22,6 @@ import android.widget.RadioGroup;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.socks.library.KLog;
-
 import org.caojun.bloodpressure.Constant;
 import org.caojun.bloodpressure.R;
 import org.caojun.bloodpressure.broadcast.AlarmReceiver;
@@ -33,7 +30,6 @@ import org.caojun.bloodpressure.ormlite.BloodPressureDatabase;
 import org.caojun.bloodpressure.utils.DataStorageUtils;
 import org.caojun.bloodpressure.utils.TimeUtils;
 import org.caojun.widget.DigitalKeyboard;
-
 import java.util.Calendar;
 
 /**
@@ -54,8 +50,6 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
     private LinearLayout llBloodPressure;
     private RadioGroup rgHand;
     private RadioButton rbLeft, rbRight;
-//    private EditText etHigh, etLow, etPulse;
-//    private EditText etWeight;
     private EditText[] etInput;
     private Button btnSave, btnDelete;
     private final String dateFormat = "yyyy/MM/dd HH:mm:ss";
@@ -108,8 +102,6 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
                             if (index < EditText_High) {
                                 index = EditText_Pulse;
                             }
-//                            etInput[index].requestFocus();
-//                            digitalKeyboard.setEditText(etInput[index]);
                             setFocusedEditText(index);
                             return true;
                         case DigitalKeyboard.KeyNext:
@@ -117,8 +109,6 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
                             if (index > EditText_Pulse) {
                                 index = EditText_High;
                             }
-//                            etInput[index].requestFocus();
-//                            digitalKeyboard.setEditText(etInput[index]);
                             setFocusedEditText(index);
                             return true;
                     }
@@ -249,8 +239,6 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
             case BloodPressure.Type_BloodPressure:
                 llBloodPressure.setVisibility(View.VISIBLE);
                 etInput[EditText_Weight].setVisibility(View.GONE);
-//                etInput[indexFocused].requestFocus();
-//                digitalKeyboard.setEditText(etInput[indexFocused]);
                 setFocusedEditText(indexFocused);
                 digitalKeyboard.setPreviousEnabled(true);
                 digitalKeyboard.setNextEnabled(true);
