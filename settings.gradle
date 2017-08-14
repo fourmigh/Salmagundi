@@ -1,2 +1,2 @@
-include ':app', ':BloodPressure', ':CameraColor', ':RandomChineseName'
+include ':app', ':BloodPressure', ':CameraColor', ':RandomChineseName', ':Decidophobia'
 include ':zxing'
