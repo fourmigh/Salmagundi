@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">選擇恐懼症</string>
+    <string name="action_settings">設定</string>
+    <string name="option1">選項 1</string>
+    <string name="option2">選項 2</string>
+    <string name="option3">選項 3</string>
+    <string name="option4">選項 4</string>
+    <string name="option5">選項 5</string>
+    <string name="option6">選項 6</string>
+    <string name="btn_random">隨機</string>
+</resources>
