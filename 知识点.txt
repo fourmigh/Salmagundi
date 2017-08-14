@@ -29,6 +29,7 @@
 29、随即汉字：工程app（clicaptcha.CaptchaUtils）
 30、获取当前语言：工程app（chinesename.ChineseNameUtils）
 31、获取当前时区：工程app（utils.TimeUtils）
-32、AdMob：工程RandomChineseName（rcn.MainActivity）
+32、AdMob：工程RandomChineseName（activity.MainActivity）
 33、自动换行RadioGroup：工程RandomChineseName（widget.MultiRadioGroup）
 34、自定义数字键盘：工程BloodPressure（widget.DigitalKeyboard）
+35、gif播放：工程RandomChineseName（activity.DiceActivity）
