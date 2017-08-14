@@ -18,7 +18,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".activity.MainActivity"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,6 +31,9 @@
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
+
+        <activity android:name=".activity.DiceActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
     </application>
 
 </manifest>

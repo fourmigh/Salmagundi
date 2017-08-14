@@ -64,13 +64,12 @@ object ChineseNameUtils {
     }
 
     fun getName(type: Int): String {
-        var type = type
         when (type) {
             Type_Name_Single -> return getSingleName()
             Type_Name_Double -> return getDoubleName()
             Type_Name_Same -> return getSameName()
             Type_Name_Random -> {
-                type = getRandom(Type_Name_Single, Type_Name_Same).toByte().toInt()
+                val type: Int = getRandom(Type_Name_Single, Type_Name_Same).toByte().toInt()
                 return getName(type)
             }
             else -> return ""

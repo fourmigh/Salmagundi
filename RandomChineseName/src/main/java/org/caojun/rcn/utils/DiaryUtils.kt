@@ -22,10 +22,8 @@ object DiaryUtils {
         var time = TimeUtils.getTime(dateFormat)
         var list = DiaryDatabase.getInstance(context).query("day", time)
         if (list == null || list.size != 1) {
-            val diary = Diary(time, context.getResources().getInteger(R.integer.init_count).toByte())
-            insert(context, diary)
-            return diary
+            return null
         }
-        return list.get(0)
+        return list[0]
     }
 }

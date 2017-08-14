@@ -1,5 +1,7 @@
-package org.caojun.rcn
+package org.caojun.rcn.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -18,8 +20,11 @@ import com.socks.library.KLog
 import org.caojun.rcn.utils.ChineseNameUtils
 import org.caojun.rcn.utils.DiaryUtils
 import com.google.android.gms.ads.InterstitialAd
+import org.caojun.rcn.Constant
+import org.caojun.rcn.R
+import org.caojun.rcn.ormlite.Diary
+import org.caojun.rcn.utils.TimeUtils
 import org.caojun.widget.MultiRadioGroup
-
 
 class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
 
@@ -28,7 +33,7 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
     private var isNameChecked: Boolean = false
     private var mRewardedVideoAd: RewardedVideoAd? = null
     private var mInterstitialAd: InterstitialAd? = null
-
+    private var isRewarded: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,11 +98,11 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
         etName.isEnabled = false
         btnGenerate?.isEnabled = isSurnameChecked and isNameChecked
         btnGenerate?.setOnClickListener({ doGenerate(rgSurname, etSurname, rgName, etName) })
-        checkButtonCount(false, false)
+        checkButtonCount(false)
     }
 
     private fun doGenerate(rgSurname:MultiRadioGroup, etSurname:EditText, rgName:MultiRadioGroup, etName:EditText) {
-        if (checkButtonCount(true, false)) {
+        if (checkButtonCount(true)) {
             showAd()
             return
         }
@@ -111,6 +116,12 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
             val name = ChineseNameUtils.getName(nameType)
             etName.setText(name)
         }
+    }
+
+    private fun doDice(times:Int) {
+        val intent = Intent(this, DiceActivity::class.java)
+        intent.putExtra(Constant.Key_Times, times)
+        startActivityForResult(intent, Constant.RequestCode_Dice)
     }
 
     private fun showExplain(webView: WebView, text: String) {
@@ -156,15 +167,16 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
         }
     }
 
-    private fun checkButtonCount(isDone:Boolean, isAdd:Boolean): Boolean {
+    private fun checkButtonCount(isDone:Boolean): Boolean {
         val diary = DiaryUtils.queryToday(this)
+        if (diary == null) {
+            //当天第一次打开
+            doDice(1)
+            return false
+        }
         val count = diary!!.cntName
-        if (isDone) {
-            if (isAdd) {
-                diary!!.cntName = (diary.cntName + getResources().getInteger(R.integer.add_count)).toByte()
-            } else if (diary!!.cntName > 0) {
-                diary!!.cntName--
-            }
+        if (isDone && diary!!.cntName > 0) {
+            diary!!.cntName--
             DiaryUtils.update(this, diary)
         }
         btnGenerate?.text = String.format(getString(R.string.generate), diary!!.cntName.toString())
@@ -197,7 +209,7 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
         mInterstitialAd?.adListener = object : AdListener() {
             override fun onAdClosed() {
                 KLog.d("InterstitialAd", "onAdClosed")
-                checkButtonCount(true, true)
+                doDice(1)
             }
 
             override fun onAdImpression() {
@@ -214,7 +226,7 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
 
             override fun onAdFailedToLoad(p0: Int) {
                 KLog.d("InterstitialAd", "onAdFailedToLoad: " + p0)
-                loadAd(false)
+                loadAd()
             }
 
             override fun onAdOpened() {
@@ -225,18 +237,24 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
                 KLog.d("InterstitialAd", "onAdLoaded")
             }
         }
-        loadAd(true)
+        loadAd()
     }
 
-    private fun loadAd(loadVideo:Boolean) {
+    private fun loadAd() {
         val adRequest = AdRequest.Builder().build()
 //        val adRequest = AdRequest.Builder().setRequestAgent("android_studio:ad_template").build()
 //        val adRequest = AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build()
-        if (loadVideo) {
-            if (!mRewardedVideoAd!!.isLoaded) {
-                mRewardedVideoAd?.loadAd(getString(R.string.admob_video_unit_id), adRequest)
-            }
-        } else if (!mInterstitialAd!!.isLoaded) {
+//        if (loadVideo) {
+//            if (!mRewardedVideoAd!!.isLoaded) {
+//                mRewardedVideoAd?.loadAd(getString(R.string.admob_video_unit_id), adRequest)
+//            }
+//        } else if (!mInterstitialAd!!.isLoaded) {
+//            mInterstitialAd?.loadAd(adRequest)
+//        }
+        if (!mRewardedVideoAd!!.isLoaded) {
+            mRewardedVideoAd?.loadAd(getString(R.string.admob_video_unit_id), adRequest)
+        }
+        if (!mInterstitialAd!!.isLoaded) {
             mInterstitialAd?.loadAd(adRequest)
         }
     }
@@ -247,7 +265,7 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
         } else if (mInterstitialAd!!.isLoaded) {
             mInterstitialAd?.show()
         } else {
-            loadAd(true)
+            loadAd()
             Toast.makeText(this, R.string.ad_no_loaded, Toast.LENGTH_SHORT).show()
         }
     }
@@ -255,6 +273,9 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
     //视频式广告
     override fun onRewardedVideoAdClosed() {
         KLog.d("RewardedVideoAd", "onRewardedVideoAdClosed")
+        if (isRewarded) {
+            doDice(1)
+        }
     }
 
     override fun onRewardedVideoAdLeftApplication() {
@@ -271,7 +292,7 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
 
     override fun onRewarded(p0: RewardItem?) {
         KLog.d("RewardedVideoAd", "onRewarded")
-        checkButtonCount(true, true)
+        isRewarded = true
     }
 
     override fun onRewardedVideoStarted() {
@@ -280,6 +301,24 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
 
     override fun onRewardedVideoAdFailedToLoad(p0: Int) {
         KLog.d("RewardedVideoAd", "onRewardedVideoAdFailedToLoad: " + p0)
-        loadAd(false)
+        loadAd()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == Constant.RequestCode_Dice && resultCode == Activity.RESULT_OK && data != null) {
+            var dice = data.getIntExtra(Constant.Key_Dice, 1)
+            val diary = DiaryUtils.queryToday(this)
+            if (diary == null) {
+                var dateFormat = "yyyyMMdd"
+                var time = TimeUtils.getTime(dateFormat)
+                val diary = Diary(time, dice.toByte())
+                DiaryUtils.insert(this, diary)
+            } else {
+                diary.cntName = dice.toByte()
+                DiaryUtils.update(this, diary);
+            }
+            checkButtonCount(false)
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }
