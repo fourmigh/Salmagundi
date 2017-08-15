@@ -24,8 +24,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:latest.release"
-    implementation 'com.android.support:appcompat-v7:26.0.0-beta1'
-    implementation 'com.android.support:design:26.0.0-beta1'
+    implementation 'com.android.support:appcompat-v7:26.0.1'
+    implementation 'com.android.support:design:26.0.1'
     compile 'com.github.zhaokaiqiang.klog:library:latest.release'
     compile 'pl.droidsonroids.gif:android-gif-drawable:latest.release'
 }

@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.ViewConfiguration;
 import android.view.ViewParent;
 
 /**
@@ -14,9 +13,12 @@ import android.view.ViewParent;
 
 public class VerticalSeekBar extends AppCompatSeekBar {
 
+    private static final byte FingerHeight = 60;//手指尺寸
+    private boolean mIsDragging;
+    private boolean isDown = true;
+
     public VerticalSeekBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mScaledTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
     public VerticalSeekBar(Context context, AttributeSet attrs) {
@@ -27,31 +29,13 @@ public class VerticalSeekBar extends AppCompatSeekBar {
         super(context);
     }
 
-
-    private boolean mIsDragging;
-    private float mTouchDownY;
-    private int mScaledTouchSlop;
-    private boolean isInScrollingContainer = false;
-
-    public boolean isInScrollingContainer() {
-        return isInScrollingContainer;
+    public void setDown(boolean down) {
+        isDown = down;
     }
-
-    public void setInScrollingContainer(boolean isInScrollingContainer) {
-        this.isInScrollingContainer = isInScrollingContainer;
-    }
-
-    /**
-     * On touch, this offset plus the scaled value from the position of the
-     * touch will form the progress value. Usually 0.
-     */
-    float mTouchProgressOffset;
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-
         super.onSizeChanged(h, w, oldh, oldw);
-
     }
 
     @Override
@@ -63,8 +47,14 @@ public class VerticalSeekBar extends AppCompatSeekBar {
 
     @Override
     protected synchronized void onDraw(Canvas canvas) {
-        canvas.rotate(-90);
-        canvas.translate(-getHeight(), 0);
+        if (isDown) {
+            canvas.rotate(90);
+            canvas.translate(0, -getWidth());
+        } else {
+            canvas.rotate(-90);
+            canvas.translate(-getHeight(), 0);
+        }
+
         super.onDraw(canvas);
     }
 
@@ -76,37 +66,18 @@ public class VerticalSeekBar extends AppCompatSeekBar {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (isInScrollingContainer()) {
+                setPressed(true);
 
-                    mTouchDownY = event.getY();
-                } else {
-                    setPressed(true);
+                invalidate();
+                onStartTrackingTouch();
+                trackTouchEvent(event);
+                attemptClaimDrag();
 
-                    invalidate();
-                    onStartTrackingTouch();
-                    trackTouchEvent(event);
-                    attemptClaimDrag();
-
-                    onSizeChanged(getWidth(), getHeight(), 0, 0);
-                }
+                onSizeChanged(getWidth(), getHeight(), 0, 0);
                 break;
 
             case MotionEvent.ACTION_MOVE:
-                if (mIsDragging) {
-                    trackTouchEvent(event);
-
-                } else {
-                    final float y = event.getY();
-                    if (Math.abs(y - mTouchDownY) > mScaledTouchSlop) {
-                        setPressed(true);
-
-                        invalidate();
-                        onStartTrackingTouch();
-                        trackTouchEvent(event);
-                        attemptClaimDrag();
-
-                    }
-                }
+                trackTouchEvent(event);
                 onSizeChanged(getWidth(), getHeight(), 0, 0);
                 break;
 
@@ -143,18 +114,34 @@ public class VerticalSeekBar extends AppCompatSeekBar {
         final int available = height - top - bottom;
 
         int y = (int) event.getY();
+        if (isDown) {
+            y += FingerHeight;
+        } else {
+            y -= FingerHeight;
+        }
 
         float scale;
         float progress = 0;
 
         // 下面是最小值
         if (y > height - bottom) {
-            scale = 0.0f;
+            if (isDown) {
+                scale = 1.0f;
+            } else {
+                scale = 0.0f;
+            }
         } else if (y < top) {
-            scale = 1.0f;
+            if (isDown) {
+                scale = 0.0f;
+            } else {
+                scale = 1.0f;
+            }
         } else {
-            scale = (float) (available - y + top) / (float) available;
-            progress = mTouchProgressOffset;
+            if (isDown) {
+                scale = (float) y / available;
+            } else {
+                scale = (float) (available - y + top) / (float) available;
+            }
         }
 
         final int max = getMax();

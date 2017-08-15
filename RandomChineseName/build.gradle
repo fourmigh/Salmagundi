@@ -32,7 +32,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:latest.release"
-    implementation 'com.android.support:appcompat-v7:26.0.0'
+    implementation 'com.android.support:appcompat-v7:26.0.1'
     compile 'com.github.zhaokaiqiang.klog:library:latest.release'
     compile 'com.j256.ormlite:ormlite-android:latest.release'
     compile 'com.luhuiguo:chinese-utils:latest.release'
