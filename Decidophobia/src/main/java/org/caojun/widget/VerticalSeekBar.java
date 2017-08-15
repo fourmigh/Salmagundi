@@ -19,14 +19,21 @@ public class VerticalSeekBar extends AppCompatSeekBar {
 
     public VerticalSeekBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        for (int i =0; i < attrs.getAttributeCount(); i++) {
+            if (attrs.getAttributeName(i).equals("textDirection")) {
+                //有设置该属性，即认为是向上
+                isDown = false;
+                break;
+            }
+        }
     }
 
     public VerticalSeekBar(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public VerticalSeekBar(Context context) {
-        super(context);
+        this(context, null, 0);
     }
 
     public void setDown(boolean down) {
