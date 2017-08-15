@@ -33,3 +33,4 @@
 33、自动换行RadioGroup：工程RandomChineseName（widget.MultiRadioGroup）
 34、自定义数字键盘：工程BloodPressure（widget.DigitalKeyboard）
 35、gif播放：工程RandomChineseName（activity.DiceActivity）
+36、自定义竖向SeekBar：工程Decidophobia（widget.VerticalSeekBar）
