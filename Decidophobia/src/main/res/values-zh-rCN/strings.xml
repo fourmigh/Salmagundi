@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">选择恐惧症</string>
     <string name="action_settings">设置</string>
+    <string name="title">标题</string>
     <string name="option1">选项 1</string>
     <string name="option2">选项 2</string>
     <string name="option3">选项 3</string>

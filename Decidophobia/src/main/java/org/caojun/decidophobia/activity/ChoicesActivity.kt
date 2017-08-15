@@ -2,9 +2,13 @@ package org.caojun.decidophobia.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TableRow
@@ -17,6 +21,9 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     val ResIdTableRow = intArrayOf(R.id.trOption1, R.id.trOption2, R.id.trOption3, R.id.trOption4, R.id.trOption5, R.id.trOption6)
     val ResIdEditText = intArrayOf(R.id.etOption1, R.id.etOption2, R.id.etOption3, R.id.etOption4, R.id.etOption5, R.id.etOption6)
 
+    var etTitle: EditText? = null
+    var seekBar: SeekBar? = null
+    var btnRandom: Button? = null
     val etOption = arrayListOf<EditText>()
     val trOption = arrayListOf<TableRow>()
 
@@ -30,17 +37,29 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 //                    .setAction("Action", null).show()
 //        }
 
+        etTitle = findViewById(R.id.etTitle)
+        etTitle?.addTextChangedListener(textWatcher)
+
         for (i in ResIdTableRow.indices) {
             trOption.add(findViewById(ResIdTableRow[i]))
         }
+
         for (i in ResIdEditText.indices) {
-            etOption.add(findViewById(ResIdEditText[i]))
+            var editText: EditText = findViewById(ResIdEditText[i])
+            editText.addTextChangedListener(textWatcher)
+            etOption.add(editText)
         }
 
-        var seekBar: VerticalSeekBar = findViewById(R.id.seekBar)
-        seekBar.setOnSeekBarChangeListener(this)
-        seekBar.progress = 0
-        checkTableRow(0)
+        btnRandom = findViewById(R.id.btnRandom)
+        btnRandom?.setOnClickListener {
+            doRandom()
+        }
+
+        seekBar = findViewById(R.id.seekBar)
+        seekBar?.setOnSeekBarChangeListener(this)
+        seekBar?.progress = 0
+        doCheckTableRow(0)
+        doCheckRandomButton()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -60,7 +79,7 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     }
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-        checkTableRow(progress)
+        doCheckTableRow(progress)
     }
 
     override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -69,7 +88,7 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     override fun onStopTrackingTouch(seekBar: SeekBar?) {
     }
 
-    private fun checkTableRow(progress: Int) {
+    private fun doCheckTableRow(progress: Int) {
         for (i in ResIdTableRow.indices) {
             if (i < progress + 2) {
                 trOption[i].visibility = View.VISIBLE
@@ -77,5 +96,41 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
                 trOption[i].visibility = View.GONE
             }
         }
+    }
+
+    private val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+
+        }
+
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+
+        }
+
+        override fun afterTextChanged(s: Editable) {
+            doCheckRandomButton()
+        }
+    }
+
+    private fun doCheckRandomButton() {
+        btnRandom?.isEnabled = false
+        var title = etTitle?.text.toString()
+        if (TextUtils.isEmpty(title)) {
+            return
+        }
+        for (i in ResIdEditText.indices) {
+            if (i >= seekBar!!.progress + 2) {
+                break;
+            }
+            var text = etOption[i].text.toString()
+            if (TextUtils.isEmpty(text)) {
+                return
+            }
+        }
+        btnRandom?.isEnabled = true
+    }
+
+    private fun doRandom() {
+
     }
 }

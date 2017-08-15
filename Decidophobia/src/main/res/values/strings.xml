@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Decidophobia</string>
     <string name="action_settings">Settings</string>
+    <string name="title">Title</string>
     <string name="option1">Option 1</string>
     <string name="option2">Option 2</string>
     <string name="option3">Option 3</string>

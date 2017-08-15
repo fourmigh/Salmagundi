@@ -13,6 +13,20 @@
         android:orientation="vertical"
         android:layout_weight="1">
 
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/title"
+            android:theme="@style/ItemTheme">
+
+            <EditText
+                android:id="@+id/etTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"/>
+
+        </android.support.design.widget.TextInputLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
