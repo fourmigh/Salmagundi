@@ -36,10 +36,6 @@ public class VerticalSeekBar extends AppCompatSeekBar {
         this(context, null, 0);
     }
 
-    public void setDown(boolean down) {
-        isDown = down;
-    }
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(h, w, oldh, oldw);
