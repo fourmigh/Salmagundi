@@ -90,8 +90,15 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
             }
         }
 
+        setSelection(etTitle!!)
+
         doCheckTableRow(0)
         doCheckRandomButton()
+    }
+
+    private fun setSelection(editText: EditText) {
+        var text = editText.text.toString()
+        editText.setSelection(text.length)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -112,6 +119,7 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
         doCheckTableRow(progress)
+        doCheckRandomButton()
     }
 
     override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -164,34 +172,24 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
     private fun doRandom() {
         val size = seekBar!!.progress + MinNumber
-        if (OptionsUtils.insert(this, etTitle!!, etOption, size)) {
-            KLog.d("doRandom", "insert ok")
-            doDice(1)
-        } else {
-            KLog.d("doRandom", "insert failed")
-            //TODO 提示有重复记录，经确认后再覆盖
-            if (OptionsUtils.update(this, etTitle!!, etOption, size)) {
-                KLog.d("doRandom", "update ok")
-                doDice(1)
-            } else {
-                KLog.d("doRandom", "update failed")
-            }
+        if (!OptionsUtils.insert(this, etTitle!!, etOption, size)) {
+            OptionsUtils.update(this, etTitle!!, etOption, size)
         }
-
+        doDice()
     }
 
-    private fun doDice(number:Int) {
+    private fun doDice() {
+        val max = seekBar!!.progress + MinNumber
         val intent = Intent(this, DiceActivity::class.java)
-        intent.putExtra(Constant.Key_Number, number)
+        intent.putExtra(Constant.Key_MaxDice, max)
         startActivityForResult(intent, Constant.RequestCode_Dice)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == Constant.RequestCode_Dice && resultCode == Activity.RESULT_OK && data != null) {
             var dice = data.getIntArrayExtra(Constant.Key_Dice)
-            for (i in ResIdTableRow.indices) {
-                trOption[i].isEnabled = (dice[0] - 1 == i)
-            }
+            etOption[dice[0] - 1].requestFocus()
+            setSelection(etOption[dice[0] - 1])
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
