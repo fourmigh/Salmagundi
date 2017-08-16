@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="ItemTheme">
+        <item name="android:layout_margin">4dp</item>
+    </style>
+
+</resources>

@@ -1,5 +1,7 @@
 package org.caojun.decidophobia.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
@@ -13,7 +15,8 @@ import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TableRow
 import org.caojun.decidophobia.R
-import org.caojun.widget.VerticalSeekBar
+import org.caojun.library.Constant
+import org.caojun.library.activity.DiceActivity
 
 class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
@@ -131,6 +134,20 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     }
 
     private fun doRandom() {
+        doDice(1)
+    }
 
+    private fun doDice(times:Int) {
+        val intent = Intent(this, DiceActivity::class.java)
+        intent.putExtra(Constant.Key_Times, times)
+        startActivityForResult(intent, Constant.RequestCode_Dice)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == Constant.RequestCode_Dice && resultCode == Activity.RESULT_OK && data != null) {
+            var dice = data.getIntExtra(Constant.Key_Dice, 1)
+
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/BaseLibrary/BaseLibrary.iml" filepath="$PROJECT_DIR$/BaseLibrary/BaseLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/BloodPressure/BloodPressure.iml" filepath="$PROJECT_DIR$/BloodPressure/BloodPressure.iml" />
       <module fileurl="file://$PROJECT_DIR$/CameraColor/CameraColor.iml" filepath="$PROJECT_DIR$/CameraColor/CameraColor.iml" />
       <module fileurl="file://$PROJECT_DIR$/Decidophobia/Decidophobia.iml" filepath="$PROJECT_DIR$/Decidophobia/Decidophobia.iml" />

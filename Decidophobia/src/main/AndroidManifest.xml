@@ -21,6 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="org.caojun.library.activity.DiceActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
     </application>
 
 </manifest>

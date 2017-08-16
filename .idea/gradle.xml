@@ -9,6 +9,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/BaseLibrary" />
             <option value="$PROJECT_DIR$/BloodPressure" />
             <option value="$PROJECT_DIR$/CameraColor" />
             <option value="$PROJECT_DIR$/Decidophobia" />
