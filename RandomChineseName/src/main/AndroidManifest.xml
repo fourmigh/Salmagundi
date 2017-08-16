@@ -32,7 +32,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
 
-        <activity android:name=".activity.DiceActivity"
+        <activity android:name="org.caojun.library.activity.DiceActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
     </application>
 

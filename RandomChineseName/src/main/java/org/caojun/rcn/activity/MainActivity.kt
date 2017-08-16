@@ -20,7 +20,8 @@ import com.socks.library.KLog
 import org.caojun.rcn.utils.ChineseNameUtils
 import org.caojun.rcn.utils.DiaryUtils
 import com.google.android.gms.ads.InterstitialAd
-import org.caojun.rcn.Constant
+import org.caojun.library.Constant
+import org.caojun.library.activity.DiceActivity
 import org.caojun.rcn.R
 import org.caojun.rcn.ormlite.Diary
 import org.caojun.rcn.utils.TimeUtils
@@ -118,9 +119,9 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
         }
     }
 
-    private fun doDice(times:Int) {
+    private fun doDice(number:Int) {
         val intent = Intent(this, DiceActivity::class.java)
-        intent.putExtra(Constant.Key_Times, times)
+        intent.putExtra(Constant.Key_Number, number)
         startActivityForResult(intent, Constant.RequestCode_Dice)
     }
 
@@ -274,7 +275,7 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
     override fun onRewardedVideoAdClosed() {
         KLog.d("RewardedVideoAd", "onRewardedVideoAdClosed")
         if (isRewarded) {
-            doDice(1)
+            doDice(2)
         }
     }
 
@@ -306,15 +307,15 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == Constant.RequestCode_Dice && resultCode == Activity.RESULT_OK && data != null) {
-            var dice = data.getIntExtra(Constant.Key_Dice, 1)
+            var dice = data.getIntArrayExtra(Constant.Key_Dice)
             val diary = DiaryUtils.queryToday(this)
             if (diary == null) {
                 var dateFormat = "yyyyMMdd"
                 var time = TimeUtils.getTime(dateFormat)
-                val diary = Diary(time, dice.toByte())
+                val diary = Diary(time, dice[0].toByte())
                 DiaryUtils.insert(this, diary)
             } else {
-                diary.cntName = dice.toByte()
+                diary.cntName = dice[0].toByte()
                 DiaryUtils.update(this, diary);
             }
             checkButtonCount(false)

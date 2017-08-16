@@ -2,6 +2,7 @@ package org.caojun.rcn.utils
 
 import android.content.Context
 import com.luhuiguo.chinese.ChineseUtils
+import org.caojun.library.utils.RandomUtils
 import org.caojun.rcn.R
 import java.util.Locale
 import java.util.Random
@@ -22,10 +23,6 @@ object ChineseNameUtils {
     val Type_Surname_Random = 2//随机
     val Type_Surname_Custom = 3//自定义
 
-    fun getRandom(min: Int, max: Int): Int {
-        return (Math.random() * (max + 1 - min) + min).toInt()
-    }
-
     fun getSurname(context: Context, type: Int): String {
         var surname: String
         when (type) {
@@ -42,7 +39,7 @@ object ChineseNameUtils {
 
     private fun getSurname(context: Context): String {
         val surnames = context.resources.getStringArray(R.array.surname)
-        val index = getRandom(0, surnames.size - 1)
+        val index = RandomUtils.getRandom(0, surnames.size - 1)
         val surname = surnames[index]
         return surname
     }
@@ -69,7 +66,7 @@ object ChineseNameUtils {
             Type_Name_Double -> return getDoubleName()
             Type_Name_Same -> return getSameName()
             Type_Name_Random -> {
-                val type: Int = getRandom(Type_Name_Single, Type_Name_Same).toByte().toInt()
+                val type: Int = RandomUtils.getRandom(Type_Name_Single, Type_Name_Same).toByte().toInt()
                 return getName(type)
             }
             else -> return ""

@@ -11,8 +11,8 @@ android {
         applicationId "org.caojun.rcn"
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 3
-        versionName "1.1.0"
+        versionCode 4
+        versionName "1.1.1"
     }
     buildTypes {
         release {
@@ -33,9 +33,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:latest.release"
     implementation 'com.android.support:appcompat-v7:26.0.1'
-    compile 'com.github.zhaokaiqiang.klog:library:latest.release'
     compile 'com.j256.ormlite:ormlite-android:latest.release'
     compile 'com.luhuiguo:chinese-utils:latest.release'
     implementation 'com.google.android.gms:play-services-ads:latest.release'
-    compile 'pl.droidsonroids.gif:android-gif-drawable:latest.release'
+    compile project(':BaseLibrary')
 }

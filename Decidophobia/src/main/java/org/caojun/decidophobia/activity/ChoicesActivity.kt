@@ -14,9 +14,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TableRow
+import com.socks.library.KLog
 import org.caojun.decidophobia.R
 import org.caojun.library.Constant
 import org.caojun.library.activity.DiceActivity
+import org.caojun.library.utils.RandomUtils
 
 class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
@@ -134,19 +136,21 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     }
 
     private fun doRandom() {
-        doDice(1)
+        doDice(RandomUtils.getRandom(1, 6))
     }
 
-    private fun doDice(times:Int) {
+    private fun doDice(number:Int) {
         val intent = Intent(this, DiceActivity::class.java)
-        intent.putExtra(Constant.Key_Times, times)
+        intent.putExtra(Constant.Key_Number, number)
         startActivityForResult(intent, Constant.RequestCode_Dice)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == Constant.RequestCode_Dice && resultCode == Activity.RESULT_OK && data != null) {
-            var dice = data.getIntExtra(Constant.Key_Dice, 1)
-
+            var dice = data.getIntArrayExtra(Constant.Key_Dice)
+            for (i in dice.indices) {
+                KLog.d("dice", i.toString() + " : " + dice[i])
+            }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:theme="@style/ItemTheme"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/givDice"
+        android:id="@+id/givDice1"
+        android:src="@drawable/dice1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

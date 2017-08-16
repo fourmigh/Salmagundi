@@ -5,6 +5,6 @@ package org.caojun.library
  */
 object Constant {
     const val RequestCode_Dice = 1
-    const val Key_Times = "times"
+    const val Key_Number = "number"
     const val Key_Dice = "dice"
 }
