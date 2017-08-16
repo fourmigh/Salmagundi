@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="option_example">
+        <item>HAMLET</item>
+        <item>To be</item>
+        <item>Not to be</item>
+    </string-array>
+</resources>

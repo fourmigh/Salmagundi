@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="option_example">
+        <item>老婆和妈同时掉进河里，先救谁？</item>
+        <item>老婆</item>
+        <item>妈妈</item>
+    </string-array>
+</resources>

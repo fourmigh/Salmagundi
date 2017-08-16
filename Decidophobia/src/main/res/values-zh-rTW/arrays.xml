@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="option_example">
+        <item>先有雞還是蛋？</item>
+        <item>雞</item>
+        <item>蛋</item>
+    </string-array>
+</resources>
