@@ -16,7 +16,6 @@ import android.widget.SeekBar
 import android.widget.TableRow
 import com.socks.library.KLog
 import org.caojun.decidophobia.R
-import org.caojun.decidophobia.ormlite.Options
 import org.caojun.decidophobia.utils.OptionsUtils
 import org.caojun.library.Constant
 import org.caojun.library.activity.DiceActivity
@@ -33,6 +32,7 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     var btnRandom: Button? = null
     val etOption = arrayListOf<EditText>()
     val trOption = arrayListOf<TableRow>()
+    var menu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,8 +112,24 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_history -> true
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        this.menu = menu
+        doCheckMenu()
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+    private fun doCheckMenu() {
+        for (i in 0..(menu!!.size()-1)) {
+            if (menu?.getItem(i)?.itemId == R.id.action_history) {
+                var list = OptionsUtils.query(this)
+                var size = list?.size?:0
+                menu?.setGroupVisible(i, size > 0)
+            }
         }
     }
 
@@ -190,6 +206,7 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
             var dice = data.getIntArrayExtra(Constant.Key_Dice)
             etOption[dice[0] - 1].requestFocus()
             setSelection(etOption[dice[0] - 1])
+            doCheckMenu()
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

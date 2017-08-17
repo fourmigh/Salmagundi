@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">選擇恐懼症</string>
-    <string name="action_settings">設定</string>
+    <string name="history">歷史</string>
     <string name="title">標題</string>
     <string name="option1">選項 1</string>
     <string name="option2">選項 2</string>
