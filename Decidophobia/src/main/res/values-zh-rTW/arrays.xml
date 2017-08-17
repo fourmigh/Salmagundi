@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="option_example">
+    <string-array name="example2">
         <item>先有雞還是蛋？</item>
         <item>雞</item>
         <item>蛋</item>
+    </string-array>
+    <string-array name="example3">
+        <item>選哪個顏色？ </item>
+        <item>紅</item>
+        <item>藍</item>
+        <item>綠</item>
+    </string-array>
+    <string-array name="example4">
+        <item>去哪家夜市？</item>
+        <item>士林</item>
+        <item>六合</item>
+        <item>逢甲</item>
+        <item>饒河街</item>
     </string-array>
 </resources>

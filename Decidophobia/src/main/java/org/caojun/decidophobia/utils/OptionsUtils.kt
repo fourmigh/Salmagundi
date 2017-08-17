@@ -33,7 +33,7 @@ object OptionsUtils {
         var strings = Array(size, { index -> index.toString() })
         if (options != null) {
             for (i in options.indices) {
-                strings[i] = (options[i].title) + "(" + size + ")"
+                strings[i] = (options[i].title) + "(" + options[i].option.size + ")"
             }
         }
         return strings

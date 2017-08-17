@@ -22,12 +22,14 @@ import org.caojun.decidophobia.ormlite.Options
 import org.caojun.decidophobia.utils.OptionsUtils
 import org.caojun.library.Constant
 import org.caojun.library.activity.DiceActivity
+import org.caojun.library.utils.RandomUtils
 
 class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
     val MinNumber = 2//最小选项数
     val ResIdTableRow = intArrayOf(R.id.trOption1, R.id.trOption2, R.id.trOption3, R.id.trOption4, R.id.trOption5, R.id.trOption6)
     val ResIdEditText = intArrayOf(R.id.etOption1, R.id.etOption2, R.id.etOption3, R.id.etOption4, R.id.etOption5, R.id.etOption6)
+    val ResIdExample = intArrayOf(R.array.example2, R.array.example3, R.array.example4)
 
     var etTitle: EditText? = null
     var seekBar: SeekBar? = null
@@ -61,7 +63,7 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
         seekBar = findViewById(R.id.seekBar)
         seekBar?.setOnSeekBarChangeListener(this)
-        seekBar?.progress = 0
+//        seekBar?.progress = 0
 
     }
 
@@ -70,7 +72,9 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         var list = OptionsUtils.query(this)
         var size = list?.size?:0
         if (size == 0) {
-            var example = resources.getStringArray(R.array.option_example)
+//            var example = resources.getStringArray(R.array.option_example)
+            var index = RandomUtils.getRandom(0, ResIdExample.size - 1)
+            var example = resources.getStringArray(ResIdExample[index])
             seekBar?.progress = example!!.size - 1 - MinNumber
             etTitle?.setText(example[0])
             for (i in 0..(seekBar!!.progress + 1)) {
@@ -84,7 +88,7 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
         setSelection(etTitle!!)
 
-        doCheckTableRow(0)
+        doCheckTableRow(seekBar!!.progress)
         doCheckRandomButton()
     }
 

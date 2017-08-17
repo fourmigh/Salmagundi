@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="option_example">
+    <string-array name="example2">
         <item>HAMLET</item>
         <item>To be</item>
         <item>Not to be</item>
+    </string-array>
+    <string-array name="example3">
+        <item>Drink</item>
+        <item>Water</item>
+        <item>Tea</item>
+        <item>Coffee</item>
+    </string-array>
+    <string-array name="example4">
+        <item>Delicious Food</item>
+        <item>Chinese</item>
+        <item>French</item>
+        <item>German</item>
+        <item>Italian</item>
     </string-array>
 </resources>

@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="option_example">
+    <string-array name="example2">
         <item>老婆和妈同时掉进河里，先救谁？</item>
         <item>老婆</item>
         <item>妈妈</item>
+    </string-array>
+    <string-array name="example3">
+        <item>把哪顿饭戒了？</item>
+        <item>早饭</item>
+        <item>中饭</item>
+        <item>晚饭</item>
+    </string-array>
+    <string-array name="example4">
+        <item>明天早饭吃什么？</item>
+        <item>大饼</item>
+        <item>油条</item>
+        <item>豆浆</item>
+        <item>粢饭</item>
     </string-array>
 </resources>
