@@ -28,7 +28,7 @@ object OptionsUtils {
         return database.query()
     }
 
-    fun queryStrings(options: List<Options>?): Array<String> {
+    fun query(options: List<Options>?): Array<String> {
         var size = options?.size?:0
         var strings = Array(size, { index -> index.toString() })
         if (options != null) {

@@ -217,7 +217,7 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     private fun selectHistory() {
 
         var options = OptionsUtils.query(this)
-        var items = OptionsUtils.queryStrings(options)
+        var items = OptionsUtils.query(options)
 
         AlertDialog.Builder(this)
                 .setTitle(R.string.history)
