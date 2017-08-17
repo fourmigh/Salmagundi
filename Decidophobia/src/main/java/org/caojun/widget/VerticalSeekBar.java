@@ -13,7 +13,7 @@ import android.view.ViewParent;
 
 public class VerticalSeekBar extends AppCompatSeekBar {
 
-    private static final byte FingerHeight = 60;//手指尺寸
+    private static final byte FingerHeight = 80;//手指尺寸
     private boolean mIsDragging;
     private boolean isDown = true;
 
