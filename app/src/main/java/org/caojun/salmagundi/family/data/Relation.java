@@ -1,20 +1,25 @@
 package org.caojun.salmagundi.family.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by CaoJun on 2017/8/10.
  */
 
 public class Relation {
 
-    public static final int FZ = 0;//父子
-    public static final int FQ = 1;//夫妻
+    public static final int FZ = 1;//父子
     public static final int XD = 2;//兄弟
+    public static final int FQ = 3;//夫妻
 
     private int rank;//辈分（0：平辈，1：长一辈，-1：小一辈，……）
-    private boolean male;//性别（true：男性，false：女性）
-    private int link;//关系（0：父子，1：夫妻，2：兄弟）
-    private boolean elder;//true：年长，false：年幼
+    private Boolean male;//性别（true：男性，false：女性，null：未知）
+    private List<Integer> link;//关系（0：父子，1：夫妻，2：兄弟）
+    private Boolean elder;//true：年长，false：年幼，null：未知
     private String name;//称谓
+
+    public Relation() {}
 
     public Relation(int rank, boolean male, int link, String name) {
         setRank(rank);
@@ -44,12 +49,29 @@ public class Relation {
         this.male = male;
     }
 
-    public int getLink() {
+    public List<Integer> getLink() {
         return link;
     }
 
+    public int getLink(int index) {
+        if (link == null || index < 0 || index >= link.size()) {
+            return 0;
+        }
+        return link.get(index);
+    }
+
     public void setLink(int link) {
-        this.link = link;
+        if (this.link == null) {
+            this.link = new ArrayList<>();
+        }
+        this.link.add(link);
+    }
+
+    public void setLink(List<Integer> link) {
+        if (this.link == null) {
+            this.link = new ArrayList<>();
+        }
+        this.link.addAll(link);
     }
 
     public boolean isElder() {

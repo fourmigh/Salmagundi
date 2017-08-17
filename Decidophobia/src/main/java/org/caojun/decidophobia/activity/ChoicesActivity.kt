@@ -1,8 +1,10 @@
 package org.caojun.decidophobia.activity
 
 import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextUtils
@@ -16,6 +18,7 @@ import android.widget.SeekBar
 import android.widget.TableRow
 import com.socks.library.KLog
 import org.caojun.decidophobia.R
+import org.caojun.decidophobia.ormlite.Options
 import org.caojun.decidophobia.utils.OptionsUtils
 import org.caojun.library.Constant
 import org.caojun.library.activity.DiceActivity
@@ -23,7 +26,6 @@ import org.caojun.library.activity.DiceActivity
 class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
     val MinNumber = 2//最小选项数
-    val ResIdGif = intArrayOf(R.drawable.dice1, R.drawable.dice2, R.drawable.dice3, R.drawable.dice4, R.drawable.dice5, R.drawable.dice6)
     val ResIdTableRow = intArrayOf(R.id.trOption1, R.id.trOption2, R.id.trOption3, R.id.trOption4, R.id.trOption5, R.id.trOption6)
     val ResIdEditText = intArrayOf(R.id.etOption1, R.id.etOption2, R.id.etOption3, R.id.etOption4, R.id.etOption5, R.id.etOption6)
 
@@ -37,12 +39,6 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choices)
-//        setSupportActionBar(toolbar)
-//
-//        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
-//        }
 
         etTitle = findViewById(R.id.etTitle)
         etTitle?.addTextChangedListener(textWatcher)
@@ -83,17 +79,21 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         } else {
             //最后一个记录赋值
             var record = list?.get(size - 1)
-            seekBar?.progress = record?.option!!.size - MinNumber
-            etTitle?.setText(record.title)
-            for (i in 0..(record?.option!!.size - 1)) {
-                etOption[i].setText(record?.option[i])
-            }
+            initOptions(record!!)
         }
 
         setSelection(etTitle!!)
 
         doCheckTableRow(0)
         doCheckRandomButton()
+    }
+
+    private fun initOptions(record: Options) {
+        seekBar?.progress = record.option.size - MinNumber
+        etTitle?.setText(record.title)
+        for (i in 0..(record.option.size - 1)) {
+            etOption[i].setText(record?.option[i])
+        }
     }
 
     private fun setSelection(editText: EditText) {
@@ -112,7 +112,10 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_history -> true
+            R.id.action_history -> {
+                selectHistory()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -209,5 +212,18 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
             doCheckMenu()
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun selectHistory() {
+
+        var options = OptionsUtils.query(this)
+        var items = OptionsUtils.queryStrings(options)
+
+        AlertDialog.Builder(this)
+                .setTitle(R.string.history)
+                .setItems(items, { dialog, which ->
+                    initOptions(options!!.get(which))
+                })
+                .create().show()
     }
 }

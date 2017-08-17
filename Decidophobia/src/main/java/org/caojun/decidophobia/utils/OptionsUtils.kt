@@ -28,14 +28,13 @@ object OptionsUtils {
         return database.query()
     }
 
-    fun queryStrings(context: Context): List<String>? {
-        var options: List<Options>? = query(context)
-        if (options == null) {
-            return null
-        }
-        var strings = ArrayList<String>()
-        for (i in options?.indices) {
-            strings.add(options[i].title)
+    fun queryStrings(options: List<Options>?): Array<String> {
+        var size = options?.size?:0
+        var strings = Array(size, { index -> index.toString() })
+        if (options != null) {
+            for (i in options.indices) {
+                strings[i] = (options[i].title) + "(" + size + ")"
+            }
         }
         return strings
     }

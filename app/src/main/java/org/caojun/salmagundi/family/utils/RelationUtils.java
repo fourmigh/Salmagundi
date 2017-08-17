@@ -12,6 +12,11 @@ import java.util.List;
 
 public class RelationUtils {
 
+    public interface OnCalculateListener {
+        void onAskMale(boolean isMale);
+        void onAskElder(boolean isElder);
+    }
+
     private static final List<Relation> relations = new ArrayList<>();
 
     public static void clear() {
@@ -22,10 +27,25 @@ public class RelationUtils {
         relations.add(relation);
     }
 
+    public static Relation link(Relation r1, Relation r2, OnCalculateListener onCalculateListener) {
+        if (r1 == null || r2 == null) {
+            return null;
+        }
+        Relation r = new Relation();
+        //计算性别
+        r.setMale(r2.isMale());
+        //计算辈分
+        r.setRank(r1.getRank() + r2.getRank());
+        //计算关系
+        r.setLink(r1.getLink());
+        r.setLink(r2.getLink());
+        return r;
+    }
+
     public static Relation claim(Relation relation, boolean male) {
         for (Relation r : Person.BaseRelation) {
-            if (r.getLink() == relation.getLink()) {
-                switch (relation.getLink()) {
+            if (r.getLink(0) == relation.getLink(0)) {
+                switch (relation.getLink(0)) {
                     case Relation.FZ:
                         if (r.getRank() + relation.getRank() == 0 && r.isMale() == male) {
                             return r;
