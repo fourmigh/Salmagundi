@@ -15,6 +15,32 @@ import java.util.List;
  */
 
 public class PinyinUtils {
+
+    /**
+     * 只判断首字拼音多音字
+     * @param text
+     * @return
+     */
+    public static String[] toPinyin1st(String text) {
+        if (TextUtils.isEmpty(text)) {
+            return null;
+        }
+        char c = text.charAt(0);
+        String[] py = PinyinHelper.toHanyuPinyinStringArray(c);
+        String[] pinyin;
+        if (py == null) {
+            //非汉字
+            pinyin = new String[1];
+            pinyin[0] = text;
+        } else {
+            pinyin = new String[py.length];
+            for (int i = 0;i < py.length;i ++) {
+                pinyin[i] = py[i] + text;
+            }
+        }
+        return pinyin;
+    }
+
     /**
      * 列出所有拼音的排列组合
      * @param text

@@ -177,7 +177,7 @@ public class StringSortActivity extends Activity {
         }
         List<SortString> list = new ArrayList<>();
         for (int i = 0;i < ids.length;i ++) {
-            String[] pinyin = PinyinUtils.toPinyin(strings[i]);
+            String[] pinyin = PinyinUtils.toPinyin1st(strings[i]);
             for (int j = 0;j < pinyin.length;j ++) {
                 SortString ss = new SortString(ids[i], strings[i], pinyin[j]);
                 list.add(ss);
