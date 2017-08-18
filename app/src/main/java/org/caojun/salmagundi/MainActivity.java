@@ -5,10 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,14 +25,12 @@ import org.caojun.salmagundi.bloodpressure.BloodPressureActivity;
 import org.caojun.salmagundi.calendar.CalendarActivity;
 import org.caojun.salmagundi.cameracolor.CameraColorActivity;
 import org.caojun.salmagundi.chinesename.ChineseNameActivity;
-import org.caojun.salmagundi.clicaptcha.CaptchaActivity;
 import org.caojun.salmagundi.clicaptcha.CaptchaDemo;
 import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.color.ColorUtils;
 import org.caojun.salmagundi.family.FamilyActivity;
 import org.caojun.salmagundi.iflytek.FlytekActivity;
-import org.caojun.salmagundi.lockpattern.CreateGestureActivity;
 import org.caojun.salmagundi.lockpattern.GestureConstant;
 import org.caojun.salmagundi.passwordstore.PasswordStoreActivity;
 import org.caojun.salmagundi.qrcode.QRCodeActivity;
@@ -43,11 +39,11 @@ import org.caojun.salmagundi.secure.SecureActivity;
 import org.caojun.salmagundi.sharecase.UserActivity;
 import org.caojun.salmagundi.string.ConvertUtils;
 import org.caojun.salmagundi.string.StringActivity;
+import org.caojun.salmagundi.string.StringSortDemo;
 import org.caojun.salmagundi.sysinfo.SysinfoActivity;
 import org.caojun.salmagundi.taxicab.TaxicabActivity;
 import org.caojun.salmagundi.textart.TextArtActivity;
 import org.caojun.salmagundi.today.TodayActivity;
-import org.caojun.salmagundi.today.TodayConstant;
 import org.caojun.salmagundi.utils.DataStorageUtils;
 
 public class MainActivity extends Activity {
@@ -73,7 +69,8 @@ public class MainActivity extends Activity {
             R.drawable.icon_flytek,
             R.drawable.icon_calendar,
             R.drawable.icon_chinesename,
-            R.drawable.icon_family
+            R.drawable.icon_family,
+            R.drawable.icon_sort
     };
     private final Integer[] mTextIds = {
             R.string.bp_title,
@@ -96,7 +93,8 @@ public class MainActivity extends Activity {
             R.string.ft_title,
             R.string.cal_title,
             R.string.cn_title,
-            R.string.fa_title
+            R.string.fa_title,
+            R.string.ss_title
     };
     private final Class[] mActivitys = {
             BloodPressureActivity.class,
@@ -119,7 +117,8 @@ public class MainActivity extends Activity {
             FlytekActivity.class,
             CalendarActivity.class,
             ChineseNameActivity.class,
-            FamilyActivity.class
+            FamilyActivity.class,
+            StringSortDemo.class
     };
     private final String[] mARouterPaths = {
             Constant.ACTIVITY_BLOODPRESSURE,
@@ -142,7 +141,8 @@ public class MainActivity extends Activity {
             Constant.ACTIVITY_FLYTEK,
             Constant.ACTIVITY_CALENDAR,
             Constant.ACTIVITY_CHINESENAME,
-            Constant.ACTIVITY_FAMILY
+            Constant.ACTIVITY_FAMILY,
+            Constant.ACTIVITY_STRINGSORT_DEMO
     };
 
     @Override

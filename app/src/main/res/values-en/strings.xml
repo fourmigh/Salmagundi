@@ -181,4 +181,7 @@
 
     <!-- 亲属关系 -->
     <string name="fa_title">Family</string>
+
+    <!-- 字符串排序 -->
+    <string name="ss_title">String Sort</string>
 </resources>

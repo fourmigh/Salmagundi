@@ -48,6 +48,10 @@ buildscript {
 apply plugin: 'org.greenrobot.greendao'
 
 dependencies {
+    //alibaba/ARouter
+    compile 'com.alibaba:arouter-api:latest.release'
+    annotationProcessor 'com.alibaba:arouter-compiler:latest.release'
+    compile 'com.alibaba:fastjson:latest.release'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:design:25.4.0'
     compile 'com.github.zhaokaiqiang.klog:library:latest.release'
@@ -60,10 +64,6 @@ dependencies {
     compile 'com.maksim88:PasswordEditText:latest.release'
     compile 'com.j256.ormlite:ormlite-android:latest.release'
     compile 'se.emilsjolander:stickylistheaders:latest.release'
-    //alibaba/ARouter
-    compile 'com.alibaba:arouter-api:latest.release'
-    annotationProcessor 'com.alibaba:arouter-compiler:latest.release'
-    compile 'com.alibaba:fastjson:latest.release'
     compile 'com.luhuiguo:chinese-utils:latest.release'
     compile "org.jetbrains.kotlin:kotlin-stdlib:latest.release"
 }

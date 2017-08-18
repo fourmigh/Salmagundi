@@ -194,4 +194,7 @@
 
     <!-- 亲属关系 -->
     <string name="fa_title">亲属关系</string>
+
+    <!-- 字符串排序 -->
+    <string name="ss_title">字符串排序</string>
 </resources>

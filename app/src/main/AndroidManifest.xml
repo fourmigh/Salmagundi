@@ -111,6 +111,11 @@
         <activity android:name=".family.FamilyActivity"
             android:windowSoftInputMode="stateHidden"
             android:label="@string/fa_title"/>
+        <activity android:name=".string.StringSortDemo"
+            android:label="@string/ss_title" />
+        <activity android:name=".string.StringSortActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
+            android:label="@string/ss_title" />
     </application>
 
 </manifest>
