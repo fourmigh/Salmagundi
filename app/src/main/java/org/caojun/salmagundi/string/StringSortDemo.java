@@ -45,7 +45,7 @@ public class StringSortDemo extends Activity {
         String[] strings = {"ab12cd", "abcd", "查良镛", "曹珺", "abc曹珺", "123曹珺", "曹abc珺", "查良查"};
 
         ARouter.getInstance().build(Constant.ACTIVITY_STRINGSORT)
-                .withObject("ids", ids)
+//                .withObject("ids", ids)
                 .withObject("strings", strings)
                 .navigation(this, RequestCode_Sort);
     }

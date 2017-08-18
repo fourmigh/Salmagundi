@@ -32,11 +32,15 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 public class StringSortActivity extends Activity {
 
     private class SortString {
-        private int id;
+        private Integer id;
         private String text;
         private String sort;
 
-        public SortString(int id, String text, String sort) {
+        public SortString(String text, String sort) {
+            this(null, text, sort);
+        }
+
+        public SortString(Integer id, String text, String sort) {
             this.id = id;
             this.text = text;
             this.sort = sort;
@@ -108,7 +112,7 @@ public class StringSortActivity extends Activity {
             if(list == null) {
                 return Long.MIN_VALUE;
             }
-            return list[position].id;
+            return list[position].id == null?position:list[position].id;
         }
 
         @Override
@@ -159,7 +163,9 @@ public class StringSortActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 SortString ss = sorts[position];
                 Intent intent = new Intent();
-                intent.putExtra("id", ss.id);
+                if (ss.id != null) {
+                    intent.putExtra("id", ss.id);
+                }
                 intent.putExtra("text", ss.text);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
@@ -172,14 +178,19 @@ public class StringSortActivity extends Activity {
     }
 
     private void initSortString() {
-        if (ids == null || strings == null || ids.length != strings.length) {
+        if (strings == null) {
             return;
         }
         List<SortString> list = new ArrayList<>();
-        for (int i = 0;i < ids.length;i ++) {
+        for (int i = 0;i < strings.length;i ++) {
             String[] pinyin = PinyinUtils.toPinyin1st(strings[i]);
             for (int j = 0;j < pinyin.length;j ++) {
-                SortString ss = new SortString(ids[i], strings[i], pinyin[j]);
+                SortString ss;
+                if (ids == null) {
+                    ss = new SortString(strings[i], pinyin[j]);
+                } else {
+                    ss = new SortString(ids[i], strings[i], pinyin[j]);
+                }
                 list.add(ss);
             }
         }
