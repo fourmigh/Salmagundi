@@ -1,7 +1,6 @@
 package org.caojun.decidophobia.activity
 
 import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -9,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -16,7 +16,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TableRow
-import com.socks.library.KLog
 import org.caojun.decidophobia.R
 import org.caojun.decidophobia.ormlite.Options
 import org.caojun.decidophobia.utils.OptionsUtils
@@ -38,12 +37,16 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     private val trOption = arrayListOf<TableRow>()
     private var menu: Menu? = null
 
+    private var defaultTextSize: Float = 0f;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choices)
 
         etTitle = findViewById(R.id.etTitle)
         etTitle?.addTextChangedListener(textWatcher)
+
+        defaultTextSize = etTitle?.textSize?:0f
 
         for (i in ResIdTableRow.indices) {
             trOption.add(findViewById(ResIdTableRow[i]))
@@ -52,7 +55,6 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         for (i in ResIdEditText.indices) {
             var editText: EditText = findViewById(ResIdEditText[i])
             editText.addTextChangedListener(textWatcher)
-            KLog.d("etOption", i.toString())
             etOption.add(editText)
         }
 
@@ -191,6 +193,8 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     }
 
     private fun doRandom() {
+        resizeOptions(-1)
+
         val size = seekBar!!.progress + MinNumber
         if (!OptionsUtils.insert(this, etTitle!!, etOption, size)) {
             OptionsUtils.update(this, etTitle!!, etOption, size)
@@ -208,7 +212,9 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == Constant.RequestCode_Dice && resultCode == Activity.RESULT_OK && data != null) {
             var dice = data.getIntArrayExtra(Constant.Key_Dice)
-            etOption[dice[0] - 1].requestFocus()
+            val index = dice[0] - 1;
+            etOption[index].requestFocus()
+            resizeOptions(index)
             setSelection(etOption[dice[0] - 1])
             doCheckMenu()
         }
@@ -226,5 +232,20 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
                     initOptions(options!!.get(which))
                 })
                 .create().show()
+    }
+
+    private fun resizeOptions(index: Int) {
+        if (defaultTextSize <= 0) {
+            return
+        }
+        for (i in 0..(etOption.size - 1)) {
+            if (index < 0) {
+                etOption[i].setTextSize(TypedValue.COMPLEX_UNIT_PX, defaultTextSize)
+            } else if (i == index) {
+                etOption[i].setTextSize(TypedValue.COMPLEX_UNIT_PX, defaultTextSize * 2f)
+            } else {
+                etOption[i].setTextSize(TypedValue.COMPLEX_UNIT_PX, defaultTextSize * 0.5f)
+            }
+        }
     }
 }
