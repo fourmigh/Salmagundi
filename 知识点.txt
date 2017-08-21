@@ -34,3 +34,4 @@
 34、自定义数字键盘：工程BloodPressure（widget.DigitalKeyboard）
 35、gif播放：工程RandomChineseName（activity.DiceActivity）
 36、自定义竖向SeekBar：工程Decidophobia（widget.VerticalSeekBar）
+37、设置EditText字体大小：工程Decidophobia（activity.ChoicesActivity，get和set的单位不同）
