@@ -94,7 +94,7 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     private fun initOptions(record: Options) {
         seekBar?.progress = record.option.size - MinNumber
         etTitle?.setText(record.title)
-        for (i in 0..(record.option.size - 1)) {
+        for (i in record.option.indices) {
             etOption[i].setText(record?.option[i])
         }
     }
@@ -228,9 +228,12 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
         AlertDialog.Builder(this)
                 .setTitle(R.string.history)
-                .setItems(items, { dialog, which ->
-                    initOptions(options!!.get(which))
-                })
+                .setItems(items) { _, which ->
+                    initOptions(options!![which])
+                    resizeOptions(-1)
+                    etTitle?.requestFocus()
+                    setSelection(etTitle!!)
+                }
                 .create().show()
     }
 
@@ -238,7 +241,7 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         if (defaultTextSize <= 0) {
             return
         }
-        for (i in 0..(etOption.size - 1)) {
+        for (i in etOption.indices) {
             if (index < 0) {
                 etOption[i].setTextSize(TypedValue.COMPLEX_UNIT_PX, defaultTextSize)
             } else if (i == index) {
