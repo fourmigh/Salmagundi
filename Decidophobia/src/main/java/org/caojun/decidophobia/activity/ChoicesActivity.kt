@@ -26,17 +26,17 @@ import org.caojun.library.utils.RandomUtils
 
 class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
-    val MinNumber = 2//最小选项数
-    val ResIdTableRow = intArrayOf(R.id.trOption1, R.id.trOption2, R.id.trOption3, R.id.trOption4, R.id.trOption5, R.id.trOption6)
-    val ResIdEditText = intArrayOf(R.id.etOption1, R.id.etOption2, R.id.etOption3, R.id.etOption4, R.id.etOption5, R.id.etOption6)
-    val ResIdExample = intArrayOf(R.array.example2, R.array.example3, R.array.example4)
+    private val MinNumber = 2//最小选项数
+    private val ResIdTableRow = intArrayOf(R.id.trOption1, R.id.trOption2, R.id.trOption3, R.id.trOption4, R.id.trOption5, R.id.trOption6)
+    private val ResIdEditText = intArrayOf(R.id.etOption1, R.id.etOption2, R.id.etOption3, R.id.etOption4, R.id.etOption5, R.id.etOption6)
+    private val ResIdExample = intArrayOf(R.array.example2, R.array.example3, R.array.example4)
 
-    var etTitle: EditText? = null
-    var seekBar: SeekBar? = null
-    var btnRandom: Button? = null
-    val etOption = arrayListOf<EditText>()
-    val trOption = arrayListOf<TableRow>()
-    var menu: Menu? = null
+    private var etTitle: EditText? = null
+    private var seekBar: SeekBar? = null
+    private var btnRandom: Button? = null
+    private val etOption = arrayListOf<EditText>()
+    private val trOption = arrayListOf<TableRow>()
+    private var menu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,8 +63,6 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
         seekBar = findViewById(R.id.seekBar)
         seekBar?.setOnSeekBarChangeListener(this)
-//        seekBar?.progress = 0
-
     }
 
     override fun onResume() {
@@ -72,7 +70,6 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         var list = OptionsUtils.query(this)
         var size = list?.size?:0
         if (size == 0) {
-//            var example = resources.getStringArray(R.array.option_example)
             var index = RandomUtils.getRandom(0, ResIdExample.size - 1)
             var example = resources.getStringArray(ResIdExample[index])
             seekBar?.progress = example!!.size - 1 - MinNumber
