@@ -24,8 +24,9 @@ public class CalendarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        final Button btnAccountList = (Button) findViewById(R.id.btnAccountList);
-        final Button btnEventList = (Button) findViewById(R.id.btnEventList);
+        final Button btnAccountList = findViewById(R.id.btnAccountList);
+        final Button btnEventList = findViewById(R.id.btnEventList);
+        final Button btnExpand = findViewById(R.id.btnExpand);
 
         btnAccountList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +39,13 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ARouter.getInstance().build(Constant.ACTIVITY_CALENDAR_EVENTLIST).navigation();
+            }
+        });
+
+        btnExpand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ARouter.getInstance().build(Constant.ACTIVITY_CALENDAR_EXPAND).navigation();
             }
         });
 

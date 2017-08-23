@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <org.caojun.library.expandcalendar.view.WeekLabelView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white" />
+
+        <org.caojun.library.expandcalendar.view.ExpandMonthRecyclerView
+            android:id="@android:id/content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_expand_view_min_height"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/white" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@android:id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/expand_btn_background" />
+</FrameLayout>

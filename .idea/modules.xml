@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BloodPressure/BloodPressure.iml" filepath="$PROJECT_DIR$/BloodPressure/BloodPressure.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CalendarLibrary/CalendarLibrary.iml" filepath="$PROJECT_DIR$/CalendarLibrary/CalendarLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/CameraColor/CameraColor.iml" filepath="$PROJECT_DIR$/CameraColor/CameraColor.iml" />
       <module fileurl="file://$PROJECT_DIR$/Decidophobia/Decidophobia.iml" filepath="$PROJECT_DIR$/Decidophobia/Decidophobia.iml" />
       <module fileurl="file://$PROJECT_DIR$/DiceLibrary/BaseLibrary.iml" filepath="$PROJECT_DIR$/DiceLibrary/BaseLibrary.iml" />

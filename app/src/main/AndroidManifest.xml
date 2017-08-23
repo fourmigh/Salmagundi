@@ -116,6 +116,8 @@
         <activity android:name=".string.StringSortActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
             android:label="@string/ss_title" />
+        <activity android:name=".calendar.ExpandCalendarActivity"
+            android:label="@string/cal_expand_title" />
     </application>
 
 </manifest>

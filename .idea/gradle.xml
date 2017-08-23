@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/BloodPressure" />
+            <option value="$PROJECT_DIR$/CalendarLibrary" />
             <option value="$PROJECT_DIR$/CameraColor" />
             <option value="$PROJECT_DIR$/Decidophobia" />
             <option value="$PROJECT_DIR$/DiceLibrary" />

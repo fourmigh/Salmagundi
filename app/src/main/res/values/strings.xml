@@ -185,6 +185,7 @@
     <string name="cal_accounttype">账号类型</string>
     <string name="cal_eventtitle">事件标题</string>
     <string name="cal_eventdescription">事件描述</string>
+    <string name="cal_expand_title">日历-Expand</string>
 
     <!-- 取中文名 -->
     <string name="cn_title">取中文名</string>

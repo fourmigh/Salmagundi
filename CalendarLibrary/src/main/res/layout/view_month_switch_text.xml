@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?listPreferredItemHeightSmall"
+    android:background="@android:color/white"
+    android:gravity="center_vertical">
+
+    <org.caojun.library.monthswitchpager.view.ForegroundImageView
+        android:id="@android:id/icon1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:contentDescription="@null"
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="30dp"
+        android:src="@drawable/ic_disclosure_indicator_left" />
+
+    <TextView
+        android:id="@android:id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@color/text_color_dark"
+        tools:text="Exten Alens" />
+
+    <org.caojun.library.monthswitchpager.view.ForegroundImageView
+        android:id="@android:id/icon2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:contentDescription="@null"
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingLeft="30dp"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:src="@drawable/ic_disclosure_indicator" />
+
+</RelativeLayout>
