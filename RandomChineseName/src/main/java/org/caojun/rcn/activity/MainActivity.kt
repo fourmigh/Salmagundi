@@ -302,7 +302,7 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
 
     override fun onRewardedVideoAdFailedToLoad(p0: Int) {
         KLog.d("RewardedVideoAd", "onRewardedVideoAdFailedToLoad: " + p0)
-        Thread.sleep(5000);
+//        Thread.sleep(5000);
         loadAd()
     }
 

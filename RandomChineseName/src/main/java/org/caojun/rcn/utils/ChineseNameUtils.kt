@@ -66,8 +66,9 @@ object ChineseNameUtils {
             Type_Name_Double -> return getDoubleName()
             Type_Name_Same -> return getSameName()
             Type_Name_Random -> {
-                val type: Int = RandomUtils.getRandom(Type_Name_Single, Type_Name_Same).toByte().toInt()
-                return getName(type)
+//                val type: Int = RandomUtils.getRandom(Type_Name_Single, Type_Name_Same).toByte().toInt()
+//                return getName(type)
+                return getName(RandomUtils.getRandom(Type_Name_Single, Type_Name_Same))
             }
             else -> return ""
         }
