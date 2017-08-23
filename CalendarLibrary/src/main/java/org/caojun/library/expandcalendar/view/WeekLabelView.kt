@@ -3,6 +3,7 @@ package org.caojun.library.expandcalendar.view
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
 import org.caojun.library.R
@@ -36,7 +37,7 @@ class WeekLabelView: View {
     }
 
     private fun initPaint() {
-        mTextColor = resources.getColor(R.color.text_color_normal)
+        mTextColor = ContextCompat.getColor(context, R.color.text_color_normal)
         mTextSize = resources.getDimension(R.dimen.si_default_text_size)
 
         mPaint = Paint(Paint.ANTI_ALIAS_FLAG)

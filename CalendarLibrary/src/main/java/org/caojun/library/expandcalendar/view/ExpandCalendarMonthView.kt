@@ -3,6 +3,7 @@ package org.caojun.library.expandcalendar.view
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.support.v4.content.ContextCompat
 import android.text.format.DateUtils
 import android.util.AttributeSet
 import android.view.MotionEvent
@@ -18,7 +19,7 @@ import java.util.Calendar
  */
 class ExpandCalendarMonthView: View {
 //    private val DAY_IN_WEEK = 7
-    private val DAY_IN_MONTH_PADDING_VERTICAL = 6.0f
+//    private val DAY_IN_MONTH_PADDING_VERTICAL = 6.0f
     private val DEFAULT_HEIGHT = 32
     private val DEFAULT_NUM_ROWS = 6
 
@@ -54,10 +55,10 @@ class ExpandCalendarMonthView: View {
     }
 
     private fun initPaint() {
-        mTextNormalColor = resources.getColor(R.color.text_color_normal)
-        mTextNormalHintColor = resources.getColor(R.color.text_color_normal_hint)
-        mTextSelectColor = resources.getColor(android.R.color.white)
-        mCircleColor = resources.getColor(R.color.color_18ffff)
+        mTextNormalColor = ContextCompat.getColor(context, R.color.text_color_normal)
+        mTextNormalHintColor = ContextCompat.getColor(context, R.color.text_color_normal_hint)
+        mTextSelectColor = ContextCompat.getColor(context, android.R.color.white)
+        mCircleColor = ContextCompat.getColor(context, R.color.color_18ffff)
 
         mPaintNormal = Paint(Paint.ANTI_ALIAS_FLAG)
         mPaintNormal!!.color = mTextNormalColor
