@@ -36,5 +36,5 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-android:latest.release'
     compile 'com.luhuiguo:chinese-utils:latest.release'
     implementation 'com.google.android.gms:play-services-ads:latest.release'
-    compile project(':BaseLibrary')
+    compile project(':DiceLibrary')
 }

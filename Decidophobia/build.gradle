@@ -26,6 +26,6 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jre7:latest.release'
     implementation 'com.android.support:appcompat-v7:26.0.1'
     implementation 'com.android.support:design:26.0.1'
-    compile project(':BaseLibrary')
+    compile project(':DiceLibrary')
     compile 'com.j256.ormlite:ormlite-android:latest.release'
 }
