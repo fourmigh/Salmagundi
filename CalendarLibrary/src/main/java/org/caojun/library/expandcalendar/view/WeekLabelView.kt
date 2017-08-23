@@ -6,13 +6,14 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import org.caojun.library.R
+import org.caojun.library.util.DayUtils
 import java.text.DateFormatSymbols
 
 /**
  * Created by CaoJun on 2017/8/23.
  */
 class WeekLabelView: View {
-    private val DAY_IN_WEEK = 7
+//    private val DAY_IN_WEEK = 7
 
     private var mPaint: Paint? = null
     private var mTextColor: Int = 0
@@ -63,7 +64,7 @@ class WeekLabelView: View {
             val textWidth = mPaint!!.measureText(content)
             val parentWidth = width - 2 * resources.getDimension(R.dimen.activity_horizontal_margin)
             val y = mRowHeight.toFloat() - (mRowHeight - fontHeight) / 2 - fontMetrics.bottom
-            val x = resources.getDimension(R.dimen.activity_horizontal_margin) + parentWidth / DAY_IN_WEEK * (i - 1) + parentWidth / DAY_IN_WEEK.toFloat() / 2f - textWidth / 2
+            val x = resources.getDimension(R.dimen.activity_horizontal_margin) + parentWidth / DayUtils.DAY_IN_WEEK * (i - 1) + parentWidth / DayUtils.DAY_IN_WEEK.toFloat() / 2f - textWidth / 2
             canvas.drawText(content, x, y, mPaint!!)
         }
     }

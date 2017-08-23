@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
-import com.socks.library.KLog
 import org.caojun.library.R
 import org.caojun.library.model.CalendarDay
 import org.caojun.library.util.DayUtils
@@ -17,7 +16,7 @@ import java.util.Calendar
  * Created by CaoJun on 2017/8/23.
  */
 class ExpandMonthRecyclerView: RecyclerView {
-    var LIST_LEFT_OFFSET = -1
+    private var LIST_LEFT_OFFSET = -1
     private var mManager: LinearLayoutManager? = null
 
     constructor(context: Context): this(context, null) {
@@ -73,7 +72,6 @@ class ExpandMonthRecyclerView: RecyclerView {
 
     fun scrollToSelectRow(firstDay: CalendarDay, selectDay: CalendarDay) {
         val position = DayUtils.calculateMonthPosition(firstDay, selectDay)
-        KLog.d("scrollToSelectRow", "position: " + position)
         var rowNum = 0
         val mDays = createDays(position, firstDay)
         val rowHeight = resources.getDimensionPixelSize(R.dimen.default_month_row_height)
@@ -88,12 +86,13 @@ class ExpandMonthRecyclerView: RecyclerView {
             var calendar = Calendar.getInstance()
             calendar.timeInMillis = calendarDay.getTime()
             val weekDay = calendar.get(Calendar.DAY_OF_WEEK)
-            KLog.d("scrollToSelectRow", "selectDay: " + selectDay.getDayString())
-            KLog.d("scrollToSelectRow", "calendarDay: " + calendarDay.getDayString())
-            if (selectDay.getDayString().equals(calendarDay.getDayString())) {
+            if (selectDay.getDayString() == calendarDay.getDayString()) {
                 y = rowHeight * rowNum + rowHeight - (rowHeight - fontHeight) / 2
+                break
             }
-            if (weekDay == DayUtils.DAY_IN_WEEK) rowNum++
+            if (weekDay == DayUtils.DAY_IN_WEEK) {
+                rowNum++
+            }
         }
         mManager!!.scrollToPositionWithOffset(position, -(y.toInt()))
     }

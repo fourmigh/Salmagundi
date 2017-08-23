@@ -11,7 +11,7 @@ import org.caojun.library.R
 import org.caojun.library.expandcalendar.listener.OnDayClickListener
 import org.caojun.library.model.CalendarDay
 import org.caojun.library.util.DayUtils
-import java.util.*
+import java.util.Calendar
 
 /**
  * Created by CaoJun on 2017/8/23.

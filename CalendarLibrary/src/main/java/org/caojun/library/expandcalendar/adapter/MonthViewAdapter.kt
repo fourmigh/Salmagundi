@@ -19,7 +19,7 @@ class MonthViewAdapter:RecyclerView.Adapter<MonthViewAdapter.MonthViewHolder>, O
     private var mStartDay: CalendarDay? = null
     private var mEndDay: CalendarDay? = null
     private var mSelectCalendarDay: CalendarDay? = null
-    private val mAbleCalendayDays: ArrayList<CalendarDay> = ArrayList()
+//    private val mAbleCalendayDays: ArrayList<CalendarDay> = ArrayList()
     private var mOnDayClickListener: OnDayClickListener? = null
 
     constructor(context: Context, onDayClickListener: OnDayClickListener) {
@@ -29,13 +29,13 @@ class MonthViewAdapter:RecyclerView.Adapter<MonthViewAdapter.MonthViewHolder>, O
         mSelectCalendarDay = CalendarDay(System.currentTimeMillis())
     }
 
-    fun setData(startDay: CalendarDay, endDay: CalendarDay, calendarDayArrayList: ArrayList<CalendarDay>?) {
+    fun setData(startDay: CalendarDay, endDay: CalendarDay/*, calendarDayArrayList: ArrayList<CalendarDay>?*/) {
         mStartDay = startDay
         mEndDay = endDay
-        mAbleCalendayDays.clear()
-        if (calendarDayArrayList != null) {
-            mAbleCalendayDays.addAll(calendarDayArrayList)
-        }
+//        mAbleCalendayDays.clear()
+//        if (calendarDayArrayList != null) {
+//            mAbleCalendayDays.addAll(calendarDayArrayList)
+//        }
         notifyDataSetChanged()
     }
 
@@ -76,7 +76,7 @@ class MonthViewAdapter:RecyclerView.Adapter<MonthViewAdapter.MonthViewHolder>, O
         val params = LinearLayout.LayoutParams(width,
                 ViewGroup.LayoutParams.MATCH_PARENT)
         expandCalendarMonthView.layoutParams = params
-        return MonthViewHolder(expandCalendarMonthView, mStartDay!!, mAbleCalendayDays)
+        return MonthViewHolder(expandCalendarMonthView, mStartDay!!/*, mAbleCalendayDays*/)
     }
 
     override fun onBindViewHolder(viewHolder: MonthViewHolder, position: Int) {
@@ -89,7 +89,7 @@ class MonthViewAdapter:RecyclerView.Adapter<MonthViewAdapter.MonthViewHolder>, O
         notifyDataSetChanged()
     }
 
-    class MonthViewHolder(view: View, startDay: CalendarDay, mAbleCalendayDays: ArrayList<CalendarDay>) : RecyclerView.ViewHolder(view) {
+    class MonthViewHolder(view: View, startDay: CalendarDay/*, mAbleCalendayDays: ArrayList<CalendarDay>*/) : RecyclerView.ViewHolder(view) {
 
         internal var expandCalendarMonthView: ExpandCalendarMonthView
 

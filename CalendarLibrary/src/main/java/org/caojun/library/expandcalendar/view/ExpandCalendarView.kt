@@ -107,7 +107,7 @@ class ExpandCalendarView: LinearLayout, OnDayClickListener {
     }
 
     fun setData(startDay: CalendarDay, endDay: CalendarDay) {
-        mMonthAdapter!!.setData(startDay, endDay, null)
+        mMonthAdapter!!.setData(startDay, endDay/*, null*/)
     }
 
     fun setSelectDay(calendarDay: CalendarDay) {
