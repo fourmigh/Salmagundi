@@ -29,7 +29,7 @@ class MonthRecyclerView: RecyclerView {
         mManager!!.orientation = LinearLayoutManager.HORIZONTAL
         layoutManager = mManager
 
-        setOnScrollListener(object : RecyclerView.OnScrollListener() {
+        addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 adjustPosition(recyclerView, newState)
