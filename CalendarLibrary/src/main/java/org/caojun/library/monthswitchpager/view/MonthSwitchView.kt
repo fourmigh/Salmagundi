@@ -7,7 +7,7 @@ import android.widget.LinearLayout
 import org.caojun.library.R
 import org.caojun.library.model.CalendarDay
 import org.caojun.library.monthswitchpager.adapter.MonthViewAdapter
-import org.caojun.library.monthswitchpager.listener.OnDayClickListener
+import org.caojun.library.listener.OnDayClickListener
 import org.caojun.library.util.DayUtils
 
 /**
@@ -39,7 +39,7 @@ class MonthSwitchView: LinearLayout, OnDayClickListener {
         mMonthAdapter = MonthViewAdapter(context, this)
         mSwitchText!!.setMonthRecyclerView(mRecyclerView!!)
         mRecyclerView!!.setMonthSwitchTextView(mSwitchText!!)
-        mRecyclerView!!.setAdapter(mMonthAdapter)
+        mRecyclerView!!.adapter = mMonthAdapter
     }
 
     fun setData(startDay: CalendarDay, endDay: CalendarDay) {

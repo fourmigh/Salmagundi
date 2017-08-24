@@ -6,7 +6,7 @@
   <dimen name="default_padding">8dp</dimen>
 
   <dimen name="default_month_row_height">32dp</dimen>
-  <dimen name="default_month_view_height">240dp</dimen>
+  <dimen name="default_month_view_height">180dp</dimen>
 
   <dimen name="default_expand_view_max_height">300dp</dimen>
   <dimen name="default_expand_view_min_height">32dp</dimen>

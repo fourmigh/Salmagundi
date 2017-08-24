@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <org.caojun.library.expandcalendar.view.WeekLabelView
+        <org.caojun.library.widget.WeekLabelView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white" />

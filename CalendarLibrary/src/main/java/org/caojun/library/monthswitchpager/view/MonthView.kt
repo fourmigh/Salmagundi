@@ -9,9 +9,8 @@ import android.view.MotionEvent
 import android.view.View
 import org.caojun.library.R
 import org.caojun.library.model.CalendarDay
-import org.caojun.library.monthswitchpager.listener.OnDayClickListener
+import org.caojun.library.listener.OnDayClickListener
 import org.caojun.library.util.DayUtils
-import java.text.DateFormatSymbols
 import java.util.Calendar
 
 /**
@@ -21,7 +20,7 @@ class MonthView: View {
 //    private val DAY_IN_WEEK = 7
 //    private val DAY_IN_MONTH_PADDING_VERTICAL = 6.0f
     private val DEFAULT_HEIGHT = 32
-    private val DEFAULT_NUM_ROWS = 7
+    private val DEFAULT_NUM_ROWS = 5
 
     private var mDays: ArrayList<CalendarDay> = ArrayList()
     private var mFirstDay: CalendarDay? = null
@@ -107,25 +106,25 @@ class MonthView: View {
             return
         }
         rowNum = 0
-        drawWeekLable(canvas)
+//        drawWeekLable(canvas)
         drawMonthNum(canvas)
     }
 
-    private fun drawWeekLable(canvas: Canvas) {
-        val weeks = DateFormatSymbols.getInstance().shortWeekdays
-        for (i in weeks.indices) {
-            val content = weeks[i].toString()
-            val fontMetrics = mPaintNormal!!.fontMetrics
-            val fontHeight = fontMetrics.bottom - fontMetrics.top
-            val textWidth = mPaintNormal!!.measureText(content)
-            val parentWidth = width - 2 * resources.getDimension(R.dimen.activity_horizontal_margin)
-            val y = (mRowHeight * rowNum + mRowHeight).toFloat() - (mRowHeight - fontHeight) / 2 - fontMetrics.bottom
-            val x = resources.getDimension(R.dimen.activity_horizontal_margin) + parentWidth / DayUtils.DAY_IN_WEEK * (i - 1) + parentWidth / DayUtils.DAY_IN_WEEK.toFloat() / 2f - textWidth / 2
-            mPaintNormal!!.color = mTextNormalColor
-            canvas.drawText(content, x, y, mPaintNormal!!)
-        }
-        rowNum++
-    }
+//    private fun drawWeekLable(canvas: Canvas) {
+//        val weeks = DateFormatSymbols.getInstance().shortWeekdays
+//        for (i in weeks.indices) {
+//            val content = weeks[i].toString()
+//            val fontMetrics = mPaintNormal!!.fontMetrics
+//            val fontHeight = fontMetrics.bottom - fontMetrics.top
+//            val textWidth = mPaintNormal!!.measureText(content)
+//            val parentWidth = width - 2 * resources.getDimension(R.dimen.activity_horizontal_margin)
+//            val y = (mRowHeight * rowNum + mRowHeight).toFloat() - (mRowHeight - fontHeight) / 2 - fontMetrics.bottom
+//            val x = resources.getDimension(R.dimen.activity_horizontal_margin) + parentWidth / DayUtils.DAY_IN_WEEK * (i - 1) + parentWidth / DayUtils.DAY_IN_WEEK.toFloat() / 2f - textWidth / 2
+//            mPaintNormal!!.color = mTextNormalColor
+//            canvas.drawText(content, x, y, mPaintNormal!!)
+//        }
+//        rowNum++
+//    }
 
     private fun drawMonthNum(canvas: Canvas) {
         for (i in mDays.indices) {
@@ -170,7 +169,7 @@ class MonthView: View {
         return true
     }
 
-    fun getDayFromLocation(x: Float, y: Float): CalendarDay? {
+    private fun getDayFromLocation(x: Float, y: Float): CalendarDay? {
         val padding = context.resources.getDimensionPixelSize(R.dimen.activity_horizontal_margin)
         if (x < padding) {
             return null
@@ -186,9 +185,9 @@ class MonthView: View {
 
         val yDay = (y - mRowHeight).toInt() / mRowHeight
 
-        val xday = ((x - padding) / ((width - padding * 2) / DayUtils.DAY_IN_WEEK)).toInt()
+        val xDay = ((x - padding) / ((width - padding * 2) / DayUtils.DAY_IN_WEEK)).toInt()
 
-        var position = yDay * DayUtils.DAY_IN_WEEK + xday
+        var position = yDay * DayUtils.DAY_IN_WEEK + xDay
 
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = mFirstDay!!.getTime()
