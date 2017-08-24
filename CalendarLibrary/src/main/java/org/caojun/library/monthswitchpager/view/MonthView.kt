@@ -179,11 +179,11 @@ class MonthView: View {
             return null
         }
 
-        if (y < mRowHeight || y > (rowNum + 1) * mRowHeight) {
+        if (y < 0 || y > (rowNum + 1) * mRowHeight) {
             return null
         }
 
-        val yDay = (y - mRowHeight).toInt() / mRowHeight
+        val yDay = y.toInt() / mRowHeight
 
         val xDay = ((x - padding) / ((width - padding * 2) / DayUtils.DAY_IN_WEEK)).toInt()
 
