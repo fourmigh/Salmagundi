@@ -3,6 +3,7 @@ package org.caojun.library.monthswitchpager.view
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -17,8 +18,8 @@ import java.util.Calendar
  * Created by CaoJun on 2017/8/23.
  */
 class MonthView: View {
-    private val DAY_IN_WEEK = 7
-    private val DAY_IN_MONTH_PADDING_VERTICAL = 6.0f
+//    private val DAY_IN_WEEK = 7
+//    private val DAY_IN_MONTH_PADDING_VERTICAL = 6.0f
     private val DEFAULT_HEIGHT = 32
     protected val DEFAULT_NUM_ROWS = 7
 
@@ -51,9 +52,9 @@ class MonthView: View {
     }
 
     private fun initPaint() {
-        mTextNormalColor = resources.getColor(R.color.text_color_normal)
-        mTextSelectColor = resources.getColor(android.R.color.white)
-        mCircleColor = resources.getColor(R.color.color_18ffff)
+        mTextNormalColor = ContextCompat.getColor(context, R.color.text_color_normal)
+        mTextSelectColor = ContextCompat.getColor(context, android.R.color.white)
+        mCircleColor = ContextCompat.getColor(context, R.color.color_18ffff)
 
         mPaintNormal = Paint(Paint.ANTI_ALIAS_FLAG)
         mPaintNormal!!.color = mTextNormalColor
@@ -93,9 +94,8 @@ class MonthView: View {
         calendar.add(Calendar.MONTH, mMonthPosition)
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
-        //        Log.e(TAG, month + " yue " + year);
         val daysNum = DayUtils.getDaysInMonth(month, year)
-        for (i in 0..daysNum - 1) {
+        for (i in 0..(daysNum - 1)) {
             mDays.add(CalendarDay(calendar))
             calendar.roll(Calendar.DAY_OF_MONTH, 1)
         }
@@ -114,16 +114,13 @@ class MonthView: View {
     private fun drawWeekLable(canvas: Canvas) {
         val weeks = DateFormatSymbols.getInstance().shortWeekdays
         for (i in weeks.indices) {
-
             val content = weeks[i].toString()
             val fontMetrics = mPaintNormal!!.fontMetrics
             val fontHeight = fontMetrics.bottom - fontMetrics.top
             val textWidth = mPaintNormal!!.measureText(content)
             val parentWidth = width - 2 * resources.getDimension(R.dimen.activity_horizontal_margin)
             val y = (mRowHeight * rowNum + mRowHeight).toFloat() - (mRowHeight - fontHeight) / 2 - fontMetrics.bottom
-            val x = resources.getDimension(R.dimen.activity_horizontal_margin)
-            +parentWidth / DAY_IN_WEEK * (i - 1)
-            +parentWidth / DAY_IN_WEEK.toFloat() / 2f - textWidth / 2
+            val x = resources.getDimension(R.dimen.activity_horizontal_margin) + parentWidth / DayUtils.DAY_IN_WEEK * (i - 1) + parentWidth / DayUtils.DAY_IN_WEEK.toFloat() / 2f - textWidth / 2
             mPaintNormal!!.color = mTextNormalColor
             canvas.drawText(content, x, y, mPaintNormal!!)
         }
@@ -142,16 +139,10 @@ class MonthView: View {
             val textWidth = mPaintNormal!!.measureText(content)
             val parentWidth = width - 2 * resources.getDimension(R.dimen.activity_horizontal_margin)
             val y = (mRowHeight * rowNum + mRowHeight).toFloat() - (mRowHeight - fontHeight) / 2 - fontMetrics.bottom
-            val x = resources.getDimension(R.dimen.activity_horizontal_margin)
-            +parentWidth / DAY_IN_WEEK * (weekDay - 1)
-            +parentWidth / DAY_IN_WEEK.toFloat() / 2f - textWidth / 2
+            val x = resources.getDimension(R.dimen.activity_horizontal_margin) + parentWidth / DayUtils.DAY_IN_WEEK * (weekDay - 1) + parentWidth / DayUtils.DAY_IN_WEEK.toFloat() / 2f - textWidth / 2
 
-            //Log.e(TAG, "i :  " + i + "   weekday: " + weekDay + "      rownum: " + rowNum + "   y: " + y);
             if (mSelectDay!!.getDayString() == calendarDay.getDayString()) {
-                canvas.drawCircle(resources.getDimension(R.dimen.activity_horizontal_margin)
-                        + parentWidth / DAY_IN_WEEK * (weekDay - 1)
-                        + parentWidth / DAY_IN_WEEK.toFloat() / 2f, (mRowHeight * rowNum + mRowHeight / 2).toFloat(), (mRowHeight * 2 / 4).toFloat(), mPaintSelect!!
-                )
+                canvas.drawCircle(resources.getDimension(R.dimen.activity_horizontal_margin) + parentWidth / DayUtils.DAY_IN_WEEK * (weekDay - 1) + parentWidth / DayUtils.DAY_IN_WEEK.toFloat() / 2f, (mRowHeight * rowNum + mRowHeight / 2).toFloat(), (mRowHeight * 2 / 4).toFloat(), mPaintSelect!!)
                 mPaintNormal!!.color = mTextSelectColor
                 canvas.drawText(content, x, y, mPaintNormal!!)
             } else {
@@ -159,7 +150,9 @@ class MonthView: View {
                 canvas.drawText(content, x, y, mPaintNormal!!)
             }
 
-            if (weekDay == 7) rowNum++
+            if (weekDay == DayUtils.DAY_IN_WEEK) {
+                rowNum++
+            }
         }
     }
 
@@ -193,9 +186,9 @@ class MonthView: View {
 
         val yDay = (y - mRowHeight).toInt() / mRowHeight
 
-        val xday = ((x - padding) / ((width - padding * 2) / DAY_IN_WEEK)).toInt()
+        val xday = ((x - padding) / ((width - padding * 2) / DayUtils.DAY_IN_WEEK)).toInt()
 
-        var position = yDay * DAY_IN_WEEK + xday
+        var position = yDay * DayUtils.DAY_IN_WEEK + xday
 
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = mFirstDay!!.getTime()

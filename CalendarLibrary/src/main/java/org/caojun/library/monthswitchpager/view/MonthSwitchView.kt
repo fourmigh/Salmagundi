@@ -28,12 +28,11 @@ class MonthSwitchView: LinearLayout, OnDayClickListener {
     }
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int): super(context, attrs, defStyleAttr) {
-        initialize(context, attrs, defStyleAttr)
+        initialize(context/*, attrs, defStyleAttr*/)
     }
 
-    private fun initialize(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
+    private fun initialize(context: Context/*, attrs: AttributeSet?, defStyleAttr: Int*/) {
         val view = LayoutInflater.from(context).inflate(R.layout.view_month_switch_container, this)
-        //    ButterKnife.bind(this);
         mSwitchText = view.findViewById(android.R.id.text2)
         mRecyclerView = view.findViewById(android.R.id.content)
 
@@ -44,7 +43,7 @@ class MonthSwitchView: LinearLayout, OnDayClickListener {
     }
 
     fun setData(startDay: CalendarDay, endDay: CalendarDay) {
-        mMonthAdapter!!.setData(startDay, endDay, null)
+        mMonthAdapter!!.setData(startDay, endDay/*, null*/)
         mSwitchText!!.setDay(startDay, endDay)
     }
 

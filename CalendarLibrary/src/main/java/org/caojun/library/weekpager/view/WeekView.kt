@@ -3,11 +3,13 @@ package org.caojun.library.weekpager.view
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import org.caojun.library.R
 import org.caojun.library.model.CalendarDay
+import org.caojun.library.util.DayUtils
 import org.caojun.library.weekpager.listener.OnDayClickListener
 import java.util.ArrayList
 import java.util.Calendar
@@ -16,7 +18,7 @@ import java.util.Calendar
  * Created by CaoJun on 2017/8/23.
  */
 class WeekView: View {
-    private val DAY_IN_WEEK = 7
+//    private val DAY_IN_WEEK = 7
     private val LAST_OFFSET_IN_WEEK = 0.8f
 
     private var mFirstShowDay: CalendarDay? = null
@@ -47,7 +49,7 @@ class WeekView: View {
 
     private var mSpringView: Spring = Spring()
 
-    private val mWeekCalendarDays: ArrayList<CalendarDay> = ArrayList(DAY_IN_WEEK)
+    private val mWeekCalendarDays: ArrayList<CalendarDay> = ArrayList(DayUtils.DAY_IN_WEEK)
 
     constructor(context: Context, mTextNormalColor: Int, mTextSelectColor: Int, mTextUnableColor: Int, indicatorColor: Int): this(context) {
         this.mTextNormalColor = mTextNormalColor
@@ -63,7 +65,7 @@ class WeekView: View {
     }
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        initAttrs(attrs)
+        initAttrs(/*attrs*/)
         initPaint()
     }
 
@@ -72,7 +74,7 @@ class WeekView: View {
 //        mAbleDates = ArrayList()
 //    }
 
-    private fun initAttrs(attrs: AttributeSet?) {
+    private fun initAttrs(/*attrs: AttributeSet?*/) {
         radiusMax = resources.getDimension(R.dimen.si_default_radius_max)
         radiusMin = resources.getDimension(R.dimen.si_default_radius_min)
 
@@ -81,10 +83,10 @@ class WeekView: View {
 
 
     private fun initPaint() {
-        indicatorColor = resources.getColor(R.color.color_18ffff)
-        mTextSelectColor = resources.getColor(android.R.color.white)
-        mTextNormalColor = resources.getColor(R.color.text_color_normal)
-        mTextUnableColor = resources.getColor(R.color.text_color_light)
+        indicatorColor = ContextCompat.getColor(context, R.color.color_18ffff)
+        mTextSelectColor = ContextCompat.getColor(context, android.R.color.white)
+        mTextNormalColor = ContextCompat.getColor(context, R.color.text_color_normal)
+        mTextUnableColor = ContextCompat.getColor(context, R.color.text_color_light)
         mPaintNormal = Paint(Paint.ANTI_ALIAS_FLAG)
         mPaintNormal.color = mTextNormalColor
         mPaintNormal.textSize = resources.getDimension(R.dimen.si_default_text_size)
@@ -96,12 +98,12 @@ class WeekView: View {
 
         drawSpringView(canvas)
 
-        if (mWeekCalendarDays.size < DAY_IN_WEEK) {
+        if (mWeekCalendarDays.size < DayUtils.DAY_IN_WEEK) {
             super.onDraw(canvas)
             return
         }
 
-        for (i in 0..(DAY_IN_WEEK - 1)) {
+        for (i in 0..(DayUtils.DAY_IN_WEEK - 1)) {
             val content = mWeekCalendarDays[i].getDay().toString()
             val fontMetrics = mPaintNormal.fontMetrics
             val fontHeight = fontMetrics.bottom - fontMetrics.top
@@ -110,7 +112,7 @@ class WeekView: View {
 
             val textBaseY = height.toFloat() - (height - fontHeight) / 2 - fontMetrics.bottom
 
-            if (mDaysPosition % DAY_IN_WEEK == i && mDaysPosition / DAY_IN_WEEK == mWeekPostion) {
+            if (mDaysPosition % DayUtils.DAY_IN_WEEK == i && mDaysPosition / DayUtils.DAY_IN_WEEK == mWeekPostion) {
                 mPaintNormal.color = mTextSelectColor
             } else if (mAbleDates.contains(mWeekCalendarDays[i].getDayString())) {
                 mPaintNormal.color = mTextNormalColor
@@ -127,14 +129,14 @@ class WeekView: View {
             }
 
             canvas.drawText(content, resources.getDimension(R.dimen.activity_horizontal_margin)
-                    + parentWidth / DAY_IN_WEEK * i
-                    + parentWidth / DAY_IN_WEEK.toFloat() / 2f - textWidth / 2, textBaseY, mPaintNormal)
+                    + parentWidth / DayUtils.DAY_IN_WEEK * i
+                    + parentWidth / DayUtils.DAY_IN_WEEK.toFloat() / 2f - textWidth / 2, textBaseY, mPaintNormal)
 
         }
     }
 
     private fun drawSpringView(canvas: Canvas) {
-        if (mWeekPostion != mDaysPosition / DAY_IN_WEEK) return
+        if (mWeekPostion != mDaysPosition / DayUtils.DAY_IN_WEEK) return
         if (mLastPostionFinishing) {
             mSpringView.paint.alpha = 0
         } else {
@@ -151,9 +153,9 @@ class WeekView: View {
                 mSpringView.footPoint.getRadius(), mSpringView.paint)
     }
 
-    fun onViewPageScroll(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+    fun onViewPageScroll(position: Int, positionOffset: Float/*, positionOffsetPixels: Int*/) {
         mDaysPosition = position
-        if (position % DAY_IN_WEEK < DAY_IN_WEEK) {
+        if (position % DayUtils.DAY_IN_WEEK < DayUtils.DAY_IN_WEEK) {
             // radius
             val radiusOffsetHead = 0.5f
             if (positionOffset < radiusOffsetHead) {
@@ -194,7 +196,7 @@ class WeekView: View {
             mSpringView.footPoint.setRadius(radiusMax)
         }
 
-        if (position % DAY_IN_WEEK == 6 && positionOffset > LAST_OFFSET_IN_WEEK) {
+        if (position % DayUtils.DAY_IN_WEEK == 6 && positionOffset > LAST_OFFSET_IN_WEEK) {
             mLastPostionFinishing = true
             mSpringView.paint.alpha = 0
         } else {
@@ -207,12 +209,12 @@ class WeekView: View {
 
     private fun getPositionDistance(): Float {
         val parentWidth = width - 2 * resources.getDimension(R.dimen.activity_horizontal_margin)
-        return -parentWidth / DAY_IN_WEEK
+        return -parentWidth / DayUtils.DAY_IN_WEEK
     }
 
     private fun getDayX(position: Int): Float {
         val parentWidth = width - 2 * resources.getDimension(R.dimen.activity_horizontal_margin)
-        return resources.getDimension(R.dimen.activity_horizontal_margin) + parentWidth / DAY_IN_WEEK * (position % DAY_IN_WEEK) + parentWidth / DAY_IN_WEEK.toFloat() / 2f
+        return resources.getDimension(R.dimen.activity_horizontal_margin) + parentWidth / DayUtils.DAY_IN_WEEK * (position % DayUtils.DAY_IN_WEEK) + parentWidth / DayUtils.DAY_IN_WEEK.toFloat() / 2f
     }
 
     private fun initSpringView() {
@@ -238,14 +240,14 @@ class WeekView: View {
         mWeekCalendarDays.clear()
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = mFirstShowDay!!.getTime()
-        calendar.roll(Calendar.DAY_OF_YEAR, mWeekPostion * DAY_IN_WEEK)
-        for (i in 0..(DAY_IN_WEEK - 1)) {
+        calendar.roll(Calendar.DAY_OF_YEAR, mWeekPostion * DayUtils.DAY_IN_WEEK)
+        for (i in 0..(DayUtils.DAY_IN_WEEK - 1)) {
             mWeekCalendarDays.add(CalendarDay(calendar))
             calendar.roll(Calendar.DAY_OF_YEAR, 1)
         }
     }
 
-    fun getPositionFromLocation(x: Float, y: Float): Int {
+    private fun getPositionFromLocation(x: Float/*, y: Float*/): Int {
         val padding = context.resources.getDimensionPixelSize(R.dimen.activity_horizontal_margin)
         if (x < padding) {
             return 0
@@ -253,20 +255,19 @@ class WeekView: View {
 
         return if (x > width - padding) {
             6
-        } else ((x - padding) / ((width - padding * 2) / DAY_IN_WEEK)).toInt()
+        } else ((x - padding) / ((width - padding * 2) / DayUtils.DAY_IN_WEEK)).toInt()
 
     }
 
-    fun getDayFromLocation(x: Float, y: Float): CalendarDay? {
-        return mWeekCalendarDays[getPositionFromLocation(x, y)]
+    private fun getDayFromLocation(x: Float, y: Float): CalendarDay? {
+        return mWeekCalendarDays[getPositionFromLocation(x/*, y*/)]
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_UP) {
             val calendarDay = getDayFromLocation(event.x, event.y)
             if (calendarDay != null) {
-                val position = mWeekPostion * DAY_IN_WEEK + getPositionFromLocation(event.x,
-                        event.y)
+                val position = mWeekPostion * DayUtils.DAY_IN_WEEK + getPositionFromLocation(event.x/*, event.y*/)
                 onDayClick(calendarDay, position)
             }
         }

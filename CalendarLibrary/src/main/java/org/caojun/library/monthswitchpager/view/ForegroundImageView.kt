@@ -3,6 +3,7 @@ package org.caojun.library.monthswitchpager.view
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 import org.caojun.library.R
@@ -21,7 +22,7 @@ class ForegroundImageView: AppCompatImageView {
         val a = context.obtainStyledAttributes(attrs, R.styleable.ForegroundImageView)
         val foreground = a.getDrawable(R.styleable.ForegroundImageView_android_foreground)
         if (foreground != null) {
-            setForeground(foreground)
+            setMForeground(foreground)
         }
         a.recycle()
     }
@@ -32,9 +33,9 @@ class ForegroundImageView: AppCompatImageView {
      *
      * @param drawableResId The drawable resource to be drawn on top of the children.
      */
-    fun setForegroundResource(drawableResId: Int) {
-        setForeground(context.resources.getDrawable(drawableResId))
-    }
+//    fun setForegroundResource(drawableResId: Int) {
+//        setForeground(ContextCompat.getDrawable(context, drawableResId))
+//    }
 
     /**
      * Supply a Drawable that is to be rendered on top of all of the child
@@ -42,7 +43,7 @@ class ForegroundImageView: AppCompatImageView {
      *
      * @param drawable The Drawable to be drawn on top of the children.
      */
-    override fun setForeground(drawable: Drawable) {
+    private fun setMForeground(drawable: Drawable) {
         if (mForeground == drawable) {
             return
         }
@@ -51,7 +52,7 @@ class ForegroundImageView: AppCompatImageView {
             unscheduleDrawable(mForeground)
         }
 
-        foreground = drawable
+        mForeground = drawable
 
         if (drawable != null) {
             drawable.callback = this

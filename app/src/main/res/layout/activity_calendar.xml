@@ -25,4 +25,11 @@
         android:layout_height="wrap_content"
         android:text="@string/cal_expand_title"
         android:theme="@style/ItemTheme" />
+
+    <Button
+        android:id="@+id/btnMonth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cal_month_title"
+        android:theme="@style/ItemTheme" />
 </LinearLayout>

@@ -1,6 +1,7 @@
 package org.caojun.library.weekpager.adapter
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -62,10 +63,10 @@ class WeekViewAdapter: RecyclerView.Adapter<WeekViewAdapter.WeekViewHolder>, OnD
     }
 
     private fun updateColor() {
-        indicatorColor = mContext!!.resources.getColor(R.color.color_18ffff)
-        mTextSelectColor = mContext!!.resources.getColor(android.R.color.white)
-        mTextNormalColor = mContext!!.resources.getColor(R.color.text_color_normal)
-        mTextUnableColor = mContext!!.resources.getColor(R.color.text_color_light)
+        indicatorColor = ContextCompat.getColor(mContext, R.color.color_18ffff)
+        mTextSelectColor = ContextCompat.getColor(mContext, android.R.color.white)
+        mTextNormalColor = ContextCompat.getColor(mContext, R.color.text_color_normal)
+        mTextUnableColor = ContextCompat.getColor(mContext, R.color.text_color_light)
     }
 
     fun setData(startDay: CalendarDay, endDay: CalendarDay, calendarDayArrayList: ArrayList<CalendarDay>?) {

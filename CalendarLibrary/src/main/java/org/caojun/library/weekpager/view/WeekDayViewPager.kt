@@ -39,7 +39,7 @@ class WeekDayViewPager: ViewPager, OnDayClickListener {
     }
 
     private fun updateListener() {
-        setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float,
                                         positionOffsetPixels: Int) {
                 onDayPageScrolled(position, positionOffset, positionOffsetPixels)
@@ -49,7 +49,7 @@ class WeekDayViewPager: ViewPager, OnDayClickListener {
                 while (child != null && child.right <= 0) {
                     child = mRecyclerView!!.getChildAt(++i)
                 }
-                (child as WeekView).onViewPageScroll(position, positionOffset, positionOffsetPixels)
+                (child as WeekView).onViewPageScroll(position, positionOffset/*, positionOffsetPixels*/)
             }
 
             override fun onPageSelected(position: Int) {

@@ -25,9 +25,9 @@ class Spring {
 //        path = Path()
 
 //        paint = Paint()
-        paint?.isAntiAlias = true
-        paint?.style = Paint.Style.FILL_AND_STROKE
-        paint?.strokeWidth = 1f
+        paint!!.isAntiAlias = true
+        paint!!.style = Paint.Style.FILL_AND_STROKE
+        paint!!.strokeWidth = 1f
     }
 
     fun makePath() {

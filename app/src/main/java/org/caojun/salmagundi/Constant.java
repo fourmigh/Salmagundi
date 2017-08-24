@@ -45,6 +45,7 @@ public class Constant {
     public static final String ACTIVITY_STRINGSORT_DEMO = "/activity/stringsort/demo";
     public static final String ACTIVITY_STRINGSORT = "/activity/stringsort";
     public static final String ACTIVITY_CALENDAR_EXPAND = "/activity/calendar/expand";
+    public static final String ACTIVITY_CALENDAR_MONTH = "/activity/calendar/month";
 
     public static final int EXTRAS_LOGIN = 0x00000001;//需要登录
 }

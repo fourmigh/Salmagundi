@@ -33,10 +33,10 @@ class MonthSwitchTextView: RelativeLayout, View.OnClickListener {
     }
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int): super(context, attrs, defStyleAttr) {
-        initialize(context, attrs, defStyleAttr)
+        initialize(context/*, attrs, defStyleAttr*/)
     }
 
-    private fun initialize(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
+    private fun initialize(context: Context/*, attrs: AttributeSet?, defStyleAttr: Int*/) {
         val view = LayoutInflater.from(context).inflate(R.layout.view_month_switch_text, this)
         mIconLeft = view.findViewById(android.R.id.icon1)
         mIconRight = view.findViewById(android.R.id.icon2)
