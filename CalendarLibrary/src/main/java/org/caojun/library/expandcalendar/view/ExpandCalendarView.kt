@@ -42,8 +42,8 @@ class ExpandCalendarView: LinearLayout, OnDayClickListener {
 
     private fun initialize(context: Context/*, attrs: AttributeSet?, defStyleAttr: Int*/) {
         val root = LayoutInflater.from(context).inflate(R.layout.view_expand_calendar_view, this)
-        mRecyclerView = root.findViewById(android.R.id.content)
-        mBtnView = root.findViewById(android.R.id.button1)
+        mRecyclerView = root.findViewById(R.id.expandMonthRecyclerView)
+        mBtnView = root.findViewById(R.id.vButton)
 
         mMonthAdapter = MonthViewAdapter(context, this)
         mRecyclerView!!.adapter = mMonthAdapter

@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <org.caojun.library.monthswitchpager.view.MonthSwitchTextView
-        android:id="@android:id/text2"
+        android:id="@+id/monthSwitchTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -15,7 +15,7 @@
         android:background="@android:color/white" />
 
     <org.caojun.library.monthswitchpager.view.MonthRecyclerView
-        android:id="@android:id/content"
+        android:id="@+id/monthRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white" />

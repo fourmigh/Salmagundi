@@ -33,8 +33,8 @@ class MonthSwitchView: LinearLayout, OnDayClickListener {
 
     private fun initialize(context: Context/*, attrs: AttributeSet?, defStyleAttr: Int*/) {
         val view = LayoutInflater.from(context).inflate(R.layout.view_month_switch_container, this)
-        mSwitchText = view.findViewById(android.R.id.text2)
-        mRecyclerView = view.findViewById(android.R.id.content)
+        mSwitchText = view.findViewById(R.id.monthSwitchTextView)
+        mRecyclerView = view.findViewById(R.id.monthRecyclerView)
 
         mMonthAdapter = MonthViewAdapter(context, this)
         mSwitchText!!.setMonthRecyclerView(mRecyclerView!!)
