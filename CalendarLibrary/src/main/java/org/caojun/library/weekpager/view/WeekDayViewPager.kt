@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
 import org.caojun.library.model.CalendarDay
+import org.caojun.library.util.DayUtils
 import org.caojun.library.weekpager.listener.DayScrollListener
 import org.caojun.library.weekpager.listener.OnDayClickListener
 
@@ -54,8 +55,8 @@ class WeekDayViewPager: ViewPager, OnDayClickListener {
 
             override fun onPageSelected(position: Int) {
                 onDayPageSelected(position)
-                mRecyclerView!!.smoothScrollToPosition(position / 7)
-                for (j in 0..mRecyclerView!!.childCount - 1) {
+                mRecyclerView!!.smoothScrollToPosition(position / DayUtils.DAY_IN_WEEK)
+                for (j in 0..(mRecyclerView!!.childCount - 1)) {
                     val week = mRecyclerView!!.getChildAt(j)
                     (week as? WeekView)?.invalidate()
                 }

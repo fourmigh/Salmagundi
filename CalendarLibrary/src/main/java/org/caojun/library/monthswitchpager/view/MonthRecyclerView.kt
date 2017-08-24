@@ -10,7 +10,7 @@ import android.view.View
  * Created by CaoJun on 2017/8/23.
  */
 class MonthRecyclerView: RecyclerView {
-    var LIST_LEFT_OFFSET = -1
+    private var LIST_LEFT_OFFSET = -1
     private var mManager: LinearLayoutManager? = null
     private var mMonthSwitchTextView: MonthSwitchTextView? = null
 
