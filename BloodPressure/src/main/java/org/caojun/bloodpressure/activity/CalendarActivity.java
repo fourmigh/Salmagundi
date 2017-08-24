@@ -43,7 +43,7 @@ public class CalendarActivity extends AppCompatActivity {
     private BloodPressureAdapter adapter;
     private List<BloodPressure> list, listDay;
     private Button btnAdd;
-    private CalendarDay calendarDay;
+    private CalendarDay mCcalendarDay;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +65,8 @@ public class CalendarActivity extends AppCompatActivity {
         monthSwitchView.setOnDayClickListener(new OnDayClickListener() {
             @Override
             public void onDayClick(@NotNull CalendarDay calendarDay) {
-                resetListView(calendarDay);
+                mCcalendarDay = calendarDay;
+                resetListView();
             }
         });
 
@@ -76,18 +77,18 @@ public class CalendarActivity extends AppCompatActivity {
             }
         });
 
-        calendarDay = new CalendarDay();
+        mCcalendarDay = new CalendarDay();
         listDay = new ArrayList<>();
     }
 
-    private void resetListView(CalendarDay calendarDay) {
+    private void resetListView() {
         boolean isNew = list == null || adapter == null;
 
         listDay.clear();
         for(BloodPressure bloodPressure:list) {
             CalendarDay day = new CalendarDay(bloodPressure.getTime());
 //            if (day == calendarDay) {
-            if (day.getYear() == calendarDay.getYear() && day.getMonth() == calendarDay.getMonth() && day.getDay() == calendarDay.getDay()) {
+            if (day.getYear() == mCcalendarDay.getYear() && day.getMonth() == mCcalendarDay.getMonth() && day.getDay() == mCcalendarDay.getDay()) {
                 listDay.add(bloodPressure);
             }
         }
@@ -116,8 +117,8 @@ public class CalendarActivity extends AppCompatActivity {
 
         list = BloodPressureDatabase.getInstance(this).query();
 
-        monthSwitchView.setSelectDay(calendarDay);
-        resetListView(calendarDay);
+        monthSwitchView.setSelectDay(mCcalendarDay);
+        resetListView();
     }
 
     @Override

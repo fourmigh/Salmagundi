@@ -357,15 +357,27 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
             //修改
             switch (getIndexType()) {
                 case BloodPressure.Type_BloodPressure:
-                    int high = Integer.parseInt(etInput[EditText_High].getText().toString());
+                    String text = etInput[EditText_High].getText().toString();
+                    if (TextUtils.isEmpty(text)) {
+                        return false;
+                    }
+                    int high = Integer.parseInt(text);
                     if (high != bloodPressure.getHigh()) {
                         return true;
                     }
-                    int low = Integer.parseInt(etInput[EditText_Low].getText().toString());
+                    text = etInput[EditText_Low].getText().toString();
+                    if (TextUtils.isEmpty(text)) {
+                        return false;
+                    }
+                    int low = Integer.parseInt(text);
                     if (low != bloodPressure.getLow()) {
                         return true;
                     }
-                    int pulse = Integer.parseInt(etInput[EditText_Pulse].getText().toString());
+                    text = etInput[EditText_Pulse].getText().toString();
+                    if (TextUtils.isEmpty(text)) {
+                        return false;
+                    }
+                    int pulse = Integer.parseInt(text);
                     if (pulse != bloodPressure.getPulse()) {
                         return true;
                     }
@@ -377,7 +389,7 @@ public class BloodPressureDetailActivity extends AppCompatActivity {
                 case BloodPressure.Type_Medicine:
                     return false;
                 case BloodPressure.Type_Weight:
-                    String text = etInput[EditText_Weight].getText().toString();
+                    text = etInput[EditText_Weight].getText().toString();
                     float weight = TextUtils.isEmpty(text)?0:(text.equals(".")?0:Float.valueOf(text));
                     return bloodPressure.getWeight() != weight && weight != 0;
                 default:
