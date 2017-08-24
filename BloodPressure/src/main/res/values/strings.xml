@@ -43,6 +43,8 @@
     <string name="menu_bmi">BMI</string>
     <string name="menu_data">导入/导出</string>
     <string name="menu_today">历史上的今天</string>
+    <string name="menu_calendar">日历</string>
+    <string name="menu_list">列表</string>
     <string name="menu_notificaiton">通知</string>
 
     <string name="bp_bmi_cal">BMI计算</string>

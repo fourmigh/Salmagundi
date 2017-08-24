@@ -8,51 +8,64 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.RadioGroup;
+import android.widget.ListView;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+
 import org.caojun.bloodpressure.Constant;
 import org.caojun.bloodpressure.R;
 import org.caojun.bloodpressure.adapter.BloodPressureAdapter;
 import org.caojun.bloodpressure.ormlite.BloodPressure;
 import org.caojun.bloodpressure.ormlite.BloodPressureDatabase;
 import org.caojun.bloodpressure.utils.DataStorageUtils;
+import org.caojun.library.listener.OnDayClickListener;
+import org.caojun.library.model.CalendarDay;
+import org.caojun.library.monthswitchpager.view.MonthSwitchView;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
- * Created by fourm on 2017/5/9.
+ * Created by CaoJun on 2017/8/24.
  */
 
-@Route(path = Constant.ACTIVITY_BLOODPRESSURE)
-public class BloodPressureActivity extends AppCompatActivity {
-    private StickyListHeadersListView listView;
+/**
+ * 日历样式首页
+ */
+@Route(path = Constant.ACTIVITY_CALENDAR)
+public class CalendarActivity extends AppCompatActivity {
+
+    private MonthSwitchView monthSwitchView;
+    private ListView listView;
     private BloodPressureAdapter adapter;
-    private List<BloodPressure> list, listType;
+    private List<BloodPressure> list, listDay;
     private Button btnAdd;
-    private RadioGroup rgType;
+    private CalendarDay calendarDay;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_calendar);
 
-        if (DataStorageUtils.loadBoolean(this, Constant.QUIT_FROM_CALENDAR_NAME, Constant.QUIT_FROM_CALENDAR, false)) {
-            ARouter.getInstance().build(Constant.ACTIVITY_CALENDAR).navigation();
-            finish();
-            return;
-        }
-
-        this.setContentView(R.layout.activity_bloodpressure);
-
-        listView = (StickyListHeadersListView) this.findViewById(R.id.lvBloodPressure);
-        btnAdd = (Button) this.findViewById(R.id.btnAdd);
+        listView = findViewById(R.id.lvBloodPressure);
+        btnAdd = findViewById(R.id.btnAdd);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 doUpdate(position);
+            }
+        });
+
+        monthSwitchView = findViewById(R.id.monthSwitchView);
+        monthSwitchView.setData(new CalendarDay(2017, 6, 28), new CalendarDay(2117, 12, 31));
+        monthSwitchView.setOnDayClickListener(new OnDayClickListener() {
+            @Override
+            public void onDayClick(@NotNull CalendarDay calendarDay) {
+                resetListView(calendarDay);
             }
         });
 
@@ -63,29 +76,29 @@ public class BloodPressureActivity extends AppCompatActivity {
             }
         });
 
-        rgType = (RadioGroup) findViewById(R.id.rgType);
-        rgType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                showList(checkedId);
-            }
-        });
+        calendarDay = new CalendarDay();
+        listDay = new ArrayList<>();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void resetListView(CalendarDay calendarDay) {
         boolean isNew = list == null || adapter == null;
-        list = BloodPressureDatabase.getInstance(this).query();
+
+        listDay.clear();
+        for(BloodPressure bloodPressure:list) {
+            CalendarDay day = new CalendarDay(bloodPressure.getTime());
+//            if (day == calendarDay) {
+            if (day.getYear() == calendarDay.getYear() && day.getMonth() == calendarDay.getMonth() && day.getDay() == calendarDay.getDay()) {
+                listDay.add(bloodPressure);
+            }
+        }
+
         if(isNew) {
-            adapter = new BloodPressureAdapter(this, list);
+            adapter = new BloodPressureAdapter(this, listDay);
             listView.setAdapter(adapter);
         } else {
-            adapter.setData(list);
+            adapter.setData(listDay);
             adapter.notifyDataSetChanged();
         }
-//        listView.setSelection(adapter.getCount() - 1);
-        showList(rgType.getCheckedRadioButtonId());
     }
 
     private void doUpdate(int position) {
@@ -97,46 +110,20 @@ public class BloodPressureActivity extends AppCompatActivity {
         ARouter.getInstance().build(Constant.ACTIVITY_BLOODPRESSURE_DETAIL).navigation();
     }
 
-    private void showList(int checkedId) {
-        int type = -1;
-        switch (checkedId) {
-            case R.id.rbAll://全部
-                break;
-            case R.id.rbBloodPressure://血压
-                type = BloodPressure.Type_BloodPressure;
-                break;
-            case R.id.rbMedicine://服药
-                type = BloodPressure.Type_Medicine;
-                break;
-            case R.id.rbWeight://体重
-                type = BloodPressure.Type_Weight;
-                break;
-            default:
-                return;
-        }
-        if (listType == null) {
-            listType = new ArrayList<>();
-        }
-        if (type >= 0) {
-            listType.clear();
-            for (int i = 0; i < list.size(); i++) {
-                BloodPressure bloodPressure = list.get(i);
-                if (bloodPressure.getType() == type) {
-                    listType.add(bloodPressure);
-                }
-            }
-            adapter.setData(listType);
-        } else {
-            adapter.setData(list);
-        }
-        adapter.notifyDataSetChanged();
-        listView.setSelection(adapter.getCount() - 1);
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        list = BloodPressureDatabase.getInstance(this).query();
+
+        monthSwitchView.setSelectDay(calendarDay);
+        resetListView(calendarDay);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.calendar, menu);
         return true;
     }
 
@@ -147,8 +134,9 @@ public class BloodPressureActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.menuCalendar) {
-            ARouter.getInstance().build(Constant.ACTIVITY_CALENDAR).navigation();
+        if (id == R.id.menuList) {
+            DataStorageUtils.saveBoolean(this, Constant.QUIT_FROM_CALENDAR_NAME, Constant.QUIT_FROM_CALENDAR, false);
+            ARouter.getInstance().build(Constant.ACTIVITY_BLOODPRESSURE).navigation();
             finish();
             return true;
         }
@@ -172,5 +160,11 @@ public class BloodPressureActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DataStorageUtils.saveBoolean(this, Constant.QUIT_FROM_CALENDAR_NAME, Constant.QUIT_FROM_CALENDAR, true);
+        super.onBackPressed();
     }
 }

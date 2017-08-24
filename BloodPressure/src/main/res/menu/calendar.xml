@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menuCalendar"
+        android:id="@+id/menuList"
         android:orderInCategory="100"
-        android:title="@string/menu_calendar"
+        android:title="@string/menu_list"
         app:showAsAction="never" />
     <item
         android:id="@+id/menuToday"
