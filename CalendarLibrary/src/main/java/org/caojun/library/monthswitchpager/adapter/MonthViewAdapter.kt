@@ -67,8 +67,8 @@ class MonthViewAdapter: RecyclerView.Adapter<MonthViewAdapter.MonthViewHolder>, 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MonthViewHolder {
         val monthView = MonthView(mContext!!)
         monthView.setOnDayClickListener(this)
-        val width = mContext!!.resources.displayMetrics.widthPixels
-        val params = LinearLayout.LayoutParams(width,
+//        val width = mContext!!.resources.displayMetrics.widthPixels
+        val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT)
         monthView.layoutParams = params
         return MonthViewHolder(monthView, mStartDay!!/*, mAbleCalendayDays*/)
