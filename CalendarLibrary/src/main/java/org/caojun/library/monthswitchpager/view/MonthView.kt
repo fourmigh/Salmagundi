@@ -20,7 +20,7 @@ class MonthView: View {
 //    private val DAY_IN_WEEK = 7
 //    private val DAY_IN_MONTH_PADDING_VERTICAL = 6.0f
     private val DEFAULT_HEIGHT = 32
-    private val DEFAULT_NUM_ROWS = 5
+    private val DEFAULT_NUM_ROWS = 6
 
     private var mDays: ArrayList<CalendarDay> = ArrayList()
     private var mFirstDay: CalendarDay? = null

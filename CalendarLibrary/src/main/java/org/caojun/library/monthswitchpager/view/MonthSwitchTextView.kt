@@ -5,6 +5,7 @@ import android.text.format.DateUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import org.caojun.library.R
@@ -15,9 +16,9 @@ import java.util.Calendar
 /**
  * Created by CaoJun on 2017/8/23.
  */
-class MonthSwitchTextView: RelativeLayout, View.OnClickListener {
-    private var mIconLeft: ForegroundImageView? = null
-    private var mIconRight: ForegroundImageView? = null
+class MonthSwitchTextView: RelativeLayout {
+    private var mIconLeft: ImageView? = null
+    private var mIconRight: ImageView? = null
     private var mTextTitle: TextView? = null
 
     private var mPosition: Int = 0
@@ -41,6 +42,22 @@ class MonthSwitchTextView: RelativeLayout, View.OnClickListener {
         mIconLeft = view.findViewById(android.R.id.icon1)
         mIconRight = view.findViewById(android.R.id.icon2)
         mTextTitle = view.findViewById(android.R.id.text1)
+
+        mIconLeft?.setOnClickListener({
+            mPosition--
+            scrollToPosition()
+        })
+
+        mIconRight?.setOnClickListener({
+            mPosition++
+            scrollToPosition()
+        })
+    }
+
+    private fun scrollToPosition() {
+        update()
+//        mMonthRecyclerView!!.scrollToPosition(mPosition)
+        mMonthRecyclerView?.smoothScrollToPosition(mPosition)
     }
 
     private fun updateView() {
@@ -61,20 +78,20 @@ class MonthSwitchTextView: RelativeLayout, View.OnClickListener {
         updateView()
     }
 
-    override fun onClick(view: View) {
-        when (view.id) {
-            android.R.id.icon1 -> {
-                mPosition--
-                update()
-                mMonthRecyclerView!!.scrollToPosition(mPosition)
-            }
-            android.R.id.icon2 -> {
-                mPosition++
-                update()
-                mMonthRecyclerView!!.scrollToPosition(mPosition)
-            }
-        }
-    }
+//    override fun onClick(view: View) {
+//        when (view.id) {
+//            android.R.id.icon1 -> {
+//                mPosition--
+//                update()
+//                mMonthRecyclerView!!.scrollToPosition(mPosition)
+//            }
+//            android.R.id.icon2 -> {
+//                mPosition++
+//                update()
+//                mMonthRecyclerView!!.scrollToPosition(mPosition)
+//            }
+//        }
+//    }
 
     fun setPosition(position: Int) {
         mPosition = position
