@@ -119,7 +119,7 @@
         <activity android:name=".calendar.ExpandCalendarActivity"
             android:label="@string/cal_expand_title" />
         <activity android:name=".calendar.MonthCalendarActivity"
-            android:label="@string/cal_expand_title" />
+            android:label="@string/cal_month_title" />
     </application>
 
 </manifest>

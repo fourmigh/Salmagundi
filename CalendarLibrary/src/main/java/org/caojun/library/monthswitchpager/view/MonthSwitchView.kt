@@ -57,6 +57,6 @@ class MonthSwitchView: LinearLayout, OnDayClickListener {
     }
 
     override fun onDayClick(calendarDay: CalendarDay) {
-        mOnDayClickListener!!.onDayClick(calendarDay)
+        mOnDayClickListener?.onDayClick(calendarDay)
     }
 }

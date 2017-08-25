@@ -25,7 +25,7 @@ public class MonthCalendarActivity extends AppCompatActivity {
 
         final TextView textView = findViewById(R.id.textView);
 
-        MonthSwitchView monthSwitchView = findViewById(R.id.monthSwitchView);
+        final MonthSwitchView monthSwitchView = findViewById(R.id.monthSwitchView);
         monthSwitchView.setData(new CalendarDay(2017, 1, 1), new CalendarDay(2017, 12, 31));
         monthSwitchView.setOnDayClickListener(new OnDayClickListener() {
             @Override
