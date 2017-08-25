@@ -55,7 +55,7 @@ class MonthSwitchTextView: RelativeLayout {
     }
 
     private fun scrollToPosition() {
-        update()
+//        update()
 //        mMonthRecyclerView!!.scrollToPosition(mPosition)
         mMonthRecyclerView?.smoothScrollToPosition(mPosition)
     }
