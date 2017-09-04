@@ -31,10 +31,10 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:latest.release"
-    implementation 'com.android.support:appcompat-v7:26.0.1'
-    compile 'com.j256.ormlite:ormlite-android:latest.release'
-    compile 'com.luhuiguo:chinese-utils:latest.release'
-    implementation 'com.google.android.gms:play-services-ads:latest.release'
-    compile project(':DiceLibrary')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:26.0.1"
+    implementation "com.j256.ormlite:ormlite-android:latest.release"
+    implementation "com.luhuiguo:chinese-utils:latest.release"
+    implementation "com.google.android.gms:play-services-ads:latest.release"
+    implementation project(':DiceLibrary')
 }

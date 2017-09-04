@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Signman</string>
+    <string name="goto_sign">Goto Sign</string>
+    <string name="signed">Signed</string>
+    <string name="nosign">No Sign</string>
+    <string name="setup">Setup</string>
+</resources>

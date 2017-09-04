@@ -41,13 +41,13 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support.constraint:constraint-layout:latest.release'
-    compile 'se.emilsjolander:stickylistheaders:latest.release'
-    compile 'com.github.zhaokaiqiang.klog:library:latest.release'
-    compile 'com.j256.ormlite:ormlite-android:latest.release'
-    compile 'com.alibaba:arouter-api:latest.release'
-    annotationProcessor 'com.alibaba:arouter-compiler:latest.release'
-    compile 'com.alibaba:fastjson:latest.release'
-    compile project(':CalendarLibrary')
-    compile 'com.android.support:design:26.0.1'
+    implementation "com.android.support.constraint:constraint-layout:latest.release"
+    implementation "se.emilsjolander:stickylistheaders:latest.release"
+    implementation "com.github.zhaokaiqiang.klog:library:latest.release"
+    implementation "com.j256.ormlite:ormlite-android:latest.release"
+    implementation "com.alibaba:arouter-api:latest.release"
+    annotationProcessor "com.alibaba:arouter-compiler:latest.release"
+    implementation "com.alibaba:fastjson:latest.release"
+    implementation project(':CalendarLibrary')
+    implementation "com.android.support:design:26.0.1"
 }

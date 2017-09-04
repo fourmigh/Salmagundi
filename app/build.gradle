@@ -49,25 +49,25 @@ apply plugin: 'org.greenrobot.greendao'
 
 dependencies {
     //alibaba/ARouter
-    compile 'com.alibaba:arouter-api:latest.release'
-    annotationProcessor 'com.alibaba:arouter-compiler:latest.release'
-    compile 'com.alibaba:fastjson:latest.release'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.alibaba:arouter-api:latest.release"
+    annotationProcessor "com.alibaba:arouter-compiler:latest.release"
+    implementation "com.alibaba:fastjson:latest.release"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 //    compile 'com.android.support:design:25.4.0'
-    compile 'com.github.zhaokaiqiang.klog:library:latest.release'
-    compile 'org.greenrobot:greendao:latest.release'
-    compile project(':zxing')
-    compile 'commons-lang:commons-lang:latest.release'
-    compile 'commons-codec:commons-codec:latest.release'
-    compile 'io.reactivex:rxandroid:latest.release'
-    compile 'io.reactivex:rxjava:latest.release'
-    compile 'com.maksim88:PasswordEditText:latest.release'
-    compile 'com.j256.ormlite:ormlite-android:latest.release'
-    compile 'se.emilsjolander:stickylistheaders:latest.release'
-    compile 'com.luhuiguo:chinese-utils:latest.release'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:latest.release"
-    compile project(':CalendarLibrary')
-    compile 'com.android.support:design:26.0.1'
+    implementation "com.github.zhaokaiqiang.klog:library:latest.release"
+    implementation "org.greenrobot:greendao:latest.release"
+    implementation project(':zxing')
+    implementation "commons-lang:commons-lang:latest.release"
+    implementation "commons-codec:commons-codec:latest.release"
+    implementation "io.reactivex:rxandroid:latest.release"
+    implementation "io.reactivex:rxjava:1.3.0"
+    implementation "com.maksim88:PasswordEditText:latest.release"
+    implementation "com.j256.ormlite:ormlite-android:latest.release"
+    implementation "se.emilsjolander:stickylistheaders:latest.release"
+    implementation "com.luhuiguo:chinese-utils:latest.release"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation project(':CalendarLibrary')
+    implementation "com.android.support:design:26.0.1"
 }
 repositories {
     mavenCentral()

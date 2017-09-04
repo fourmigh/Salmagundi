@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">簽到俠</string>
+    <string name="goto_sign">去簽到</string>
+    <string name="signed">已簽</string>
+    <string name="nosign">未簽</string>
+    <string name="setup">設定</string>
+</resources>

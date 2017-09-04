@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/DiceLibrary/DiceLibrary.iml" filepath="$PROJECT_DIR$/DiceLibrary/DiceLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/RandomChineseName/RandomChineseName.iml" filepath="$PROJECT_DIR$/RandomChineseName/RandomChineseName.iml" />
       <module fileurl="file://$PROJECT_DIR$/Salmagundi.iml" filepath="$PROJECT_DIR$/Salmagundi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Signman/Signman.iml" filepath="$PROJECT_DIR$/Signman/Signman.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/zxing/zxing.iml" filepath="$PROJECT_DIR$/zxing/zxing.iml" />
     </modules>
