@@ -4,6 +4,8 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 import android.graphics.drawable.Drawable
+import com.luhuiguo.chinese.pinyin.Pinyin
+import com.luhuiguo.chinese.pinyin.PinyinFormat
 import java.util.Date
 
 
@@ -23,4 +25,9 @@ class App {
 
     @Ignore
     var icon: Drawable? = null
+
+    fun getSortString(): Char {
+        val pinyin = Pinyin.INSTANCE.convert(name, PinyinFormat.DEFAULT_PINYIN_FORMAT)
+        return pinyin[0]
+    }
 }

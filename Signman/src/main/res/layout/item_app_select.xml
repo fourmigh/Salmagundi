@@ -6,22 +6,12 @@
     android:orientation="horizontal"
     android:theme="@style/ItemTheme">
 
-    <TextView
-        android:id="@+id/tvName"
+    <CheckedTextView
+        android:id="@+id/ctvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="@dimen/app_name_padding"
         android:layout_weight="1"
-        android:text="TextView" />
-
-    <ToggleButton
-        android:id="@+id/tbSign"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ToggleButton" />
-
-    <Button
-        android:id="@+id/btnSign"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/goto_sign" />
+        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+        android:text="CheckedTextView" />
 </LinearLayout>

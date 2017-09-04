@@ -8,8 +8,11 @@ import android.R.attr.versionCode
 import android.R.attr.versionName
 import android.content.pm.ApplicationInfo
 import org.caojun.signman.adapter.AppAdapter
+import org.caojun.signman.adapter.AppSelectAdapter
 import org.caojun.signman.room.App
+import org.caojun.signman.utils.AppSortComparator
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView
+import java.util.*
 
 
 /**
@@ -56,7 +59,9 @@ class AppsActivity : AppCompatActivity() {
                 }
             }
 
-            val adapter: AppAdapter = AppAdapter(this, list)
+            Collections.sort(list, AppSortComparator())
+
+            val adapter = AppSelectAdapter(this, list)
             listView?.adapter = adapter
         }
     }

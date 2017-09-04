@@ -1,37 +1,23 @@
 package org.caojun.signman.adapter
 
 import android.content.Context
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
 import android.widget.ToggleButton
 import org.caojun.signman.R
 import org.caojun.signman.room.App
 import org.caojun.signman.utils.TimeUtils
-import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter
-import java.text.FieldPosition
-import java.util.*
 
 /**
  * Created by CaoJun on 2017/8/31.
  */
-class AppAdapter: BaseAdapter, StickyListHeadersAdapter {
+class AppAdapter: BaseAdapter {
 
-    private var context: Context? = null
-    private val list: ArrayList<App> = ArrayList()
-
-    constructor(context: Context, list: ArrayList<App>) : super() {
-        this.context = context
-        setData(list)
-    }
-
-    fun setData(list: ArrayList<App>) {
-        this.list.clear()
-        this.list.addAll(list)
-    }
+    constructor(context: Context, list: ArrayList<App>) : super(context, list)
 
     override fun getView(position: Int, convertView: View?, viewGrouo: ViewGroup?): View {
         var holder: ViewHolder
@@ -47,8 +33,17 @@ class AppAdapter: BaseAdapter, StickyListHeadersAdapter {
             holder = view.tag as ViewHolder
         }
 
+        val icon_size: Int = context?.resources?.getDimension(R.dimen.icon_size)?.toInt()?:128
+        val icon_padding: Int = context?.resources?.getDimension(R.dimen.app_icon_padding)?.toInt()?:10
+
         val app = getItem(position)
+        app.icon?.setBounds(0, 0, icon_size, icon_size)
+
         holder.tvName?.text = app.name
+        holder.tvName?.compoundDrawablePadding = icon_padding
+        holder.tvName?.gravity = Gravity.CENTER_VERTICAL
+        holder.tvName?.setCompoundDrawables(app.icon, null, null, null)
+
         if (app.time.size < 1) {
             holder.tbSign?.visibility = View.GONE
         } else {
@@ -65,51 +60,24 @@ class AppAdapter: BaseAdapter, StickyListHeadersAdapter {
                 holder.btnSign?.visibility = View.VISIBLE
             }
         }
-
         return view!!
     }
 
     override fun getItem(position: Int): App {
-        return this.list[position]
+        return super.getItem(position)
     }
 
     override fun getItemId(position: Int): Long {
-        return position.toLong()
+        return super.getItemId(position)
     }
 
     override fun getCount(): Int {
-        return this.list.size
-    }
-
-    override fun getHeaderId(position: Int): Long {
-        val app: App = getItem(position)
-        return app.name!![0].toLong()
-    }
-
-    override fun getHeaderView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var holder: HeaderViewHolder
-        var view = convertView
-        if (view == null) {
-            holder = HeaderViewHolder()
-            view = LayoutInflater.from(context).inflate(R.layout.item_app_header, parent, false)
-            holder.tvHeader = view.findViewById(R.id.tvHeader)
-            view.tag = holder
-        } else {
-            holder = view.tag as HeaderViewHolder
-        }
-        val app = getItem(position)
-        val header = app.name?.substring(0, 1)?.toUpperCase()
-        holder.tvHeader?.text = header
-        return view!!
+        return super.getCount()
     }
 
     private inner class ViewHolder {
         internal var tvName: TextView? = null
         internal var tbSign: ToggleButton? = null
         internal var btnSign: Button? = null
-    }
-
-    private inner class HeaderViewHolder {
-        internal var tvHeader: TextView? = null
     }
 }

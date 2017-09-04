@@ -4,4 +4,5 @@
     <string name="signed">Signed</string>
     <string name="nosign">No Sign</string>
     <string name="setup">Setup</string>
+    <string name="select_app_tips">Please select the app that you need to sign.</string>
 </resources>
