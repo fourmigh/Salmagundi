@@ -23,10 +23,13 @@ class AppsActivity : AppCompatActivity() {
     private val list: ArrayList<App> = ArrayList()
     private var listView: StickyListHeadersListView? = null
     private var adapter:AppSelectAdapter? = null
+    private var apps: ArrayList<App> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        apps = intent.getParcelableArrayListExtra("apps")
 
         val btnSetup: Button = findViewById(R.id.btnSetup)
         btnSetup.text = getString(android.R.string.ok)
@@ -69,6 +72,14 @@ class AppsActivity : AppCompatActivity() {
             }
 
             Collections.sort(list, AppSortComparator())
+
+            for (app in apps) {
+                for (l in list) {
+                    if (l.packageName.equals(app.packageName)) {
+                        l.isSelected = true
+                    }
+                }
+            }
 
             adapter = AppSelectAdapter(this, list)
             listView?.adapter = adapter

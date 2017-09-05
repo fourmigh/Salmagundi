@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             val apps = AppDatabase.getDatabase(baseContext).getAppDao().queryAll()
             uiThread {
                 if (!apps.isEmpty()) {
+                    list.clear()
                     list.addAll(apps)
                     val adapter = AppAdapter(baseContext, list)
                     listView?.adapter = adapter
@@ -57,6 +58,7 @@ class MainActivity : AppCompatActivity() {
     private fun gotoSetupApps() {
         canceled = false
         val intent = Intent(this, AppsActivity::class.java)
+        intent.putParcelableArrayListExtra("apps", list)
         startActivityForResult(intent, Constant.RequestCode_AppList)
     }
 

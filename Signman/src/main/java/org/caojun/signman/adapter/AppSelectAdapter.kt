@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckedTextView
-import com.socks.library.KLog
 import org.caojun.signman.R
 import org.caojun.signman.room.App
+import org.caojun.signman.room.AppDatabase
+import org.jetbrains.anko.doAsync
 
 /**
  * Created by CaoJun on 2017/8/31.
@@ -45,6 +46,7 @@ class AppSelectAdapter : BaseAdapter {
         val app = getItem(position)
         app.icon?.setBounds(0, 0, icon_size, icon_size)
 
+        holder.ctvName?.isChecked = app.isSelected
         holder.ctvName?.text = app.name
         holder.ctvName?.compoundDrawablePadding = icon_padding
         holder.ctvName?.gravity = Gravity.CENTER_VERTICAL
@@ -52,7 +54,11 @@ class AppSelectAdapter : BaseAdapter {
         holder.ctvName?.setOnClickListener {
             holder.ctvName?.toggle()
             app.isSelected = holder.ctvName?.isChecked!!
-            KLog.d("getSelectedApps", position.toString() + " : " + app.isSelected)
+            if (!app.isSelected) {
+                doAsync {
+                    AppDatabase.getDatabase(context!!).getAppDao().delete(app)
+                }
+            }
         }
 
         return view!!

@@ -23,7 +23,7 @@ class DataConverter {
     }
 
     @TypeConverter
-    fun toLongArray(time: ArrayList<Date>): String {
+    fun toString(time: ArrayList<Date>): String {
         var sb = StringBuffer()
         for (date in time) {
             sb.append(date).append(";")
