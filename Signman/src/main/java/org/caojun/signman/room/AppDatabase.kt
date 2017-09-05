@@ -19,13 +19,6 @@ abstract class AppDatabase: RoomDatabase {
     companion object {
         private var INSTANCE: AppDatabase? = null
 
-//        @JvmStatic fun getInMemoryDatabase(context: Context): AppDatabase {
-//            if (INSTANCE == null) {
-//                INSTANCE = Room.inMemoryDatabaseBuilder(context.applicationContext, AppDatabase::class.java).allowMainThreadQueries().build()
-//            }
-//            return INSTANCE!!
-//        }
-
         @JvmStatic fun getDatabase(context: Context): AppDatabase {
             if (INSTANCE == null) {
                 INSTANCE = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "app_database").build()
