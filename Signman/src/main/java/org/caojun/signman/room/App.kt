@@ -6,6 +6,8 @@ import android.arch.persistence.room.PrimaryKey
 import android.graphics.drawable.Drawable
 import com.luhuiguo.chinese.pinyin.Pinyin
 import com.luhuiguo.chinese.pinyin.PinyinFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -17,7 +19,7 @@ class App {
     var packageName: String? = null
 
     //签到的时间
-//    val time: SerializedList<Date> = SerializedList()
+    var time: ArrayList<Date> = ArrayList()
 
     var name: String? = null
 
