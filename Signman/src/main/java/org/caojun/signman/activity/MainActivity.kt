@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         doAsync {
             val apps = AppDatabase.getDatabase(baseContext).getAppDao().queryAll()
             uiThread {
-                if (apps != null && !apps.isEmpty()) {
+                if (!apps.isEmpty()) {
                     list.addAll(apps)
                     val adapter = AppAdapter(baseContext, list)
                     listView?.adapter = adapter

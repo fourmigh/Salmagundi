@@ -18,14 +18,12 @@ class AppSelectAdapter : BaseAdapter {
 
     fun getSelectedApps(): ArrayList<App> {
         val apps: ArrayList<App> = ArrayList()
-        KLog.d("getSelectedApps", "apps.size: " + apps.size)
         for (i in 0..(count - 1)) {
             var app = getItem(i)
-            if (app?.isSelected) {
+            if (app.isSelected) {
                 apps.add(app)
             }
         }
-        KLog.d("getSelectedApps", "apps.size: " + apps.size)
         return apps
     }
 
