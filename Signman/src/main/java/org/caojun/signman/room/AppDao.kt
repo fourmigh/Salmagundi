@@ -6,6 +6,7 @@ import android.arch.persistence.room.*
 /**
  * Created by CaoJun on 2017/8/31.
  */
+@Dao
 interface AppDao {
     @Query("SELECT * FROM app")
     fun queryAll(): List<App>

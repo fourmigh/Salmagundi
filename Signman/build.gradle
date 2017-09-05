@@ -30,9 +30,10 @@ dependencies {
     implementation "com.android.support:appcompat-v7:26.0.1"
     implementation "android.arch.persistence.room:runtime:latest.release"
     implementation "android.arch.lifecycle:extensions:latest.release"
-    annotationProcessor "android.arch.persistence.room:compiler:latest.release"
     annotationProcessor "android.arch.lifecycle:compiler:latest.release"
+    kapt "android.arch.persistence.room:compiler:latest.release"
     implementation "se.emilsjolander:stickylistheaders:latest.release"
     implementation "com.luhuiguo:chinese-utils:latest.release"
     implementation "com.github.zhaokaiqiang.klog:library:latest.release"
+    implementation "org.jetbrains.anko:anko-common:latest.release"
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckedTextView
+import com.socks.library.KLog
 import org.caojun.signman.R
 import org.caojun.signman.room.App
 
@@ -14,6 +15,19 @@ import org.caojun.signman.room.App
  */
 class AppSelectAdapter : BaseAdapter {
     constructor(context: Context, list: ArrayList<App>) : super(context, list)
+
+    fun getSelectedApps(): ArrayList<App> {
+        val apps: ArrayList<App> = ArrayList()
+        KLog.d("getSelectedApps", "apps.size: " + apps.size)
+        for (i in 0..(count - 1)) {
+            var app = getItem(i)
+            if (app?.isSelected) {
+                apps.add(app)
+            }
+        }
+        KLog.d("getSelectedApps", "apps.size: " + apps.size)
+        return apps
+    }
 
     override fun getView(position: Int, convertView: View?, viewGrouo: ViewGroup?): View {
         var holder: ViewHolder
@@ -37,7 +51,11 @@ class AppSelectAdapter : BaseAdapter {
         holder.ctvName?.compoundDrawablePadding = icon_padding
         holder.ctvName?.gravity = Gravity.CENTER_VERTICAL
         holder.ctvName?.setCompoundDrawables(app.icon, null, null, null)
-        holder.ctvName?.setOnClickListener { holder.ctvName?.toggle() }
+        holder.ctvName?.setOnClickListener {
+            holder.ctvName?.toggle()
+            app.isSelected = holder.ctvName?.isChecked!!
+            KLog.d("getSelectedApps", position.toString() + " : " + app.isSelected)
+        }
 
         return view!!
     }

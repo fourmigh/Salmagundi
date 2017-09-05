@@ -44,22 +44,22 @@ class AppAdapter: BaseAdapter {
         holder.tvName?.gravity = Gravity.CENTER_VERTICAL
         holder.tvName?.setCompoundDrawables(app.icon, null, null, null)
 
-        if (app.time.size < 1) {
-            holder.tbSign?.visibility = View.GONE
-        } else {
-            holder.tbSign?.visibility = View.VISIBLE
-            holder.tbSign?.textOn = context?.getString(R.string.signed)
-            holder.tbSign?.textOff = context?.getString(R.string.nosign)
-            val time = app.time[app.time.size - 1]
-            if (TimeUtils.isToday(time)) {
-                //今天已签到
-                holder.tbSign?.isChecked = false
-                holder.btnSign?.visibility = View.GONE
-            } else {
-                holder.tbSign?.isChecked = true
-                holder.btnSign?.visibility = View.VISIBLE
-            }
-        }
+//        if (app.time.size < 1) {
+//            holder.tbSign?.visibility = View.GONE
+//        } else {
+//            holder.tbSign?.visibility = View.VISIBLE
+//            holder.tbSign?.textOn = context?.getString(R.string.signed)
+//            holder.tbSign?.textOff = context?.getString(R.string.nosign)
+//            val time = app.time[app.time.size - 1]
+//            if (TimeUtils.isToday(time)) {
+//                //今天已签到
+//                holder.tbSign?.isChecked = false
+//                holder.btnSign?.visibility = View.GONE
+//            } else {
+//                holder.tbSign?.isChecked = true
+//                holder.btnSign?.visibility = View.VISIBLE
+//            }
+//        }
         return view!!
     }
 

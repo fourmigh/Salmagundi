@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import org.caojun.signman.R
-import android.R.attr.versionCode
-import android.R.attr.versionName
+import android.app.Activity
 import android.content.pm.ApplicationInfo
-import org.caojun.signman.adapter.AppAdapter
 import org.caojun.signman.adapter.AppSelectAdapter
 import org.caojun.signman.room.App
+import org.caojun.signman.room.AppDatabase
 import org.caojun.signman.utils.AppSortComparator
+import org.jetbrains.anko.doAsync
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView
-import java.util.*
+import java.util.Collections
 
 
 /**
@@ -22,6 +22,7 @@ class AppsActivity : AppCompatActivity() {
 
     private val list: ArrayList<App> = ArrayList()
     private var listView: StickyListHeadersListView? = null
+    private var adapter:AppSelectAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,11 +34,19 @@ class AppsActivity : AppCompatActivity() {
         listView = findViewById(R.id.listView)
 
         btnSetup.setOnClickListener({
-            //TODO
+            saveSelectedApps()
+            setResult(Activity.RESULT_OK)
             finish()
         })
 
         list.clear()
+    }
+
+    private fun saveSelectedApps() {
+        var apps = adapter?.getSelectedApps()
+        doAsync {
+            AppDatabase.getDatabase(baseContext).getAppDao().insert(apps!!)
+        }
     }
 
     override fun onResume() {
@@ -61,7 +70,7 @@ class AppsActivity : AppCompatActivity() {
 
             Collections.sort(list, AppSortComparator())
 
-            val adapter = AppSelectAdapter(this, list)
+            adapter = AppSelectAdapter(this, list)
             listView?.adapter = adapter
         }
     }
