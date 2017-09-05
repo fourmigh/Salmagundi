@@ -4,22 +4,13 @@ import android.arch.persistence.room.TypeConverter
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import org.caojun.signman.utils.DrawableUtils
-import java.util.*
+import java.util.Date
 import kotlin.collections.ArrayList
 
 /**
  * Created by CaoJun on 2017/9/5.
  */
 class DataConverter {
-//    @TypeConverter
-//    fun toDate(timestamp: Long): Date {
-//        return Date(timestamp)
-//    }
-//
-//    @TypeConverter
-//    fun toTimestamp(date: Date): Long {
-//        return date.time
-//    }
 
     @TypeConverter
     fun toByteArray(drawable: Drawable): ByteArray {
