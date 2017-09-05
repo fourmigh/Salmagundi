@@ -21,7 +21,6 @@ class App {
 
     var name: String? = null
 
-    @Ignore
     var icon: Drawable? = null
 
     @Ignore

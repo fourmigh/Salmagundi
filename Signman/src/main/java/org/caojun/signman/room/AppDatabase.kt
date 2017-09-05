@@ -10,7 +10,7 @@ import android.content.Context
  * Created by CaoJun on 2017/8/31.
  */
 @Database(entities = arrayOf(App::class), version = 1)
-@TypeConverters(DateConverter::class)
+@TypeConverters(DataConverter::class)
 abstract class AppDatabase: RoomDatabase {
     constructor() : super()
 
