@@ -56,7 +56,7 @@ class AppsActivity : AppCompatActivity() {
             val packages = packageManager.getInstalledPackages(0)
             for (i in packages.indices) {
                 val packageInfo = packages[i]
-                if (packageInfo.applicationInfo.flags == ApplicationInfo.FLAG_SYSTEM) { //非系统应用
+                if ((packageInfo.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) == 0) { //非系统应用
                     // AppInfo 自定义类，包含应用信息
                     val app = App()
                     app.name = packageInfo.applicationInfo.loadLabel(packageManager).toString()//获取应用名称
