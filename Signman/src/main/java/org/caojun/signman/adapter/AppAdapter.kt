@@ -48,23 +48,25 @@ class AppAdapter: BaseAdapter {
         holder.tvName?.gravity = Gravity.CENTER_VERTICAL
         holder.tvName?.setCompoundDrawables(app.icon, null, null, null)
 
+        holder.tbSign?.textOn = context?.getString(R.string.signed)
+        holder.tbSign?.textOff = context?.getString(R.string.nosign)
+        holder.tbSign?.isChecked = app.isSigned
+        if (app.isSigned) {
+            holder.btnSign?.visibility = View.GONE
+        } else {
+            holder.btnSign?.visibility = View.VISIBLE
+        }
         if (app.time.size < 1) {
             holder.tbSign?.visibility = View.GONE
         } else {
-            holder.tbSign?.visibility = View.VISIBLE
-            holder.tbSign?.textOn = context?.getString(R.string.signed)
-            holder.tbSign?.textOff = context?.getString(R.string.nosign)
             val time = app.time[app.time.size - 1]
             if (TimeUtils.isToday(time)) {
-                //今天已签到
-                holder.tbSign?.isChecked = app.isSigned
-                holder.btnSign?.visibility = View.GONE
-                doSignCheck(holder, app.isSigned)
+                holder.tbSign?.visibility = View.VISIBLE
             } else {
-                holder.tbSign?.isChecked = false
-                holder.btnSign?.visibility = View.VISIBLE
+                holder.tbSign?.visibility = View.GONE
             }
         }
+
         holder.btnSign?.setOnClickListener({
             //启动应用
             ActivityUtils.startActivity(context!!, app.packageName!!)
@@ -75,22 +77,20 @@ class AppAdapter: BaseAdapter {
                 AppDatabase.getDatabase(context!!).getAppDao().update(app)
             }
         })
-        holder.tbSign?.setOnCheckedChangeListener { _, checked ->
-            doSignCheck(holder, checked)
-            app.isSigned = checked
-            doAsync {
-                AppDatabase.getDatabase(context!!).getAppDao().update(app)
+        holder.tbSign?.setOnCheckedChangeListener { toggleButton, checked ->
+            if (toggleButton.isPressed) {
+                if (checked) {
+                    holder.btnSign?.visibility = View.GONE
+                } else {
+                    holder.btnSign?.visibility = View.VISIBLE
+                }
+                app.isSigned = checked
+                doAsync {
+                    AppDatabase.getDatabase(context!!).getAppDao().update(app)
+                }
             }
         }
         return view!!
-    }
-
-    private fun doSignCheck(holder: ViewHolder, checked: Boolean) {
-        if (checked) {
-            holder.btnSign?.visibility = View.GONE
-        } else {
-            holder.btnSign?.visibility = View.VISIBLE
-        }
     }
 
     override fun getItem(position: Int): App {

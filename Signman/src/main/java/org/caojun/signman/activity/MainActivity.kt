@@ -10,6 +10,7 @@ import org.caojun.signman.R
 import org.caojun.signman.adapter.AppAdapter
 import org.caojun.signman.room.App
 import org.caojun.signman.room.AppDatabase
+import org.caojun.signman.utils.TimeUtils
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private val list: ArrayList<App> = ArrayList()
     private var listView: StickyListHeadersListView? = null
     private var canceled: Boolean = false
+    private var adapter: AppAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +48,23 @@ class MainActivity : AppCompatActivity() {
                 if (!apps.isEmpty()) {
                     list.clear()
                     list.addAll(apps)
-                    val adapter = AppAdapter(baseContext, list)
-                    listView?.adapter = adapter
+                    for (app in list) {
+                        if (app.time.size < 1) {
+                            app.isSigned = false
+                        } else {
+                            val time = app.time[app.time.size - 1]
+                            if (!TimeUtils.isToday(time)) {
+                                app.isSigned = false
+                            }
+                        }
+                    }
+                    if (adapter == null) {
+                        adapter = AppAdapter(baseContext, list)
+                        listView?.adapter = adapter
+                    } else {
+                        adapter?.setData(list)
+                        adapter?.notifyDataSetChanged()
+                    }
                 } else {
                     gotoSetupApps()
                 }
