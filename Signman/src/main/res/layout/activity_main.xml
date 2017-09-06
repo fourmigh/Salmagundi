@@ -6,12 +6,31 @@
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
-    <se.emilsjolander.stickylistheaders.StickyListHeadersListView
-        android:id="@+id/listView"
-        android:dividerHeight="0dp"
+    <TextView
+        android:id="@+id/tvTips"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+        android:gravity="center"
+        android:text="@string/select_app_tips" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <se.emilsjolander.stickylistheaders.StickyListHeadersListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="0dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/btnSetup"

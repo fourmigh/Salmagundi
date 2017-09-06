@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.TextView
 import com.socks.library.KLog
 import org.caojun.signman.Constant
 import org.caojun.signman.R
@@ -26,10 +28,16 @@ class MainActivity : AppCompatActivity() {
     private var listView: StickyListHeadersListView? = null
     private var canceled: Boolean = false
     private var adapter: AppAdapter? = null
+    private var progressBar:ProgressBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val tvTips: TextView = findViewById(R.id.tvTips)
+        tvTips.visibility = View.GONE
+        
+        progressBar = findViewById(R.id.progressBar)
 
         val btnSetup: Button = findViewById(R.id.btnSetup)
         listView = findViewById(R.id.listView)
@@ -59,8 +67,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        progressBar?.visibility = View.VISIBLE
         //读取数据库，若列表为空，则跳转到AppsActivity
         if (canceled) {
+            progressBar?.visibility = View.GONE
             return
         }
         doAsync {
@@ -89,6 +99,7 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     gotoSetupApps()
                 }
+                progressBar?.visibility = View.GONE
             }
         }
     }

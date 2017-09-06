@@ -11,11 +11,11 @@ interface AppDao {
     @Query("SELECT * FROM app")
     fun queryAll(): List<App>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insert(vararg app: App)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(apps: List<App>)
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    fun insert(apps: List<App>)
 
     @Delete
     fun delete(vararg app: App): Int
