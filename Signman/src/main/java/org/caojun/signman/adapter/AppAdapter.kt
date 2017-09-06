@@ -59,7 +59,7 @@ class AppAdapter: BaseAdapter {
         if (app.time.size < 1) {
             holder.tbSign?.visibility = View.GONE
         } else {
-            val time = app.time[app.time.size - 1]
+            val time = app.getLastTime()
             if (TimeUtils.isToday(time)) {
                 holder.tbSign?.visibility = View.VISIBLE
             } else {
@@ -71,7 +71,8 @@ class AppAdapter: BaseAdapter {
             //启动应用
             ActivityUtils.startActivity(context!!, app.packageName!!)
             //添加时间
-            app.time.add(Date())
+//            app.time.add(Date())
+            app.addTime()
             app.isSigned = true
             doAsync {
                 AppDatabase.getDatabase(context!!).getAppDao().update(app)
@@ -85,6 +86,9 @@ class AppAdapter: BaseAdapter {
                     holder.btnSign?.visibility = View.VISIBLE
                 }
                 app.isSigned = checked
+                if (app.isSigned) {
+                    app.addTime()
+                }
                 doAsync {
                     AppDatabase.getDatabase(context!!).getAppDao().update(app)
                 }

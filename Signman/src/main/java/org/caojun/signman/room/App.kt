@@ -32,6 +32,14 @@ class App : Parcelable {
     @Ignore
     var isSelected: Boolean = false
 
+    fun addTime() {
+        time.add(0, Date())
+    }
+
+    fun getLastTime(): Date {
+        return time[0]
+    }
+
     fun getSortString(): Char {
         val pinyin = Pinyin.INSTANCE.convert(name, PinyinFormat.DEFAULT_PINYIN_FORMAT)
         return pinyin[0]

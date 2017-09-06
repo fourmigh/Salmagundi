@@ -1,10 +1,15 @@
 package org.caojun.signman.activity
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Button
+import com.socks.library.KLog
 import org.caojun.signman.Constant
 import org.caojun.signman.R
 import org.caojun.signman.adapter.AppAdapter
@@ -28,12 +33,28 @@ class MainActivity : AppCompatActivity() {
 
         val btnSetup: Button = findViewById(R.id.btnSetup)
         listView = findViewById(R.id.listView)
+        listView?.setOnItemClickListener({ parent, view, position, id -> doListViewItemClick(position) })
 
         btnSetup.setOnClickListener({
             gotoSetupApps()
         })
 
         list.clear()
+    }
+
+    private fun doListViewItemClick(position: Int) {
+        KLog.d("doListViewItemClick", "position: " + position)
+        val app = adapter?.getItem(position)
+        val time = app?.time!!
+        val size = time.size
+        val strings = arrayOfNulls<String>(size)
+        for (i in 0..(size - 1)) {
+            strings[i] = TimeUtils.getTime("yyyy-MM-dd HH:mm:ss", time[i].time)
+        }
+        AlertDialog.Builder(this)
+                .setTitle(R.string.sign_time_title)
+                .setItems(strings, null)
+                .create().show()
     }
 
     override fun onResume() {
@@ -52,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                         if (app.time.size < 1) {
                             app.isSigned = false
                         } else {
-                            val time = app.time[app.time.size - 1]
+                            val time = app.getLastTime()
                             if (!TimeUtils.isToday(time)) {
                                 app.isSigned = false
                             }

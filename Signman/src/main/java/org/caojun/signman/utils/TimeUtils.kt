@@ -1,8 +1,9 @@
 package org.caojun.signman.utils
 
+import android.text.TextUtils
 import com.socks.library.KLog
-import java.util.Date
-import java.util.Calendar
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -31,5 +32,49 @@ object TimeUtils {
             return false
         }
         return true
+    }
+
+    private val LocalTimeZone = TimeZone.getDefault()
+
+    private fun getSimpleDateFormat(dateFormat: String): SimpleDateFormat? {
+        return getSimpleDateFormat(dateFormat, LocalTimeZone)
+    }
+
+    private fun getSimpleDateFormat(dateFormat: String, timeZone: TimeZone): SimpleDateFormat? {
+        try {
+            val df = SimpleDateFormat(dateFormat)
+            df.timeZone = timeZone
+            return df
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return null
+    }
+
+    fun getTime(dateFormat: String, timeZone: TimeZone, time: Long): String? {
+        if (TextUtils.isEmpty(dateFormat)) {
+            return null
+        }
+        val df = getSimpleDateFormat(dateFormat, timeZone) ?: return null
+        val date = Date(time)
+        return df.format(date)
+    }
+
+    fun getTime(dateFormat: String, time: Long): String? {
+        return getTime(dateFormat, LocalTimeZone, time)
+    }
+
+    fun getTime(dateFormat: String): String? {
+        return getTime(dateFormat, LocalTimeZone)
+    }
+
+    fun getTime(dateFormat: String, timeZone: TimeZone): String? {
+        return getTime(dateFormat, timeZone, getTime())
+    }
+
+    fun getTime(): Long {
+        val date = Date()
+        return date.time
     }
 }
