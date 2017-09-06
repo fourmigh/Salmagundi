@@ -26,7 +26,7 @@ class DataConverter {
     fun toString(time: ArrayList<Date>): String {
         var sb = StringBuffer()
         for (date in time) {
-            sb.append(date).append(";")
+            sb.append(date.time).append(";")
         }
         return sb.toString()
     }

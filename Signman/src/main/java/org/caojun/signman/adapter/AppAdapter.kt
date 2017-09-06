@@ -10,7 +10,11 @@ import android.widget.TextView
 import android.widget.ToggleButton
 import org.caojun.signman.R
 import org.caojun.signman.room.App
+import org.caojun.signman.room.AppDatabase
+import org.caojun.signman.utils.ActivityUtils
 import org.caojun.signman.utils.TimeUtils
+import org.jetbrains.anko.doAsync
+import java.util.Date
 
 /**
  * Created by CaoJun on 2017/8/31.
@@ -53,14 +57,40 @@ class AppAdapter: BaseAdapter {
             val time = app.time[app.time.size - 1]
             if (TimeUtils.isToday(time)) {
                 //今天已签到
-                holder.tbSign?.isChecked = false
+                holder.tbSign?.isChecked = app.isSigned
                 holder.btnSign?.visibility = View.GONE
+                doSignCheck(holder, app.isSigned)
             } else {
-                holder.tbSign?.isChecked = true
+                holder.tbSign?.isChecked = false
                 holder.btnSign?.visibility = View.VISIBLE
             }
         }
+        holder.btnSign?.setOnClickListener({
+            //启动应用
+            ActivityUtils.startActivity(context!!, app.packageName!!)
+            //添加时间
+            app.time.add(Date())
+            app.isSigned = true
+            doAsync {
+                AppDatabase.getDatabase(context!!).getAppDao().update(app)
+            }
+        })
+        holder.tbSign?.setOnCheckedChangeListener { _, checked ->
+            doSignCheck(holder, checked)
+            app.isSigned = checked
+            doAsync {
+                AppDatabase.getDatabase(context!!).getAppDao().update(app)
+            }
+        }
         return view!!
+    }
+
+    private fun doSignCheck(holder: ViewHolder, checked: Boolean) {
+        if (checked) {
+            holder.btnSign?.visibility = View.GONE
+        } else {
+            holder.btnSign?.visibility = View.VISIBLE
+        }
     }
 
     override fun getItem(position: Int): App {

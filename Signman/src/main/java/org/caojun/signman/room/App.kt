@@ -27,6 +27,8 @@ class App : Parcelable {
 
     var icon: Drawable? = null
 
+    var isSigned: Boolean = false
+
     @Ignore
     var isSelected: Boolean = false
 
@@ -55,6 +57,7 @@ class App : Parcelable {
         dest.writeString(name)
         dest.writeInt(icons.size)
         dest.writeByteArray(icons)
+        dest.writeByte((if (isSigned) 1 else 0).toByte())
     }
 
     override fun describeContents(): Int {
@@ -70,10 +73,12 @@ class App : Parcelable {
         val size = _in.readInt()
         var icons = ByteArray(size)
         _in.readByteArray(icons)
+        var signs = _in.readByte()
 
         var dataConverter = DataConverter()
         time = dataConverter.toArrayListDate(times)
         icon = dataConverter.toDrawable(icons)
+        isSigned = signs.compareTo(1) == 0
     }
 
     companion object {
