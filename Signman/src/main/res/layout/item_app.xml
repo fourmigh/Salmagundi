@@ -16,6 +16,8 @@
     <ToggleButton
         android:id="@+id/tbSign"
         android:focusable="false"
+        android:textOn="@string/signed"
+        android:textOff="@string/nosign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ToggleButton" />

@@ -48,8 +48,8 @@ class AppAdapter: BaseAdapter {
         holder.tvName?.gravity = Gravity.CENTER_VERTICAL
         holder.tvName?.setCompoundDrawables(app.icon, null, null, null)
 
-        holder.tbSign?.textOn = context?.getString(R.string.signed)
-        holder.tbSign?.textOff = context?.getString(R.string.nosign)
+//        holder.tbSign?.textOn = context?.getString(R.string.signed)
+//        holder.tbSign?.textOff = context?.getString(R.string.nosign)
         holder.tbSign?.isChecked = app.isSigned
         if (app.isSigned) {
             holder.btnSign?.visibility = View.GONE
