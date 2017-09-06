@@ -56,10 +56,15 @@ class AppsActivity : AppCompatActivity() {
         super.onResume()
 
         if (list.isEmpty()) {
+
             val packages = packageManager.getInstalledPackages(0)
             for (i in packages.indices) {
                 val packageInfo = packages[i]
                 if ((packageInfo.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) == 0) { //非系统应用
+                    if (packageInfo.packageName.equals(packageName)) {
+                        //不把自身应用加载到列表中
+                        continue
+                    }
                     // AppInfo 自定义类，包含应用信息
                     val app = App()
                     app.name = packageInfo.applicationInfo.loadLabel(packageManager).toString()//获取应用名称
@@ -73,15 +78,13 @@ class AppsActivity : AppCompatActivity() {
 
             Collections.sort(list, AppSortComparator())
 
-            for (app in apps) {
-                for (l in list) {
-                    if (l.packageName.equals(app.packageName)) {
-                        l.isSelected = true
-                    }
+            for (app in list) {
+                if (apps.contains(app)) {
+                    app.isSelected = true
                 }
             }
 
-            adapter = AppSelectAdapter(this, list)
+            adapter = AppSelectAdapter(baseContext, list)
             listView?.adapter = adapter
         }
     }
