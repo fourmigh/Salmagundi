@@ -8,6 +8,7 @@
 
     <se.emilsjolander.stickylistheaders.StickyListHeadersListView
         android:id="@+id/listView"
+        android:dividerHeight="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"/>

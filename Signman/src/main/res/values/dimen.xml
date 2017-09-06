@@ -3,4 +3,5 @@
     <dimen name="icon_size">64dp</dimen>
     <dimen name="app_name_padding">10dp</dimen>
     <dimen name="app_icon_padding">10dp</dimen>
+    <dimen name="header_size">32sp</dimen>
 </resources>
