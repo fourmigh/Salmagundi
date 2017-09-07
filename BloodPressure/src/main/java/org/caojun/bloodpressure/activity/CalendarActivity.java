@@ -22,10 +22,7 @@ import org.caojun.bloodpressure.utils.DataStorageUtils;
 import org.caojun.library.listener.OnDayClickListener;
 import org.caojun.library.model.CalendarDay;
 import org.caojun.library.monthswitchpager.view.MonthSwitchView;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -64,7 +61,7 @@ public class CalendarActivity extends AppCompatActivity {
         monthSwitchView.setData(new CalendarDay(2017, 6, 28), new CalendarDay(2117, 12, 31));
         monthSwitchView.setOnDayClickListener(new OnDayClickListener() {
             @Override
-            public void onDayClick(@NotNull CalendarDay calendarDay) {
+            public void onDayClick(CalendarDay calendarDay) {
                 mCcalendarDay = calendarDay;
                 resetListView();
             }

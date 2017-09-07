@@ -37,7 +37,7 @@ public class DigitalKeyboard extends TableLayout implements View.OnClickListener
     public static final int KeyNext = 13;
     public static final int KeyClose = 14;
     private static final int[] StringResId = {R.string.dk_0, R.string.dk_1, R.string.dk_2, R.string.dk_3, R.string.dk_4, R.string.dk_5, R.string.dk_6, R.string.dk_7, R.string.dk_8, R.string.dk_9, R.string.dk_dot};
-    private static final int[] ResId = {R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.btnDot, R.id.btnDelete, R.id.btnPrevious, R.id.btnNext, R.id.btnClose};
+    private static final int[] ResId = {R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.btnDot, R.id.btnDel, R.id.btnPrevious, R.id.btnNext, R.id.btnClose};
     private Button[] buttons;
     private EditText editText;
     private OnClickListener onClickListener;
