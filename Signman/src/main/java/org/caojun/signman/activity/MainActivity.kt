@@ -2,22 +2,19 @@ package org.caojun.signman.activity
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
 import android.widget.Button
-import android.widget.ProgressBar
 import android.widget.TextView
-import com.socks.library.KLog
 import org.caojun.signman.Constant
 import org.caojun.signman.R
 import org.caojun.signman.adapter.AppAdapter
 import org.caojun.signman.room.App
 import org.caojun.signman.room.AppDatabase
 import org.caojun.signman.utils.TimeUtils
+import org.caojun.widget.TipsProgressBar
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView
@@ -28,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private var listView: StickyListHeadersListView? = null
     private var canceled: Boolean = false
     private var adapter: AppAdapter? = null
-    private var progressBar:ProgressBar? = null
+    private var progressBar: TipsProgressBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +48,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun doListViewItemClick(position: Int) {
-        KLog.d("doListViewItemClick", "position: " + position)
         val app = adapter?.getItem(position)
         val time = app?.time!!
         val size = time.size

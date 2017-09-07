@@ -7,16 +7,15 @@ import org.caojun.signman.R
 import android.app.Activity
 import android.content.pm.ApplicationInfo
 import android.view.View
-import android.widget.ProgressBar
 import org.caojun.signman.adapter.AppSelectAdapter
 import org.caojun.signman.room.App
 import org.caojun.signman.room.AppDatabase
 import org.caojun.signman.utils.AppSortComparator
+import org.caojun.widget.TipsProgressBar
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView
 import java.util.Collections
-
 
 /**
  * Created by CaoJun on 2017/8/31.
@@ -27,7 +26,7 @@ class AppsActivity : AppCompatActivity() {
     private var listView: StickyListHeadersListView? = null
     private var adapter:AppSelectAdapter? = null
     private var apps: ArrayList<App> = ArrayList()
-    private var progressBar: ProgressBar? = null
+    private var progressBar: TipsProgressBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
