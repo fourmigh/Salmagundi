@@ -5,9 +5,7 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.TextView
-import com.socks.library.KLog
 import org.caojun.signman.R
 
 /**
@@ -34,7 +32,6 @@ class TipsProgressBar: LinearLayout {
         val count = attrs?.attributeCount?:0
         for (i in 0..(count - 1)) {
             if (attrs?.getAttributeName(i).equals("tooltipText")) {
-                KLog.d("tooltipText", attrs?.getAttributeValue(i))
                 val value = attrs?.getAttributeValue(i)
                 if (!TextUtils.isEmpty(value)) {
                     if (value!![0] == '@') {

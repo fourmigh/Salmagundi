@@ -38,3 +38,4 @@
 38、ListView不响应setOnItemClickListener：工程Signman（item_app.xml）item中含有Button等控件，在布局中增加“android:focusable="false"”即可
 39、Anko（doAsync/uiThread等）：工程Signman（activity.MainActivity）
 40、通过包名启动应用：工程Signman（utils.ActivityUtils）
+41、自定义控件TipsProgressBar：工程Signman（widget.TipsProgressBar）
