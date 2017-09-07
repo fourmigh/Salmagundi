@@ -43,19 +43,22 @@ class AppsActivity : AppCompatActivity() {
 
         btnSetup.setOnClickListener({
             saveSelectedApps()
-            setResult(Activity.RESULT_OK)
-            finish()
         })
 
         list.clear()
     }
 
     private fun saveSelectedApps() {
+        progressBar?.visibility = View.VISIBLE
         var apps = adapter?.getSelectedApps()
         doAsync {
 //            AppDatabase.getDatabase(baseContext).getAppDao().insert(apps!!)
             for (app in apps!!) {
                 AppDatabase.getDatabase(baseContext).getAppDao().insert(app)
+            }
+            uiThread {
+                setResult(Activity.RESULT_OK)
+                finish()
             }
         }
     }

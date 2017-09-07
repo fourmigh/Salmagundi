@@ -7,8 +7,7 @@ import org.caojun.decidophobia.BuildConfig.DEBUG
 /**
  * Created by CaoJun on 2017/8/7.
  */
-class MainApplication : Application {
-    constructor() : super()
+class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()

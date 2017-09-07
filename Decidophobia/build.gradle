@@ -28,4 +28,5 @@ dependencies {
     implementation "com.android.support:design:26.0.1"
     implementation project(':DiceLibrary')
     implementation "com.j256.ormlite:ormlite-android:latest.release"
+    implementation "com.github.zhaokaiqiang.klog:library:latest.release"
 }

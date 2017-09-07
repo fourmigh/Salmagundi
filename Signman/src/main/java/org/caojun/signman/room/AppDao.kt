@@ -11,7 +11,7 @@ interface AppDao {
     @Query("SELECT * FROM app")
     fun queryAll(): List<App>
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(vararg app: App)
 
 //    @Insert(onConflict = OnConflictStrategy.REPLACE)
