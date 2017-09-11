@@ -199,4 +199,7 @@
 
     <!-- 字符串排序 -->
     <string name="ss_title">字符串排序</string>
+
+    <!-- 分贝侠 -->
+    <string name="dm_title">分贝侠</string>decibel
 </resources>

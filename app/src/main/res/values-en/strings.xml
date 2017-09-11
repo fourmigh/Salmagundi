@@ -184,4 +184,7 @@
 
     <!-- 字符串排序 -->
     <string name="ss_title">String Sort</string>
+
+    <!-- 分贝侠 -->
+    <string name="dm_title">Decibelman</string>
 </resources>

@@ -29,6 +29,7 @@ import org.caojun.salmagundi.clicaptcha.CaptchaDemo;
 import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.color.ColorUtils;
+import org.caojun.salmagundi.decibelman.DecibelmanActivity;
 import org.caojun.salmagundi.family.FamilyActivity;
 import org.caojun.salmagundi.iflytek.FlytekActivity;
 import org.caojun.salmagundi.lockpattern.GestureConstant;
@@ -70,7 +71,8 @@ public class MainActivity extends Activity {
             R.drawable.icon_calendar,
             R.drawable.icon_chinesename,
             R.drawable.icon_family,
-            R.drawable.icon_sort
+            R.drawable.icon_sort,
+            R.drawable.icon_decibelman
     };
     private final Integer[] mTextIds = {
             R.string.bp_title,
@@ -94,7 +96,8 @@ public class MainActivity extends Activity {
             R.string.cal_title,
             R.string.cn_title,
             R.string.fa_title,
-            R.string.ss_title
+            R.string.ss_title,
+            R.string.dm_title
     };
     private final Class[] mActivitys = {
             BloodPressureActivity.class,
@@ -118,7 +121,8 @@ public class MainActivity extends Activity {
             CalendarActivity.class,
             ChineseNameActivity.class,
             FamilyActivity.class,
-            StringSortDemo.class
+            StringSortDemo.class,
+            DecibelmanActivity.class
     };
     private final String[] mARouterPaths = {
             Constant.ACTIVITY_BLOODPRESSURE,
@@ -142,7 +146,8 @@ public class MainActivity extends Activity {
             Constant.ACTIVITY_CALENDAR,
             Constant.ACTIVITY_CHINESENAME,
             Constant.ACTIVITY_FAMILY,
-            Constant.ACTIVITY_STRINGSORT_DEMO
+            Constant.ACTIVITY_STRINGSORT_DEMO,
+            Constant.ACTIVITY_DECIBELMAN
     };
 
     @Override
