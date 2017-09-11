@@ -13,11 +13,13 @@ import org.caojun.signman.R
 import org.caojun.signman.adapter.AppAdapter
 import org.caojun.signman.room.App
 import org.caojun.signman.room.AppDatabase
+import org.caojun.signman.utils.AppSortComparator
 import org.caojun.signman.utils.TimeUtils
 import org.caojun.widget.TipsProgressBar
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -74,6 +76,7 @@ class MainActivity : AppCompatActivity() {
             uiThread {
                 if (!apps.isEmpty()) {
                     list.clear()
+                    Collections.sort(apps, AppSortComparator())
                     list.addAll(apps)
                     for (app in list) {
                         if (app.time.size < 1) {
