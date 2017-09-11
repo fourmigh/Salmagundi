@@ -41,7 +41,7 @@ class App : Parcelable {
     }
 
     fun getSortString(): Char {
-        val pinyin = Pinyin.INSTANCE.convert(name, PinyinFormat.DEFAULT_PINYIN_FORMAT)
+        val pinyin = Pinyin.INSTANCE.convert(name, PinyinFormat.DEFAULT_PINYIN_FORMAT).toLowerCase()
         return pinyin[0]
     }
 
