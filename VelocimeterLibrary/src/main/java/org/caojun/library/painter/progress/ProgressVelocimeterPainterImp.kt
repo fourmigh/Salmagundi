@@ -1,11 +1,14 @@
 package org.caojun.library.painter.progress
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.SweepGradient
+import android.graphics.Paint
+import android.graphics.DashPathEffect
+import android.graphics.Color
+import android.graphics.Matrix
 import org.caojun.library.painter.VelocimeterPainter
 import org.caojun.library.utils.DimensionUtils
-import android.graphics.Color.parseColor
-
 
 
 /**
@@ -18,8 +21,8 @@ open class ProgressVelocimeterPainterImp: VelocimeterPainter, ProgressVelocimete
     private val MaxAngle = 222f
     private var mShader: SweepGradient? = null
 
-    constructor(context: Context, color: Int, max: Float, margin: Int) : super(context) {
-        this.color = color
+    constructor(context: Context, colors: IntArray, max: Float, margin: Int) : super(context) {
+        this.colors = colors
         this.max = max
         this.blurMargin = margin
         initSize()
@@ -36,7 +39,7 @@ open class ProgressVelocimeterPainterImp: VelocimeterPainter, ProgressVelocimete
         paint.isAntiAlias = true
         paint.isAntiAlias = true
         paint.strokeWidth = strokeWidth.toFloat()
-        paint.color = color
+        paint.color = colors[0]
         paint.style = Paint.Style.STROKE
         paint.pathEffect = DashPathEffect(floatArrayOf(lineWidth.toFloat(), lineSpace.toFloat()), 0f)
     }

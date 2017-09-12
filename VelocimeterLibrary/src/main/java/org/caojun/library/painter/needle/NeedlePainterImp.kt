@@ -19,7 +19,7 @@ open class NeedlePainterImp: VelocimeterPainter, NeedlePainter {
     private var centerY: Int = 0
 
     constructor(context: Context, color: Int, max: Float): super(context) {
-        this.color = color
+        this.colors[0] = color
         this.max = max
         init()
     }
@@ -36,7 +36,7 @@ open class NeedlePainterImp: VelocimeterPainter, NeedlePainter {
     }
 
     private fun initPainter() {
-        paint.color = color
+        paint.color = colors[0]
         paint.strokeWidth = strokeWidth.toFloat()
     }
 

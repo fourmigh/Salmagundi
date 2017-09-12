@@ -16,7 +16,7 @@ class InsideVelocimeterMarkerPainterImp: VelocimeterPainter, InsideVelocimeterMa
     private var externalStrokeWidth: Int = 0
 
     constructor(context: Context, color: Int) : super(context) {
-        this.color = color
+        this.colors[0] = color
         initSize()
         initPainter()
     }
@@ -33,7 +33,7 @@ class InsideVelocimeterMarkerPainterImp: VelocimeterPainter, InsideVelocimeterMa
     private fun initPainter() {
         paint.isAntiAlias = true
         paint.strokeWidth = strokeWidth.toFloat()
-        paint.color = color
+        paint.color = colors[0]
         paint.style = Paint.Style.STROKE
         paint.pathEffect = DashPathEffect(floatArrayOf(lineWidth.toFloat(), lineSpace.toFloat()), 0f)
     }

@@ -15,7 +15,7 @@ class BottomVelocimeterPainterImp: VelocimeterPainter, BottomVelocimeterPainter 
         startAngle = 30.5f
         finishAngle = 120f
         this.blurMargin = margin
-        this.color = color
+        this.colors[0] = color
         initSize()
         initPainter()
     }
@@ -27,7 +27,7 @@ class BottomVelocimeterPainterImp: VelocimeterPainter, BottomVelocimeterPainter 
     private fun initPainter() {
         paint.isAntiAlias = true
         paint.strokeWidth = strokeWidth.toFloat()
-        paint.color = color
+        paint.color = colors[0]
         paint.style = Paint.Style.STROKE
     }
 

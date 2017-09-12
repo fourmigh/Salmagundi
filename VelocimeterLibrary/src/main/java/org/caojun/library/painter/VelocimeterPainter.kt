@@ -24,6 +24,7 @@ open class VelocimeterPainter {
     protected var blurMargin: Int = 0
     protected var lineWidth: Int = 0
     protected var lineSpace: Int = 0
-    protected var color: Int = 0
+//    protected var color: Int = 0
+    protected var colors = intArrayOf(0, 0)
     protected var margin: Int = 0
 }

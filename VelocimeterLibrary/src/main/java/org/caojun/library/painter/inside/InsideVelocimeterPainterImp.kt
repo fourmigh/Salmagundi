@@ -15,7 +15,7 @@ class InsideVelocimeterPainterImp: VelocimeterPainter, InsideVelocimeterPainter 
     private var externalStrokeWidth: Int = 0
 
     constructor(context: Context, color: Int) : super(context) {
-        this.color = color
+        this.colors[0] = color
         initSize()
         initPainter()
     }
@@ -31,7 +31,7 @@ class InsideVelocimeterPainterImp: VelocimeterPainter, InsideVelocimeterPainter 
         paint = Paint()
         paint.isAntiAlias = true
         paint.strokeWidth = strokeWidth.toFloat()
-        paint.color = color
+        paint.color = colors[0]
         paint.style = Paint.Style.STROKE
     }
 

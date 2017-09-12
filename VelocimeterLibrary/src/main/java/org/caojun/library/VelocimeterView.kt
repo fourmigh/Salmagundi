@@ -55,8 +55,8 @@ class VelocimeterView: View {
     private val progressDelay: Long = 350
     private val margin = 15
     private var insideProgressColor = Color.parseColor("#094e35")
-    private var externalProgressColor = Color.parseColor("#9cfa1d")
-    private var progressBlurColor = Color.parseColor("#44ff2b")
+    private var externalProgressColor = intArrayOf(Color.GREEN, Color.RED)
+    private var progressBlurColor = intArrayOf(Color.GREEN, Color.RED)
     private var bottomVelocimeterColor = Color.parseColor("#1e1e1e")
     private var showBottomVelocimeter = true
     private var internalVelocimeterColor = Color.WHITE
@@ -135,9 +135,10 @@ class VelocimeterView: View {
 
     private fun initAttributes(attributes: TypedArray) {
         insideProgressColor = attributes.getColor(R.styleable.VelocimeterView_inside_progress_color, insideProgressColor)
-        externalProgressColor = attributes.getColor(R.styleable.VelocimeterView_external_progress_color,
-                externalProgressColor)
-        progressBlurColor = attributes.getColor(R.styleable.VelocimeterView_progress_blur_color, progressBlurColor)
+        externalProgressColor[0] = attributes.getColor(R.styleable.VelocimeterView_external_progress_color0, externalProgressColor[0])
+        externalProgressColor[1] = attributes.getColor(R.styleable.VelocimeterView_external_progress_color0, externalProgressColor[1])
+        progressBlurColor[0] = attributes.getColor(R.styleable.VelocimeterView_progress_blur_color0, progressBlurColor[0])
+        progressBlurColor[1] = attributes.getColor(R.styleable.VelocimeterView_progress_blur_color1, progressBlurColor[1])
         bottomVelocimeterColor = attributes.getColor(R.styleable.VelocimeterView_bottom_velocimeter_color,
                 bottomVelocimeterColor)
         showBottomVelocimeter = attributes.getBoolean(R.styleable.VelocimeterView_show_bottom_bar,

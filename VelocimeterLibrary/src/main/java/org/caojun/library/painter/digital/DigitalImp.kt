@@ -25,7 +25,7 @@ open class DigitalImp: VelocimeterPainter, Digital {
     private var units: String = "kmh"
 
     constructor(context: Context, color: Int, marginTop: Int, textSize: Int, units: String): super(context) {
-        this.color = color
+        this.colors[0] = color
         this.marginTop = marginTop
         this.textSize = textSize.toFloat()
         this.units = units
@@ -37,13 +37,13 @@ open class DigitalImp: VelocimeterPainter, Digital {
     private fun initPainter() {
         digitPaint.isAntiAlias = true
         digitPaint.textSize = textSize
-        digitPaint.color = color
+        digitPaint.color = colors[0]
         digitPaint.typeface = typeface
         digitPaint.textAlign = Paint.Align.CENTER
         textPaint = TextPaint()
         textPaint.isAntiAlias = true
         textPaint.textSize = textSize / 3
-        textPaint.color = color
+        textPaint.color = colors[0]
         textPaint.typeface = typeface
         textPaint.textAlign = Paint.Align.CENTER
     }

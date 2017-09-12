@@ -15,7 +15,7 @@ class InternalVelocimeterPainterImp: VelocimeterPainter, InternalVelocimeterPain
     constructor(context: Context, color: Int, margin: Int) : super(context) {
         this.blurMargin = margin
         this.context = context
-        this.color = color
+        this.colors[0] = color
         initSize()
         initPainter()
     }
@@ -29,7 +29,7 @@ class InternalVelocimeterPainterImp: VelocimeterPainter, InternalVelocimeterPain
     private fun initPainter() {
         paint.isAntiAlias = true
         paint.strokeWidth = strokeWidth.toFloat()
-        paint.color = color
+        paint.color = colors[0]
         paint.style = Paint.Style.STROKE
         paint.pathEffect = DashPathEffect(floatArrayOf(lineWidth.toFloat(), lineSpace.toFloat()), 0f)
     }

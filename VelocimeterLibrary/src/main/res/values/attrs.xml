@@ -3,9 +3,13 @@
     <declare-styleable name="VelocimeterView">
         <attr name="inside_progress_color"
             format="color"/>
-        <attr name="external_progress_color"
+        <attr name="external_progress_color0"
             format="color"/>
-        <attr name="progress_blur_color"
+        <attr name="external_progress_color1"
+            format="color"/>
+        <attr name="progress_blur_color0"
+            format="color"/>
+        <attr name="progress_blur_color1"
             format="color"/>
         <attr name="bottom_velocimeter_color"
             format="color"/>
