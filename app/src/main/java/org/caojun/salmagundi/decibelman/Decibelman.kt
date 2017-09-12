@@ -7,6 +7,8 @@ import android.media.AudioRecord
 import android.media.MediaRecorder
 import android.media.MediaRecorder.AudioSource.MIC
 import com.socks.library.KLog
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 
 /**
@@ -42,7 +44,7 @@ class Decibelman {
         }
         isGetVoiceRun = true
 
-        Thread(Runnable {
+        doAsync {
             mAudioRecord!!.startRecording()
             val buffer = ShortArray(BUFFER_SIZE)
             while (isGetVoiceRun) {
@@ -56,7 +58,9 @@ class Decibelman {
                 // 平方和除以数据总长度，得到音量大小。
                 val mean = v / r.toDouble()
                 val volume = 10 * Math.log10(mean)
-                listener?.onGetDecibel(volume)
+                uiThread {
+                    listener?.onGetDecibel(volume)
+                }
                 // 大概一秒十次
                 synchronized(this) {
                     Thread.sleep(100)
@@ -65,7 +69,7 @@ class Decibelman {
             mAudioRecord!!.stop()
             mAudioRecord!!.release()
             mAudioRecord = null
-        }).start()
+        }
     }
 
     fun stop() {
