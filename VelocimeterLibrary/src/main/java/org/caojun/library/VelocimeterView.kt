@@ -125,10 +125,10 @@ class VelocimeterView: View {
         initValueAnimator()
 
         digitalPainter = DigitalImp(context, digitalNumberColor,
-                DimensionUtils.getSizeInPixels(context, 45f), DimensionUtils.getSizeInPixels(context, 25f),
+                DimensionUtils.getSizeInPixels(context, 45f), DimensionUtils.getSizeInPixels(context, 32f),
                 units)
         digitalBlurPainter = DigitalBlurImp(context, digitalNumberBlurColor,
-                DimensionUtils.getSizeInPixels(context, 45f), DimensionUtils.getSizeInPixels(context, 25f),
+                DimensionUtils.getSizeInPixels(context, 45f), DimensionUtils.getSizeInPixels(context, 32f),
                 units)
         bottomVelocimeterPainter = BottomVelocimeterPainterImp(context, bottomVelocimeterColor, marginPixels)
     }
