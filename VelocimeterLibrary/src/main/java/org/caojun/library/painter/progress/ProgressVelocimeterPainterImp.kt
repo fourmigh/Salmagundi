@@ -1,11 +1,12 @@
 package org.caojun.library.painter.progress
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.DashPathEffect
-import android.graphics.Paint
+import android.graphics.*
 import org.caojun.library.painter.VelocimeterPainter
 import org.caojun.library.utils.DimensionUtils
+import android.graphics.Color.parseColor
+
+
 
 /**
  * Created by CaoJun on 2017/9/12.
@@ -15,6 +16,7 @@ open class ProgressVelocimeterPainterImp: VelocimeterPainter, ProgressVelocimete
     private var max: Float = 0f
     private var plusAngle = 0f
     private val MaxAngle = 222f
+    private var mShader: SweepGradient? = null
 
     constructor(context: Context, color: Int, max: Float, margin: Int) : super(context) {
         this.color = color
@@ -39,6 +41,15 @@ open class ProgressVelocimeterPainterImp: VelocimeterPainter, ProgressVelocimete
         paint.pathEffect = DashPathEffect(floatArrayOf(lineWidth.toFloat(), lineSpace.toFloat()), 0f)
     }
 
+    private fun initShader() {
+        val colors = intArrayOf(Color.GREEN, Color.YELLOW, Color.RED)
+        mShader = SweepGradient((width / 2).toFloat(), (height / 2).toFloat(), colors, null)
+        var mMatrix = Matrix()
+        mMatrix.setRotate(90f, (width / 2).toFloat(), (height / 2).toFloat())
+        mShader?.setLocalMatrix(mMatrix)
+        paint.shader = mShader
+    }
+
     override fun setValue(value: Float) {
         this.plusAngle = MaxAngle * value / max
     }
@@ -49,12 +60,13 @@ open class ProgressVelocimeterPainterImp: VelocimeterPainter, ProgressVelocimete
     }
 
     override fun draw(canvas: Canvas) {
-        canvas.drawArc(circle, startAngle.toFloat(), plusAngle, false, paint)
+        canvas.drawArc(circle, startAngle, plusAngle, false, paint)
     }
 
     override fun onSizeChanged(width: Int, height: Int) {
         this.width = width
         this.height = height
         initExternalCircle()
+        initShader()
     }
 }

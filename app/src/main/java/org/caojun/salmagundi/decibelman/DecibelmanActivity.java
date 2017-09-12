@@ -33,6 +33,7 @@ public class DecibelmanActivity extends Activity {
                 velocimeterView.setValue((float)decibel, false);
             }
         });
+//        velocimeterView.setValue(120f, true);
     }
 
     @Override
