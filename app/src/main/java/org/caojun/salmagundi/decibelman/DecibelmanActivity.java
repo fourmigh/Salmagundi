@@ -30,10 +30,10 @@ public class DecibelmanActivity extends Activity {
         decibelman = new Decibelman(new Decibelman.OnDecibelListener() {
             @Override
             public void onGetDecibel(double decibel) {
-                velocimeterView.setValue((float)decibel, false);
+//                velocimeterView.setValue((float)decibel, false);
             }
         });
-//        velocimeterView.setValue(120f, true);
+        velocimeterView.setValue(120f, true);
     }
 
     @Override
