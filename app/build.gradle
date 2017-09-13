@@ -67,7 +67,7 @@ dependencies {
     implementation 'com.luhuiguo:chinese-utils:latest.release'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation project(':CalendarLibrary')
-    implementation 'com.android.support:design:26.0.1'
+    implementation "com.android.support:design:$androidsupport_version"
     implementation project(':VelocimeterLibrary')
     implementation "org.jetbrains.anko:anko-common:latest.release"
 }

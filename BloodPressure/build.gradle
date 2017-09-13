@@ -49,5 +49,5 @@ dependencies {
     annotationProcessor "com.alibaba:arouter-compiler:latest.release"
     implementation "com.alibaba:fastjson:latest.release"
     implementation project(':CalendarLibrary')
-    implementation "com.android.support:design:26.0.1"
+    implementation "com.android.support:design:$androidsupport_version"
 }

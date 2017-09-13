@@ -24,8 +24,8 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation "com.android.support:appcompat-v7:26.0.1"
-    implementation "com.android.support:design:26.0.1"
+    implementation "com.android.support:appcompat-v7:$androidsupport_version"
+    implementation "com.android.support:design:$androidsupport_version"
     implementation project(':DiceLibrary')
     implementation "com.j256.ormlite:ormlite-android:latest.release"
     implementation "com.github.zhaokaiqiang.klog:library:latest.release"
