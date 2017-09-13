@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="velocimeter_background">#ff2c2c2c</color>
+    <color name="inside_progress">#ff6c4d70</color>
+    <color name="external_progress0">#FF00FF00</color>
+    <color name="external_progress1">#FFFF0000</color>
+    <color name="bottom_velocimeter">#e515171d</color>
+    <color name="internal_velocimeter">#ffb4b4b4</color>
+    <color name="needle">#6200EA</color>
+    <color name="digital_number">#ffdcefff</color>
 </resources>
