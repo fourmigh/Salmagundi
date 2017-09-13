@@ -46,14 +46,14 @@ class VelocimeterView: View {
     private var blurLinePainter: NeedlePainter? = null//指针光晕
     private var digitalPainter: Digital? = null//数字绘制
     private var digitalBlurPainter: Digital? = null//数字光晕
-    private var min = 0
-    private var progressLastValue = min.toFloat()
-    private var nidleLastValue = min.toFloat()
-    private var max = 100
+    private var min: Float = 0f
+    private var progressLastValue = min
+    private var nidleLastValue = min
+    private var max: Float = 100f
     private var value: Float = 0f
     private val duration = 1000
     private val progressDelay: Long = 350
-    private val margin = 15
+    private val margin: Float = 15f
     private var insideProgressColor = Color.parseColor("#094e35")
     private var externalProgressColor = intArrayOf(Color.parseColor("#9cfa1d"), Color.parseColor("#9cfa1d"))
     private var progressBlurColor = intArrayOf(Color.parseColor("#44ff2b"), Color.parseColor("#44ff2b"))
@@ -113,15 +113,15 @@ class VelocimeterView: View {
         val attributes = context.obtainStyledAttributes(attributeSet, R.styleable.VelocimeterView)
         initAttributes(attributes)
 
-        val marginPixels = DimensionUtils.getSizeInPixels(context, margin.toFloat())
+        val marginPixels = DimensionUtils.getSizeInPixels(context, margin)
         setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-        linePainter = NeedlePainterImp(context, needdleColor, max.toFloat())
-        blurLinePainter = LineBlurPainter(context, needleBlurColor, max.toFloat())
+        linePainter = NeedlePainterImp(context, needdleColor, max)
+        blurLinePainter = LineBlurPainter(context, needleBlurColor, max)
         internalVelocimeterPainter = InternalVelocimeterPainterImp(context, insideProgressColor, marginPixels)
-        progressVelocimeterPainter = ProgressVelocimeterPainterImp(context, externalProgressColor, max.toFloat(), marginPixels)
+        progressVelocimeterPainter = ProgressVelocimeterPainterImp(context, externalProgressColor, max, marginPixels)
         insideVelocimeterPainter = InsideVelocimeterPainterImp(context, internalVelocimeterColor)
         insideVelocimeterMarkerPainter = InsideVelocimeterMarkerPainterImp(context, internalVelocimeterColor)
-        blurProgressVelocimeterPainter = BlurProgressVelocimeterPainter(context, progressBlurColor, max.toFloat(), marginPixels)
+        blurProgressVelocimeterPainter = BlurProgressVelocimeterPainter(context, progressBlurColor, max, marginPixels)
         initValueAnimator()
 
         digitalPainter = DigitalImp(context, digitalNumberColor,
@@ -150,7 +150,7 @@ class VelocimeterView: View {
         digitalNumberColor = attributes.getColor(R.styleable.VelocimeterView_digital_number_color, digitalNumberColor)
         digitalNumberBlurColor = attributes.getColor(R.styleable.VelocimeterView_digital_number_blur_color,
                 digitalNumberBlurColor)
-        max = attributes.getInt(R.styleable.VelocimeterView_max, max)
+        max = attributes.getInt(R.styleable.VelocimeterView_max, max.toInt()).toFloat()
         units = attributes.getString(R.styleable.VelocimeterView_units)
         if (TextUtils.isEmpty(units)) {
             units = "kmh"
@@ -168,13 +168,12 @@ class VelocimeterView: View {
 
     fun setValue(value: Float, animate: Boolean) {
         this.value = value
-        if (value <= max && value >= min) {
-            if (!animate) {
-                updateValueProgress(value)
-                updateValueNeedle(value)
-            } else {
-                animateProgressValue()
-            }
+        if (value > max || value < min) return
+        if (!animate) {
+            updateValueProgress(value)
+            updateValueNeedle(value)
+        } else {
+            animateProgressValue()
         }
     }
 
@@ -193,8 +192,8 @@ class VelocimeterView: View {
         setMeasuredDimension(size, size)
     }
 
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
+    override fun onSizeChanged(w: Int, h: Int, oldW: Int, oldH: Int) {
+        super.onSizeChanged(w, h, oldW, oldH)
         internalVelocimeterPainter?.onSizeChanged(w, h)
         progressVelocimeterPainter?.onSizeChanged(w, h)
         insideVelocimeterPainter?.onSizeChanged(w, h)
