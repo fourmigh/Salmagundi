@@ -39,3 +39,6 @@
 39、Anko（doAsync/uiThread等）：工程Signman（activity.MainActivity）
 40、通过包名启动应用：工程Signman（utils.ActivityUtils）
 41、自定义控件TipsProgressBar：工程Signman（widget.TipsProgressBar）
+42、时速仪控件VelocimeterView：工程VelocimeterLibrary
+43、求平均数：工程Decibelman（utils.AverageUtils）
+44、百度地图集成：工程Decibelman

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.baidu.mapapi.map.BaiduMap
 import kotlinx.android.synthetic.main.fragment_map.*
 import org.caojun.decibelman.R
 
