@@ -21,7 +21,6 @@ import org.jetbrains.anko.doAsync
 
 class MainActivity : Activity() {
 
-    private val manager: FragmentManager = getFragmentManager()
     private var locationService: LocationService? = null
     private var bdLocation: BDLocation? = null
 
@@ -52,7 +51,7 @@ class MainActivity : Activity() {
     }
 
     private fun setFragment(hide: Fragment, show: Fragment) {
-        val transaction = manager.beginTransaction()
+        val transaction = fragmentManager.beginTransaction()
         transaction.hide(hide)
         transaction.show(show)
         transaction.commit()
