@@ -9,6 +9,7 @@
         android:id="@+id/velocimeterView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="-80dp"
         android:background="@color/velocimeter_background"
         app:inside_progress_color="@color/inside_progress"
         app:external_progress_color0="@color/external_progress0"

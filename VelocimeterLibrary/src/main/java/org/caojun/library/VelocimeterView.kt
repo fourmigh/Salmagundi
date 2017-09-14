@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Interpolator
 import org.caojun.library.painter.bottom.BottomVelocimeterPainter
@@ -208,6 +209,10 @@ class VelocimeterView: View {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        if (!showBottomVelocimeter) {
+            canvas.save()
+            canvas.translate(0f, (height / 4).toFloat())
+        }
         digitalBlurPainter?.draw(canvas)
         digitalPainter?.draw(canvas)
         blurProgressVelocimeterPainter?.draw(canvas)
@@ -219,6 +224,8 @@ class VelocimeterView: View {
         blurLinePainter?.draw(canvas)
         if (showBottomVelocimeter) {
             bottomVelocimeterPainter?.draw(canvas)
+        } else {
+            canvas.restore()
         }
         invalidate()
     }
