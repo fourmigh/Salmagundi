@@ -153,9 +153,7 @@ class MainActivity : Activity() {
             return
         }
         val ll = LatLng(bdLocation!!.latitude, bdLocation!!.longitude)
-        val locData = MyLocationData.Builder().accuracy(bdLocation!!.radius)
-                // 此处设置开发者获取到的方向信息，顺时针0-360
-                .direction(100f).latitude(ll.latitude).longitude(ll.longitude).build()
+        val locData = MyLocationData.Builder().accuracy(bdLocation!!.radius).direction(bdLocation!!.direction).latitude(ll.latitude).longitude(ll.longitude).build()
         val baiduMap = mapFragment.mapView.map
         // 开启定位图层
         baiduMap.isMyLocationEnabled = true
