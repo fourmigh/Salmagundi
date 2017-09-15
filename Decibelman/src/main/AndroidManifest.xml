@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -22,6 +24,7 @@
             </intent-filter>
         </activity>
 
+        <!-- 百度地图 -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -34,6 +37,14 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="lFNmhFqKw8aRliocvWVwcvTuYuGKVXmR" />
+
+        <!-- 高德地图 -->
+        <!-- 设置key -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="d0079278f552329b345a64dd0479aa8e" />
+        <!-- 定位需要的服务 -->
+        <service android:name="com.amap.api.location.APSService" />
     </application>
 
 </manifest>
