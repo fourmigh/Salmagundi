@@ -3,6 +3,7 @@ package org.caojun.decibelman.fragment
 import android.app.Fragment
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,23 +33,23 @@ class GDMapFragment : Fragment(), LocationSource, AMap.OnMapClickListener, AMapL
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view: View = inflater.inflate(R.layout.fragment_gdmap, null)
-        KLog.d("GDMapFragment", "onCreateView")
         return view
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        KLog.d("GDMapFragment", "onCreate")
-//        mapView.onCreate(savedInstanceState)
-//        init()
+    override fun onResume() {
+        super.onResume()
+        initialize()
     }
 
     override fun onLocationChanged(amapLocation: AMapLocation?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        KLog.d("GDMapFragment", "onLocationChanged")
+        if (amapLocation?.errorCode == 0) {
+            mLocationChangedListener?.onLocationChanged(amapLocation)// 显示系统小蓝点
+        }
     }
 
     override fun onMapClick(latLng: LatLng?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        KLog.d("GDMapFragment", "onMapClick")
     }
 
     /**
@@ -81,7 +82,7 @@ class GDMapFragment : Fragment(), LocationSource, AMap.OnMapClickListener, AMapL
         }
     }
 
-    private fun init() {
+    private fun initialize() {
         if (aMap != null) {
             return
         }
