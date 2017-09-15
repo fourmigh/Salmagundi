@@ -1,6 +1,7 @@
 package org.caojun.decibelman.fragment
 
 import android.app.Fragment
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,16 @@ import kotlinx.android.synthetic.main.fragment_decibel.*
 import org.caojun.decibelman.Decibelman
 import org.caojun.decibelman.R
 import org.caojun.decibelman.utils.AverageUtils
+import com.github.mikephil.charting.utils.ColorTemplate
+import com.github.mikephil.charting.components.YAxis.AxisDependency
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.github.mikephil.charting.components.XAxis.XAxisPosition
+import com.github.mikephil.charting.components.Legend.LegendForm
+
+
 
 
 /**
@@ -21,6 +32,7 @@ class DecibelFragment: Fragment() {
     private var average: Float = 0f
     private var min: Int = Int.MAX_VALUE
     private var max: Int = Int.MIN_VALUE
+    private var chartInited = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view: View = inflater.inflate(R.layout.fragment_decibel, null)
@@ -30,18 +42,20 @@ class DecibelFragment: Fragment() {
                 velocimeterView.setValue(decibel.toFloat(), false)
                 //数据统计
                 average = AverageUtils.add(decibel.toInt())
-                if (min > decibel) {
-                    min = decibel.toInt()
+                //四舍五入
+                val value = decibel + 0.5
+                if (min > value) {
+                    min = value.toInt()
                 }
-                if (max < decibel) {
-                    max = decibel.toInt()
+                if (max < value) {
+                    max = value.toInt()
                 }
+                addEntry(average)
                 KLog.d("onGetDecibel", min.toString() + " : " + average.toString() + " : " + max.toString())
             }
         })
 
         AverageUtils.init()
-
         return view
     }
 
@@ -53,5 +67,126 @@ class DecibelFragment: Fragment() {
     override fun onPause() {
         super.onPause()
         decibelman!!.stop()
+    }
+
+    private fun initChart() {
+
+        chart.setTouchEnabled(true)
+
+        // 可拖曳
+        chart.setDragEnabled(true)
+
+        // 可缩放
+        chart.setScaleEnabled(true)
+        chart.setDrawGridBackground(false)
+
+        chart.setPinchZoom(true)
+
+        // 设置图表的背景颜色
+        chart.setBackgroundColor(Color.LTGRAY)
+
+        val data = LineData()
+
+        // 数据显示的颜色
+        data.setValueTextColor(Color.WHITE)
+
+        // 先增加一个空的数据，随后往里面动态添加
+        chart.data = data
+
+        // 图表的注解(只有当数据集存在时候才生效)
+        val l = chart.legend
+
+        // 可以修改图表注解部分的位置
+        // l.setPosition(LegendPosition.LEFT_OF_CHART);
+
+        // 线性，也可是圆
+        l.form = LegendForm.LINE
+
+        // 颜色
+        l.textColor = Color.WHITE
+
+        // x坐标轴
+        val xl = chart.getXAxis()
+        xl.textColor = Color.WHITE
+        xl.setDrawGridLines(false)
+        xl.setAvoidFirstLastClipping(true)
+
+        // 几个x坐标轴之间才绘制？
+//        xl.setSpaceBetweenLabels(5)
+
+        // 如果false，那么x坐标轴将不可见
+        xl.isEnabled = true
+
+        // 将X坐标轴放置在底部，默认是在顶部。
+        xl.position = XAxisPosition.BOTTOM
+
+        // 图表左边的y坐标轴线
+        val leftAxis = chart.axisLeft
+        leftAxis.textColor = Color.WHITE
+
+        // 最大值
+        leftAxis.axisMaximum = 120f
+
+        // 最小值
+        leftAxis.axisMinimum = 0f
+
+        // 不一定要从0开始
+//        leftAxis.setStartAtZero(false)
+
+        leftAxis.setDrawGridLines(true)
+
+        val rightAxis = chart.axisRight
+        // 不显示图表的右边y坐标轴线
+        rightAxis.isEnabled = false
+
+        chart.invalidate()
+    }
+
+    private fun createSet(): LineDataSet {
+
+        val set = LineDataSet(null, "DataSet 1")
+        set.lineWidth = 2.5f
+        set.circleRadius = 4.5f
+        set.color = Color.rgb(240, 99, 99)
+        set.setCircleColor(Color.rgb(240, 99, 99))
+        set.highLightColor = Color.rgb(190, 190, 190)
+        set.axisDependency = AxisDependency.LEFT
+        set.valueTextSize = 10f
+
+        return set
+    }
+
+    private fun addEntry(value: Float) {
+
+        if (!chartInited) {
+            initChart()
+            chartInited = true
+        }
+
+        val data = chart.getData()
+
+        var set: ILineDataSet? = data.getDataSetByIndex(0)
+        // set.addEntry(...); // can be called as well
+
+        if (set == null) {
+            set = createSet()
+            data.addDataSet(set)
+        }
+
+        // choose a random dataSet
+        val randomDataSetIndex = (Math.random() * data.dataSetCount).toInt()
+        val yValue = value
+
+        data.addEntry(Entry(data.getDataSetByIndex(randomDataSetIndex).entryCount.toFloat(), yValue), randomDataSetIndex)
+        data.notifyDataChanged()
+
+        // let the chart know it's data has changed
+        chart.notifyDataSetChanged()
+
+        chart.setVisibleXRangeMaximum(6f)
+        //mChart.setVisibleYRangeMaximum(15, AxisDependency.LEFT);
+//
+//            // this automatically refreshes the chart (calls invalidate())
+        chart.moveViewTo((data.getEntryCount() - 7).toFloat(), 50f, AxisDependency.LEFT)
     }
 }
