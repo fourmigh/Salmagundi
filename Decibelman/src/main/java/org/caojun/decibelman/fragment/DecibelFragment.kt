@@ -6,12 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.socks.library.KLog
+import com.github.mikephil.charting.components.Description
 import kotlinx.android.synthetic.main.fragment_decibel.*
 import org.caojun.decibelman.Decibelman
 import org.caojun.decibelman.R
 import org.caojun.decibelman.utils.AverageUtils
-import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.components.YAxis.AxisDependency
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineDataSet
@@ -50,8 +49,7 @@ class DecibelFragment: Fragment() {
                 if (max < value) {
                     max = value.toInt()
                 }
-                addEntry(average)
-                KLog.d("onGetDecibel", min.toString() + " : " + average.toString() + " : " + max.toString())
+                addEntry(value.toFloat())
             }
         })
 
@@ -71,10 +69,15 @@ class DecibelFragment: Fragment() {
 
     private fun initChart() {
 
+        val description = Description()
+        description.text = getString(R.string.decibel_description)
+
+        chart.description = description
+
         chart.setTouchEnabled(true)
 
         // 可拖曳
-        chart.setDragEnabled(true)
+        chart.isDragEnabled = true
 
         // 可缩放
         chart.setScaleEnabled(true)
@@ -106,13 +109,10 @@ class DecibelFragment: Fragment() {
         l.textColor = Color.WHITE
 
         // x坐标轴
-        val xl = chart.getXAxis()
+        val xl = chart.xAxis
         xl.textColor = Color.WHITE
         xl.setDrawGridLines(false)
         xl.setAvoidFirstLastClipping(true)
-
-        // 几个x坐标轴之间才绘制？
-//        xl.setSpaceBetweenLabels(5)
 
         // 如果false，那么x坐标轴将不可见
         xl.isEnabled = true
@@ -125,13 +125,10 @@ class DecibelFragment: Fragment() {
         leftAxis.textColor = Color.WHITE
 
         // 最大值
-        leftAxis.axisMaximum = 120f
+        leftAxis.axisMaximum = velocimeterView.max
 
         // 最小值
-        leftAxis.axisMinimum = 0f
-
-        // 不一定要从0开始
-//        leftAxis.setStartAtZero(false)
+        leftAxis.axisMinimum = velocimeterView.min
 
         leftAxis.setDrawGridLines(true)
 
@@ -144,7 +141,7 @@ class DecibelFragment: Fragment() {
 
     private fun createSet(): LineDataSet {
 
-        val set = LineDataSet(null, "DataSet 1")
+        val set = LineDataSet(null, getString(R.string.decibel))
         set.lineWidth = 2.5f
         set.circleRadius = 4.5f
         set.color = Color.rgb(240, 99, 99)
@@ -163,7 +160,7 @@ class DecibelFragment: Fragment() {
             chartInited = true
         }
 
-        val data = chart.getData()
+        val data = chart.data
 
         var set: ILineDataSet? = data.getDataSetByIndex(0)
         // set.addEntry(...); // can be called as well
@@ -175,18 +172,16 @@ class DecibelFragment: Fragment() {
 
         // choose a random dataSet
         val randomDataSetIndex = (Math.random() * data.dataSetCount).toInt()
-        val yValue = value
 
-        data.addEntry(Entry(data.getDataSetByIndex(randomDataSetIndex).entryCount.toFloat(), yValue), randomDataSetIndex)
+        data.addEntry(Entry(data.getDataSetByIndex(randomDataSetIndex).entryCount.toFloat(), value), randomDataSetIndex)
         data.notifyDataChanged()
 
         // let the chart know it's data has changed
         chart.notifyDataSetChanged()
 
         chart.setVisibleXRangeMaximum(6f)
-        //mChart.setVisibleYRangeMaximum(15, AxisDependency.LEFT);
-//
-//            // this automatically refreshes the chart (calls invalidate())
-        chart.moveViewTo((data.getEntryCount() - 7).toFloat(), 50f, AxisDependency.LEFT)
+
+        // this automatically refreshes the chart (calls invalidate())
+        chart.moveViewTo((data.entryCount - 7).toFloat(), 50f, AxisDependency.LEFT)
     }
 }

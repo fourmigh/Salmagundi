@@ -47,10 +47,10 @@ class VelocimeterView: View {
     private var blurLinePainter: NeedlePainter? = null//指针光晕
     private var digitalPainter: Digital? = null//数字绘制
     private var digitalBlurPainter: Digital? = null//数字光晕
-    private var min: Float = 0f
+    var min: Float = 0f
     private var progressLastValue = min
     private var nidleLastValue = min
-    private var max: Float = 100f
+    var max: Float = 100f
     private var value: Float = 0f
     private val duration = 1000
     private val progressDelay: Long = 350

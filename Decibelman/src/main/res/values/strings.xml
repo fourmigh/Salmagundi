@@ -2,4 +2,6 @@
     <string name="app_name">Decibelman</string>
     <string name="title_decibel">Decibel</string>
     <string name="title_map">Map</string>
+    <string name="decibel">dB</string>
+    <string name="decibel_description">Decibel</string>
 </resources>
