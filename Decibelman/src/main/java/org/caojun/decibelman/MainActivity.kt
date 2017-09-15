@@ -2,23 +2,11 @@ package org.caojun.decibelman
 
 import android.app.Activity
 import android.app.Fragment
-import android.app.FragmentManager
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import com.baidu.location.BDAbstractLocationListener
-import com.baidu.location.BDLocation
-import com.baidu.location.Poi
 import com.baidu.mapapi.SDKInitializer
-import com.baidu.mapapi.map.MapStatus
-import com.baidu.mapapi.map.MapStatusUpdateFactory
-import com.baidu.mapapi.map.MyLocationData
-import com.baidu.mapapi.model.LatLng
-import com.socks.library.KLog
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_bdmap.*
 import kotlinx.android.synthetic.main.fragment_gdmap.*
-import org.caojun.decibelman.service.LocationService
-import org.jetbrains.anko.doAsync
 
 class MainActivity : Activity() {
 

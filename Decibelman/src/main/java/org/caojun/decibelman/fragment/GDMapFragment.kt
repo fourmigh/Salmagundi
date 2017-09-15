@@ -32,8 +32,7 @@ class GDMapFragment : Fragment(), LocationSource, AMap.OnMapClickListener, AMapL
     private var mLocationOption: AMapLocationClientOption? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view: View = inflater.inflate(R.layout.fragment_gdmap, null)
-        return view
+        return inflater.inflate(R.layout.fragment_gdmap, null)
     }
 
     override fun onResume() {
@@ -41,21 +40,26 @@ class GDMapFragment : Fragment(), LocationSource, AMap.OnMapClickListener, AMapL
         initialize()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        KLog.d("GDMapFragment", "onDestroyView")
+        deactivate()
+    }
+
     override fun onLocationChanged(amapLocation: AMapLocation?) {
         KLog.d("GDMapFragment", "onLocationChanged")
-        if (amapLocation?.errorCode == 0) {
-            mLocationChangedListener?.onLocationChanged(amapLocation)// 显示系统小蓝点
-        }
+        mLocationChangedListener?.onLocationChanged(amapLocation)// 显示系统小蓝点
     }
 
     override fun onMapClick(latLng: LatLng?) {
-        KLog.d("GDMapFragment", "onMapClick")
+        KLog.d("GDMapFragment", "onMapClick: " + latLng.toString())
     }
 
     /**
      * 停止定位
      */
     override fun deactivate() {
+        KLog.d("GDMapFragment", "deactivate")
         mLocationChangedListener = null
         mLocationClient?.stopLocation()
         mLocationClient?.onDestroy()
@@ -93,8 +97,6 @@ class GDMapFragment : Fragment(), LocationSource, AMap.OnMapClickListener, AMapL
         aMap?.setLocationSource(this)// 设置定位监听
         // 自定义系统定位蓝点
         val myLocationStyle = MyLocationStyle()
-        // 自定义定位蓝点图标
-//        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.gps_point))
         // 自定义精度范围的圆形边框颜色
         myLocationStyle.strokeColor(Color.argb(0, 0, 0, 0))
         // 自定义精度范围的圆形边框宽度
@@ -102,9 +104,7 @@ class GDMapFragment : Fragment(), LocationSource, AMap.OnMapClickListener, AMapL
         // 设置圆形的填充颜色
         myLocationStyle.radiusFillColor(Color.argb(0, 0, 0, 0))
         // 将自定义的 myLocationStyle 对象添加到地图上
-        aMap?.setMyLocationStyle(myLocationStyle)
-        aMap?.setMyLocationEnabled(true)// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
-        // 设置定位的类型为定位模式 ，可以由定位、跟随或地图根据面向方向旋转几种
-        aMap?.setMyLocationType(AMap.LOCATION_TYPE_LOCATE)
+        aMap?.myLocationStyle = myLocationStyle
+        aMap?.isMyLocationEnabled = true// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
     }
 }

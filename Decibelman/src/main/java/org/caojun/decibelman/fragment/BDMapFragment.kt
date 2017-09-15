@@ -14,8 +14,7 @@ import org.caojun.decibelman.R
 class BDMapFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view: View = inflater.inflate(R.layout.fragment_bdmap, null)
-        return view
+        return inflater.inflate(R.layout.fragment_bdmap, null)
     }
 
     override fun onResume() {
