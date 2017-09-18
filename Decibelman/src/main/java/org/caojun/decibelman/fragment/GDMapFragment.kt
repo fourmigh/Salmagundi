@@ -32,7 +32,13 @@ class GDMapFragment : Fragment(), LocationSource, AMap.OnMapClickListener, AMapL
     private var mLocationOption: AMapLocationClientOption? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        KLog.d(this.javaClass.name, "onCreateView")
         return inflater.inflate(R.layout.fragment_gdmap, null)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        KLog.d(this.javaClass.name, "onCreate")
     }
 
     override fun onResume() {
