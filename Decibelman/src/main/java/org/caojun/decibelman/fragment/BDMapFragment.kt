@@ -108,6 +108,10 @@ class BDMapFragment : Fragment() {
                 }
 
                 doLoc()
+
+                ibLocation.setOnClickListener {
+                    doLoc()
+                }
             }
         }
 
