@@ -14,7 +14,6 @@ import com.amap.api.location.AMapLocationListener
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.LocationSource
-import com.amap.api.maps.model.BitmapDescriptorFactory
 import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.MyLocationStyle
 import com.socks.library.KLog
@@ -24,12 +23,13 @@ import org.caojun.decibelman.R
 /**
  * Created by CaoJun on 2017/9/13.
  */
-class GDMapFragment : Fragment(), LocationSource, AMap.OnMapClickListener, AMapLocationListener {
+class GDMapFragment : Fragment(), LocationSource, AMapLocationListener {
 
     private var aMap: AMap? = null
     private var mLocationChangedListener: LocationSource.OnLocationChangedListener? = null
     private var mLocationClient: AMapLocationClient? = null
     private var mLocationOption: AMapLocationClientOption? = null
+    private var savedInstanceState: Bundle? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         KLog.d(this.javaClass.name, "onCreateView")
@@ -39,33 +39,31 @@ class GDMapFragment : Fragment(), LocationSource, AMap.OnMapClickListener, AMapL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         KLog.d(this.javaClass.name, "onCreate")
+        this.savedInstanceState = savedInstanceState
     }
 
     override fun onResume() {
         super.onResume()
+        gdMapView.onCreate(savedInstanceState)
+        ibLocation.setOnClickListener {
+            mLocationClient?.startLocation()
+        }
         initialize()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        KLog.d("GDMapFragment", "onDestroyView")
         deactivate()
     }
 
     override fun onLocationChanged(amapLocation: AMapLocation?) {
-        KLog.d("GDMapFragment", "onLocationChanged")
         mLocationChangedListener?.onLocationChanged(amapLocation)// 显示系统小蓝点
-    }
-
-    override fun onMapClick(latLng: LatLng?) {
-        KLog.d("GDMapFragment", "onMapClick: " + latLng.toString())
     }
 
     /**
      * 停止定位
      */
     override fun deactivate() {
-        KLog.d("GDMapFragment", "deactivate")
         mLocationChangedListener = null
         mLocationClient?.stopLocation()
         mLocationClient?.onDestroy()
@@ -99,7 +97,6 @@ class GDMapFragment : Fragment(), LocationSource, AMap.OnMapClickListener, AMapL
         aMap = gdMapView.map
         aMap?.uiSettings?.isRotateGesturesEnabled = false
         aMap?.moveCamera(CameraUpdateFactory.zoomBy(6f))
-        aMap?.setOnMapClickListener(this)
         aMap?.setLocationSource(this)// 设置定位监听
         // 自定义系统定位蓝点
         val myLocationStyle = MyLocationStyle()

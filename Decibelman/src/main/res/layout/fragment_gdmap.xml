@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.amap.api.maps.MapView
         android:id="@+id/gdMapView"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
-</LinearLayout>
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"/>
+
+    <ImageButton
+        android:id="@+id/ibLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:src="@android:drawable/ic_menu_mylocation" />
+</RelativeLayout>

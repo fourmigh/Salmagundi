@@ -32,8 +32,6 @@ class MainActivity : Activity() {
 
         toolbar.setTitle(R.string.app_name)
         setFragment(mapFragment, decibelFragment)
-
-//        mapFragment.gdMapView.onCreate(savedInstanceState)
     }
 
     private fun setFragment(hide: Fragment, show: Fragment) {
