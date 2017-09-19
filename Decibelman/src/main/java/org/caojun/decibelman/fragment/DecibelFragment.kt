@@ -27,9 +27,6 @@ import org.caojun.decibelman.Constant
 class DecibelFragment: Fragment() {
 
     private var decibelman: Decibelman? = null
-//    private var average: Float = 0f
-//    private var min: Int = Int.MAX_VALUE
-//    private var max: Int = Int.MIN_VALUE
     private var chartInited = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -43,13 +40,13 @@ class DecibelFragment: Fragment() {
                 //四舍五入
                 val value = decibel + 0.5
                 if (Constant.min > value) {
-                    Constant.min = value.toInt()
+                    Constant.min = value.toFloat()
                 }
                 if (Constant.max < value) {
-                    Constant.max = value.toInt()
+                    Constant.max = value.toFloat()
                 }
-                addEntry(Constant.min.toFloat(), value.toFloat(), Constant.max.toFloat())
-                resetChart(Constant.min.toFloat() - 10, Constant.max.toFloat() + 10)
+                addEntry(Constant.min, value.toFloat(), Constant.max)
+                resetChart(Constant.min - 15, Constant.max + 15)
             }
         })
 
@@ -157,6 +154,10 @@ class DecibelFragment: Fragment() {
 
     private fun addEntry(min: Float, average: Float, max: Float) {
 
+        if (chart == null) {
+            return
+        }
+
         if (!chartInited) {
             initChart()
             chartInited = true
@@ -172,7 +173,7 @@ class DecibelFragment: Fragment() {
 //            data.addDataSet(set)
             set = createSet(Color.rgb(0, 255, 0), getString(R.string.min))
             data.addDataSet(set)
-            set = createSet(Color.rgb(255, 255, 0), getString(R.string.average))
+            set = createSet(Color.rgb(255, 255, 0), getString(R.string.current))
             data.addDataSet(set)
             set = createSet(Color.rgb(255, 0, 0), getString(R.string.max))
             data.addDataSet(set)
@@ -197,6 +198,9 @@ class DecibelFragment: Fragment() {
     }
 
     private fun resetChart(min: Float, max: Float) {
+        if (chart == null) {
+            return
+        }
         val leftAxis = chart.axisLeft
         leftAxis.axisMaximum = Math.min(velocimeterView.max, max)
         leftAxis.axisMinimum = Math.max(velocimeterView.min, min)

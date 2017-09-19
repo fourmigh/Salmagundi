@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/velocimeter_background"
+    android:orientation="horizontal">
+
+    <org.caojun.library.VelocimeterView
+        android:id="@+id/velocimeterView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="-30dp"
+        android:background="@color/velocimeter_background"
+        app:bottom_velocimeter_color="@color/bottom_velocimeter"
+        app:digital_number_blur_color="@color/digital_number"
+        app:digital_number_color="@color/digital_number"
+        app:external_progress_color0="@color/external_progress0"
+        app:external_progress_color1="@color/external_progress1"
+        app:inside_progress_color="@color/inside_progress"
+        app:internal_velocimeter_color="@color/internal_velocimeter"
+        app:max="120"
+        app:needle_blur_color="@color/needle"
+        app:needle_color="@color/needle"
+        app:progress_blur_color0="@color/external_progress0"
+        app:progress_blur_color1="@color/external_progress1"
+        app:show_bottom_bar="false"
+        app:units="dB" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

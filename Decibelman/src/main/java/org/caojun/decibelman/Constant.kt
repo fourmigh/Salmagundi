@@ -5,6 +5,6 @@ package org.caojun.decibelman
  */
 object Constant {
     var average: Float = 0f
-    var min: Int = Int.MAX_VALUE
-    var max: Int = Int.MIN_VALUE
+    var min: Float = Float.MAX_VALUE
+    var max: Float = Float.MIN_VALUE
 }
