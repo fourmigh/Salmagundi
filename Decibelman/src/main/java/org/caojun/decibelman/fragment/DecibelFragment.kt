@@ -48,7 +48,8 @@ class DecibelFragment: Fragment() {
                 if (Constant.max < value) {
                     Constant.max = value.toInt()
                 }
-                addEntry(value.toFloat())
+                addEntry(Constant.min.toFloat(), value.toFloat(), Constant.max.toFloat())
+                resetChart(Constant.min.toFloat() - 10, Constant.max.toFloat() + 10)
             }
         })
 
@@ -138,12 +139,14 @@ class DecibelFragment: Fragment() {
         chart.invalidate()
     }
 
-    private fun createSet(): LineDataSet {
+    private fun createSet(color: Int, label: String): LineDataSet? {
 
-        val set = LineDataSet(null, getString(R.string.decibel))
+//        val set = LineDataSet(null, getString(R.string.decibel))
+        val set = LineDataSet(null, label)
         set.lineWidth = 2.5f
         set.circleRadius = 4.5f
-        set.color = Color.rgb(240, 99, 99)
+//        set.color = Color.rgb(240, 99, 99)
+        set.color = color
         set.setCircleColor(Color.rgb(240, 99, 99))
         set.highLightColor = Color.rgb(190, 190, 190)
         set.axisDependency = AxisDependency.LEFT
@@ -152,7 +155,7 @@ class DecibelFragment: Fragment() {
         return set
     }
 
-    private fun addEntry(value: Float) {
+    private fun addEntry(min: Float, average: Float, max: Float) {
 
         if (!chartInited) {
             initChart()
@@ -165,14 +168,23 @@ class DecibelFragment: Fragment() {
         // set.addEntry(...); // can be called as well
 
         if (set == null) {
-            set = createSet()
+//            set = createSet()
+//            data.addDataSet(set)
+            set = createSet(Color.rgb(0, 255, 0), getString(R.string.min))
+            data.addDataSet(set)
+            set = createSet(Color.rgb(255, 255, 0), getString(R.string.average))
+            data.addDataSet(set)
+            set = createSet(Color.rgb(255, 0, 0), getString(R.string.max))
             data.addDataSet(set)
         }
 
         // choose a random dataSet
-        val randomDataSetIndex = (Math.random() * data.dataSetCount).toInt()
+//        val randomDataSetIndex = (Math.random() * data.dataSetCount).toInt()
 
-        data.addEntry(Entry(data.getDataSetByIndex(randomDataSetIndex).entryCount.toFloat(), value), randomDataSetIndex)
+//        data.addEntry(Entry(data.getDataSetByIndex(randomDataSetIndex).entryCount.toFloat(), value), randomDataSetIndex)
+        data.addEntry(Entry(data.getDataSetByIndex(0).entryCount.toFloat(), min), 0)
+        data.addEntry(Entry(data.getDataSetByIndex(1).entryCount.toFloat(), average), 1)
+        data.addEntry(Entry(data.getDataSetByIndex(2).entryCount.toFloat(), max), 2)
         data.notifyDataChanged()
 
         // let the chart know it's data has changed
@@ -182,5 +194,11 @@ class DecibelFragment: Fragment() {
 
         // this automatically refreshes the chart (calls invalidate())
         chart.moveViewTo((data.entryCount - 7).toFloat(), 50f, AxisDependency.LEFT)
+    }
+
+    private fun resetChart(min: Float, max: Float) {
+        val leftAxis = chart.axisLeft
+        leftAxis.axisMaximum = Math.min(velocimeterView.max, max)
+        leftAxis.axisMinimum = Math.max(velocimeterView.min, min)
     }
 }

@@ -4,4 +4,7 @@
     <string name="title_map">Map</string>
     <string name="decibel">dB</string>
     <string name="decibel_description">Decibel</string>
+    <string name="min">Min</string>
+    <string name="average">Average</string>
+    <string name="max">Max</string>
 </resources>
