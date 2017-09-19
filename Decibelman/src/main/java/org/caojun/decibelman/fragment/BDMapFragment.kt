@@ -10,9 +10,18 @@ import com.baidu.mapapi.map.MapStatus
 import com.baidu.mapapi.map.MapStatusUpdateFactory
 import com.baidu.mapapi.map.MyLocationData
 import com.baidu.mapapi.model.LatLng
+import com.socks.library.KLog
 import kotlinx.android.synthetic.main.fragment_bdmap.*
 import org.caojun.decibelman.R
 import org.jetbrains.anko.doAsync
+import okhttp3.FormBody
+import okhttp3.RequestBody
+import org.caojun.decibelman.Constant
+import org.caojun.decibelman.utils.ManifestUtils
+import org.caojun.decibelman.utils.OkHttpUtils
+import org.jetbrains.anko.uiThread
+import org.json.JSONObject
+
 
 /**
  * Created by CaoJun on 2017/9/13.
@@ -22,6 +31,7 @@ class BDMapFragment : Fragment() {
     private var client: LocationClient? = null
     private var option: LocationClientOption? = null
     private var bdLocation: BDLocation? = null
+    private var latLng: LatLng? = null
 
     private val mListener = object : BDAbstractLocationListener() {
 
@@ -111,6 +121,7 @@ class BDMapFragment : Fragment() {
 
                 ibLocation.setOnClickListener {
                     doLoc()
+                    doCloudManager()
                 }
             }
         }
@@ -154,8 +165,8 @@ class BDMapFragment : Fragment() {
         if (bdLocation == null) {
             return
         }
-        val ll = LatLng(bdLocation!!.latitude, bdLocation!!.longitude)
-        val locData = MyLocationData.Builder().accuracy(bdLocation!!.radius).direction(bdLocation!!.direction).latitude(ll.latitude).longitude(ll.longitude).build()
+        latLng = LatLng(bdLocation!!.latitude, bdLocation!!.longitude)
+        val locData = MyLocationData.Builder().accuracy(bdLocation!!.radius).direction(bdLocation!!.direction).latitude(latLng!!.latitude).longitude(latLng!!.longitude).build()
         val baiduMap = bdMapView.map
         // 开启定位图层
         baiduMap.isMyLocationEnabled = true
@@ -164,7 +175,7 @@ class BDMapFragment : Fragment() {
         baiduMap.setMyLocationData(locData)
 
         val builder = MapStatus.Builder()
-        builder.target(ll).zoom(18.0f)
+        builder.target(latLng).zoom(18.0f)
         baiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
     }
 
@@ -190,5 +201,32 @@ class BDMapFragment : Fragment() {
             option?.setIsNeedAltitude(false)//可选，默认false，设置定位时是否需要海拔信息，默认不需要，除基础定位版本都可用
         }
         return option!!
+    }
+
+    fun doCloudManager() {
+//        val json = JSONObject()
+//        json.put("ak", ManifestUtils.getBaiduApiKey(activity))
+//        json.put("geotable_id", ManifestUtils.getBaiduGeoTableId(activity))
+//        json.put("decibel_average", Constant.average.toDouble())
+//        json.put("decibel_max", Constant.max)
+//        json.put("decibel_min", Constant.min)
+//        json.put("latitude", latLng!!.latitude)
+//        json.put("longitude", latLng!!.longitude)
+//        val body = json.toString()
+
+        val body: RequestBody = FormBody.Builder().add("ak", ManifestUtils.getBaiduApiKey(activity)).add("geotable_id", ManifestUtils.getBaiduGeoTableId(activity).toString()).add("decibel_average", Constant.average.toString()).add("decibel_max", Constant.max.toString()).add("decibel_min", Constant.min.toString()).add("latitude", latLng!!.latitude.toString()).add("longitude", latLng!!.longitude.toString()).build()
+
+//        KLog.json("doCloudManager", body)
+
+        doAsync {
+            val response = OkHttpUtils.ceratePoi(body)
+            uiThread {
+                if (response.isSuccessful) {
+                    KLog.json("ceratePoi", response.body()?.string())
+                } else {
+                    KLog.d("ceratePoi", response.code().toString() + " : " + response.message())
+                }
+            }
+        }
     }
 }

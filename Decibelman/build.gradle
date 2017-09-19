@@ -40,4 +40,5 @@ dependencies {
     implementation "com.github.zhaokaiqiang.klog:library:latest.release"
     implementation "org.jetbrains.anko:anko-common:latest.release"
     implementation "com.github.PhilJay:MPAndroidChart:latest.release"
+    implementation "com.squareup.okhttp3:okhttp:latest.release"
 }

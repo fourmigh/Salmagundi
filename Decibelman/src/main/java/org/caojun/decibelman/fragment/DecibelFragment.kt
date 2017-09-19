@@ -18,8 +18,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.Legend.LegendForm
-
-
+import org.caojun.decibelman.Constant
 
 
 /**
@@ -28,9 +27,9 @@ import com.github.mikephil.charting.components.Legend.LegendForm
 class DecibelFragment: Fragment() {
 
     private var decibelman: Decibelman? = null
-    private var average: Float = 0f
-    private var min: Int = Int.MAX_VALUE
-    private var max: Int = Int.MIN_VALUE
+//    private var average: Float = 0f
+//    private var min: Int = Int.MAX_VALUE
+//    private var max: Int = Int.MIN_VALUE
     private var chartInited = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -38,16 +37,16 @@ class DecibelFragment: Fragment() {
 
         decibelman = Decibelman(object : Decibelman.OnDecibelListener {
             override fun onGetDecibel(decibel: Double) {
-                velocimeterView.setValue(decibel.toFloat(), false)
+                velocimeterView?.setValue(decibel.toFloat(), false)
                 //数据统计
-                average = AverageUtils.add(decibel.toInt())
+                Constant.average = AverageUtils.add(decibel.toInt())
                 //四舍五入
                 val value = decibel + 0.5
-                if (min > value) {
-                    min = value.toInt()
+                if (Constant.min > value) {
+                    Constant.min = value.toInt()
                 }
-                if (max < value) {
-                    max = value.toInt()
+                if (Constant.max < value) {
+                    Constant.max = value.toInt()
                 }
                 addEntry(value.toFloat())
             }
