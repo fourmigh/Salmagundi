@@ -46,7 +46,7 @@ class DecibelFragment: Fragment() {
                     Constant.max = value.toFloat()
                 }
                 addEntry(Constant.min, value.toFloat(), Constant.max)
-                resetChart(Constant.min - 15, Constant.max + 15)
+                resetChart(Constant.min - 12, Constant.max + 12)
             }
         })
 
@@ -152,7 +152,7 @@ class DecibelFragment: Fragment() {
         return set
     }
 
-    private fun addEntry(min: Float, average: Float, max: Float) {
+    private fun addEntry(min: Float, current: Float, max: Float) {
 
         if (chart == null) {
             return
@@ -184,7 +184,7 @@ class DecibelFragment: Fragment() {
 
 //        data.addEntry(Entry(data.getDataSetByIndex(randomDataSetIndex).entryCount.toFloat(), value), randomDataSetIndex)
         data.addEntry(Entry(data.getDataSetByIndex(0).entryCount.toFloat(), min), 0)
-        data.addEntry(Entry(data.getDataSetByIndex(1).entryCount.toFloat(), average), 1)
+        data.addEntry(Entry(data.getDataSetByIndex(1).entryCount.toFloat(), current), 1)
         data.addEntry(Entry(data.getDataSetByIndex(2).entryCount.toFloat(), max), 2)
         data.notifyDataChanged()
 
