@@ -2,19 +2,17 @@ package org.caojun.signman.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.Button
 import org.caojun.signman.R
 import android.app.Activity
 import android.content.pm.ApplicationInfo
 import android.view.View
+import kotlinx.android.synthetic.main.activity_main.*
 import org.caojun.signman.adapter.AppSelectAdapter
 import org.caojun.signman.room.App
 import org.caojun.signman.room.AppDatabase
 import org.caojun.signman.utils.AppSortComparator
-import org.caojun.widget.TipsProgressBar
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
-import se.emilsjolander.stickylistheaders.StickyListHeadersListView
 import java.util.Collections
 
 /**
@@ -23,25 +21,18 @@ import java.util.Collections
 class AppsActivity : AppCompatActivity() {
 
     private val list: ArrayList<App> = ArrayList()
-    private var listView: StickyListHeadersListView? = null
     private var adapter:AppSelectAdapter? = null
     private var apps: ArrayList<App> = ArrayList()
-    private var progressBar: TipsProgressBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        progressBar = findViewById(R.id.progressBar)
-
         apps = intent.getParcelableArrayListExtra("apps")
 
-        val btnSetup: Button = findViewById(R.id.btnSetup)
-        btnSetup.text = getString(android.R.string.ok)
+        btnSetup?.text = getString(android.R.string.ok)
 
-        listView = findViewById(R.id.listView)
-
-        btnSetup.setOnClickListener({
+        btnSetup?.setOnClickListener({
             saveSelectedApps()
         })
 
@@ -52,7 +43,6 @@ class AppsActivity : AppCompatActivity() {
         progressBar?.visibility = View.VISIBLE
         var apps = adapter?.getSelectedApps()
         doAsync {
-//            AppDatabase.getDatabase(baseContext).getAppDao().insert(apps!!)
             for (app in apps!!) {
                 AppDatabase.getDatabase(baseContext).getAppDao().insert(app)
             }
@@ -81,8 +71,8 @@ class AppsActivity : AppCompatActivity() {
                         val app = App()
                         app.name = packageInfo.applicationInfo.loadLabel(packageManager).toString()//获取应用名称
                         app.packageName = packageInfo.packageName //获取应用包名，可用于卸载和启动应用
-//                app.setVersionName(packageInfo.versionName)//获取应用版本名
-//                app.setVersionCode(packageInfo.versionCode)//获取应用版本号
+//                        app.setVersionName(packageInfo.versionName)//获取应用版本名
+//                        app.setVersionCode(packageInfo.versionCode)//获取应用版本号
                         app.icon = packageInfo.applicationInfo.loadIcon(packageManager)//获取应用图标
                         list.add(app)
                     }

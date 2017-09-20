@@ -6,8 +6,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_main.*
 import org.caojun.signman.Constant
 import org.caojun.signman.R
 import org.caojun.signman.adapter.AppAdapter
@@ -15,34 +14,25 @@ import org.caojun.signman.room.App
 import org.caojun.signman.room.AppDatabase
 import org.caojun.signman.utils.AppSortComparator
 import org.caojun.signman.utils.TimeUtils
-import org.caojun.widget.TipsProgressBar
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
-import se.emilsjolander.stickylistheaders.StickyListHeadersListView
-import java.util.*
+import java.util.Collections
 
 class MainActivity : AppCompatActivity() {
 
     private val list: ArrayList<App> = ArrayList()
-    private var listView: StickyListHeadersListView? = null
     private var canceled: Boolean = false
     private var adapter: AppAdapter? = null
-    private var progressBar: TipsProgressBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val tvTips: TextView = findViewById(R.id.tvTips)
-        tvTips.visibility = View.GONE
-        
-        progressBar = findViewById(R.id.progressBar)
+        tvTips?.visibility = View.GONE
 
-        val btnSetup: Button = findViewById(R.id.btnSetup)
-        listView = findViewById(R.id.listView)
         listView?.setOnItemClickListener({ parent, view, position, id -> doListViewItemClick(position) })
 
-        btnSetup.setOnClickListener({
+        btnSetup?.setOnClickListener({
             gotoSetupApps()
         })
 
@@ -58,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             strings[i] = TimeUtils.getTime("yyyy-MM-dd HH:mm:ss", time[i].time)
         }
         AlertDialog.Builder(this)
-                .setTitle(R.string.sign_time_title)
+                .setTitle(app.name)
                 .setItems(strings, null)
                 .create().show()
     }
@@ -89,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     if (adapter == null) {
-                        adapter = AppAdapter(baseContext, list)
+                        adapter = AppAdapter(this@MainActivity, list)
                         listView?.adapter = adapter
                     } else {
                         adapter?.setData(list)

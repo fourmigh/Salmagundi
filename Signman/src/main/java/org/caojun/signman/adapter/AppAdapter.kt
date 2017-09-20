@@ -1,6 +1,5 @@
 package org.caojun.signman.adapter
 
-import android.content.Context
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -8,20 +7,21 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.ToggleButton
+import kotlinx.android.synthetic.main.activity_main.*
 import org.caojun.signman.R
+import org.caojun.signman.activity.MainActivity
 import org.caojun.signman.room.App
 import org.caojun.signman.room.AppDatabase
 import org.caojun.signman.utils.ActivityUtils
 import org.caojun.signman.utils.TimeUtils
 import org.jetbrains.anko.doAsync
-import java.util.Date
 
 /**
  * Created by CaoJun on 2017/8/31.
  */
 class AppAdapter: BaseAdapter {
 
-    constructor(context: Context, list: ArrayList<App>) : super(context, list)
+    constructor(context: MainActivity, list: ArrayList<App>) : super(context, list)
 
     override fun getView(position: Int, convertView: View?, viewGrouo: ViewGroup?): View {
         var holder: ViewHolder
@@ -48,8 +48,6 @@ class AppAdapter: BaseAdapter {
         holder.tvName?.gravity = Gravity.CENTER_VERTICAL
         holder.tvName?.setCompoundDrawables(app.icon, null, null, null)
 
-//        holder.tbSign?.textOn = context?.getString(R.string.signed)
-//        holder.tbSign?.textOff = context?.getString(R.string.nosign)
         holder.tbSign?.isChecked = app.isSigned
         if (app.isSigned) {
             holder.btnSign?.visibility = View.GONE
@@ -69,9 +67,9 @@ class AppAdapter: BaseAdapter {
 
         holder.btnSign?.setOnClickListener({
             //启动应用
+            (context as MainActivity).progressBar?.visibility = View.VISIBLE
             ActivityUtils.startActivity(context!!, app.packageName!!)
             //添加时间
-//            app.time.add(Date())
             app.addTime()
             app.isSigned = true
             doAsync {

@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
-    <TextView
-        android:id="@+id/tvTips"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/select_app_tips" />
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/select_app_tips" />
 
         <se.emilsjolander.stickylistheaders.StickyListHeadersListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:dividerHeight="0dp" />
 
-        <org.caojun.widget.TipsProgressBar
-            android:id="@+id/progressBar"
-            android:layout_centerInParent="true"
-            android:tooltipText="@string/please_waiting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
+        <Button
+            android:id="@+id/btnSetup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/setup" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btnSetup"
+    <org.caojun.widget.TipsProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/setup" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:tooltipText="@string/please_waiting" />
+</RelativeLayout>
