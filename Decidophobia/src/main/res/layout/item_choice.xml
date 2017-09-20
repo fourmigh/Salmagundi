@@ -8,5 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"
+        android:textSize="24sp"
+        android:padding="4dp"
+        android:layout_marginLeft="48dp"
         android:text="TextView" />
 </LinearLayout>

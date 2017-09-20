@@ -15,15 +15,19 @@ import org.caojun.decidophobia.ormlite.Options
 class ExpandableListAdapter: BaseExpandableListAdapter {
 
     private var context: Context? = null
-    private var list: List<Options> = ArrayList()
+    private var list: List<Options>? = null
 
-    constructor(context: Context, list: List<Options>) : super() {
+    constructor(context: Context, list: List<Options>?) : super() {
         this.context = context
         setData(list)
     }
 
-    fun setData(list: List<Options>) {
-        this.list = list
+    fun setData(list: List<Options>?) {
+        if (list == null || list.isEmpty()) {
+            this.list = ArrayList()
+        } else {
+            this.list = list
+        }
     }
 
     private inner class ViewHolderTitle {
@@ -35,7 +39,7 @@ class ExpandableListAdapter: BaseExpandableListAdapter {
     }
 
     override fun getGroup(groupPosition: Int): Any {
-        return list[groupPosition].title
+        return list!![groupPosition].title
     }
 
     override fun isChildSelectable(groupPosition: Int, childPosition: Int): Boolean {
@@ -53,37 +57,50 @@ class ExpandableListAdapter: BaseExpandableListAdapter {
             view = LayoutInflater.from(context).inflate(R.layout.item_title, null)
             holder = ViewHolderTitle()
             holder.tvTitle = view?.findViewById(R.id.tvTitle)
-            view?.setTag(holder)
+            view?.tag = holder
         } else {
-            holder = view.getTag() as ViewHolderTitle
+            holder = view.tag as ViewHolderTitle
         }
 
-        holder.tvTitle?.text = list[groupPosition].title
+        holder.tvTitle?.text = list!![groupPosition].title
 
         return view!!
     }
 
-    override fun getChildrenCount(p0: Int): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getChildrenCount(groupPosition: Int): Int {
+        return list!![groupPosition].option.size
     }
 
-    override fun getChild(p0: Int, p1: Int): Any {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getChild(groupPosition: Int, childPosition: Int): Any {
+        return list!![groupPosition].option[childPosition]
     }
 
-    override fun getGroupId(p0: Int): Long {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getGroupId(groupPosition: Int): Long {
+        return groupPosition.toLong()
     }
 
-    override fun getChildView(p0: Int, p1: Int, p2: Boolean, p3: View?, p4: ViewGroup?): View {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getChildView(groupPosition: Int, childPosition: Int, isLastChild: Boolean, convertView: View?, parent: ViewGroup?): View {
+        var holder: ViewHolderChoice
+        var view = convertView
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.item_choice, null)
+            holder = ViewHolderChoice()
+            holder.tvChoice = view?.findViewById(R.id.tvChoice)
+            view?.tag = holder
+        } else {
+            holder = view.tag as ViewHolderChoice
+        }
+
+        holder.tvChoice?.text = list!![groupPosition].option[childPosition]
+
+        return view!!
     }
 
-    override fun getChildId(p0: Int, p1: Int): Long {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getChildId(groupPosition: Int, childPosition: Int): Long {
+        return childPosition.toLong()
     }
 
     override fun getGroupCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return list?.size?:0
     }
 }

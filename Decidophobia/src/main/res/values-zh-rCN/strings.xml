@@ -10,4 +10,9 @@
     <string name="option5">选项 5</string>
     <string name="option6">选项 6</string>
     <string name="btn_random">随机</string>
+    <string name="details">详情</string>
+    <string name="delete">删除</string>
+    <string name="tips_delete">长按删除，但不是这里。</string>
+    <string name="tips_delete2">说了不是这里。</string>
+    <string name="tips_delete3">怎么还点？</string>
 </resources>

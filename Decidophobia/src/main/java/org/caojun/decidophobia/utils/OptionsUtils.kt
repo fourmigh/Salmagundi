@@ -47,4 +47,9 @@ object OptionsUtils {
         }
         return Options(title, option)
     }
+
+    fun delete(context: Context, options: Options): Boolean {
+        var database = OptionsDatabase.getInstance(context)
+        return database.delete(options)
+    }
 }

@@ -9,4 +9,9 @@
     <string name="option5">Option 5</string>
     <string name="option6">Option 6</string>
     <string name="btn_random">Random</string>
+    <string name="details">Details</string>
+    <string name="delete">Delete</string>
+    <string name="tips_delete">Long press to Delete, but not here.</string>
+    <string name="tips_delete2">I said, not here.</string>
+    <string name="tips_delete3">NOT HERE.</string>
 </resources>

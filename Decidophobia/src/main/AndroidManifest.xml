@@ -23,6 +23,9 @@
 
         <activity android:name="org.caojun.library.activity.DiceActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
+
+        <activity android:name=".activity.ChoicesListActivity"
+            android:label="@string/details" />
     </application>
 
 </manifest>

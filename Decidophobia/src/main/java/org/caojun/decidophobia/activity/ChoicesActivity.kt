@@ -12,10 +12,10 @@ import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TableRow
+import kotlinx.android.synthetic.main.activity_choices.*
 import org.caojun.decidophobia.R
 import org.caojun.decidophobia.ormlite.Options
 import org.caojun.decidophobia.utils.OptionsUtils
@@ -30,9 +30,9 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     private val ResIdEditText = intArrayOf(R.id.etOption1, R.id.etOption2, R.id.etOption3, R.id.etOption4, R.id.etOption5, R.id.etOption6)
     private val ResIdExample = intArrayOf(R.array.example2, R.array.example3, R.array.example4)
 
-    private var etTitle: EditText? = null
-    private var seekBar: SeekBar? = null
-    private var btnRandom: Button? = null
+//    private var etTitle: EditText? = null
+//    private var seekBar: SeekBar? = null
+//    private var btnRandom: Button? = null
     private val etOption = arrayListOf<EditText>()
     private val trOption = arrayListOf<TableRow>()
     private var menu: Menu? = null
@@ -43,7 +43,7 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choices)
 
-        etTitle = findViewById(R.id.etTitle)
+//        etTitle = findViewById(R.id.etTitle)
         etTitle?.addTextChangedListener(textWatcher)
 
         defaultTextSize = etTitle?.textSize?:0f
@@ -58,12 +58,12 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
             etOption.add(editText)
         }
 
-        btnRandom = findViewById(R.id.btnRandom)
+//        btnRandom = findViewById(R.id.btnRandom)
         btnRandom?.setOnClickListener {
             doRandom()
         }
 
-        seekBar = findViewById(R.id.seekBar)
+//        seekBar = findViewById(R.id.seekBar)
         seekBar?.setOnSeekBarChangeListener(this)
     }
 
@@ -119,6 +119,11 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
                 selectHistory()
                 true
             }
+            R.id.action_details -> {
+                val intent = Intent(this, ChoicesListActivity::class.java)
+                startActivity(intent)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -131,11 +136,11 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
     private fun doCheckMenu() {
         for (i in 0..(menu!!.size()-1)) {
-            if (menu?.getItem(i)?.itemId == R.id.action_history) {
+//            if (menu?.getItem(i)?.itemId == R.id.action_history) {
                 var list = OptionsUtils.query(this)
                 var size = list?.size?:0
                 menu?.setGroupVisible(i, size > 0)
-            }
+//            }
         }
     }
 
