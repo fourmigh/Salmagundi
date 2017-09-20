@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WidgetLibrary</string>
+    <string name="please_waiting">Loading...\nPlease wait a moment.</string>
 </resources>

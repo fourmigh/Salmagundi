@@ -16,7 +16,6 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.reward.RewardItem
 import com.google.android.gms.ads.reward.RewardedVideoAd
 import com.google.android.gms.ads.reward.RewardedVideoAdListener
-import com.socks.library.KLog
 import org.caojun.rcn.utils.ChineseNameUtils
 import org.caojun.rcn.utils.DiaryUtils
 import com.google.android.gms.ads.InterstitialAd
@@ -139,7 +138,6 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
 //            val index = ChineseNameUtils.getRandom(0, urls.size - 1)
             val index = 2
             url = urls[index] + text
-            KLog.d("url", url)
         }
         webView.loadUrl(url)
     }
@@ -209,33 +207,26 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
         mInterstitialAd?.adUnitId = getString(R.string.admob_page_unit_id)
         mInterstitialAd?.adListener = object : AdListener() {
             override fun onAdClosed() {
-                KLog.d("InterstitialAd", "onAdClosed")
                 doDice(1)
             }
 
             override fun onAdImpression() {
-                KLog.d("InterstitialAd", "onAdImpression")
             }
 
             override fun onAdLeftApplication() {
-                KLog.d("InterstitialAd", "onAdLeftApplication")
             }
 
             override fun onAdClicked() {
-                KLog.d("InterstitialAd", "onAdClicked")
             }
 
             override fun onAdFailedToLoad(p0: Int) {
-                KLog.d("InterstitialAd", "onAdFailedToLoad: " + p0)
                 loadAd()
             }
 
             override fun onAdOpened() {
-                KLog.d("InterstitialAd", "onAdOpened")
             }
 
             override fun onAdLoaded() {
-                KLog.d("InterstitialAd", "onAdLoaded")
             }
         }
         loadAd()
@@ -273,36 +264,28 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
 
     //视频式广告
     override fun onRewardedVideoAdClosed() {
-        KLog.d("RewardedVideoAd", "onRewardedVideoAdClosed")
         if (isRewarded) {
             doDice(2)
         }
     }
 
     override fun onRewardedVideoAdLeftApplication() {
-        KLog.d("RewardedVideoAd", "onRewardedVideoAdLeftApplication")
     }
 
     override fun onRewardedVideoAdLoaded() {
-        KLog.d("RewardedVideoAd", "onRewardedVideoAdLoaded")
     }
 
     override fun onRewardedVideoAdOpened() {
-        KLog.d("RewardedVideoAd", "onRewardedVideoAdOpened")
     }
 
     override fun onRewarded(p0: RewardItem?) {
-        KLog.d("RewardedVideoAd", "onRewarded")
         isRewarded = true
     }
 
     override fun onRewardedVideoStarted() {
-        KLog.d("RewardedVideoAd", "onRewardedVideoStarted")
     }
 
     override fun onRewardedVideoAdFailedToLoad(p0: Int) {
-        KLog.d("RewardedVideoAd", "onRewardedVideoAdFailedToLoad: " + p0)
-//        Thread.sleep(5000);
         loadAd()
     }
 
