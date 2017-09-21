@@ -19,11 +19,9 @@ class ExpandMonthRecyclerView: RecyclerView {
     private var LIST_LEFT_OFFSET = -1
     private var mManager: LinearLayoutManager? = null
 
-    constructor(context: Context): this(context, null) {
-    }
+    constructor(context: Context): this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?): this(context, attrs, 0) {
-    }
+    constructor(context: Context, attrs: AttributeSet?): this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int): super(context, attrs, defStyle) {
         initData()
