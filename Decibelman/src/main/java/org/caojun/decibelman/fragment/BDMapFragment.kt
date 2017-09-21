@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.baidu.location.*
 import com.baidu.mapapi.map.MapStatus
 import com.baidu.mapapi.map.MapStatusUpdateFactory
+import com.baidu.mapapi.map.MyLocationConfiguration
 import com.baidu.mapapi.map.MyLocationData
 import com.baidu.mapapi.model.LatLng
 import com.socks.library.KLog
@@ -117,8 +118,11 @@ class BDMapFragment : Fragment() {
                     sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机")
                 }
 
+                KLog.d(this.javaClass.name, "onReceiveLocation: " + sb.toString())
+
                 doLoc()
 
+                ibLocation.visibility = View.VISIBLE
                 ibLocation.setOnClickListener {
                     doLoc()
                     doCloudManager()
@@ -129,36 +133,52 @@ class BDMapFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        KLog.d(this.javaClass.name, "onCreateView")
         initialize()
         return inflater.inflate(R.layout.fragment_bdmap, null)
     }
 
     override fun onResume() {
         super.onResume()
-        bdMapView.onResume()
-    }
-
-    override fun onStart() {
-        super.onStart()
+        KLog.d(this.javaClass.name, "onResume")
+        bdMapView?.onResume()
         client?.registerLocationListener(mListener)
-        doAsync {
-            if (client?.isStarted == false) {
-                client?.start()
-            }
-        }
+        client?.start()
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onPause() {
+        KLog.d(this.javaClass.name, "onPause")
+        bdMapView?.onPause()
+        super.onPause()
+    }
+
+//    override fun onStart() {
+//        super.onStart()
+//        KLog.d(this.javaClass.name, "onStart")
+//        client?.registerLocationListener(mListener)
+//        client?.start()
+//    }
+
+//    override fun onStop() {
+//        super.onStop()
+//        KLog.d(this.javaClass.name, "onStop")
+//        client?.unRegisterLocationListener(mListener)
+//        client?.stop()
+//        client = null
+//    }
+
+//    override fun onDestroyView() {
+//        KLog.d(this.javaClass.name, "onDestroyView")
+//        bdMapView?.onDestroy()
+//        super.onDestroyView()
+//    }
+
+    override fun onDestroy() {
         client?.unRegisterLocationListener(mListener)
-        if (client?.isStarted == true) {
-            client?.stop()
-        }
-    }
-
-    override fun onDestroyView() {
-        bdMapView.onDestroy()
-        super.onDestroyView()
+        client?.stop()
+        KLog.d(this.javaClass.name, "onDestroy")
+        bdMapView?.onDestroy()
+        super.onDestroy()
     }
 
     private fun doLoc() {
@@ -180,7 +200,7 @@ class BDMapFragment : Fragment() {
     }
 
     private fun initialize() {
-        client = LocationClient(activity)
+        client = LocationClient(activity.application)
         client?.locOption = getDefaultLocationClientOption()
     }
 
@@ -198,7 +218,8 @@ class BDMapFragment : Fragment() {
             option?.setIsNeedLocationDescribe(true)//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
             option?.setIsNeedLocationPoiList(true)//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
             option?.SetIgnoreCacheException(false)//可选，默认false，设置是否收集CRASH信息，默认收集
-            option?.setIsNeedAltitude(false)//可选，默认false，设置定位时是否需要海拔信息，默认不需要，除基础定位版本都可用
+            option?.setIsNeedAltitude(true)//可选，默认false，设置定位时是否需要海拔信息，默认不需要，除基础定位版本都可用
+            option?.openGps = true
         }
         return option!!
     }
