@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">分贝侠</string>
+    <string name="title_decibel">分贝</string>
+    <string name="title_map">地图</string>
+    <string name="decibel">dB</string>
+    <string name="decibel_description">分贝值</string>
+    <string name="min">最小值</string>
+    <string name="current">当前值</string>
+    <string name="max">最大值</string>
+</resources>
