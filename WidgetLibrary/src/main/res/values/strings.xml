@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">WidgetLibrary</string>
     <string name="please_waiting">Loading...\nPlease wait a moment.</string>
+    <!-- 数字键盘 -->
+    <string name="dk_0">0</string>
+    <string name="dk_1">1</string>
+    <string name="dk_2">2</string>
+    <string name="dk_3">3</string>
+    <string name="dk_4">4</string>
+    <string name="dk_5">5</string>
+    <string name="dk_6">6</string>
+    <string name="dk_7">7</string>
+    <string name="dk_8">8</string>
+    <string name="dk_9">9</string>
+    <string name="dk_delete">Delete</string>
+    <string name="dk_previous">Previous</string>
+    <string name="dk_next">Next</string>
+    <string name="dk_dot">.</string>
+    <string name="dk_close">Close</string>
 </resources>

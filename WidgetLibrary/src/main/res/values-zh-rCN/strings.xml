@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="please_waiting">加载中，请稍后……</string>
+    <!-- 数字键盘 -->
+    <string name="dk_0">0</string>
+    <string name="dk_1">1</string>
+    <string name="dk_2">2</string>
+    <string name="dk_3">3</string>
+    <string name="dk_4">4</string>
+    <string name="dk_5">5</string>
+    <string name="dk_6">6</string>
+    <string name="dk_7">7</string>
+    <string name="dk_8">8</string>
+    <string name="dk_9">9</string>
+    <string name="dk_delete">删除</string>
+    <string name="dk_previous">上一个</string>
+    <string name="dk_next">下一个</string>
+    <string name="dk_dot">.</string>
+    <string name="dk_close">关闭</string>
 </resources>
