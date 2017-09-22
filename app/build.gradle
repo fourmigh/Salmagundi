@@ -11,7 +11,7 @@ android {
         }
     }
     compileSdkVersion 26
-    buildToolsVersion '26.0.0'
+    buildToolsVersion "$buildTools_version"
     defaultConfig {
         applicationId "org.caojun.salmagundi"
         minSdkVersion 15

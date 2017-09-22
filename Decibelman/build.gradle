@@ -3,13 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    buildToolsVersion "$buildTools_version"
 
 
     defaultConfig {
         applicationId "org.caojun.decibelman"
         minSdkVersion 14
-        targetSdkVersion 26
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0.0"
 
