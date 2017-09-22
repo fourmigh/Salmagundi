@@ -8,20 +8,11 @@ import android.view.ViewGroup
 import com.baidu.location.*
 import com.baidu.mapapi.map.MapStatus
 import com.baidu.mapapi.map.MapStatusUpdateFactory
-import com.baidu.mapapi.map.MyLocationConfiguration
 import com.baidu.mapapi.map.MyLocationData
 import com.baidu.mapapi.model.LatLng
 import com.socks.library.KLog
 import kotlinx.android.synthetic.main.fragment_bdmap.*
 import org.caojun.decibelman.R
-import org.jetbrains.anko.doAsync
-import okhttp3.FormBody
-import okhttp3.RequestBody
-import org.caojun.decibelman.Constant
-import org.caojun.decibelman.utils.ManifestUtils
-import org.caojun.decibelman.utils.OkHttpUtils
-import org.jetbrains.anko.uiThread
-import org.json.JSONObject
 
 
 /**
@@ -125,7 +116,6 @@ class BDMapFragment : Fragment() {
                 ibLocation.visibility = View.VISIBLE
                 ibLocation.setOnClickListener {
                     doLoc()
-                    doCloudManager()
                 }
             }
         }
@@ -151,27 +141,6 @@ class BDMapFragment : Fragment() {
         bdMapView?.onPause()
         super.onPause()
     }
-
-//    override fun onStart() {
-//        super.onStart()
-//        KLog.d(this.javaClass.name, "onStart")
-//        client?.registerLocationListener(mListener)
-//        client?.start()
-//    }
-
-//    override fun onStop() {
-//        super.onStop()
-//        KLog.d(this.javaClass.name, "onStop")
-//        client?.unRegisterLocationListener(mListener)
-//        client?.stop()
-//        client = null
-//    }
-
-//    override fun onDestroyView() {
-//        KLog.d(this.javaClass.name, "onDestroyView")
-//        bdMapView?.onDestroy()
-//        super.onDestroyView()
-//    }
 
     override fun onDestroy() {
         client?.unRegisterLocationListener(mListener)
@@ -222,32 +191,5 @@ class BDMapFragment : Fragment() {
             option?.openGps = true
         }
         return option!!
-    }
-
-    fun doCloudManager() {
-//        val json = JSONObject()
-//        json.put("ak", ManifestUtils.getBaiduApiKey(activity))
-//        json.put("geotable_id", ManifestUtils.getBaiduGeoTableId(activity))
-//        json.put("decibel_average", Constant.average.toDouble())
-//        json.put("decibel_max", Constant.max)
-//        json.put("decibel_min", Constant.min)
-//        json.put("latitude", latLng!!.latitude)
-//        json.put("longitude", latLng!!.longitude)
-//        val body = json.toString()
-
-        val body: RequestBody = FormBody.Builder().add("ak", ManifestUtils.getBaiduApiKey(activity)).add("geotable_id", ManifestUtils.getBaiduGeoTableId(activity).toString()).add("decibel_average", Constant.average.toString()).add("decibel_max", Constant.max.toString()).add("decibel_min", Constant.min.toString()).add("latitude", latLng!!.latitude.toString()).add("longitude", latLng!!.longitude.toString()).build()
-
-//        KLog.json("doCloudManager", body)
-
-        doAsync {
-            val response = OkHttpUtils.ceratePoi(body)
-            uiThread {
-                if (response.isSuccessful) {
-                    KLog.json("ceratePoi", response.body()?.string())
-                } else {
-                    KLog.d("ceratePoi", response.code().toString() + " : " + response.message())
-                }
-            }
-        }
     }
 }
