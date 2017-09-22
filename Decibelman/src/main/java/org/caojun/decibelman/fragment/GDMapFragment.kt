@@ -14,11 +14,10 @@ import com.amap.api.location.AMapLocationListener
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.LocationSource
-import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.MyLocationStyle
-import com.socks.library.KLog
 import kotlinx.android.synthetic.main.fragment_gdmap.*
 import org.caojun.decibelman.R
+import org.jetbrains.anko.toast
 
 /**
  * Created by CaoJun on 2017/9/13.
@@ -32,13 +31,11 @@ class GDMapFragment : Fragment(), LocationSource, AMapLocationListener {
     private var savedInstanceState: Bundle? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        KLog.d(this.javaClass.name, "onCreateView")
         return inflater.inflate(R.layout.fragment_gdmap, null)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        KLog.d(this.javaClass.name, "onCreate")
         this.savedInstanceState = savedInstanceState
     }
 
@@ -46,6 +43,7 @@ class GDMapFragment : Fragment(), LocationSource, AMapLocationListener {
         super.onResume()
         gdMapView.onCreate(savedInstanceState)
         ibLocation.setOnClickListener {
+            toast(R.string.please_waiting)
             mLocationClient?.startLocation()
         }
         initialize()

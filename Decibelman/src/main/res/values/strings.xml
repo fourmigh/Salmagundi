@@ -7,4 +7,5 @@
     <string name="min">Min</string>
     <string name="current">Current</string>
     <string name="max">Max</string>
+    <string name="please_waiting">Locating...\nPlease wait a moment.</string>
 </resources>
