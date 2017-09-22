@@ -14,14 +14,15 @@ import com.amap.api.location.AMapLocationListener
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.LocationSource
-import com.amap.api.maps.model.MyLocationStyle
+import com.amap.api.maps.model.*
 import kotlinx.android.synthetic.main.fragment_gdmap.*
 import org.caojun.decibelman.R
+import org.jetbrains.anko.toast
 
 /**
  * Created by CaoJun on 2017/9/13.
  */
-class GDMapFragment : Fragment(), LocationSource, AMapLocationListener {
+class GDMapFragment : Fragment(), LocationSource, AMapLocationListener, AMap.OnMarkerClickListener {
 
     private var aMap: AMap? = null
     private var mLocationChangedListener: LocationSource.OnLocationChangedListener? = null
@@ -60,7 +61,9 @@ class GDMapFragment : Fragment(), LocationSource, AMapLocationListener {
         gdMapView?.onSaveInstanceState(outState)
     }
 
-    override fun onLocationChanged(amapLocation: AMapLocation?) {
+    override fun onLocationChanged(amapLocation: AMapLocation) {
+        val latLng = LatLng(amapLocation.latitude, amapLocation.longitude)
+        addMarkersToMap(latLng)
         mLocationChangedListener?.onLocationChanged(amapLocation)// 显示系统小蓝点
     }
 
@@ -117,5 +120,23 @@ class GDMapFragment : Fragment(), LocationSource, AMapLocationListener {
         aMap?.uiSettings?.isTiltGesturesEnabled = true//倾斜
         aMap?.uiSettings?.isCompassEnabled = true//指南针
         aMap?.uiSettings?.isScaleControlsEnabled = true//比例尺
+        aMap?.setOnMarkerClickListener(this)
+    }
+
+    override fun onMarkerClick(marker: Marker): Boolean {
+        toast(marker.title + " : " + marker.snippet)
+        return true
+    }
+
+    private fun addMarkersToMap(latLng: LatLng) {
+
+        val markerOption = MarkerOptions().icon(BitmapDescriptorFactory
+                .defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                .position(latLng)
+                .title("标题")
+                .snippet("详细信息")
+                .draggable(true)
+        val marker = aMap?.addMarker(markerOption)
+        marker?.showInfoWindow()
     }
 }
