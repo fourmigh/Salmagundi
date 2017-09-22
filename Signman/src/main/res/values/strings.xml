@@ -7,4 +7,7 @@
     <string name="select_app_tips">Please select the app that you need to sign.</string>
     <string name="please_waiting">Loading...\nPlease wait a moment.</string>
     <string name="sign_time_title">Sign Time</string>
+    <string name="uninstalled_alert">[%s] has been uninstalled.\nAre you sure to reinstall or remove?</string>
+    <string name="reinstall">Reinstall</string>
+    <string name="remove">Remove</string>
 </resources>

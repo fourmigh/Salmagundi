@@ -12,8 +12,10 @@ import org.caojun.signman.R
 import org.caojun.signman.adapter.AppAdapter
 import org.caojun.signman.room.App
 import org.caojun.signman.room.AppDatabase
+import org.caojun.signman.utils.ActivityUtils
 import org.caojun.signman.utils.AppSortComparator
 import org.caojun.signman.utils.TimeUtils
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.util.Collections
@@ -61,6 +63,10 @@ class MainActivity : AppCompatActivity() {
             progressBar?.visibility = View.GONE
             return
         }
+        loadApps()
+    }
+
+    private fun loadApps() {
         doAsync {
             val apps = AppDatabase.getDatabase(baseContext).getAppDao().queryAll()
             uiThread {
@@ -107,5 +113,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    fun doUninstalledAlert(app: App) {
+        alert(getString(R.string.uninstalled_alert, app.name)) {
+            positiveButton(R.string.reinstall) {
+                ActivityUtils.gotoMarket(this@MainActivity, app.packageName!!)
+            }
+            negativeButton(R.string.remove) {
+                progressBar?.visibility = View.VISIBLE
+                doAsync {
+                    AppDatabase.getDatabase(this@MainActivity).getAppDao().delete(app)
+                    loadApps()
+                }
+            }
+            neutralPressed(android.R.string.cancel, {})
+        }.show()
     }
 }

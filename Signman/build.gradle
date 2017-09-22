@@ -10,8 +10,8 @@ android {
         applicationId "org.caojun.signman"
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 4
-        versionName "1.0.3"
+        versionCode 5
+        versionName "1.0.4"
 
     }
 
@@ -28,10 +28,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation "com.android.support:appcompat-v7:$androidsupport_version"
-    implementation "android.arch.persistence.room:runtime:latest.release"
-    implementation "android.arch.lifecycle:extensions:latest.release"
-    annotationProcessor "android.arch.lifecycle:compiler:latest.release"
-    kapt "android.arch.persistence.room:compiler:latest.release"
+    implementation "android.arch.persistence.room:runtime:$googleroom_version"
+    implementation "android.arch.lifecycle:extensions:$googleroom_version"
+    annotationProcessor "android.arch.lifecycle:compiler:$googleroom_version"
+    kapt "android.arch.persistence.room:compiler:$googleroom_version"
     implementation "se.emilsjolander:stickylistheaders:latest.release"
     implementation "com.luhuiguo:chinese-utils:latest.release"
     implementation "com.github.zhaokaiqiang.klog:library:latest.release"

@@ -1,5 +1,6 @@
 package org.caojun.signman.adapter
 
+import android.app.Activity
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +22,11 @@ import org.jetbrains.anko.doAsync
  */
 class AppAdapter: BaseAdapter {
 
-    constructor(context: MainActivity, list: ArrayList<App>) : super(context, list)
+    private var activity: MainActivity? = null
+
+    constructor(context: MainActivity, list: ArrayList<App>) : super(context, list) {
+        activity = context
+    }
 
     override fun getView(position: Int, convertView: View?, viewGrouo: ViewGroup?): View {
         var holder: ViewHolder
@@ -67,8 +72,11 @@ class AppAdapter: BaseAdapter {
 
         holder.btnSign?.setOnClickListener({
             //启动应用
+            if (!ActivityUtils.startActivity(context!!, app.packageName!!)) {
+                activity?.doUninstalledAlert(app)
+                return@setOnClickListener
+            }
             (context as MainActivity).progressBar?.visibility = View.VISIBLE
-            ActivityUtils.startActivity(context!!, app.packageName!!)
             //添加时间
             app.addTime()
             app.isSigned = true
