@@ -17,7 +17,6 @@ import com.amap.api.maps.LocationSource
 import com.amap.api.maps.model.MyLocationStyle
 import kotlinx.android.synthetic.main.fragment_gdmap.*
 import org.caojun.decibelman.R
-import org.jetbrains.anko.toast
 
 /**
  * Created by CaoJun on 2017/9/13.
@@ -41,13 +40,24 @@ class GDMapFragment : Fragment(), LocationSource, AMapLocationListener {
 
     override fun onResume() {
         super.onResume()
-        gdMapView.onCreate(savedInstanceState)
+        gdMapView?.onCreate(savedInstanceState)
         initialize()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        gdMapView?.onPause()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         deactivate()
+        gdMapView?.onDestroy()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        gdMapView?.onSaveInstanceState(outState)
     }
 
     override fun onLocationChanged(amapLocation: AMapLocation?) {
