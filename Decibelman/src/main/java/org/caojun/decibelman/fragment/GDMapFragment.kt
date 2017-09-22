@@ -89,7 +89,7 @@ class GDMapFragment : Fragment(), LocationSource, AMapLocationListener {
             return
         }
         aMap = gdMapView.map
-        aMap?.uiSettings?.isRotateGesturesEnabled = true//设置是否可旋转
+        aMap?.uiSettings?.isRotateGesturesEnabled = true//旋转手势
         aMap?.moveCamera(CameraUpdateFactory.zoomBy(6f))
         aMap?.setLocationSource(this)// 设置定位监听
         // 自定义系统定位蓝点
@@ -103,7 +103,9 @@ class GDMapFragment : Fragment(), LocationSource, AMapLocationListener {
         // 将自定义的 myLocationStyle 对象添加到地图上
         aMap?.myLocationStyle = myLocationStyle
         aMap?.isMyLocationEnabled = true// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
-        aMap?.uiSettings?.isMyLocationButtonEnabled = true// 设置默认定位按钮是否显示
-        aMap?.uiSettings?.isTiltGesturesEnabled = true//设置是否可倾斜
+        aMap?.uiSettings?.isMyLocationButtonEnabled = true// 定位按钮
+        aMap?.uiSettings?.isTiltGesturesEnabled = true//倾斜
+        aMap?.uiSettings?.isCompassEnabled = true//指南针
+        aMap?.uiSettings?.isScaleControlsEnabled = true//比例尺
     }
 }
