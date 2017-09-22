@@ -8,5 +8,4 @@
     <string name="min">最小值</string>
     <string name="current">當前值</string>
     <string name="max">最大值</string>
-    <string name="please_waiting">定位中，請稍後……</string>
 </resources>

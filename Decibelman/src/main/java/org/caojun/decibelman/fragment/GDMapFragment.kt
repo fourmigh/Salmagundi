@@ -42,10 +42,6 @@ class GDMapFragment : Fragment(), LocationSource, AMapLocationListener {
     override fun onResume() {
         super.onResume()
         gdMapView.onCreate(savedInstanceState)
-        ibLocation.setOnClickListener {
-            toast(R.string.please_waiting)
-            mLocationClient?.startLocation()
-        }
         initialize()
     }
 
@@ -107,5 +103,6 @@ class GDMapFragment : Fragment(), LocationSource, AMapLocationListener {
         // 将自定义的 myLocationStyle 对象添加到地图上
         aMap?.myLocationStyle = myLocationStyle
         aMap?.isMyLocationEnabled = true// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
+        aMap?.uiSettings?.isMyLocationButtonEnabled = true// 设置默认定位按钮是否显示
     }
 }

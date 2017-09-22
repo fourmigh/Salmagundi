@@ -8,14 +8,4 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_centerInParent="true"/>
-
-    <ImageButton
-        android:id="@+id/ibLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:layout_marginBottom="20dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:src="@android:drawable/ic_menu_mylocation" />
 </RelativeLayout>
