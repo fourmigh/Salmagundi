@@ -1,11 +1,8 @@
-package org.caojun.decibelman.fragment
+package org.caojun.decibelman.activity
 
-import android.support.v4.app.Fragment
 import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.text.TextUtils
 import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
@@ -14,30 +11,30 @@ import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.LocationSource
 import com.amap.api.maps.model.*
-import com.socks.library.KLog
 import kotlinx.android.synthetic.main.fragment_gdmap.*
 import org.caojun.decibelman.Constant
 import org.caojun.decibelman.R
-import org.caojun.decibelman.activity.MainActivity
 import org.caojun.decibelman.room.DecibelInfo
 import org.caojun.decibelman.utils.DigitUtils
 import org.caojun.decibelman.utils.TimeUtils
 import org.jetbrains.anko.doAsync
 
 /**
- * Created by CaoJun on 2017/9/13.
+ * Created by CaoJun on 2017/9/25.
  */
-class GDMapFragment : Fragment(), LocationSource, AMapLocationListener, AMap.OnMarkerClickListener {
+class GDMapActivity: BaseActivity(), LocationSource, AMapLocationListener, AMap.OnMarkerClickListener {
 
     private var aMap: AMap? = null
     private var mLocationChangedListener: LocationSource.OnLocationChangedListener? = null
     private var mLocationClient: AMapLocationClient? = null
     private var mLocationOption: AMapLocationClientOption? = null
-    private var savedInstanceState: Bundle? = null
-    private var initialized = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        (activity as MainActivity).setOnDatabaseListener(object : MainActivity.OnDatabaseListener {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.fragment_gdmap)
+        gdMapView?.onCreate(savedInstanceState)
+        initialize()
+        setOnDatabaseListener(object : OnDatabaseListener {
             override fun onSuccess() {
                 addMarkersToMap()
             }
@@ -45,82 +42,31 @@ class GDMapFragment : Fragment(), LocationSource, AMapLocationListener, AMap.OnM
             override fun onError() {
             }
         })
-        KLog.d(javaClass.name, "onCreateView")
-        return inflater.inflate(R.layout.fragment_gdmap, null)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        this.savedInstanceState = savedInstanceState
-        KLog.d(javaClass.name, "onCreate")
     }
 
     override fun onResume() {
         super.onResume()
-        if (!initialized) {
-            gdMapView?.onCreate(savedInstanceState)
-            initialize()
-            initialized = true
-        }
-        KLog.d(javaClass.name, "onResume")
+        gdMapView?.onResume()
     }
 
     override fun onPause() {
         super.onPause()
         gdMapView?.onPause()
-        KLog.d(javaClass.name, "onPause")
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        deactivate()
-        gdMapView?.onDestroy()
-        KLog.d(javaClass.name, "onDestroyView")
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
+    override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         gdMapView?.onSaveInstanceState(outState)
-        KLog.d(javaClass.name, "onSaveInstanceState")
     }
 
-    override fun onLocationChanged(amapLocation: AMapLocation) {
-//        val latLng = LatLng(amapLocation.latitude, amapLocation.longitude)
-//        addMarkersToMap(latLng)
-        KLog.d("onLocationChanged", "onLocationChanged")
-        Constant.latitude = amapLocation.latitude
-        Constant.longitude = amapLocation.longitude
-        mLocationChangedListener?.onLocationChanged(amapLocation)// 显示系统小蓝点
+    override fun onDestroy() {
+        super.onDestroy()
+        gdMapView?.onDestroy()
     }
 
-    /**
-     * 停止定位
-     */
-    override fun deactivate() {
-        mLocationChangedListener = null
-        mLocationClient?.stopLocation()
-        mLocationClient?.onDestroy()
-        mLocationClient = null
-    }
-
-    /**
-     * 激活定位
-     */
-    override fun activate(listener: LocationSource.OnLocationChangedListener?) {
-        mLocationChangedListener = listener
-        if (mLocationClient == null) {
-            mLocationClient = AMapLocationClient(activity)
-            mLocationOption = AMapLocationClientOption()
-            // 设置定位监听
-            mLocationClient?.setLocationListener(this)
-            // 设置为高精度定位模式
-            mLocationOption?.locationMode = AMapLocationClientOption.AMapLocationMode.Hight_Accuracy
-            // 只是为了获取当前位置，所以设置为单次定位
-            mLocationOption?.isOnceLocation = (true)
-            // 设置定位参数
-            mLocationClient?.setLocationOption(mLocationOption)
-            mLocationClient?.startLocation()
-        }
+    override fun onLowMemory() {
+        super.onLowMemory()
+        gdMapView?.onLowMemory()
     }
 
     private fun initialize() {
@@ -149,7 +95,48 @@ class GDMapFragment : Fragment(), LocationSource, AMapLocationListener, AMap.OnM
         aMap?.setOnMarkerClickListener(this)
     }
 
+    /**
+     * 激活定位
+     */
+    override fun activate(listener: LocationSource.OnLocationChangedListener?) {
+        mLocationChangedListener = listener
+        if (mLocationClient == null) {
+            mLocationClient = AMapLocationClient(this)
+            mLocationOption = AMapLocationClientOption()
+            // 设置定位监听
+            mLocationClient?.setLocationListener(this)
+            // 设置为高精度定位模式
+            mLocationOption?.locationMode = AMapLocationClientOption.AMapLocationMode.Hight_Accuracy
+            // 只是为了获取当前位置，所以设置为单次定位
+            mLocationOption?.isOnceLocation = (true)
+            // 设置定位参数
+            mLocationClient?.setLocationOption(mLocationOption)
+            mLocationClient?.startLocation()
+        }
+    }
+
+    /**
+     * 停止定位
+     */
+    override fun deactivate() {
+        mLocationChangedListener = null
+        mLocationClient?.stopLocation()
+        mLocationClient?.onDestroy()
+        mLocationClient = null
+    }
+
+    override fun onLocationChanged(amapLocation: AMapLocation) {
+        Constant.latitude = amapLocation.latitude
+        Constant.longitude = amapLocation.longitude
+        mLocationChangedListener?.onLocationChanged(amapLocation)// 显示系统小蓝点
+    }
+
     override fun onMarkerClick(marker: Marker): Boolean {
+        if (TextUtils.isEmpty(marker.title) && TextUtils.isEmpty(marker.snippet)) {
+            alertSaveDecibelInfo()
+        } else {
+            marker.showInfoWindow()
+        }
         return true
     }
 
@@ -170,20 +157,13 @@ class GDMapFragment : Fragment(), LocationSource, AMapLocationListener, AMap.OnM
 
     private fun addMarkersToMap() {
         doAsync {
-            val list = (activity as MainActivity).getDecibelInfos()
+            val list = getDecibelInfos()
             if (list != null && !list.isEmpty()) {
                 aMap?.clear()
                 for (i in 1..(list.size - 1)) {
                     addMarkerToMap(list[i])
                 }
             }
-        }
-    }
-
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        if (!hidden) {
-            (activity as MainActivity).alertSaveDecibelInfo()
         }
     }
 }

@@ -19,19 +19,10 @@ import org.caojun.decibelman.utils.AlgorithmUtils
 import org.caojun.decibelman.utils.DeviceUtils
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.startActivity
 import java.util.Date
 
 class MainActivity : AppCompatActivity() {
-
-    interface OnDatabaseListener {
-        fun onSuccess()
-        fun onError()
-    }
-
-    private var onDatabaseListener: OnDatabaseListener? = null
-    fun setOnDatabaseListener(onDatabaseListener: OnDatabaseListener) {
-        this.onDatabaseListener = onDatabaseListener
-    }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -55,28 +46,30 @@ class MainActivity : AppCompatActivity() {
         initDecibelInfoDatabase()
     }
 
-    private fun setFragment(hide: Fragment, show: Fragment) {
+    private fun setFragment(/*hide: Fragment, */show: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.hide(hide)
+//        transaction.hide(hide)
         transaction.show(show)
         transaction.commit()
     }
 
     override fun onResume() {
         super.onResume()
-        if (navigation.selectedItemId != R.id.navigation_decibel) {
-            doMapFragment()
-        } else {
-            doDecibelFragment()
-        }
+//        if (navigation.selectedItemId != R.id.navigation_decibel) {
+//            doMapFragment()
+//        } else {
+//            doDecibelFragment()
+//        }
+        navigation.selectedItemId = R.id.navigation_decibel
     }
 
     private fun doDecibelFragment() {
-        setFragment(mapFragment, decibelFragment)
+        setFragment(/*mapFragment, */decibelFragment)
     }
 
     private fun doMapFragment() {
-        setFragment(decibelFragment, mapFragment)
+//        setFragment(decibelFragment, mapFragment)
+        startActivity<GDMapActivity>()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -88,33 +81,12 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> {
-                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
+//                val intent = Intent(this, SettingsActivity::class.java)
+//                startActivity(intent)
+                startActivity<SettingsActivity>()
                 true
             }
             else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    fun alertSaveDecibelInfo() {
-        KLog.d("alertSaveDecibelInfo", "alertSaveDecibelInfo")
-        val settings = PreferenceManager.getDefaultSharedPreferences(this)
-        if (settings.getBoolean("sp_confirm_dialog", true)) {
-            KLog.d("alertSaveDecibelInfo", "alert")
-            alert(R.string.alert_save_data) {
-                positiveButton(R.string.yes) {
-                    saveDecibelInfo()
-                }
-                negativeButton(R.string.no) {
-                    onDatabaseListener?.onSuccess()
-                }
-                neutralPressed(R.string.yes_no_alert, {
-                    saveDecibelInfo()
-                })
-            }.show()
-        } else {
-            KLog.d("alertSaveDecibelInfo", "no alert")
-            saveDecibelInfo()
         }
     }
 
@@ -133,26 +105,5 @@ class MainActivity : AppCompatActivity() {
                 Constant.decibelInfo0 = list[0]
             }
         }
-    }
-
-    private fun saveDecibelInfo() {
-        doAsync {
-            var di = DecibelInfo()
-            di.latitude = Constant.latitude
-            di.longitude = Constant.longitude
-            di.imei = Constant.decibelInfo0!!.imei
-            di.random_id = Constant.decibelInfo0!!.random_id
-            di.database_time = Constant.decibelInfo0!!.database_time
-            di.time = Date().time
-            di.decibel_min = Constant.min
-            di.decibel_max = Constant.max
-            di.decibel_average = Constant.average
-            DecibelInfoDatabase.getDatabase(this@MainActivity).getDao().insert(di)
-            onDatabaseListener?.onSuccess()
-        }
-    }
-
-    fun getDecibelInfos(): List<DecibelInfo> {
-        return DecibelInfoDatabase.getDatabase(this).getDao().queryAll()
     }
 }
