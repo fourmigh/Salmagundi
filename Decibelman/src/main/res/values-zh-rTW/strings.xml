@@ -8,4 +8,11 @@
     <string name="min">最小值</string>
     <string name="current">當前值</string>
     <string name="max">最大值</string>
+    <string name="settings">設定</string>
+    <string name="alert_save_data">是否保存經緯度、分貝值等數據到本地資料庫，用於在地圖上顯示？</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="yes_no_alert">是，且不再提示。</string>
+    <string name="decibel_info">最大值：%s\n平均值：%s\n最小值：%s</string>
+    <string name="mark_title">分貝\n%s</string>
 </resources>

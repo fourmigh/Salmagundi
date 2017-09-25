@@ -1,0 +1,26 @@
+package org.caojun.decibelman.activity
+
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import org.caojun.decibelman.R
+import android.preference.PreferenceFragment
+
+
+
+/**
+ * Created by CaoJun on 2017/9/25.
+ */
+class SettingsActivity: AppCompatActivity() {
+
+    public override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fragmentManager.beginTransaction().replace(android.R.id.content, SettingsFragment()).commit()
+    }
+
+    class SettingsFragment : PreferenceFragment() {
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            addPreferencesFromResource(R.xml.settings)
+        }
+    }
+}

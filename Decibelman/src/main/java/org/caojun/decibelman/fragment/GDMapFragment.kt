@@ -1,9 +1,8 @@
 package org.caojun.decibelman.fragment
 
-import android.app.Fragment
+import android.support.v4.app.Fragment
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +14,15 @@ import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.LocationSource
 import com.amap.api.maps.model.*
+import com.socks.library.KLog
 import kotlinx.android.synthetic.main.fragment_gdmap.*
+import org.caojun.decibelman.Constant
 import org.caojun.decibelman.R
-import org.jetbrains.anko.toast
+import org.caojun.decibelman.activity.MainActivity
+import org.caojun.decibelman.room.DecibelInfo
+import org.caojun.decibelman.utils.DigitUtils
+import org.caojun.decibelman.utils.TimeUtils
+import org.jetbrains.anko.doAsync
 
 /**
  * Created by CaoJun on 2017/9/13.
@@ -29,41 +34,62 @@ class GDMapFragment : Fragment(), LocationSource, AMapLocationListener, AMap.OnM
     private var mLocationClient: AMapLocationClient? = null
     private var mLocationOption: AMapLocationClientOption? = null
     private var savedInstanceState: Bundle? = null
+    private var initialized = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        (activity as MainActivity).setOnDatabaseListener(object : MainActivity.OnDatabaseListener {
+            override fun onSuccess() {
+                addMarkersToMap()
+            }
+
+            override fun onError() {
+            }
+        })
+        KLog.d(javaClass.name, "onCreateView")
         return inflater.inflate(R.layout.fragment_gdmap, null)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.savedInstanceState = savedInstanceState
+        KLog.d(javaClass.name, "onCreate")
     }
 
     override fun onResume() {
         super.onResume()
-        gdMapView?.onCreate(savedInstanceState)
-        initialize()
+        if (!initialized) {
+            gdMapView?.onCreate(savedInstanceState)
+            initialize()
+            initialized = true
+        }
+        KLog.d(javaClass.name, "onResume")
     }
 
     override fun onPause() {
         super.onPause()
         gdMapView?.onPause()
+        KLog.d(javaClass.name, "onPause")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         deactivate()
         gdMapView?.onDestroy()
+        KLog.d(javaClass.name, "onDestroyView")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         gdMapView?.onSaveInstanceState(outState)
+        KLog.d(javaClass.name, "onSaveInstanceState")
     }
 
     override fun onLocationChanged(amapLocation: AMapLocation) {
-        val latLng = LatLng(amapLocation.latitude, amapLocation.longitude)
-        addMarkersToMap(latLng)
+//        val latLng = LatLng(amapLocation.latitude, amapLocation.longitude)
+//        addMarkersToMap(latLng)
+        KLog.d("onLocationChanged", "onLocationChanged")
+        Constant.latitude = amapLocation.latitude
+        Constant.longitude = amapLocation.longitude
         mLocationChangedListener?.onLocationChanged(amapLocation)// 显示系统小蓝点
     }
 
@@ -124,19 +150,40 @@ class GDMapFragment : Fragment(), LocationSource, AMapLocationListener, AMap.OnM
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        toast(marker.title + " : " + marker.snippet)
         return true
     }
 
-    private fun addMarkersToMap(latLng: LatLng) {
+    private fun addMarkerToMap(di: DecibelInfo) {
+
+        val latLng = LatLng(di.latitude, di.longitude)
+        val time = TimeUtils.getTime("yyyy/MM/dd HH:mm:ss", di.time);
 
         val markerOption = MarkerOptions().icon(BitmapDescriptorFactory
                 .defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                 .position(latLng)
-                .title("标题")
-                .snippet("详细信息")
+                .title(getString(R.string.mark_title, time.toString()))
+                .snippet(getString(R.string.decibel_info, DigitUtils.getRound(di.decibel_max, 1), DigitUtils.getRound(di.decibel_average, 1), DigitUtils.getRound(di.decibel_min, 1)))
                 .draggable(true)
         val marker = aMap?.addMarker(markerOption)
         marker?.showInfoWindow()
+    }
+
+    private fun addMarkersToMap() {
+        doAsync {
+            val list = (activity as MainActivity).getDecibelInfos()
+            if (list != null && !list.isEmpty()) {
+                aMap?.clear()
+                for (i in 1..(list.size - 1)) {
+                    addMarkerToMap(list[i])
+                }
+            }
+        }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) {
+            (activity as MainActivity).alertSaveDecibelInfo()
+        }
     }
 }

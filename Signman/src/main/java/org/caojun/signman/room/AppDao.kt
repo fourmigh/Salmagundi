@@ -24,8 +24,8 @@ interface AppDao {
     fun delete(apps: List<App>): Int
 
     @Update
-    fun update(vararg user: App): Int
+    fun update(vararg app: App): Int
 
     @Update
-    fun update(users: List<App>): Int
+    fun update(apps: List<App>): Int
 }
