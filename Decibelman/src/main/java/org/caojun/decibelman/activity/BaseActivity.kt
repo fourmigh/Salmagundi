@@ -31,7 +31,7 @@ open class BaseActivity: Activity() {
 
     fun alertSaveDecibelInfo() {
         val settings = PreferenceManager.getDefaultSharedPreferences(this)
-        if (settings.getBoolean(Constant.SP_CONFIRM_DIALOG, true)) {
+        if (settings.getBoolean(getString(R.string.key_show_confirm_dialog), true)) {
             alert(R.string.alert_save_data) {
                 positiveButton(R.string.yes) {
                     saveDecibelInfo()
@@ -67,7 +67,7 @@ open class BaseActivity: Activity() {
     private fun saveSharedPreferences() {
         doAsync {
             val settings = PreferenceManager.getDefaultSharedPreferences(this@BaseActivity).edit()
-            settings.putBoolean(Constant.SP_CONFIRM_DIALOG, false)
+            settings.putBoolean(getString(R.string.key_show_confirm_dialog), false)
             settings.commit()
         }
     }

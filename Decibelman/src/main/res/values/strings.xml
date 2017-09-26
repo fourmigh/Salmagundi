@@ -14,4 +14,6 @@
     <string name="yes_no_alert">Yes, and no alert again.</string>
     <string name="decibel_info">Max: %s\nAverage: %s\nMin: %s</string>
     <string name="mark_title">Decibel\n%s</string>
+    <string name="key_show_confirm_dialog">sp_confirm_dialog</string>
+    <string name="show_confirm_dialog">Show Confirm Dialog</string>
 </resources>

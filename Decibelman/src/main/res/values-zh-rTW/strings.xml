@@ -15,4 +15,5 @@
     <string name="yes_no_alert">是，且不再提示。</string>
     <string name="decibel_info">最大值：%s\n平均值：%s\n最小值：%s</string>
     <string name="mark_title">分貝\n%s</string>
+    <string name="show_confirm_dialog">顯示確認對話框</string>
 </resources>

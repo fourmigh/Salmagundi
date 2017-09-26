@@ -6,7 +6,8 @@ import org.caojun.decibelman.room.DecibelInfo
  * Created by CaoJun on 2017/9/18.
  */
 object Constant {
-    val SP_CONFIRM_DIALOG = "sp_confirm_dialog"
+    val Sound_Permission = android.Manifest.permission.RECORD_AUDIO
+    val RequestCode_Permissions = 1
 
     var average: Float = 0f
     var min: Float = Float.MAX_VALUE

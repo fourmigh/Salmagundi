@@ -2,6 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <SwitchPreference
         android:defaultValue="true"
-        android:key="sp_confirm_dialog"
-        android:title="Show Confirm Dialog" />
+        android:key="@string/key_show_confirm_dialog"
+        android:title="@string/show_confirm_dialog" />
 </PreferenceScreen>

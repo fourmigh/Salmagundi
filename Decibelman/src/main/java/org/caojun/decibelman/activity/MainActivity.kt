@@ -2,12 +2,15 @@ package org.caojun.decibelman.activity
 
 import android.support.v4.app.Fragment
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import com.baidu.mapapi.SDKInitializer
 import kotlinx.android.synthetic.main.activity_main.*
 import org.caojun.decibelman.R
 import android.preference.PreferenceManager
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -103,6 +106,16 @@ class MainActivity : AppCompatActivity() {
                 DecibelInfoDatabase.getDatabase(this@MainActivity).getDao().insert(Constant.decibelInfo0!!)
             } else {
                 Constant.decibelInfo0 = list[0]
+            }
+        }
+    }
+
+    private fun checkSelfPermission() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, Constant.Sound_Permission) != PackageManager.PERMISSION_GRANTED) {
+//                if (shouldShowRequestPermissionRationale(Constant.Sound_Permission)) {
+//                }
+                requestPermissions(arrayOf(Constant.Sound_Permission), Constant.RequestCode_Permissions);
             }
         }
     }
