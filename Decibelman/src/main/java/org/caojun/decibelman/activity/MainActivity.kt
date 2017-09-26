@@ -3,6 +3,7 @@ package org.caojun.decibelman.activity
 import android.support.v4.app.Fragment
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -24,6 +25,11 @@ import org.jetbrains.anko.alert
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.startActivity
 import java.util.Date
+import android.net.Uri.fromParts
+import android.provider.Settings
+import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+import org.caojun.decibelman.utils.ActivityUtils
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -110,13 +116,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkSelfPermission() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(this, Constant.Sound_Permission) != PackageManager.PERMISSION_GRANTED) {
-//                if (shouldShowRequestPermissionRationale(Constant.Sound_Permission)) {
-//                }
-                requestPermissions(arrayOf(Constant.Sound_Permission), Constant.RequestCode_Permissions);
+//    private fun checkSelfPermission() {
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            if (ContextCompat.checkSelfPermission(this, Constant.Sound_Permission) != PackageManager.PERMISSION_GRANTED) {
+////                if (shouldShowRequestPermissionRationale(Constant.Sound_Permission)) {
+////                }
+//                requestPermissions(arrayOf(Constant.Sound_Permission), Constant.RequestCode_Permissions);
+//            }
+//        }
+//    }
+
+    fun askRecordAudioPermission() {
+        alert(R.string.ask_record_audio_permission) {
+            positiveButton(android.R.string.ok) {
+                ActivityUtils.gotoPermission(this@MainActivity)
             }
-        }
+            negativeButton(R.string.quit) {
+                finish()
+            }
+            onCancelled {
+                finish()
+            }
+        }.show()
     }
 }

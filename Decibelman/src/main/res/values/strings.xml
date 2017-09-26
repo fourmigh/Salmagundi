@@ -16,4 +16,6 @@
     <string name="mark_title">Decibel\n%s</string>
     <string name="key_show_confirm_dialog">sp_confirm_dialog</string>
     <string name="show_confirm_dialog">Show Confirm Dialog</string>
+    <string name="ask_record_audio_permission">Need Microphone Permission.</string>
+    <string name="quit">Quit</string>
 </resources>

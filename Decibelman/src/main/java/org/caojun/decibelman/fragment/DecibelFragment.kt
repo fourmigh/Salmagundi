@@ -19,6 +19,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.Legend.LegendForm
 import org.caojun.decibelman.Constant
+import org.caojun.decibelman.activity.MainActivity
 
 
 /**
@@ -32,7 +33,7 @@ class DecibelFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view: View = inflater.inflate(R.layout.fragment_decibel, null)
 
-        decibelman = Decibelman(object : Decibelman.OnDecibelListener {
+        decibelman = Decibelman(activity as MainActivity, object : Decibelman.OnDecibelListener {
             override fun onGetDecibel(decibel: Double) {
                 velocimeterView?.setValue(decibel.toFloat(), false)
                 //数据统计

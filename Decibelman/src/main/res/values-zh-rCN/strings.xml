@@ -16,4 +16,6 @@
     <string name="decibel_info">最大值: %s\n平均值: %s\n最小值: %s</string>
     <string name="mark_title">分贝\n%s</string>
     <string name="show_confirm_dialog">显示确认对话框</string>
+    <string name="ask_record_audio_permission">需要录音权限。</string>
+    <string name="quit">退出</string>
 </resources>
