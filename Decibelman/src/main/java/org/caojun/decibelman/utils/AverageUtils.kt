@@ -14,7 +14,7 @@ object AverageUtils {
 
     fun add(digital: Int): Float {
         count ++
-        average = average + (digital - average) / count
+        average += (digital - average) / count
         return average
     }
 }
