@@ -8,7 +8,7 @@ import java.math.BigDecimal
 object DigitUtils {
     fun getRound(digit: Float, newScale: Int): String {
         val b = BigDecimal(digit.toDouble())
-        //保留2位小数
+        //保留newScale位小数
         val v = b.setScale(newScale, BigDecimal.ROUND_HALF_UP)
         return v.toString()
     }
