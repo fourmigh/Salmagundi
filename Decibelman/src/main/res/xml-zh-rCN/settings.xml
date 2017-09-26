@@ -2,6 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <SwitchPreference
         android:defaultValue="true"
-        android:key="sp_alert_confirm"
+        android:key="sp_confirm_dialog"
         android:title="显示确认对话框" />
 </PreferenceScreen>

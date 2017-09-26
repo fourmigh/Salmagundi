@@ -42,6 +42,7 @@ class GDMapActivity: BaseActivity(), LocationSource, AMapLocationListener, AMap.
             override fun onError() {
             }
         })
+        addMarkersToMap()
     }
 
     override fun onResume() {
@@ -134,6 +135,8 @@ class GDMapActivity: BaseActivity(), LocationSource, AMapLocationListener, AMap.
     override fun onMarkerClick(marker: Marker): Boolean {
         if (TextUtils.isEmpty(marker.title) && TextUtils.isEmpty(marker.snippet)) {
             alertSaveDecibelInfo()
+        } else if (marker.isInfoWindowShown) {
+            marker.hideInfoWindow()
         } else {
             marker.showInfoWindow()
         }

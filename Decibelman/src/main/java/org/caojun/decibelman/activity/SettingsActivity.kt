@@ -6,7 +6,6 @@ import org.caojun.decibelman.R
 import android.preference.PreferenceFragment
 
 
-
 /**
  * Created by CaoJun on 2017/9/25.
  */

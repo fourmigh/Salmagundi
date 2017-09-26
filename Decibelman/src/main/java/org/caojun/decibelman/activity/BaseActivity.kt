@@ -15,8 +15,6 @@ import java.util.*
  */
 open class BaseActivity: Activity() {
 
-    private val SP_CONFIRM_DIALOG = "sp_confirm_dialog"
-
     interface OnDatabaseListener {
         fun onSuccess()
         fun onError()
@@ -33,14 +31,12 @@ open class BaseActivity: Activity() {
 
     fun alertSaveDecibelInfo() {
         val settings = PreferenceManager.getDefaultSharedPreferences(this)
-        if (settings.getBoolean(SP_CONFIRM_DIALOG, true)) {
+        if (settings.getBoolean(Constant.SP_CONFIRM_DIALOG, true)) {
             alert(R.string.alert_save_data) {
                 positiveButton(R.string.yes) {
                     saveDecibelInfo()
                 }
-                negativeButton(R.string.no) {
-                    onDatabaseListener?.onSuccess()
-                }
+                negativeButton(R.string.no) {}
                 neutralPressed(R.string.yes_no_alert, {
                     saveDecibelInfo()
                     saveSharedPreferences()
@@ -71,7 +67,7 @@ open class BaseActivity: Activity() {
     private fun saveSharedPreferences() {
         doAsync {
             val settings = PreferenceManager.getDefaultSharedPreferences(this@BaseActivity).edit()
-            settings.putBoolean(SP_CONFIRM_DIALOG, false)
+            settings.putBoolean(Constant.SP_CONFIRM_DIALOG, false)
             settings.commit()
         }
     }
