@@ -10,4 +10,7 @@
     <string name="uninstalled_alert">[%s] has been uninstalled.\nAre you sure to reinstall or remove?</string>
     <string name="reinstall">Reinstall</string>
     <string name="remove">Remove</string>
+    <string name="settings">Settings</string>
+    <string name="settings_anim_key">settings_anim_key</string>
+    <string name="settings_anim">Random Animation</string>
 </resources>

@@ -11,4 +11,6 @@
     <string name="uninstalled_alert">【%s】已被卸載。\n確定要重裝或移除？</string>
     <string name="reinstall">重裝</string>
     <string name="remove">移除</string>
+    <string name="settings">設定</string>
+    <string name="settings_anim">隨機動畫效果</string>
 </resources>
