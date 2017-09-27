@@ -1,0 +1,18 @@
+package org.caojun.utils
+
+import java.math.BigDecimal
+
+/**
+ * Created by CaoJun on 2017/9/25.
+ */
+object DigitUtils {
+
+    /**
+     * 保留newScale位小数
+     */
+    fun getRound(digit: Float, newScale: Int): String {
+        val b = BigDecimal(digit.toDouble())
+        val v = b.setScale(newScale, BigDecimal.ROUND_HALF_UP)
+        return v.toString()
+    }
+}

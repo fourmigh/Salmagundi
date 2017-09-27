@@ -9,6 +9,7 @@ import android.provider.Settings
  * Created by CaoJun on 2017/9/5.
  */
 object ActivityUtils {
+
     fun startApplication(context: Context, packageName: String): Boolean {
         val intent = context.packageManager.getLaunchIntentForPackage(packageName)
         try {
