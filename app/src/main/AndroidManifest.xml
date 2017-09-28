@@ -124,6 +124,8 @@
             android:label="@string/cal_month_title" />
         <activity android:name=".decibelman.DecibelmanActivity"
             android:label="@string/dm_title" />
+        <activity android:name=".gyroscope.GyroscopeActivity"
+            android:label="@string/gyroscope_title" />
     </application>
 
 </manifest>

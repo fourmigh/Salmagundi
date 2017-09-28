@@ -70,6 +70,7 @@ dependencies {
     implementation "com.android.support:design:$androidsupport_version"
     implementation project(':VelocimeterLibrary')
     implementation "org.jetbrains.anko:anko-common:latest.release"
+    implementation 'com.android.support.constraint:constraint-layout:latest.release'
 }
 repositories {
     mavenCentral()

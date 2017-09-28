@@ -31,6 +31,7 @@ import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.color.ColorUtils;
 import org.caojun.salmagundi.decibelman.DecibelmanActivity;
 import org.caojun.salmagundi.family.FamilyActivity;
+import org.caojun.salmagundi.gyroscope.GyroscopeActivity;
 import org.caojun.salmagundi.iflytek.FlytekActivity;
 import org.caojun.salmagundi.lockpattern.GestureConstant;
 import org.caojun.salmagundi.passwordstore.PasswordStoreActivity;
@@ -72,7 +73,8 @@ public class MainActivity extends Activity {
             R.drawable.icon_chinesename,
             R.drawable.icon_family,
             R.drawable.icon_sort,
-            R.drawable.icon_decibelman
+            R.drawable.icon_decibelman,
+            R.drawable.icon_gyroscope
     };
     private final Integer[] mTextIds = {
             R.string.bp_title,
@@ -97,7 +99,8 @@ public class MainActivity extends Activity {
             R.string.cn_title,
             R.string.fa_title,
             R.string.ss_title,
-            R.string.dm_title
+            R.string.dm_title,
+            R.string.gyroscope_title
     };
     private final Class[] mActivitys = {
             BloodPressureActivity.class,
@@ -122,7 +125,8 @@ public class MainActivity extends Activity {
             ChineseNameActivity.class,
             FamilyActivity.class,
             StringSortDemo.class,
-            DecibelmanActivity.class
+            DecibelmanActivity.class,
+            GyroscopeActivity.class
     };
     private final String[] mARouterPaths = {
             Constant.ACTIVITY_BLOODPRESSURE,
@@ -147,7 +151,8 @@ public class MainActivity extends Activity {
             Constant.ACTIVITY_CHINESENAME,
             Constant.ACTIVITY_FAMILY,
             Constant.ACTIVITY_STRINGSORT_DEMO,
-            Constant.ACTIVITY_DECIBELMAN
+            Constant.ACTIVITY_DECIBELMAN,
+            Constant.ACTIVITY_GYROSCOPE
     };
 
     @Override

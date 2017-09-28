@@ -201,5 +201,12 @@
     <string name="ss_title">字符串排序</string>
 
     <!-- 分贝侠 -->
-    <string name="dm_title">分贝侠</string>decibel
+    <string name="dm_title">分贝侠</string>
+
+    <!-- 陀螺仪 -->
+    <string name="gyroscope_title">陀螺仪</string>
+    <string name="up">上</string>
+    <string name="down">下</string>
+    <string name="left">左</string>
+    <string name="right">右</string>
 </resources>

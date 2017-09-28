@@ -187,4 +187,11 @@
 
     <!-- 分贝侠 -->
     <string name="dm_title">Decibelman</string>
+
+    <!-- 陀螺仪 -->
+    <string name="gyroscope_title">Gyroscope</string>
+    <string name="up">Up</string>
+    <string name="down">Down</string>
+    <string name="left">Left</string>
+    <string name="right">Right</string>
 </resources>
