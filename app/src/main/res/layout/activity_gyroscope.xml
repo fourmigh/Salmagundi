@@ -23,7 +23,7 @@
             android:layout_alignBottom="@+id/iv2"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="36dp"
             android:src="@drawable/gyroscope_bg1" />
 
         <ImageView
