@@ -126,6 +126,8 @@
             android:label="@string/dm_title" />
         <activity android:name=".gyroscope.GyroscopeActivity"
             android:label="@string/gyroscope_title" />
+        <activity android:name=".gyroscope.GyroscopeKotlinActivity"
+            android:label="@string/gyroscope_title" />
     </application>
 
 </manifest>
