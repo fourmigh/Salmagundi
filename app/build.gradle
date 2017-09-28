@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     signingConfigs {
@@ -71,6 +72,8 @@ dependencies {
     implementation project(':VelocimeterLibrary')
     implementation "org.jetbrains.anko:anko-common:latest.release"
     implementation 'com.android.support.constraint:constraint-layout:latest.release'
+    implementation "org.jetbrains.anko:anko-common:latest.release"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 repositories {
     mavenCentral()
