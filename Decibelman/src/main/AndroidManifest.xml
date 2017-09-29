@@ -53,6 +53,11 @@
             android:value="d0079278f552329b345a64dd0479aa8e" />
         <!-- 定位需要的服务 -->
         <service android:name="com.amap.api.location.APSService" />
+
+        <!-- bmob.cn -->
+        <meta-data
+            android:name="cn.bmob.v3.appid"
+            android:value="69aa5f3bfcbb17a98ccd6113961445df" />
     </application>
 
 </manifest>

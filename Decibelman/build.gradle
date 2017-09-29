@@ -5,7 +5,6 @@ android {
     compileSdkVersion 26
     buildToolsVersion "$buildTools_version"
 
-
     defaultConfig {
         applicationId "org.caojun.decibelman"
         minSdkVersion 14

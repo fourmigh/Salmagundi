@@ -20,7 +20,7 @@ class GyroscopeKotlinActivity: Activity(), SensorEventListener {
     private val Direction_Left = 2
     private val Direction_Right = 3
     private val Step = intArrayOf(1, 3, 6, 10, 15)
-    private val MaxStep = 10
+    private val MaxStep = 8
     private var OriginalValue = floatArrayOf(0f, 0f, 0f)
     private var OriginalValue4 = floatArrayOf(0f, 0f)
 
