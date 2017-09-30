@@ -2,8 +2,12 @@ package org.caojun.decibelman.activity
 
 import android.app.Activity
 import android.preference.PreferenceManager
+import cn.bmob.v3.exception.BmobException
+import cn.bmob.v3.listener.SaveListener
+import com.socks.library.KLog
 import org.caojun.decibelman.Constant
 import org.caojun.decibelman.R
+import org.caojun.decibelman.room.DIBmob
 import org.caojun.decibelman.room.DecibelInfo
 import org.caojun.decibelman.room.DecibelInfoDatabase
 import org.jetbrains.anko.alert
@@ -60,6 +64,18 @@ open class BaseActivity: Activity() {
             di.decibel_max = Constant.max
             di.decibel_average = Constant.average
             DecibelInfoDatabase.getDatabase(this@BaseActivity).getDao().insert(di)
+
+            val diBmob = DIBmob(di)
+            diBmob.save(object : SaveListener<String>() {
+
+                override fun done(o: String, e: BmobException?) {
+                    if (e == null) {
+                        KLog.d(javaClass.name, "Bomb saved ok")
+                    } else {
+                        KLog.d(javaClass.name, "Bomb saved error: " + e.toString())
+                    }
+                }
+            })
             onDatabaseListener?.onSuccess()
         }
     }

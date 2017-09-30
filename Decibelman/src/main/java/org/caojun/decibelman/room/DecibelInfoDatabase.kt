@@ -8,7 +8,7 @@ import android.content.Context
 /**
  * Created by CaoJun on 2017/9/25.
  */
-@Database(entities = arrayOf(DecibelInfo::class), version = 1)
+@Database(entities = arrayOf(DecibelInfo::class), version = 1, exportSchema = false)
 abstract class DecibelInfoDatabase: RoomDatabase {
     constructor() : super()
 

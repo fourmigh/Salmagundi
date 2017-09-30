@@ -161,7 +161,7 @@ class GDMapActivity: BaseActivity(), LocationSource, AMapLocationListener, AMap.
     private fun addMarkersToMap() {
         doAsync {
             val list = getDecibelInfos()
-            if (list != null && !list.isEmpty()) {
+            if (!list.isEmpty()) {
                 aMap?.clear()
                 for (i in 1..(list.size - 1)) {
                     addMarkerToMap(list[i])

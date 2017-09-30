@@ -2,7 +2,6 @@ package org.caojun.decibelman.room
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Ignore
-import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -11,7 +10,7 @@ import android.os.Parcelable
  * Created by CaoJun on 2017/9/25.
  */
 @Entity(primaryKeys = arrayOf("database_time","imei","random_id","time"))
-class DecibelInfo: Parcelable {
+open class DecibelInfo: Parcelable {
     var database_time: Long = 0//数据库建立时间
     var imei: String = ""
     var random_id: String = ""//四位随机数
@@ -22,7 +21,6 @@ class DecibelInfo: Parcelable {
     var decibel_min: Float = 0f
     var decibel_max: Float = 0f
     var decibel_average: Float = 0f
-
 
     constructor()
     constructor(_in: Parcel): this() {
