@@ -9,7 +9,7 @@
     <string name="current">当前值</string>
     <string name="max">最大值</string>
     <string name="settings">设置</string>
-    <string name="alert_save_data">是否保存经纬度、分贝值等数据到本地数据库，用于在地图上显示？</string>
+    <string name="alert_save_data">是否分享经纬度、分贝值等数据，并在地图上显示？</string>
     <string name="yes">是</string>
     <string name="no">否</string>
     <string name="yes_no_alert">是，且不再提示。</string>

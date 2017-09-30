@@ -10,7 +10,7 @@
     <string name="settings">Settings</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="alert_save_data">Do you save data such as latitude, longitude, decibels and so on to the local database for display on the map?</string>
+    <string name="alert_save_data">Do you share data such as latitude, longitude, decibels and so on, and display on the map?</string>
     <string name="yes_no_alert">Yes, and no alert again.</string>
     <string name="decibel_info">Max: %s\nAverage: %s\nMin: %s</string>
     <string name="mark_title">Decibel\n%s</string>

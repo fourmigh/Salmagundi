@@ -3,6 +3,7 @@ package org.caojun.decibelman.activity
 import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
+import cn.bmob.v3.BmobQuery
 import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
@@ -14,10 +15,12 @@ import com.amap.api.maps.model.*
 import kotlinx.android.synthetic.main.fragment_gdmap.*
 import org.caojun.decibelman.Constant
 import org.caojun.decibelman.R
+import org.caojun.decibelman.room.DIBmob
 import org.caojun.decibelman.room.DecibelInfo
 import org.caojun.decibelman.utils.DigitUtils
 import org.caojun.decibelman.utils.TimeUtils
 import org.jetbrains.anko.doAsync
+import rx.Subscriber
 
 /**
  * Created by CaoJun on 2017/9/25.
@@ -167,6 +170,33 @@ class GDMapActivity: BaseActivity(), LocationSource, AMapLocationListener, AMap.
                     addMarkerToMap(list[i])
                 }
             }
+
+            val bmobQuery = BmobQuery<DIBmob>()
+            val isCache = bmobQuery.hasCachedResult(DIBmob::class.java)
+            if (isCache) {
+                bmobQuery.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK)    // 先从缓存取数据，如果没有的话，再从网络取。
+            } else {
+                bmobQuery.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE)    // 如果没有缓存的话，则先从网络中取
+            }
+            bmobQuery.findObjectsObservable(DIBmob::class.java!!)
+                    .subscribe(object : Subscriber<List<DIBmob>>() {
+                        override fun onCompleted() {}
+
+                        override fun onError(e: Throwable) {}
+
+                        override fun onNext(persons: List<DIBmob>) {
+                            if (!persons.isEmpty()) {
+                                val ID = Constant.decibelInfo0!!.database_time.toString() + Constant.decibelInfo0!!.imei + Constant.decibelInfo0!!.random_id + Constant.decibelInfo0!!.time.toString()
+                                for (i in 0 until persons.size) {
+                                    val di = DecibelInfo(persons[i])
+                                    val id = di.database_time.toString() + di.imei + di.random_id + di.time.toString()
+                                    if (!id.equals(ID)) {
+                                        addMarkerToMap(di)
+                                    }
+                                }
+                            }
+                        }
+                    })
         }
     }
 }

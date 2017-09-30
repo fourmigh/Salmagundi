@@ -10,7 +10,7 @@ import android.os.Parcelable
  * Created by CaoJun on 2017/9/25.
  */
 @Entity(primaryKeys = arrayOf("database_time","imei","random_id","time"))
-open class DecibelInfo: Parcelable {
+class DecibelInfo: Parcelable {
     var database_time: Long = 0//数据库建立时间
     var imei: String = ""
     var random_id: String = ""//四位随机数
@@ -34,6 +34,19 @@ open class DecibelInfo: Parcelable {
         decibel_average = _in.readFloat()
         decibel_max = _in.readFloat()
         time = _in.readLong()
+    }
+
+    constructor(di: DIBmob) {
+        database_time = di.database_time
+        imei = di.imei
+        random_id = di.random_id
+        time = di.time
+
+        latitude = di.latitude
+        longitude = di.longitude
+        decibel_min = di.decibel_min
+        decibel_max = di.decibel_max
+        decibel_average = di.decibel_average
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
