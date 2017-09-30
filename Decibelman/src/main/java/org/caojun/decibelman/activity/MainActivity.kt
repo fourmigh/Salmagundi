@@ -1,21 +1,13 @@
 package org.caojun.decibelman.activity
 
 import android.support.v4.app.Fragment
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import com.baidu.mapapi.SDKInitializer
 import kotlinx.android.synthetic.main.activity_main.*
 import org.caojun.decibelman.R
-import android.preference.PreferenceManager
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import com.socks.library.KLog
 import org.caojun.decibelman.Constant
 import org.caojun.decibelman.room.DecibelInfo
 import org.caojun.decibelman.room.DecibelInfoDatabase
@@ -25,9 +17,6 @@ import org.jetbrains.anko.alert
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.startActivity
 import java.util.Date
-import android.net.Uri.fromParts
-import android.provider.Settings
-import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 import org.caojun.decibelman.utils.ActivityUtils
 
 
@@ -49,7 +38,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        SDKInitializer.initialize(applicationContext)
         setContentView(R.layout.activity_main)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         initDecibelInfoDatabase()

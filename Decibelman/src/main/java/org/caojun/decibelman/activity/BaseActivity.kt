@@ -12,7 +12,7 @@ import org.caojun.decibelman.room.DecibelInfo
 import org.caojun.decibelman.room.DecibelInfoDatabase
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.doAsync
-import java.util.*
+import java.util.Date
 
 /**
  * Created by CaoJun on 2017/9/25.
