@@ -1,0 +1,236 @@
+package org.caojun.morseman.utils
+
+import java.util.Hashtable
+
+/**
+ * Created by CaoJun on 2017/10/9.
+ */
+object MorseUtils {
+    private val Type_Symbol = 0//符号表示
+    private val Type_Number = 1//数字表示
+    private val Type_Word = 2//单词表示
+
+    private val CharMorse = charArrayOf('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', ':', ',', ';', '?', '=', '\'', '/', '!', '-', '_', '"', '(', ')', '$', '&', '@')
+    private val Dit = arrayOf('.', 0.toByte(), "Dit")
+    private val Dah = arrayOf('-', 1.toByte(), "Dah")
+    private val Space1 = arrayOf(' ', (-1).toByte(), ' ')//点划间隔
+    private val Space3 = arrayOf(' ', (-3).toByte(), ' ')//字符间隔
+    private val Space7 = arrayOf('/', (-7).toByte(), '/')//单词间隔
+
+    /**
+     * 字符转莫尔斯码
+     */
+    private fun toMorse(c: Char): String {
+        when (c) {
+            CharMorse[0], CharMorse[26] -> return ".-"//a
+            CharMorse[1], CharMorse[27] -> return "-..."//b
+            CharMorse[2], CharMorse[28] -> return "-.-."//c
+            CharMorse[3], CharMorse[29] -> return "-.."//d
+            CharMorse[4], CharMorse[30] -> return "."//e
+            CharMorse[5], CharMorse[31] -> return "..-."//f
+            CharMorse[6], CharMorse[32] -> return "--."//g
+            CharMorse[7], CharMorse[33] -> return "...."//h
+            CharMorse[8], CharMorse[34] -> return ".."//i
+            CharMorse[9], CharMorse[35] -> return ".---"//j
+            CharMorse[10], CharMorse[36] -> return "-.-"//k
+            CharMorse[11], CharMorse[37] -> return ".-.."//l
+            CharMorse[12], CharMorse[38] -> return "--"//m
+            CharMorse[13], CharMorse[39] -> return "-."//n
+            CharMorse[14], CharMorse[40] -> return "---"//o
+            CharMorse[15], CharMorse[41] -> return ".--."//p
+            CharMorse[16], CharMorse[42] -> return "--.-"//q
+            CharMorse[17], CharMorse[43] -> return ".-."//r
+            CharMorse[18], CharMorse[44] -> return "..."//s
+            CharMorse[19], CharMorse[45] -> return "-"//t
+            CharMorse[20], CharMorse[46] -> return "..-"//u
+            CharMorse[21], CharMorse[47] -> return "...-"//v
+            CharMorse[22], CharMorse[48] -> return ".--"//w
+            CharMorse[23], CharMorse[49] -> return "-..-"//x
+            CharMorse[24], CharMorse[50] -> return "-.--"//y
+            CharMorse[25], CharMorse[51] -> return "--.."//z
+            CharMorse[52] -> return "-----"//0
+            CharMorse[53] -> return ".----"//1
+            CharMorse[54] -> return "..---"//2
+            CharMorse[55] -> return "...--"//3
+            CharMorse[56] -> return "....-"//4
+            CharMorse[57] -> return "....."//5
+            CharMorse[58] -> return "-...."//6
+            CharMorse[59] -> return "--..."//7
+            CharMorse[60] -> return "---.."//8
+            CharMorse[61] -> return "----."//9
+            CharMorse[62] -> return ".-.-.-"//.
+            CharMorse[63] -> return "---..."//:
+            CharMorse[64] -> return "--..--"//,
+            CharMorse[65] -> return "-.-.-."//;
+            CharMorse[66] -> return "..--.."//?
+            CharMorse[67] -> return "-...-"//=
+            CharMorse[68] -> return ".---."//'
+            CharMorse[69] -> return "-..-."///
+            CharMorse[70] -> return "-.-.--"//!
+            CharMorse[71] -> return "-....-"//-
+            CharMorse[72] -> return "..--.-"//_
+            CharMorse[73] -> return ".-..-."//"
+            CharMorse[74] -> return "-.--."//(
+            CharMorse[75] -> return "-.--.-"//)
+            CharMorse[76] -> return "...-..-"//$
+            CharMorse[77] -> return "...."//&
+            CharMorse[78] -> return ".--.-."//@
+            else -> return ""
+        }
+    }
+
+    private val htMorse = Hashtable<String, Char>()
+    /**
+     * 莫尔斯码转字符
+     */
+    private fun toChar(morse: String): Char {
+        if (htMorse.containsKey(morse)) {
+            return htMorse[morse]!!
+        }
+        for (i in 0 until CharMorse.size) {
+            if (toMorse(CharMorse[i]).equals(morse)) {
+                htMorse.put(morse, CharMorse[i])
+                return CharMorse[i]
+            }
+        }
+        htMorse.put(morse, ' ')
+        return ' '
+    }
+
+    private fun toStringArray(string: String, separator: String): Array<String> {
+        return if (!string.contains(separator)) {
+            arrayOf<String>(string)
+        } else string.split(separator.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+    }
+
+    /**
+     * 莫尔斯字符串转莫尔斯字符串数组
+     */
+    private fun toMorseStringArray(string: String): Array<String> {
+        val strings = toStringArray(string, "/")
+        val list = ArrayList<String>()
+//        for (i in strings.indices) {
+//            val s = toMorseStrings(strings[i], " ")
+//            for (j in s.indices) {
+//                list.add(s[j])
+//            }
+//        }
+
+//        for (i in strings.indices) {
+//            val s = toMorseStrings(strings[i], " ")
+//            s.indices.mapTo(list) { s[it] }
+//        }
+
+        strings.indices
+                .asSequence()
+                .map { toStringArray(strings[it], " ") }
+                .forEach { s -> s.indices.mapTo(list) { s[it] } }
+        return list.toTypedArray()
+    }
+
+    /**
+     * 莫尔斯码字符转byte数组
+     */
+    private fun morse2ByteArray(morse: String): ByteArray {
+        val bytes = ByteArray(morse.length * 2 - 1)
+        var index = 0
+        for (i in 0 until morse.length) {
+            val c = morse[i]
+            if (c == Dit[Type_Symbol]) {
+                bytes[index] = Dit[Type_Number] as Byte
+            } else if (c == Dah[Type_Symbol]) {
+                bytes[index] = Dah[Type_Number] as Byte
+            }
+            if (i < morse.length - 1) {
+                index++
+                bytes[index] = Space1[Type_Number] as Byte
+            }
+        }
+        return bytes
+    }
+
+    /**
+     * 字符转莫尔斯码byte数组
+     */
+    private fun char2ByteArray(c: Char): ByteArray {
+        val morse = toMorse(c)
+        return morse2ByteArray(morse)
+    }
+
+    private fun addBytes(data1: ByteArray, data2: ByteArray): ByteArray {
+        val data3 = ByteArray(data1.size + data2.size)
+        System.arraycopy(data1, 0, data3, 0, data1.size)
+        System.arraycopy(data2, 0, data3, data1.size, data2.size)
+        return data3
+    }
+
+    /**
+     * 原文转莫尔斯码
+     */
+    fun byteArray2Morse(byteArray: ByteArray): String {
+        val sb = StringBuffer()
+        for (i in byteArray.indices) {
+            when (byteArray[i]) {
+                Dit[Type_Number] -> sb.append(Dit[Type_Symbol])
+                Dah[Type_Number] -> sb.append(Dah[Type_Symbol])
+                Space1[Type_Number] -> sb.append(Space1[Type_Symbol])
+                Space3[Type_Number] -> sb.append(Space3[Type_Symbol])
+                Space7[Type_Number] -> sb.append(Space7[Type_Symbol])
+            }
+        }
+        return sb.toString()
+    }
+
+    /**
+     * 原文转byte数组
+     */
+    fun string2ByteArray(string: String): ByteArray {
+        val stringArray = toStringArray(string, " ")
+        val list = ArrayList<ByteArray>()
+        for (i in 0 until stringArray.size) {
+            if (i > 0) {
+                //前面还有个单词
+                list.add(byteArrayOf(Space7[Type_Number] as Byte))
+            }
+            for (j in 0 until stringArray[i].length) {
+                val c = stringArray[i][j]
+                if (c in CharMorse) {
+                    if (!Character.isLetterOrDigit(c)) {
+                        //不是字母或数字，即标点符号，前面加上Space3
+                        list.add(byteArrayOf(Space3[Type_Number] as Byte))
+                    }
+                    val morseByteArray = char2ByteArray(c)
+                    list.add(morseByteArray)
+                }
+            }
+        }
+        var bytes = list[0]
+        for (i in 1 until list.size) {
+            bytes = addBytes(bytes, list[i])
+        }
+        return bytes
+    }
+
+    /**
+     * byte数组转原文
+     */
+    fun byteArray2String(byteArray: ByteArray): String {
+        val list = ArrayList<Char>()
+        for (i in byteArray.indices) {
+            val sb = StringBuffer()
+            when (byteArray[i]) {
+                Dit[Type_Number] -> sb.append(Dit[Type_Symbol])
+                Dah[Type_Number] -> sb.append(Dah[Type_Symbol])
+                Space3[Type_Number], Space7[Type_Number] -> {
+                    val char = toChar(sb.toString())
+                    list.add(char)
+                    if (byteArray[i] == Space7[Type_Number]) {
+                        list.add(Space1[Type_Word] as Char)
+                    }
+                    sb.delete(0, sb.length)
+                }
+            }
+        }
+        return list.toString()
+    }
+}
