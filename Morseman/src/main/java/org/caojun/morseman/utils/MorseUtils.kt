@@ -14,7 +14,7 @@ object MorseUtils {
     private val Dit = arrayOf('.', 0.toByte(), "Dit")
     private val Dah = arrayOf('-', 1.toByte(), "Dah")
     private val Space1 = arrayOf(' ', (-1).toByte(), ' ')//点划间隔
-    private val Space3 = arrayOf(' ', (-3).toByte(), ' ')//字符间隔
+    private val Space3 = arrayOf(',', (-3).toByte(), ',')//字符间隔
     private val Space7 = arrayOf('/', (-7).toByte(), '/')//单词间隔
 
     /**
