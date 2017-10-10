@@ -3,7 +3,6 @@ package org.caojun.morseman
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import com.socks.library.KLog
 import kotlinx.android.synthetic.main.activity_main.*
 import org.caojun.morseman.utils.MorseUtils
 
@@ -36,9 +35,6 @@ class MainActivity : AppCompatActivity() {
         val string = "Hello World, too!"
         val byteArray = MorseUtils.string2ByteArray(string)
         val morse = MorseUtils.byteArray2Morse(byteArray)
-        KLog.d("string", string)
-        KLog.d("morse", morse)
         val strings = MorseUtils.byteArray2String(byteArray)
-        KLog.d("strings", strings)
     }
 }

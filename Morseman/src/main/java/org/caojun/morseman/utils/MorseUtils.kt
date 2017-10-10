@@ -198,7 +198,28 @@ object MorseUtils {
         for (i in 1 until list.size) {
             bytes = addBytes(bytes, list[i])
         }
-        return bytes
+        return trim(bytes)
+    }
+
+    /**
+     * 去除多余的间隔符
+     */
+    private fun trim(byteArray: ByteArray): ByteArray {
+        val list = ArrayList<Byte>()
+        var i = 0
+        while (i < byteArray.size - 1) {
+            if (byteArray[i] == Space1[Type_Number] && byteArray[i + 1] == Space3[Type_Number]) {
+                list.add(Space3[Type_Number] as Byte)
+                i += 2
+            } else if (byteArray[i] == Space3[Type_Number] && byteArray[i + 1] == Space7[Type_Number]) {
+                list.add(Space7[Type_Number] as Byte)
+                i += 2
+            } else {
+                list.add(byteArray[i])
+                i ++
+            }
+        }
+        return list.toByteArray()
     }
 
     /**
@@ -224,6 +245,11 @@ object MorseUtils {
                     sb.delete(0, sb.length)
                 }
             }
+        }
+        if (!sb.isEmpty()) {
+            val char = toChar(sb.toString())
+            stringBuffer.append(char)
+            sb.delete(0, sb.length)
         }
         return stringBuffer.toString()
     }
