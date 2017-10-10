@@ -6,16 +6,19 @@ import java.util.Hashtable
  * Created by CaoJun on 2017/10/9.
  */
 object MorseUtils {
-    private val Type_Symbol = 0//符号表示
-    private val Type_Number = 1//数字表示
-    private val Type_Word = 2//单词表示
+
+    val Time = 500.toLong()
+
+    val Type_Symbol = 0//符号表示
+    val Type_Number = 1//数字表示
+    val Type_Word = 2//单词表示
 
     private val CharMorse = charArrayOf('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', ':', ',', ';', '?', '=', '\'', '/', '!', '-', '_', '"', '(', ')', '$', '&', '@')
-    private val Dit = arrayOf('.', 0.toByte(), "Dit")
-    private val Dah = arrayOf('-', 1.toByte(), "Dah")
-    private val Space1 = arrayOf(' ', (-1).toByte(), ' ')//点划间隔
-    private val Space3 = arrayOf(',', (-3).toByte(), ',')//字符间隔
-    private val Space7 = arrayOf('/', (-7).toByte(), '/')//单词间隔
+    val Dit = arrayOf('.', 1.toByte(), "Dit")
+    val Dah = arrayOf('-', 3.toByte(), "Dah")
+    val Space1 = arrayOf(' ', (-1).toByte(), ' ')//点划间隔
+    val Space3 = arrayOf(',', (-3).toByte(), ',')//字符间隔
+    val Space7 = arrayOf('/', (-7).toByte(), '/')//单词间隔
 
     /**
      * 字符转莫尔斯码
@@ -181,10 +184,6 @@ object MorseUtils {
         val stringArray = toStringArray(string, " ")
         val list = ArrayList<ByteArray>()
         for (i in 0 until stringArray.size) {
-            if (i > 0) {
-                //前面还有个单词
-                list.add(byteArrayOf(Space7[Type_Number] as Byte))
-            }
             for (j in 0 until stringArray[i].length) {
                 val c = stringArray[i][j]
                 if (c in CharMorse) {
@@ -193,6 +192,8 @@ object MorseUtils {
                     list.add(morseByteArray)
                 }
             }
+            //每个单词后加一个Space7
+            list.add(byteArrayOf(Space7[Type_Number] as Byte))
         }
         var bytes = list[0]
         for (i in 1 until list.size) {
