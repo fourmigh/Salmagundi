@@ -45,7 +45,6 @@ dependencies {
     implementation project(':VelocimeterLibrary')
     implementation "com.github.zhaokaiqiang.klog:library:latest.release"
     implementation "org.jetbrains.anko:anko-common:latest.release"
-    implementation "com.github.PhilJay:MPAndroidChart:latest.release"
     implementation "android.arch.persistence.room:runtime:$googleroom_version"
     implementation "android.arch.lifecycle:extensions:$googleroom_version"
     annotationProcessor "android.arch.lifecycle:compiler:$googleroom_version"
@@ -55,4 +54,9 @@ dependencies {
     implementation "com.google.code.gson:gson:latest.release"
     implementation "io.reactivex:rxandroid:latest.release"
     implementation "com.squareup.okio:okio:latest.release"
+
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+    implementation "com.github.PhilJay:MPAndroidChart:latest.release"
 }

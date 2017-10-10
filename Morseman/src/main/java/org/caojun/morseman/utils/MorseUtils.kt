@@ -100,7 +100,8 @@ object MorseUtils {
     private fun toStringArray(string: String, separator: String): Array<String> {
         return if (!string.contains(separator)) {
             arrayOf<String>(string)
-        } else string.split(separator.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+//        } else string.split(separator.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        } else string.split(separator).toTypedArray()
     }
 
     /**
@@ -132,29 +133,21 @@ object MorseUtils {
      * 莫尔斯码字符转byte数组
      */
     private fun morse2ByteArray(morse: String): ByteArray {
-        val bytes = ByteArray(morse.length * 2 - 1)
-        var index = 0
+        val bytes = ByteArray(morse.length * 2)
         for (i in 0 until morse.length) {
             val c = morse[i]
             if (c == Dit[Type_Symbol]) {
-                bytes[index] = Dit[Type_Number] as Byte
+                bytes[i * 2] = Dit[Type_Number] as Byte
             } else if (c == Dah[Type_Symbol]) {
-                bytes[index] = Dah[Type_Number] as Byte
+                bytes[i * 2] = Dah[Type_Number] as Byte
             }
             if (i < morse.length - 1) {
-                index++
-                bytes[index] = Space1[Type_Number] as Byte
+                bytes[i * 2 + 1] = Space1[Type_Number] as Byte
+            } else {
+                bytes[i * 2 + 1] = Space3[Type_Number] as Byte
             }
         }
         return bytes
-    }
-
-    /**
-     * 字符转莫尔斯码byte数组
-     */
-    private fun char2ByteArray(c: Char): ByteArray {
-        val morse = toMorse(c)
-        return morse2ByteArray(morse)
     }
 
     private fun addBytes(data1: ByteArray, data2: ByteArray): ByteArray {
@@ -195,11 +188,8 @@ object MorseUtils {
             for (j in 0 until stringArray[i].length) {
                 val c = stringArray[i][j]
                 if (c in CharMorse) {
-                    if (!Character.isLetterOrDigit(c)) {
-                        //不是字母或数字，即标点符号，前面加上Space3
-                        list.add(byteArrayOf(Space3[Type_Number] as Byte))
-                    }
-                    val morseByteArray = char2ByteArray(c)
+                    val morse = toMorse(c)
+                    val morseByteArray = morse2ByteArray(morse)
                     list.add(morseByteArray)
                 }
             }
@@ -215,22 +205,26 @@ object MorseUtils {
      * byte数组转原文
      */
     fun byteArray2String(byteArray: ByteArray): String {
-        val list = ArrayList<Char>()
+        val stringBuffer = StringBuffer()
+        val sb = StringBuffer()
         for (i in byteArray.indices) {
-            val sb = StringBuffer()
             when (byteArray[i]) {
-                Dit[Type_Number] -> sb.append(Dit[Type_Symbol])
-                Dah[Type_Number] -> sb.append(Dah[Type_Symbol])
+                Dit[Type_Number] -> {
+                    sb.append(Dit[Type_Symbol] as Char)
+                }
+                Dah[Type_Number] -> {
+                    sb.append(Dah[Type_Symbol] as Char)
+                }
                 Space3[Type_Number], Space7[Type_Number] -> {
                     val char = toChar(sb.toString())
-                    list.add(char)
+                    stringBuffer.append(char)
                     if (byteArray[i] == Space7[Type_Number]) {
-                        list.add(Space1[Type_Word] as Char)
+                        stringBuffer.append(Space1[Type_Symbol] as Char)
                     }
                     sb.delete(0, sb.length)
                 }
             }
         }
-        return list.toString()
+        return stringBuffer.toString()
     }
 }
