@@ -7,6 +7,7 @@ import android.app.Activity
 import android.content.pm.ApplicationInfo
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
+import org.caojun.signman.Constant
 import org.caojun.signman.adapter.AppSelectAdapter
 import org.caojun.signman.room.App
 import org.caojun.signman.room.AppDatabase
@@ -22,13 +23,13 @@ class AppsActivity : AppCompatActivity() {
 
     private val list: ArrayList<App> = ArrayList()
     private var adapter:AppSelectAdapter? = null
-    private var apps: ArrayList<App> = ArrayList()
+//    private var apps: ArrayList<App> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        apps = intent.getParcelableArrayListExtra("apps")
+//        apps = intent.getParcelableArrayListExtra("apps")
 
         btnSetup?.text = getString(android.R.string.ok)
 
@@ -81,7 +82,7 @@ class AppsActivity : AppCompatActivity() {
                 Collections.sort(list, AppSortComparator())
 
                 for (app in list) {
-                    if (apps.contains(app)) {
+                    if (Constant.Apps.contains(app)) {
                         app.isSelected = true
                     }
                 }

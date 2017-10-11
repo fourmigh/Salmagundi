@@ -25,7 +25,7 @@ import java.util.Collections
 
 class MainActivity : AppCompatActivity() {
 
-    private val list: ArrayList<App> = ArrayList()
+//    private val list: ArrayList<App> = ArrayList()
     private var canceled: Boolean = false
     private var adapter: AppAdapter? = null
 
@@ -41,7 +41,8 @@ class MainActivity : AppCompatActivity() {
             gotoSetupApps()
         })
 
-        list.clear()
+//        list.clear()
+        Constant.Apps.clear()
     }
 
     private fun doListViewItemClick(position: Int) {
@@ -74,10 +75,10 @@ class MainActivity : AppCompatActivity() {
             val apps = AppDatabase.getDatabase(baseContext).getAppDao().queryAll()
             uiThread {
                 if (!apps.isEmpty()) {
-                    list.clear()
+                    Constant.Apps.clear()
                     Collections.sort(apps, AppSortComparator())
-                    list.addAll(apps)
-                    for (app in list) {
+                    Constant.Apps.addAll(apps)
+                    for (app in Constant.Apps) {
                         if (app.time.size < 1) {
                             app.isSigned = false
                         } else {
@@ -88,10 +89,10 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     if (adapter == null) {
-                        adapter = AppAdapter(this@MainActivity, list)
+                        adapter = AppAdapter(this@MainActivity, Constant.Apps)
                         listView?.adapter = adapter
                     } else {
-                        adapter?.setData(list)
+                        adapter?.setData(Constant.Apps)
                         adapter?.notifyDataSetChanged()
                     }
                 } else {
@@ -105,7 +106,7 @@ class MainActivity : AppCompatActivity() {
     private fun gotoSetupApps() {
         canceled = false
         val intent = Intent(this, AppsActivity::class.java)
-        intent.putParcelableArrayListExtra("apps", list)
+//        intent.putParcelableArrayListExtra("apps", list)
         startActivityForResult(intent, Constant.RequestCode_AppList)
     }
 
