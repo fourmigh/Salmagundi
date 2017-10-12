@@ -1,14 +1,15 @@
 package org.caojun.morseman.utils
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.hardware.Camera
-import android.hardware.camera2.CameraManager
-import android.os.Build
 
 /**
  * Created by CaoJun on 2017/10/10.
  */
 object FlashUtils {
+
+    private var camera: Camera? = null
 
     fun on(context: Context) {
         set(context, true)
@@ -19,22 +20,36 @@ object FlashUtils {
     }
 
     private fun set(context: Context, on: Boolean) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val manager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-            manager.setTorchMode("0", on);
-        } else {
+
+        if (!context.applicationContext.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
+            return;
+        }
+
+        if (camera == null) {
             try {
-                val mCamera = Camera.open()
-                val mParameters: Camera.Parameters
-                mParameters = mCamera.parameters
-                if (on) {
-                    mParameters.flashMode = Camera.Parameters.FLASH_MODE_TORCH
-                } else {
-                    mParameters.flashMode = Camera.Parameters.FLASH_MODE_OFF
-                }
-                mCamera.parameters = mParameters
-            } catch (e: Exception) {
+                camera = Camera.open()
+            } catch (e: RuntimeException) {
+                return
             }
+        }
+
+        try {
+            val params = camera?.parameters
+            if (on) {
+                params?.flashMode = Camera.Parameters.FLASH_MODE_TORCH
+            } else {
+                params?.flashMode = Camera.Parameters.FLASH_MODE_OFF
+            }
+            camera?.parameters = params
+        } catch (e: Exception) {
+        }
+    }
+
+    fun release(context: Context) {
+        off(context)
+        if (camera != null) {
+            camera?.release()
+            camera = null
         }
     }
 }

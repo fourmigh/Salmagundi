@@ -14,6 +14,8 @@ import java.lang.Thread.sleep
 
 class MainActivity : AppCompatActivity() {
 
+    private var isPaused = false
+
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
@@ -52,22 +54,22 @@ class MainActivity : AppCompatActivity() {
                 KLog.d("doAsync", i.toString() + " : " + byteArray[i].toString())
                 when (byteArray[i]) {
                     MorseUtils.Dit[MorseUtils.Type_Number] -> {
-//                        FlashUtils.on(this@MainActivity)
                         uiThread {
+                            FlashUtils.on(this@MainActivity)
                             ViewUtils.on(message)
                         }
                         sleep(MorseUtils.Time)
                     }
                     MorseUtils.Dah[MorseUtils.Type_Number] -> {
-//                        FlashUtils.on(this@MainActivity)
                         uiThread {
+                            FlashUtils.on(this@MainActivity)
                             ViewUtils.on(message)
                         }
                         sleep(MorseUtils.Time * 3)
                     }
                     else -> {
-//                        FlashUtils.off(this@MainActivity)
                         uiThread {
+                            FlashUtils.off(this@MainActivity)
                             ViewUtils.off(message)
                         }
                         when (byteArray[i]) {
@@ -83,7 +85,18 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
+                if (isPaused) {
+                    break;
+                }
+            }
+            if (isPaused) {
+                FlashUtils.release(this@MainActivity)
             }
         }
+    }
+
+    override fun onPause() {
+        isPaused = true
+        super.onPause()
     }
 }
