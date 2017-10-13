@@ -268,7 +268,6 @@ object MorseUtils {
     fun addColor(color: Int) {
         colors.add(color)
         average = AverageUtils.add(color)
-        KLog.d("addColor", "-----------------------------------")
 
         val lightOn = color > average
         if (morse.inited) {
@@ -278,8 +277,9 @@ object MorseUtils {
                 morse.setCode()
                 morses.add(morse)
                 val char = byteArray2String(morse.getCode())
-                KLog.d("addColor", "code: " + morse.getCode())
-                KLog.d("addColor", "morse: " + char)
+                if (char != null) {
+                    KLog.d("addColor", "morse: " + char)
+                }
                 morse.on = lightOn
                 morse.time = 0
             }
@@ -298,13 +298,23 @@ object MorseUtils {
      */
     fun byteArray2String(byte: Byte): Char? {
         var value = byte
-        if (value > Dit[Type_Number] as Byte) {
-            value = Dah[Type_Number] as Byte
-        } else if (value < Space1[Type_Number] as Byte && value > Space7[Type_Number] as Byte) {
-            value = Space3[Type_Number] as Byte
-        } else if (value <= Space7[Type_Number] as Byte) {
-            value = Space7[Type_Number] as Byte
+
+        if (value > 0) {
+            if (value <= Dit[Type_Number] as Byte * 2) {
+                value = Dit[Type_Number] as Byte
+            } else if (value >= Dah[Type_Number] as Byte) {
+                value = Dah[Type_Number] as Byte
+            }
+        } else if (value < 0) {
+            if (value >= Space1[Type_Number] as Byte * 2) {
+                value = Space1[Type_Number] as Byte
+            } else if (value <= Space7[Type_Number] as Byte) {
+                value = Space7[Type_Number] as Byte
+            } else {
+                value = Space3[Type_Number] as Byte
+            }
         }
+
         when (value) {
             Dit[Type_Number] -> {
                 sb.append(Dit[Type_Symbol] as Char)

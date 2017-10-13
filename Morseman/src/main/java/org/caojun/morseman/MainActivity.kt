@@ -54,43 +54,45 @@ class MainActivity : AppCompatActivity() {
         KLog.d("strings", strings)
 
 //        doAsync {
-//            for (i in byteArray.indices) {
-//                KLog.d("doAsync", i.toString() + " : " + byteArray[i].toString())
-//                when (byteArray[i]) {
-//                    MorseUtils.Dit[MorseUtils.Type_Number] -> {
-//                        uiThread {
-//                            FlashUtils.on(this@MainActivity)
-////                            ViewUtils.on(message)
-//                        }
-//                        sleep(MorseUtils.Time)
-//                    }
-//                    MorseUtils.Dah[MorseUtils.Type_Number] -> {
-//                        uiThread {
-//                            FlashUtils.on(this@MainActivity)
-////                            ViewUtils.on(message)
-//                        }
-//                        sleep(MorseUtils.Time * 3)
-//                    }
-//                    else -> {
-//                        uiThread {
-//                            FlashUtils.off(this@MainActivity)
-////                            ViewUtils.off(message)
-//                        }
-//                        when (byteArray[i]) {
-//                            MorseUtils.Space1[MorseUtils.Type_Number] -> {
-//                                sleep(MorseUtils.Time)
+//            while (true) {
+//                for (i in byteArray.indices) {
+//                    KLog.d("doAsync", i.toString() + " : " + byteArray[i].toString())
+//                    when (byteArray[i]) {
+//                        MorseUtils.Dit[MorseUtils.Type_Number] -> {
+//                            uiThread {
+//                                //                            FlashUtils.on(this@MainActivity)
+//                                ViewUtils.on(message)
 //                            }
-//                            MorseUtils.Space3[MorseUtils.Type_Number] -> {
-//                                sleep(MorseUtils.Time * 3)
+//                            sleep(MorseUtils.Time)
+//                        }
+//                        MorseUtils.Dah[MorseUtils.Type_Number] -> {
+//                            uiThread {
+//                                //                            FlashUtils.on(this@MainActivity)
+//                                ViewUtils.on(message)
 //                            }
-//                            MorseUtils.Space7[MorseUtils.Type_Number] -> {
-//                                sleep(MorseUtils.Time * 7)
+//                            sleep(MorseUtils.Time * 3)
+//                        }
+//                        else -> {
+//                            uiThread {
+//                                //                            FlashUtils.off(this@MainActivity)
+//                                ViewUtils.off(message)
+//                            }
+//                            when (byteArray[i]) {
+//                                MorseUtils.Space1[MorseUtils.Type_Number] -> {
+//                                    sleep(MorseUtils.Time)
+//                                }
+//                                MorseUtils.Space3[MorseUtils.Type_Number] -> {
+//                                    sleep(MorseUtils.Time * 3)
+//                                }
+//                                MorseUtils.Space7[MorseUtils.Type_Number] -> {
+//                                    sleep(MorseUtils.Time * 7)
+//                                }
 //                            }
 //                        }
 //                    }
-//                }
-//                if (isPaused) {
-//                    break;
+//                    if (isPaused) {
+//                        break;
+//                    }
 //                }
 //            }
 //            if (isPaused) {
@@ -100,11 +102,6 @@ class MainActivity : AppCompatActivity() {
 
         cameraView.setOnColorStatusChange(object : OnColorStatusChange {
             override fun onColorChange(color: Int) {
-//                val hex = ColorUtils.toHexEncoding(color)
-//                val red = Color.red(color)
-//                val green = Color.green(color)
-//                val blue = Color.blue(color)
-
                 MorseUtils.addColor(color)
             }
         })
@@ -112,11 +109,11 @@ class MainActivity : AppCompatActivity() {
 
     public override fun onResume() {
         super.onResume()
-        isPaused = true
         cameraView.onResume()
     }
 
     public override fun onPause() {
+        isPaused = true
         cameraView.onPause()
         super.onPause()
     }
