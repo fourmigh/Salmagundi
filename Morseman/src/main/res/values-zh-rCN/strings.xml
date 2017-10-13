@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">莫尔斯侠</string>
+    <string name="app_name">摩尔斯侠</string>
     <string name="title_home">主页</string>
     <string name="title_dashboard">仪表板</string>
     <string name="title_notifications">通知</string>

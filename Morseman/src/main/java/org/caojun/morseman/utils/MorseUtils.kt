@@ -1,5 +1,7 @@
 package org.caojun.morseman.utils
 
+import com.socks.library.KLog
+import org.caojun.morseman.Morse
 import java.util.Hashtable
 
 /**
@@ -253,5 +255,70 @@ object MorseUtils {
             sb.delete(0, sb.length)
         }
         return stringBuffer.toString()
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+    //解析，通过摄像头获取颜色值，转化成byte数组
+
+    val colors = ArrayList<Int>()
+    var average = 0f
+    var morses = ArrayList<Morse>()
+    val morse: Morse = Morse()
+
+    fun addColor(color: Int) {
+        colors.add(color)
+        average = AverageUtils.add(color)
+        KLog.d("addColor", "-----------------------------------")
+
+        val lightOn = color > average
+        if (morse.inited) {
+            //记时
+            morse.time ++;
+            if (lightOn != morse.on) {
+                morse.setCode()
+                morses.add(morse)
+                val char = byteArray2String(morse.getCode())
+                KLog.d("addColor", "code: " + morse.getCode())
+                KLog.d("addColor", "morse: " + char)
+                morse.on = lightOn
+                morse.time = 0
+            }
+        } else {
+            //初始化
+            morse.inited = true
+            morse.on = lightOn
+            morse.time = 0;
+        }
+
+    }
+
+    val sb = StringBuffer()
+    /**
+     * 实时解析莫尔斯码信号
+     */
+    fun byteArray2String(byte: Byte): Char? {
+        var value = byte
+        if (value > Dit[Type_Number] as Byte) {
+            value = Dah[Type_Number] as Byte
+        } else if (value < Space1[Type_Number] as Byte && value > Space7[Type_Number] as Byte) {
+            value = Space3[Type_Number] as Byte
+        } else if (value <= Space7[Type_Number] as Byte) {
+            value = Space7[Type_Number] as Byte
+        }
+        when (value) {
+            Dit[Type_Number] -> {
+                sb.append(Dit[Type_Symbol] as Char)
+            }
+            Dah[Type_Number] -> {
+                sb.append(Dah[Type_Symbol] as Char)
+            }
+            Space3[Type_Number], Space7[Type_Number] -> {
+                val char = toChar(sb.toString())
+                sb.delete(0, sb.length)
+                return char
+
+            }
+        }
+        return null
     }
 }
