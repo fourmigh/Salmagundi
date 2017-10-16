@@ -16,7 +16,12 @@
         <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <include layout="@layout/layout_camera"
+        android:visibility="gone"
         android:id="@+id/layoutCamera" />
+
+    <include layout="@layout/layout_morsecode"
+        android:visibility="gone"
+        android:id="@+id/layoutMorseCode" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

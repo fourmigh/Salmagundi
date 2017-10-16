@@ -8,4 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextViewTheme">
+        <item name="android:padding">4dp</item>
+    </style>
 </resources>

@@ -28,7 +28,7 @@ class AppAdapter: BaseAdapter {
         activity = context
     }
 
-    override fun getView(position: Int, convertView: View?, viewGrouo: ViewGroup?): View {
+    override fun getView(position: Int, convertView: View?, viewGrouop: ViewGroup?): View {
         var holder: ViewHolder
         var view = convertView
         if (view == null) {

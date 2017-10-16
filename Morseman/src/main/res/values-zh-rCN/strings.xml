@@ -4,4 +4,6 @@
     <string name="title_home">主页</string>
     <string name="title_dashboard">仪表板</string>
     <string name="title_notifications">通知</string>
+    <string name="list_title_char">字符</string>
+    <string name="list_title_morse">摩尔斯码</string>
 </resources>

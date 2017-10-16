@@ -4,9 +4,12 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.socks.library.KLog
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_camera.*
+import kotlinx.android.synthetic.main.layout_morsecode.*
+import org.caojun.morseman.adapter.MorseCodeAdapter
 import org.caojun.morseman.listener.OnColorStatusChange
 import org.caojun.morseman.utils.ColorUtils
 import org.caojun.morseman.utils.FlashUtils
@@ -27,11 +30,11 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-//                message.setText(R.string.title_dashboard)
+                showCamera()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-//                message.setText(R.string.title_notifications)
+                showMorseCode()
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -105,6 +108,9 @@ class MainActivity : AppCompatActivity() {
                 MorseUtils.addColor(color)
             }
         })
+
+        initCamera()
+        initMorseCode()
     }
 
     public override fun onResume() {
@@ -116,5 +122,27 @@ class MainActivity : AppCompatActivity() {
         isPaused = true
         cameraView.onPause()
         super.onPause()
+    }
+
+    private fun initCamera() {
+        layoutCamera.visibility = View.GONE
+        cameraView.onPause()
+    }
+
+    private fun showCamera() {
+        cameraView.onResume()
+        layoutCamera.visibility = View.VISIBLE
+        layoutMorseCode.visibility = View.GONE
+    }
+
+    private fun initMorseCode() {
+        lvMoseCode.adapter = MorseCodeAdapter(this)
+        layoutMorseCode.visibility = View.GONE
+    }
+
+    private fun showMorseCode() {
+        cameraView.onPause()
+        layoutMorseCode.visibility = View.VISIBLE
+        layoutCamera.visibility = View.GONE
     }
 }
