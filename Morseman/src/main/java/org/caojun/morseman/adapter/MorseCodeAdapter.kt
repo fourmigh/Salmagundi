@@ -19,11 +19,9 @@ class MorseCodeAdapter: BaseAdapter {
 
     constructor(context: Context) : super() {
         this.context = context
-        for (i in 0 until MorseUtils.CharMorse.size) {
-            if (i < 26 || i >= 26 * 2) {
-                val value = arrayOf(MorseUtils.CharMorse[i].toString(), MorseUtils.toMorse(MorseUtils.CharMorse[i]))
-                data.add(value)
-            }
+        for (i in 26 until MorseUtils.CharMorse.size) {
+            val value = arrayOf(MorseUtils.CharMorse[i].toString(), MorseUtils.toMorse(MorseUtils.CharMorse[i]))
+            data.add(value)
         }
     }
 
@@ -42,6 +40,11 @@ class MorseCodeAdapter: BaseAdapter {
 
         holder.tvChar?.text = data[position][0]
         holder.tvCode?.text = data[position][1]
+        if (position % 2 == 0) {
+            view?.setBackgroundColor(0x33333333)
+        } else {
+            view?.setBackgroundColor(0xffffff)
+        }
 
         return view!!
     }
