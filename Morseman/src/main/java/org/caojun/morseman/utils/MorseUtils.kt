@@ -1,6 +1,5 @@
 package org.caojun.morseman.utils
 
-import com.socks.library.KLog
 import org.caojun.morseman.Morse
 import java.util.Hashtable
 
@@ -283,11 +282,11 @@ object MorseUtils {
     //////////////////////////////////////////////////////////////////////////////
     //解析，通过摄像头获取颜色值，转化成byte数组
 
-    val colors = ArrayList<Int>()
-    var average = 0f
-    var morses = ArrayList<Morse>()
-    val morse: Morse = Morse()
-    var onMorseListener: OnMorseListener? = null
+    private val colors = ArrayList<Int>()
+    private var average = 0f
+    private var morses = ArrayList<Morse>()
+    private val morse: Morse = Morse()
+    private var onMorseListener: OnMorseListener? = null
 
     interface OnMorseListener {
         fun onMorse(array: Array<String?>)
@@ -306,7 +305,6 @@ object MorseUtils {
                 morses.add(morse)
                 val char = byteArray2String(morse.getCode())
                 if (char != null) {
-//                    KLog.d("addColor", "morse: " + char)
                     onMorseListener.onMorse(char)
                 }
                 morse.on = lightOn
@@ -320,11 +318,13 @@ object MorseUtils {
         }
     }
 
-    val sb = StringBuffer()
+    private val sb = StringBuffer()
     /**
      * 实时解析莫尔斯码信号
+     * 0：摩尔斯码
+     * 1：原文
      */
-    fun byteArray2String(byte: Byte): Array<String?> {
+    private fun byteArray2String(byte: Byte): Array<String?> {
         var value = byte
 
         if (value > 0) {

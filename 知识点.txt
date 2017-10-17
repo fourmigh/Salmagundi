@@ -42,3 +42,7 @@
 42、时速仪控件VelocimeterView：工程VelocimeterLibrary
 43、求平均数：工程Decibelman（utils.AverageUtils）
 44、百度地图集成：工程Decibelman
+45、摩尔斯码：工程Morseman
+46、NDK实例：工程Morseman（jni.ImageUtilEngine）
+47、闪光灯：工程Morseman（utils.FlashUtils）
+48、InputType.TYPE_NULL：工程Morseman（MainActivity）
