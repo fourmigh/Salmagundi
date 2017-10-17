@@ -36,11 +36,11 @@ class MainActivity : AppCompatActivity() {
                 showTranslate()
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_dashboard -> {
+            R.id.navigation_camera -> {
                 showCamera()
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_notifications -> {
+            R.id.navigation_help -> {
                 showMorseCode()
                 return@OnNavigationItemSelectedListener true
             }

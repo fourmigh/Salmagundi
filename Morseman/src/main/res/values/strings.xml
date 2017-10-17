@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Morseman</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_camera">Camera</string>
+    <string name="title_help">Help</string>
     <string name="list_title_char">Char</string>
     <string name="list_title_morse">Morse</string>
     <string name="btn_delete">Delete</string>
