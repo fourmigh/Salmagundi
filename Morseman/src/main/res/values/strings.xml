@@ -5,4 +5,11 @@
     <string name="title_notifications">Notifications</string>
     <string name="list_title_char">Char</string>
     <string name="list_title_morse">Morse</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_space">Space</string>
+    <string name="char77"><![CDATA[&]]></string>
+    <string name="btn_alphabet">ABC</string>
+    <string name="btn_number">123</string>
+    <string name="btn_punctuation">. : ,</string>
+    <string name="original">Original</string>
 </resources>

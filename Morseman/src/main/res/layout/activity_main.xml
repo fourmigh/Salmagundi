@@ -15,6 +15,10 @@
         <!--app:layout_constraintLeft_toLeftOf="parent"-->
         <!--app:layout_constraintTop_toTopOf="parent" />-->
 
+    <include layout="@layout/layout_translate"
+        android:visibility="gone"
+        android:id="@+id/layoutTranslate" />
+
     <include layout="@layout/layout_camera"
         android:visibility="gone"
         android:id="@+id/layoutCamera" />
@@ -27,10 +31,9 @@
         android:id="@+id/navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/navigation" />

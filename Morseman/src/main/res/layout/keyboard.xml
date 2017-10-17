@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:onClick="onButtonClick"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/btn_space"/>
+
+        <Button
+            android:onClick="onButtonClick"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_alphabet"/>
+
+        <Button
+            android:onClick="onButtonClick"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_number" />
+
+        <Button
+            android:onClick="onButtonClick"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_punctuation"/>
+
+        <Button
+            android:onClick="onButtonClick"
+            android:id="@+id/btnDelete"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/btn_delete"/>
+    </LinearLayout>
+
+    <include layout="@layout/keyboard_punctuation"
+        android:id="@+id/layoutPunctuation" />
+
+    <include layout="@layout/keyboard_alphabet"
+        android:id="@+id/layoutAlphabet" />
+
+    <include layout="@layout/keyboard_number"
+        android:id="@+id/layoutNumber" />
+</LinearLayout>

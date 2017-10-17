@@ -4,17 +4,23 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
+import android.text.InputType
+import android.text.TextUtils
+import android.view.MotionEvent
 import android.view.View
+import android.widget.EditText
 import com.socks.library.KLog
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_camera.*
 import kotlinx.android.synthetic.main.layout_morsecode.*
+import kotlinx.android.synthetic.main.layout_translate.*
 import org.caojun.morseman.adapter.MorseCodeAdapter
 import org.caojun.morseman.listener.OnColorStatusChange
 import org.caojun.morseman.utils.ColorUtils
 import org.caojun.morseman.utils.FlashUtils
 import org.caojun.morseman.utils.MorseUtils
 import org.caojun.morseman.utils.ViewUtils
+import org.caojun.morseman.widget.MorseKeyboard
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.lang.Thread.sleep
@@ -26,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-//                message.setText(R.string.title_home)
+                showTranslate()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
@@ -109,6 +115,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        initTranslate()
         initCamera()
         initMorseCode()
     }
@@ -131,6 +138,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showCamera() {
         cameraView.onResume()
+        layoutTranslate.visibility = View.GONE
         layoutCamera.visibility = View.VISIBLE
         layoutMorseCode.visibility = View.GONE
     }
@@ -142,7 +150,49 @@ class MainActivity : AppCompatActivity() {
 
     private fun showMorseCode() {
         cameraView.onPause()
-        layoutMorseCode.visibility = View.VISIBLE
+        layoutTranslate.visibility = View.GONE
         layoutCamera.visibility = View.GONE
+        layoutMorseCode.visibility = View.VISIBLE
+    }
+
+    private fun initTranslate() {
+        layoutTranslate.visibility = View.VISIBLE
+        etOriginal.inputType = InputType.TYPE_NULL
+        etMorse.inputType = InputType.TYPE_NULL
+
+        etOriginal.setOnFocusChangeListener { view, b ->
+            if (b) {
+                morseKeyboard.visibility = View.VISIBLE
+            } else {
+                morseKeyboard.visibility = View.GONE
+            }
+        }
+
+        morseKeyboard.onClickListener = object: MorseKeyboard.OnClickListener {
+            override fun onClick(key: String?): Boolean {
+                if (key == null) {
+                    etOriginal.text = null
+                } else if (TextUtils.isEmpty(key)) {
+                    if (etOriginal.text.isNotEmpty()) {
+                        etOriginal.setText(etOriginal.text.subSequence(0, etOriginal.text.length - 1))
+                        etOriginal.setSelection(etOriginal.text.length)
+                    }
+                } else {
+                    etOriginal.text.append(key)
+                }
+                return true
+            }
+        }
+    }
+
+    private fun showTranslate() {
+        layoutTranslate.visibility = View.VISIBLE
+        layoutCamera.visibility = View.GONE
+        layoutMorseCode.visibility = View.GONE
+    }
+
+    fun onButtonClick(view: View) {
+        morseKeyboard.onButtonClick(view)
+        etOriginal.requestFocus()
     }
 }

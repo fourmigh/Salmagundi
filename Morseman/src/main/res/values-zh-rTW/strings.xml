@@ -6,4 +6,7 @@
     <string name="title_notifications">通知</string>
     <string name="list_title_char">字元</string>
     <string name="list_title_morse">摩爾斯碼</string>
+    <string name="btn_delete">删除</string>
+    <string name="btn_space">空格</string>
+    <string name="original">原文</string>
 </resources>
