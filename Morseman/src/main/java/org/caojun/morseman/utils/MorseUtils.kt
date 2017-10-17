@@ -204,6 +204,29 @@ object MorseUtils {
         return trim(bytes)
     }
 
+    fun string2Morse(string: String): String {
+        val stringArray = toStringArray(string, " ")
+        val sb = StringBuffer()
+        for (i in 0 until stringArray.size) {
+            for (j in 0 until stringArray[i].length) {
+                val c = stringArray[i][j]
+                if (c in CharMorse) {
+                    val morse = toMorse(c)
+                    sb.append(morse)
+                    //每个字符后加一个Space3
+                    if (j < stringArray[i].length - 1) {
+                        sb.append(Space3[Type_Word] as Char)
+                    }
+                }
+            }
+            //每个单词后加一个Space7
+            if (i < stringArray.size - 1) {
+                sb.append(Space7[Type_Word] as Char)
+            }
+        }
+        return sb.toString()
+    }
+
     /**
      * 去除多余的间隔符
      */

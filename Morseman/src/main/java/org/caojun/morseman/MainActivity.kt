@@ -1,6 +1,7 @@
 package org.caojun.morseman
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
@@ -157,8 +158,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun initTranslate() {
         layoutTranslate.visibility = View.VISIBLE
-        etOriginal.inputType = InputType.TYPE_NULL
-        etMorse.inputType = InputType.TYPE_NULL
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            etOriginal.showSoftInputOnFocus = false
+            etMorse.showSoftInputOnFocus = false
+        } else {
+            etOriginal.inputType = InputType.TYPE_NULL
+            etMorse.inputType = InputType.TYPE_NULL
+        }
 
         etOriginal.setOnFocusChangeListener { view, b ->
             if (b) {
@@ -180,6 +186,9 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     etOriginal.text.append(key)
                 }
+
+                val morse = MorseUtils.string2Morse(etOriginal.text.toString())
+                etMorse.setText(morse)
                 return true
             }
         }
