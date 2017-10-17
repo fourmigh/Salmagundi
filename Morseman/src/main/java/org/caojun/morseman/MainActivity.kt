@@ -55,7 +55,16 @@ class MainActivity : AppCompatActivity() {
 
         cameraView.setOnColorStatusChange(object : OnColorStatusChange {
             override fun onColorChange(color: Int) {
-                MorseUtils.addColor(color)
+                MorseUtils.addColor(color, object: MorseUtils.OnMorseListener {
+                    override fun onMorse(array: Array<String?>) {
+                        if (array[0] != null) {
+                            tvMorse.text.append(array[0])
+                        }
+                        if (array[1] != null) {
+                            tvOriginal.text.append(array[1])
+                        }
+                    }
+                })
             }
         })
 
@@ -213,11 +222,11 @@ class MainActivity : AppCompatActivity() {
     private fun showMorse() {
         val string = etOriginal.text.toString()
         val byteArray = MorseUtils.string2ByteArray(string)
-        val morse = MorseUtils.byteArray2Morse(byteArray)
-        KLog.d("string", string)
-        KLog.d("morse", morse)
-        val strings = MorseUtils.byteArray2String(byteArray)
-        KLog.d("strings", strings)
+//        val morse = MorseUtils.byteArray2Morse(byteArray)
+//        KLog.d("string", string)
+//        KLog.d("morse", morse)
+//        val strings = MorseUtils.byteArray2String(byteArray)
+//        KLog.d("strings", strings)
 
         doAsync {
             while (isMorseShowing) {

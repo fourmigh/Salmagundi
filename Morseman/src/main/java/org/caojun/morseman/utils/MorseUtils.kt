@@ -287,8 +287,13 @@ object MorseUtils {
     var average = 0f
     var morses = ArrayList<Morse>()
     val morse: Morse = Morse()
+    var onMorseListener: OnMorseListener? = null
 
-    fun addColor(color: Int) {
+    interface OnMorseListener {
+        fun onMorse(array: Array<String?>)
+    }
+
+    fun addColor(color: Int, onMorseListener: OnMorseListener) {
         colors.add(color)
         average = AverageUtils.add(color)
 
@@ -301,7 +306,8 @@ object MorseUtils {
                 morses.add(morse)
                 val char = byteArray2String(morse.getCode())
                 if (char != null) {
-                    KLog.d("addColor", "morse: " + char)
+//                    KLog.d("addColor", "morse: " + char)
+                    onMorseListener.onMorse(char)
                 }
                 morse.on = lightOn
                 morse.time = 0
@@ -312,14 +318,13 @@ object MorseUtils {
             morse.on = lightOn
             morse.time = 0;
         }
-
     }
 
     val sb = StringBuffer()
     /**
      * 实时解析莫尔斯码信号
      */
-    fun byteArray2String(byte: Byte): Char? {
+    fun byteArray2String(byte: Byte): Array<String?> {
         var value = byte
 
         if (value > 0) {
@@ -340,18 +345,28 @@ object MorseUtils {
 
         when (value) {
             Dit[Type_Number] -> {
-                sb.append(Dit[Type_Symbol] as Char)
+                val char = Dit[Type_Symbol] as Char
+                sb.append(char)
+                return arrayOf(char.toString(), null)
             }
             Dah[Type_Number] -> {
-                sb.append(Dah[Type_Symbol] as Char)
+                val char = Dah[Type_Symbol] as Char
+                sb.append(char)
+                return arrayOf(char.toString(), null)
             }
             Space3[Type_Number], Space7[Type_Number] -> {
-                val char = toChar(sb.toString())
+                var char2 = toChar(sb.toString()).toString()
+                var char1 = Space3[Type_Word]
                 sb.delete(0, sb.length)
-                return char
-
+                if (value == Space7[Type_Number]) {
+                    char2 += Space1[Type_Word] as Char
+                    char1 = Space7[Type_Word]
+                }
+                return arrayOf(char1.toString(), char2)
+            }
+            else -> {
+                return arrayOf(null, null)
             }
         }
-        return null
     }
 }
