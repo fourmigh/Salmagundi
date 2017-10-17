@@ -5,8 +5,10 @@ import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
 import android.text.InputType
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
@@ -28,7 +30,8 @@ import java.lang.Thread.sleep
 
 class MainActivity : AppCompatActivity() {
 
-    private var isPaused = false
+    private var isMorseShowing = false
+    private var isScreen = false
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -54,62 +57,6 @@ class MainActivity : AppCompatActivity() {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-//        val string = "Hello World, too!"
-        val string = "SOS SOS SOS SOS SOS SOS"
-        val byteArray = MorseUtils.string2ByteArray(string)
-        val morse = MorseUtils.byteArray2Morse(byteArray)
-        KLog.d("string", string)
-        KLog.d("morse", morse)
-        val strings = MorseUtils.byteArray2String(byteArray)
-        KLog.d("strings", strings)
-
-//        doAsync {
-//            while (true) {
-//                for (i in byteArray.indices) {
-//                    KLog.d("doAsync", i.toString() + " : " + byteArray[i].toString())
-//                    when (byteArray[i]) {
-//                        MorseUtils.Dit[MorseUtils.Type_Number] -> {
-//                            uiThread {
-//                                //                            FlashUtils.on(this@MainActivity)
-//                                ViewUtils.on(message)
-//                            }
-//                            sleep(MorseUtils.Time)
-//                        }
-//                        MorseUtils.Dah[MorseUtils.Type_Number] -> {
-//                            uiThread {
-//                                //                            FlashUtils.on(this@MainActivity)
-//                                ViewUtils.on(message)
-//                            }
-//                            sleep(MorseUtils.Time * 3)
-//                        }
-//                        else -> {
-//                            uiThread {
-//                                //                            FlashUtils.off(this@MainActivity)
-//                                ViewUtils.off(message)
-//                            }
-//                            when (byteArray[i]) {
-//                                MorseUtils.Space1[MorseUtils.Type_Number] -> {
-//                                    sleep(MorseUtils.Time)
-//                                }
-//                                MorseUtils.Space3[MorseUtils.Type_Number] -> {
-//                                    sleep(MorseUtils.Time * 3)
-//                                }
-//                                MorseUtils.Space7[MorseUtils.Type_Number] -> {
-//                                    sleep(MorseUtils.Time * 7)
-//                                }
-//                            }
-//                        }
-//                    }
-//                    if (isPaused) {
-//                        break;
-//                    }
-//                }
-//            }
-//            if (isPaused) {
-//                FlashUtils.release(this@MainActivity)
-//            }
-//        }
-
         cameraView.setOnColorStatusChange(object : OnColorStatusChange {
             override fun onColorChange(color: Int) {
                 MorseUtils.addColor(color)
@@ -127,7 +74,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     public override fun onPause() {
-        isPaused = true
+        stopShowMorse()
         cameraView.onPause()
         super.onPause()
     }
@@ -174,6 +121,27 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        etOriginal.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+
+            }
+
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+
+            }
+
+            override fun afterTextChanged(editable: Editable) {
+                if (editable.isEmpty()) {
+                    btnScreen.isEnabled = false
+                    btnFlashlight.isEnabled = false
+                    btnStop.isEnabled = false
+                } else {
+                    btnScreen.isEnabled = true
+                    btnFlashlight.isEnabled = true
+                }
+            }
+        })
+
         morseKeyboard.onClickListener = object: MorseKeyboard.OnClickListener {
             override fun onClick(key: String?): Boolean {
                 if (key == null) {
@@ -192,6 +160,47 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         }
+
+        btnStop.isEnabled = false
+        btnScreen.isEnabled = true
+        btnFlashlight.isEnabled = true
+
+        btnScreen.setOnClickListener({
+            isScreen = true
+            startShowMorse()
+            btnFlashlight.isEnabled = true
+            btnStop.isEnabled = true
+            btnScreen.isEnabled = false
+        })
+
+        btnFlashlight.setOnClickListener({
+            isScreen = false
+            startShowMorse()
+            btnScreen.isEnabled = true
+            btnStop.isEnabled = true
+            btnFlashlight.isEnabled = false
+        })
+
+        btnStop.setOnClickListener({
+            stopShowMorse()
+        })
+    }
+
+    private fun startShowMorse() {
+        if (!isMorseShowing) {
+            isMorseShowing = true
+            showMorse()
+        }
+        morseKeyboard.visibility = View.GONE
+    }
+
+    private fun stopShowMorse() {
+        isMorseShowing = false
+        btnStop.isEnabled = false
+        val isEnabled = !TextUtils.isEmpty(etOriginal.text.toString())
+        btnScreen.isEnabled = isEnabled
+        btnFlashlight.isEnabled = isEnabled
+        morseKeyboard.visibility = View.VISIBLE
     }
 
     private fun showTranslate() {
@@ -203,5 +212,70 @@ class MainActivity : AppCompatActivity() {
     fun onButtonClick(view: View) {
         morseKeyboard.onButtonClick(view)
         etOriginal.requestFocus()
+    }
+
+    private fun showMorse() {
+        val string = etOriginal.text.toString()
+        val byteArray = MorseUtils.string2ByteArray(string)
+        val morse = MorseUtils.byteArray2Morse(byteArray)
+        KLog.d("string", string)
+        KLog.d("morse", morse)
+        val strings = MorseUtils.byteArray2String(byteArray)
+        KLog.d("strings", strings)
+
+        doAsync {
+            while (true) {
+                for (i in byteArray.indices) {
+                    when (byteArray[i]) {
+                        MorseUtils.Dit[MorseUtils.Type_Number] -> {
+                            uiThread {
+                                if (isScreen) {
+                                    ViewUtils.on(message)
+                                } else {
+                                    FlashUtils.on(this@MainActivity)
+                                }
+                            }
+                            sleep(MorseUtils.Time)
+                        }
+                        MorseUtils.Dah[MorseUtils.Type_Number] -> {
+                            uiThread {
+                                if (isScreen) {
+                                    ViewUtils.on(message)
+                                } else {
+                                    FlashUtils.on(this@MainActivity)
+                                }
+                            }
+                            sleep(MorseUtils.Time * 3)
+                        }
+                        else -> {
+                            uiThread {
+                                if (isScreen) {
+                                    ViewUtils.on(message)
+                                } else {
+                                    FlashUtils.on(this@MainActivity)
+                                }
+                            }
+                            when (byteArray[i]) {
+                                MorseUtils.Space1[MorseUtils.Type_Number] -> {
+                                    sleep(MorseUtils.Time)
+                                }
+                                MorseUtils.Space3[MorseUtils.Type_Number] -> {
+                                    sleep(MorseUtils.Time * 3)
+                                }
+                                MorseUtils.Space7[MorseUtils.Type_Number] -> {
+                                    sleep(MorseUtils.Time * 7)
+                                }
+                            }
+                        }
+                    }
+                    if (!isMorseShowing) {
+                        break;
+                    }
+                }
+            }
+            if (!isMorseShowing) {
+                FlashUtils.release(this@MainActivity)
+            }
+        }
     }
 }

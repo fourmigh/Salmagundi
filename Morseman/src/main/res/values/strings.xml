@@ -12,4 +12,7 @@
     <string name="btn_number">123</string>
     <string name="btn_punctuation">. : ,</string>
     <string name="original">Original</string>
+    <string name="btn_screen">Screen</string>
+    <string name="btn_flashlight">Flashlight</string>
+    <string name="btn_stop">Stop</string>
 </resources>
