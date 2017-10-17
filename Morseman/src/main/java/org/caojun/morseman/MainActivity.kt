@@ -9,7 +9,6 @@ import android.text.InputType
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
-import com.socks.library.KLog
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_camera.*
 import kotlinx.android.synthetic.main.layout_morsecode.*
@@ -212,6 +211,7 @@ class MainActivity : AppCompatActivity() {
         layoutTranslate.visibility = View.VISIBLE
         layoutCamera.visibility = View.GONE
         layoutMorseCode.visibility = View.GONE
+        cameraView.onPause()
     }
 
     fun onButtonClick(view: View) {
@@ -231,7 +231,7 @@ class MainActivity : AppCompatActivity() {
         doAsync {
             while (isMorseShowing) {
                 for (i in byteArray.indices) {
-                    KLog.d("doAsync", i.toString() + " : " + byteArray[i])
+//                    KLog.d("doAsync", i.toString() + " : " + byteArray[i])
                     when (byteArray[i]) {
                         MorseUtils.Dit[MorseUtils.Type_Number] -> {
                             uiThread {

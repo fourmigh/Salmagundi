@@ -40,7 +40,7 @@ class CameraView: SurfaceView, SurfaceHolder.Callback {
         mCamera?.stopPreview()
         try {
             /* Camera Service settings */
-            val parameters = mCamera?.getParameters()
+            val parameters = mCamera?.parameters
             parameters?.flashMode = "off" // 无闪光灯
             // 设置预览图片大小
             parameters?.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO//视频自动对焦
@@ -58,8 +58,11 @@ class CameraView: SurfaceView, SurfaceHolder.Callback {
             /* 视频流编码处理 */
             // 添加对视频流处理函数
             // 设定配置参数并开启预览
-            mCamera?.setParameters(parameters) // 将Camera.Parameters设定予Camera
+            mCamera?.parameters = parameters // 将Camera.Parameters设定予Camera
             mCamera?.setPreviewCallback(Camera.PreviewCallback { data, camera ->
+                if (isPaused) {
+                    return@PreviewCallback
+                }
                 val mWidth = camera.parameters.previewSize.width
                 val mHeight = camera.parameters.previewSize.height
                 val buf = imageEngine?.decodeYUV420SP(data, mWidth, mHeight)
@@ -117,5 +120,6 @@ class CameraView: SurfaceView, SurfaceHolder.Callback {
         if (isPaused) {
             initHolder()
         }
+        isPaused = false
     }
 }

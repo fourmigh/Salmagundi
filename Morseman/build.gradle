@@ -37,6 +37,6 @@ dependencies {
     implementation "com.android.support.constraint:constraint-layout:latest.release"
     implementation "com.android.support:support-vector-drawable:$androidsupport_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation "com.github.zhaokaiqiang.klog:library:latest.release"
     implementation "org.jetbrains.anko:anko-common:latest.release"
+    implementation "com.github.zhaokaiqiang.klog:library:latest.release"
 }
