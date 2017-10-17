@@ -1,6 +1,5 @@
 package org.caojun.morseman
 
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -9,9 +8,7 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.view.MotionEvent
 import android.view.View
-import android.widget.EditText
 import com.socks.library.KLog
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_camera.*
@@ -19,7 +16,6 @@ import kotlinx.android.synthetic.main.layout_morsecode.*
 import kotlinx.android.synthetic.main.layout_translate.*
 import org.caojun.morseman.adapter.MorseCodeAdapter
 import org.caojun.morseman.listener.OnColorStatusChange
-import org.caojun.morseman.utils.ColorUtils
 import org.caojun.morseman.utils.FlashUtils
 import org.caojun.morseman.utils.MorseUtils
 import org.caojun.morseman.utils.ViewUtils
@@ -224,13 +220,14 @@ class MainActivity : AppCompatActivity() {
         KLog.d("strings", strings)
 
         doAsync {
-            while (true) {
+            while (isMorseShowing) {
                 for (i in byteArray.indices) {
+                    KLog.d("doAsync", i.toString() + " : " + byteArray[i])
                     when (byteArray[i]) {
                         MorseUtils.Dit[MorseUtils.Type_Number] -> {
                             uiThread {
                                 if (isScreen) {
-                                    ViewUtils.on(message)
+                                    ViewUtils.on(container)
                                 } else {
                                     FlashUtils.on(this@MainActivity)
                                 }
@@ -240,7 +237,7 @@ class MainActivity : AppCompatActivity() {
                         MorseUtils.Dah[MorseUtils.Type_Number] -> {
                             uiThread {
                                 if (isScreen) {
-                                    ViewUtils.on(message)
+                                    ViewUtils.on(container)
                                 } else {
                                     FlashUtils.on(this@MainActivity)
                                 }
@@ -250,9 +247,9 @@ class MainActivity : AppCompatActivity() {
                         else -> {
                             uiThread {
                                 if (isScreen) {
-                                    ViewUtils.on(message)
+                                    ViewUtils.off(container)
                                 } else {
-                                    FlashUtils.on(this@MainActivity)
+                                    FlashUtils.off(this@MainActivity)
                                 }
                             }
                             when (byteArray[i]) {
@@ -269,11 +266,12 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     if (!isMorseShowing) {
-                        break;
+                        break
                     }
                 }
             }
             if (!isMorseShowing) {
+                ViewUtils.on(container)
                 FlashUtils.release(this@MainActivity)
             }
         }
