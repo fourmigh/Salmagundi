@@ -15,4 +15,5 @@
     <string name="btn_screen">Screen</string>
     <string name="btn_flashlight">Flashlight</string>
     <string name="btn_stop">Stop</string>
+    <string name="morse_tips"></string>
 </resources>

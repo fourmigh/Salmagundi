@@ -12,4 +12,5 @@
     <string name="btn_screen">荧幕</string>
     <string name="btn_flashlight">手電筒</string>
     <string name="btn_stop">停止</string>
+    <string name="morse_tips">為便於閱讀摩爾斯電碼，\n字元之間以“，”隔開，空格用“/”表示。</string>
 </resources>
