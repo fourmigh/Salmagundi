@@ -14,7 +14,7 @@ object MorseUtils {
     val Type_Number = 1//数字表示
     val Type_Word = 2//单词表示
 
-    val CharMorse = charArrayOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', ':', ',', ';', '?', '=', '\'', '/', '!', '-', '_', '"', '(', ')', '$', '&', '@')
+    val CharMorse = charArrayOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', ':', ',', ';', '?', '=', '\'', '/', '!', '-', '_', '"', '(', ')', '$', '&', '@', '+')
     val Dit = arrayOf('.', 1.toByte(), "Dit")
     val Dah = arrayOf('-', 3.toByte(), "Dah")
     val Space1 = arrayOf(' ', (-1).toByte(), ' ')//点划间隔
@@ -79,6 +79,7 @@ object MorseUtils {
             CharMorse[76] -> return "...-..-"//$
             CharMorse[77] -> return "...."//&
             CharMorse[78] -> return ".--.-."//@
+            CharMorse[79] -> return ".-.-."//+
             else -> return ""
         }
     }
