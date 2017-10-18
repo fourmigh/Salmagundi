@@ -168,8 +168,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnStop.isEnabled = false
-        btnScreen.isEnabled = true
-        btnFlashlight.isEnabled = true
+        btnScreen.isEnabled = false
+        btnFlashlight.isEnabled = false
 
         btnScreen.setOnClickListener({
             isScreen = true
@@ -282,7 +282,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             if (!isMorseShowing) {
-                ViewUtils.on(container)
+                container.setBackgroundColor(0x00ffffff)
                 FlashUtils.release(this@MainActivity)
             }
         }
