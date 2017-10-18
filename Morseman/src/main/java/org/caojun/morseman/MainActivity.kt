@@ -282,8 +282,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             if (!isMorseShowing) {
-                container.setBackgroundColor(0x00ffffff)
-                FlashUtils.release(this@MainActivity)
+                uiThread {
+                    container.setBackgroundColor(0x00ffffff)
+                    FlashUtils.release(this@MainActivity)
+                }
             }
         }
     }
