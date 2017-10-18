@@ -1,5 +1,6 @@
 package org.caojun.morseman
 
+import android.hardware.Camera
 import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -15,10 +16,12 @@ import kotlinx.android.synthetic.main.layout_morsecode.*
 import kotlinx.android.synthetic.main.layout_translate.*
 import org.caojun.morseman.adapter.MorseCodeAdapter
 import org.caojun.morseman.listener.OnColorStatusChange
+import org.caojun.morseman.utils.ActivityUtils
 import org.caojun.morseman.utils.FlashUtils
 import org.caojun.morseman.utils.MorseUtils
 import org.caojun.morseman.utils.ViewUtils
 import org.caojun.morseman.widget.MorseKeyboard
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.lang.Thread.sleep
@@ -35,7 +38,9 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_camera -> {
-                showCamera()
+                if (initSystemCamera()) {
+                    showCamera()
+                }
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_help -> {
@@ -182,11 +187,13 @@ class MainActivity : AppCompatActivity() {
         })
 
         btnFlashlight.setOnClickListener({
-            isScreen = false
-            startShowMorse()
-            btnScreen.isEnabled = true
-            btnStop.isEnabled = true
-            btnFlashlight.isEnabled = false
+            if (initSystemCamera()) {
+                isScreen = false
+                startShowMorse()
+                btnScreen.isEnabled = true
+                btnStop.isEnabled = true
+                btnFlashlight.isEnabled = false
+            }
         })
 
         btnStop.setOnClickListener({
@@ -290,5 +297,32 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun initSystemCamera(): Boolean {
+        if (FlashUtils.camera != null) {
+            return true
+        }
+        try {
+            FlashUtils.camera = Camera.open()
+            return true
+        } catch (e: Exception) {
+            askCameraPermission()
+            return false
+        }
+    }
+
+    private fun askCameraPermission() {
+        alert(R.string.ask_camera_permission) {
+            positiveButton(android.R.string.ok) {
+                ActivityUtils.gotoPermission(this@MainActivity)
+            }
+            negativeButton(R.string.quit) {
+                finish()
+            }
+            onCancelled {
+                finish()
+            }
+        }.show()
     }
 }

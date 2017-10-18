@@ -3,6 +3,7 @@ package org.caojun.morseman.utils
 import android.content.Context
 import android.content.pm.PackageManager
 import android.hardware.Camera
+import org.caojun.morseman.MainActivity
 
 /**
  * Created by CaoJun on 2017/10/10.

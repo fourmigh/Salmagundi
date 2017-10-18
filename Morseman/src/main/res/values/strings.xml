@@ -16,4 +16,6 @@
     <string name="btn_flashlight">Flashlight</string>
     <string name="btn_stop">Stop</string>
     <string name="morse_tips"></string>
+    <string name="ask_camera_permission">Need Camera Permission.</string>
+    <string name="quit">Quit</string>
 </resources>

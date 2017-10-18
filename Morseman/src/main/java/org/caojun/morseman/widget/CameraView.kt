@@ -101,7 +101,11 @@ class CameraView: SurfaceView, SurfaceHolder.Callback {
 //        }
 //        mCamera = Camera.open()// 开启摄像头（2.3版本后支持多摄像头,需传入参数）
         if (FlashUtils.camera == null) {
-            FlashUtils.camera = Camera.open()
+            try {
+                FlashUtils.camera = Camera.open()
+            } catch (e: Exception) {
+                return
+            }
         }
         imageEngine = ImageUtilEngine()
         try {

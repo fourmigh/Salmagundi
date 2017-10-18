@@ -13,4 +13,6 @@
     <string name="btn_flashlight">手電筒</string>
     <string name="btn_stop">停止</string>
     <string name="morse_tips">為便於閱讀摩爾斯電碼，\n字元之間以“，”隔開，空格用“/”表示。</string>
+    <string name="ask_camera_permission">需要攝像頭許可權。</string>
+    <string name="quit">退出</string>
 </resources>
