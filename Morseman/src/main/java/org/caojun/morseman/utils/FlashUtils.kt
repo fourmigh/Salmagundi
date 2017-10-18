@@ -17,6 +17,9 @@ object FlashUtils {
     }
 
     fun off(context: Context) {
+        if (camera == null) {
+            return
+        }
         set(context, false)
     }
 
