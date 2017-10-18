@@ -9,7 +9,7 @@ import android.hardware.Camera
  */
 object FlashUtils {
 
-    private var camera: Camera? = null
+    var camera: Camera? = null
 
     fun on(context: Context) {
         set(context, true)
@@ -45,11 +45,11 @@ object FlashUtils {
         }
     }
 
-    fun release(context: Context) {
-        off(context)
-        if (camera != null) {
-            camera?.release()
-            camera = null
-        }
-    }
+//    fun release(context: Context) {
+//        off(context)
+//        if (camera != null) {
+//            camera?.release()
+//            camera = null
+//        }
+//    }
 }

@@ -91,6 +91,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showCamera() {
+        stopShowMorse()
         cameraView.onResume()
         layoutTranslate.visibility = View.GONE
         layoutCamera.visibility = View.VISIBLE
@@ -103,6 +104,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showMorseCode() {
+        stopShowMorse()
         cameraView.onPause()
         layoutTranslate.visibility = View.GONE
         layoutCamera.visibility = View.GONE
@@ -284,7 +286,7 @@ class MainActivity : AppCompatActivity() {
             if (!isMorseShowing) {
                 uiThread {
                     container.setBackgroundColor(0x00ffffff)
-                    FlashUtils.release(this@MainActivity)
+                    FlashUtils.off(this@MainActivity)
                 }
             }
         }

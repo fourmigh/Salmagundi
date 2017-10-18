@@ -9,6 +9,7 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import org.caojun.morseman.jni.ImageUtilEngine
 import org.caojun.morseman.listener.OnColorStatusChange
+import org.caojun.morseman.utils.FlashUtils
 
 /**
  * Created by CaoJun on 2017/10/13.
@@ -16,7 +17,7 @@ import org.caojun.morseman.listener.OnColorStatusChange
 class CameraView: SurfaceView, SurfaceHolder.Callback {
 
     private var mSurfaceHolder: SurfaceHolder? = null
-    private var mCamera: Camera? = null
+//    private var mCamera: Camera? = null
     private var colorChange: OnColorStatusChange? = null
     private var imageEngine: ImageUtilEngine? = null
     private var isPaused = false
@@ -37,10 +38,10 @@ class CameraView: SurfaceView, SurfaceHolder.Callback {
 
     private fun initCamera()
     {
-        mCamera?.stopPreview()
+        FlashUtils.camera?.stopPreview()
         try {
             /* Camera Service settings */
-            val parameters = mCamera?.parameters
+            val parameters = FlashUtils.camera?.parameters
             parameters?.flashMode = "off" // 无闪光灯
             // 设置预览图片大小
             parameters?.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO//视频自动对焦
@@ -48,18 +49,18 @@ class CameraView: SurfaceView, SurfaceHolder.Callback {
             if (this.resources.configuration.orientation != Configuration.ORIENTATION_LANDSCAPE) {
                 parameters?.set("orientation", "portrait")
                 // parameters.set("rotation", 90); // 镜头角度转90度（默认摄像头是横拍）
-                mCamera?.setDisplayOrientation(90) // 在2.2以上可以使用
+                FlashUtils.camera?.setDisplayOrientation(90) // 在2.2以上可以使用
             } else
             // 如果是横屏
             {
                 parameters?.set("orientation", "landscape")
-                mCamera?.setDisplayOrientation(0) // 在2.2以上可以使用
+                FlashUtils.camera?.setDisplayOrientation(0) // 在2.2以上可以使用
             }
             /* 视频流编码处理 */
             // 添加对视频流处理函数
             // 设定配置参数并开启预览
-            mCamera?.parameters = parameters // 将Camera.Parameters设定予Camera
-            mCamera?.setPreviewCallback(Camera.PreviewCallback { data, camera ->
+            FlashUtils.camera?.parameters = parameters // 将Camera.Parameters设定予Camera
+            FlashUtils.camera?.setPreviewCallback(Camera.PreviewCallback { data, camera ->
                 if (isPaused) {
                     return@PreviewCallback
                 }
@@ -71,7 +72,7 @@ class CameraView: SurfaceView, SurfaceHolder.Callback {
                 val color = bitmap.getPixel(mWidth / 2, mHeight / 2)
                 colorChange?.onColorChange(color)
             })
-            mCamera?.startPreview() // 打开预览画面
+            FlashUtils.camera?.startPreview() // 打开预览画面
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -86,25 +87,28 @@ class CameraView: SurfaceView, SurfaceHolder.Callback {
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder?) {
-        mCamera?.setPreviewCallback(null) // ！！这个必须在前，不然退出出错
-        mCamera?.stopPreview()
-        mCamera?.release()
-        mCamera = null
+        FlashUtils.camera?.setPreviewCallback(null) // ！！这个必须在前，不然退出出错
+        FlashUtils.camera?.stopPreview()
+        FlashUtils.camera?.release()
+        FlashUtils.camera = null
 
         mSurfaceHolder = null
     }
 
     override fun surfaceCreated(holder: SurfaceHolder?) {
-        if (mCamera != null) {
-            return
+//        if (mCamera != null) {
+//            return
+//        }
+//        mCamera = Camera.open()// 开启摄像头（2.3版本后支持多摄像头,需传入参数）
+        if (FlashUtils.camera == null) {
+            FlashUtils.camera = Camera.open()
         }
-        mCamera = Camera.open()// 开启摄像头（2.3版本后支持多摄像头,需传入参数）
         imageEngine = ImageUtilEngine()
         try {
-            mCamera?.setPreviewDisplay(mSurfaceHolder)// 设置预览
+            FlashUtils.camera?.setPreviewDisplay(mSurfaceHolder)// 设置预览
         } catch (ex: Exception) {
-            mCamera?.release()
-            mCamera = null
+            FlashUtils.camera?.release()
+            FlashUtils.camera = null
         }
     }
 
