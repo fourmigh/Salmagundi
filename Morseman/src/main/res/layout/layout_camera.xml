@@ -26,17 +26,27 @@
         android:layout_marginBottom="@dimen/bottom_navigation_view_height"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/tvMorse"
-            android:enabled="false"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/list_title_morse">
 
-        <EditText
-            android:id="@+id/tvOriginal"
-            android:enabled="false"
+            <EditText
+                android:id="@+id/tvMorse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/original">
+
+            <EditText
+                android:id="@+id/tvOriginal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
 </LinearLayout>

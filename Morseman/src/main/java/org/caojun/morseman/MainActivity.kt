@@ -86,6 +86,8 @@ class MainActivity : AppCompatActivity() {
     private fun initCamera() {
         layoutCamera.visibility = View.GONE
         cameraView.onPause()
+        tvOriginal.inputType = InputType.TYPE_NULL
+        tvMorse.inputType = InputType.TYPE_NULL
     }
 
     private fun showCamera() {
