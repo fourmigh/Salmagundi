@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">摩爾斯俠</string>
+    <string name="app_name">摩斯俠</string>
     <string name="title_home">主頁</string>
     <string name="title_camera">識別</string>
     <string name="title_help">幫助</string>
