@@ -1,8 +1,12 @@
 package org.caojun.decibelman.activity
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.ContextMenu
+import android.view.MenuItem
+import android.view.View
 import cn.bmob.v3.BmobQuery
 import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClient
@@ -46,6 +50,11 @@ class GDMapActivity: BaseActivity(), LocationSource, AMapLocationListener, AMap.
             }
         })
         addMarkersToMap()
+
+        fab.setOnCreateContextMenuListener(this)
+        fab.setOnClickListener({
+            fab.showContextMenu()
+        })
     }
 
     override fun onResume() {
@@ -133,6 +142,7 @@ class GDMapActivity: BaseActivity(), LocationSource, AMapLocationListener, AMap.
         Constant.latitude = amapLocation.latitude
         Constant.longitude = amapLocation.longitude
         mLocationChangedListener?.onLocationChanged(amapLocation)// 显示系统小蓝点
+        Constant.amapLocation = amapLocation
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
@@ -198,5 +208,36 @@ class GDMapActivity: BaseActivity(), LocationSource, AMapLocationListener, AMap.
                         }
                     })
         }
+    }
+
+    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        menu?.add(1, 0, 0, R.string.menu_upload)
+        menu?.add(1, 1, 1, R.string.menu_share)
+    }
+
+    override fun onContextItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId?:0) {
+            0 -> {
+                //上传
+                alertSaveDecibelInfo()
+            }
+            1 -> {
+                //分享
+                shareInfo(Constant.amapLocation, getSavedDecibelInfo())
+            }
+        }
+        return super.onContextItemSelected(item)
+    }
+
+    private fun shareInfo(amapLocation: AMapLocation?, di: DecibelInfo) {
+        if (amapLocation == null || TextUtils.isEmpty(amapLocation.address)) {
+            return
+        }
+        val text = getString(R.string.share_info, amapLocation.address, DigitUtils.getRound(di.decibel_max, 1), DigitUtils.getRound(di.decibel_average, 1), DigitUtils.getRound(di.decibel_min, 1))
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.putExtra(Intent.EXTRA_TEXT, text)
+        intent.type = "text/plain"
+        startActivity(Intent.createChooser(intent, getString(R.string.menu_share)));
     }
 }

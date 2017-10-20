@@ -18,4 +18,7 @@
     <string name="show_confirm_dialog">Show Confirm Dialog</string>
     <string name="ask_record_audio_permission">Need Microphone Permission.</string>
     <string name="quit">Quit</string>
+    <string name="share_info">I was at or near [%s], measured by me, where the decibels are\n maximum: %s\n mean: %s\n minimum: %s.</string>
+    <string name="menu_upload">Upload</string>
+    <string name="menu_share">Share</string>
 </resources>

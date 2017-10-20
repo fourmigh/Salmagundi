@@ -33,7 +33,7 @@
         <activity android:name=".activity.SettingsActivity"
             android:label="@string/settings"/>
         <activity android:name=".activity.GDMapActivity"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <!-- 百度地图 -->
         <service

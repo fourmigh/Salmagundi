@@ -1,5 +1,6 @@
 package org.caojun.decibelman
 
+import com.amap.api.location.AMapLocation
 import org.caojun.decibelman.room.DecibelInfo
 
 /**
@@ -15,4 +16,5 @@ object Constant {
     var decibelInfo0: DecibelInfo? = null
     var latitude: Double = 0.0
     var longitude: Double = 0.0
+    var amapLocation: AMapLocation? = null
 }

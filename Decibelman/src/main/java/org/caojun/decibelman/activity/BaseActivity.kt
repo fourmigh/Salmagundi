@@ -2,6 +2,7 @@ package org.caojun.decibelman.activity
 
 import android.app.Activity
 import android.preference.PreferenceManager
+import android.support.v7.app.AppCompatActivity
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.SaveListener
 import com.socks.library.KLog
@@ -17,7 +18,7 @@ import java.util.Date
 /**
  * Created by CaoJun on 2017/9/25.
  */
-open class BaseActivity: Activity() {
+open class BaseActivity: AppCompatActivity() {
 
     interface OnDatabaseListener {
         fun onSuccess()
@@ -51,18 +52,23 @@ open class BaseActivity: Activity() {
         }
     }
 
+    fun getSavedDecibelInfo(): DecibelInfo {
+        val di = DecibelInfo()
+        di.latitude = Constant.latitude
+        di.longitude = Constant.longitude
+        di.imei = Constant.decibelInfo0!!.imei
+        di.random_id = Constant.decibelInfo0!!.random_id
+        di.database_time = Constant.decibelInfo0!!.database_time
+        di.time = Date().time
+        di.decibel_min = Constant.min
+        di.decibel_max = Constant.max
+        di.decibel_average = Constant.average
+        return di
+    }
+
     private fun saveDecibelInfo() {
         doAsync {
-            var di = DecibelInfo()
-            di.latitude = Constant.latitude
-            di.longitude = Constant.longitude
-            di.imei = Constant.decibelInfo0!!.imei
-            di.random_id = Constant.decibelInfo0!!.random_id
-            di.database_time = Constant.decibelInfo0!!.database_time
-            di.time = Date().time
-            di.decibel_min = Constant.min
-            di.decibel_max = Constant.max
-            di.decibel_average = Constant.average
+            val di = getSavedDecibelInfo()
             DecibelInfoDatabase.getDatabase(this@BaseActivity).getDao().insert(di)
 
             val diBmob = DIBmob(di)

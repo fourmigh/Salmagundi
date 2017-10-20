@@ -18,4 +18,7 @@
     <string name="show_confirm_dialog">显示确认对话框</string>
     <string name="ask_record_audio_permission">需要录音权限。</string>
     <string name="quit">退出</string>
+    <string name="share_info">我在【%s】或附近，经我测量，这里的分贝值\n最大: %s\n平均: %s\n最小: %s。</string>
+    <string name="menu_upload">上传</string>
+    <string name="menu_share">分享</string>
 </resources>
