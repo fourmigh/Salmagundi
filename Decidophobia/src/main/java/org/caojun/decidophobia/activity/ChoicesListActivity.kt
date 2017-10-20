@@ -23,7 +23,6 @@ class ChoicesListActivity: AppCompatActivity() {
     private var list: List<Options>? = null
     private var adapter: ExpandableListAdapter? = null
     private var countLongClick = 0
-    private var selectedIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
