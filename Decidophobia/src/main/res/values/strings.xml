@@ -14,4 +14,8 @@
     <string name="tips_delete">Long press to Delete, but not here.</string>
     <string name="tips_delete2">I said, not here.</string>
     <string name="tips_delete3">NOT HERE.</string>
+    <string name="share">Share</string>
+    <string name="cloud">Cloud</string>
+    <string name="which_one_to_choose">Which one would you choose?</string>
+    <string name="no_n">%s. %s</string>
 </resources>

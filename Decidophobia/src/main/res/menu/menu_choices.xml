@@ -13,4 +13,10 @@
         android:orderInCategory="101"
         android:title="@string/details"
         app:showAsAction="never" />
+
+    <!--<item-->
+        <!--android:id="@+id/action_cloud"-->
+        <!--android:orderInCategory="102"-->
+        <!--android:title="@string/cloud"-->
+        <!--app:showAsAction="never" />-->
 </menu>

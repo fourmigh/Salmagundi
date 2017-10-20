@@ -1,10 +1,12 @@
 package org.caojun.decidophobia.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ExpandableListView
 import kotlinx.android.synthetic.main.activity_list.*
 import org.caojun.decidophobia.R
@@ -21,6 +23,7 @@ class ChoicesListActivity: AppCompatActivity() {
     private var list: List<Options>? = null
     private var adapter: ExpandableListAdapter? = null
     private var countLongClick = 0
+    private var selectedIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,16 +57,33 @@ class ChoicesListActivity: AppCompatActivity() {
     override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
         menu?.add(0, 0, 0, R.string.delete)
+        menu?.add(0, 1, 1, R.string.share)
     }
 
     override fun onContextItemSelected(item: MenuItem?): Boolean {
         val info = item?.menuInfo as ExpandableListView.ExpandableListContextMenuInfo
         val groupPos = ExpandableListView.getPackedPositionGroup(info.packedPosition)
-        if (OptionsUtils.delete(this, list!![groupPos])) {
-            list = OptionsUtils.query(this)
-            adapter?.setData(list)
-            adapter?.notifyDataSetChanged()
-            return true
+        when (item?.itemId) {
+            0 -> {
+                if (OptionsUtils.delete(this, list!![groupPos])) {
+                    list = OptionsUtils.query(this)
+                    adapter?.setData(list)
+                    adapter?.notifyDataSetChanged()
+                    return true
+                }
+            }
+            1 -> {
+                var text = StringBuffer(list!![groupPos].title)
+                for (i in 0 until list!![groupPos].option.size) {
+                    text.append("\n" + getString(R.string.no_n, (i + 1).toString(), list!![groupPos].option[i]))
+                }
+                text.append("\n\n" + getString(R.string.which_one_to_choose))
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.putExtra(Intent.EXTRA_TEXT, text.toString())
+                intent.type = "text/plain"
+                startActivity(Intent.createChooser(intent, getString(R.string.share)));
+                return true
+            }
         }
         return super.onContextItemSelected(item)
     }

@@ -9,8 +9,8 @@ android {
         applicationId "org.caojun.decidophobia"
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 3
-        versionName "1.0.2"
+        versionCode 4
+        versionName "1.1.0"
 
     }
     buildTypes {
@@ -30,4 +30,8 @@ dependencies {
     implementation "com.j256.ormlite:ormlite-android:latest.release"
     implementation "com.github.zhaokaiqiang.klog:library:latest.release"
     implementation "org.jetbrains.anko:anko-common:latest.release"
+    repositories {
+        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
+    }
+    implementation "cn.bmob.android:bmob-sdk:latest.release"
 }

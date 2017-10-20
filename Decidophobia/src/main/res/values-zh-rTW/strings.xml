@@ -15,4 +15,8 @@
     <string name="tips_delete">長按删除，但不是這裡。</string>
     <string name="tips_delete2">說了不是這裡。</string>
     <string name="tips_delete3">怎麼還點？</string>
+    <string name="cloud">雲端</string>
+    <string name="share">分享</string>
+    <string name="which_one_to_choose">你會選哪一個？</string>
+    <string name="no_n">%s、%s</string>
 </resources>
