@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.caojun.decidophobia">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
@@ -26,6 +31,14 @@
 
         <activity android:name=".activity.ChoicesListActivity"
             android:label="@string/details" />
+
+        <activity android:name=".activity.CloudChoicesListActivity"
+            android:label="@string/cloud" />
+
+        <!-- bmob.cn -->
+        <meta-data
+            android:name="cn.bmob.v3.appid"
+            android:value="b63974c4abd02d8092bf67b66cf83dee" />
     </application>
 
 </manifest>

@@ -18,4 +18,7 @@
     <string name="cloud">Cloud</string>
     <string name="which_one_to_choose">Which one would you choose?</string>
     <string name="no_n">%s. %s</string>
+    <string name="upload">Share to Cloud</string>
+    <string name="upload_ok">Share to Cloud ok.</string>
+    <string name="upload_error">Share to Cloud error: %s</string>
 </resources>

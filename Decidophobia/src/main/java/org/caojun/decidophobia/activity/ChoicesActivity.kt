@@ -15,13 +15,18 @@ import android.view.View
 import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TableRow
+import cn.bmob.v3.BmobQuery
 import kotlinx.android.synthetic.main.activity_choices.*
 import org.caojun.decidophobia.R
+import org.caojun.decidophobia.bmob.BOptions
 import org.caojun.decidophobia.ormlite.Options
 import org.caojun.decidophobia.utils.OptionsUtils
 import org.caojun.library.Constant
 import org.caojun.library.activity.DiceActivity
 import org.caojun.library.utils.RandomUtils
+import org.jetbrains.anko.doAsync
+import rx.Subscriber
+import org.jetbrains.anko.startActivityForResult
 
 class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
@@ -29,10 +34,9 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     private val ResIdTableRow = intArrayOf(R.id.trOption1, R.id.trOption2, R.id.trOption3, R.id.trOption4, R.id.trOption5, R.id.trOption6)
     private val ResIdEditText = intArrayOf(R.id.etOption1, R.id.etOption2, R.id.etOption3, R.id.etOption4, R.id.etOption5, R.id.etOption6)
     private val ResIdExample = intArrayOf(R.array.example2, R.array.example3, R.array.example4)
+    private val RequestCode_Cloud = 2
+    private var isOnActivityResult = false
 
-//    private var etTitle: EditText? = null
-//    private var seekBar: SeekBar? = null
-//    private var btnRandom: Button? = null
     private val etOption = arrayListOf<EditText>()
     private val trOption = arrayListOf<TableRow>()
     private var menu: Menu? = null
@@ -43,7 +47,6 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choices)
 
-//        etTitle = findViewById(R.id.etTitle)
         etTitle?.addTextChangedListener(textWatcher)
 
         defaultTextSize = etTitle?.textSize?:0f
@@ -58,17 +61,19 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
             etOption.add(editText)
         }
 
-//        btnRandom = findViewById(R.id.btnRandom)
         btnRandom?.setOnClickListener {
             doRandom()
         }
 
-//        seekBar = findViewById(R.id.seekBar)
         seekBar?.setOnSeekBarChangeListener(this)
     }
 
     override fun onResume() {
         super.onResume()
+        if (isOnActivityResult) {
+            isOnActivityResult = false
+            return
+        }
         var list = OptionsUtils.query(this)
         var size = list?.size?:0
         if (size == 0) {
@@ -95,7 +100,7 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         seekBar?.progress = record.option.size - MinNumber
         etTitle?.setText(record.title)
         for (i in record.option.indices) {
-            etOption[i].setText(record?.option[i])
+            etOption[i].setText(record.option[i])
         }
     }
 
@@ -106,7 +111,11 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_choices, menu)
+//        menuInflater.inflate(R.menu.menu_choices, menu)
+
+        menu.add(0, R.id.action_history, 0, R.string.history)
+        menu.add(1, R.id.action_details, 1, R.string.details)
+        menu.add(2, R.id.action_cloud, 2, R.string.cloud)
         return true
     }
 
@@ -124,23 +133,29 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
                 startActivity(intent)
                 true
             }
+            R.id.action_cloud -> {
+                startActivityForResult<CloudChoicesListActivity>(RequestCode_Cloud)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         this.menu = menu
-        doCheckMenu()
+        readCloud()
         return super.onPrepareOptionsMenu(menu)
     }
 
     private fun doCheckMenu() {
-        for (i in 0..(menu!!.size()-1)) {
-//            if (menu?.getItem(i)?.itemId == R.id.action_history) {
+        for (i in 0 until menu!!.size()) {
+            if (menu?.getItem(i)?.itemId == R.id.action_cloud) {
+                menu?.setGroupVisible(i, CloudChoicesListActivity.list.size > 0)
+            } else {
                 var list = OptionsUtils.query(this)
-                var size = list?.size?:0
+                var size = list?.size ?: 0
                 menu?.setGroupVisible(i, size > 0)
-//            }
+            }
         }
     }
 
@@ -222,6 +237,12 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
             resizeOptions(index)
             setSelection(etOption[dice[0] - 1])
             doCheckMenu()
+            isOnActivityResult = true
+        } else if (requestCode == RequestCode_Cloud && resultCode == Activity.RESULT_OK && data != null) {
+            val options = data.getSerializableExtra("options") as Options
+            doSelectOptions(options)
+            doCheckMenu()
+            isOnActivityResult = true
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
@@ -234,12 +255,16 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         AlertDialog.Builder(this)
                 .setTitle(R.string.history)
                 .setItems(items) { _, which ->
-                    initOptions(options!![which])
-                    resizeOptions(-1)
-                    etTitle?.requestFocus()
-                    setSelection(etTitle!!)
+                    doSelectOptions(options!![which])
                 }
                 .create().show()
+    }
+
+    private fun doSelectOptions(record: Options) {
+        initOptions(record)
+        resizeOptions(-1)
+        etTitle?.requestFocus()
+        setSelection(etTitle!!)
     }
 
     private fun resizeOptions(index: Int) {
@@ -254,6 +279,48 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
             } else {
                 etOption[i].setTextSize(TypedValue.COMPLEX_UNIT_PX, defaultTextSize * 0.5f)
             }
+        }
+    }
+
+    private fun readCloud() {
+        doAsync {
+            val bmobQuery = BmobQuery<BOptions>()
+//            val isCache = bmobQuery.hasCachedResult(BOptions::class.java)
+//            if (isCache) {
+//                bmobQuery.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK)    // 先从缓存取数据，如果没有的话，再从网络取。
+//            } else {
+//                bmobQuery.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE)    // 如果没有缓存的话，则先从网络中取
+//            }
+            bmobQuery.cachePolicy = BmobQuery.CachePolicy.NETWORK_ELSE_CACHE
+            bmobQuery.findObjectsObservable(BOptions::class.java!!)
+                    .subscribe(object : Subscriber<List<BOptions>>() {
+                        override fun onCompleted() {
+                            doCheckMenu()
+                        }
+
+                        override fun onError(e: Throwable) {
+                            doCheckMenu()
+                        }
+
+                        override fun onNext(persons: List<BOptions>) {
+                            CloudChoicesListActivity.list.clear()
+
+                            val cache = ArrayList<String>()
+                            for (i in 0 until persons.size) {
+                                var sb = StringBuffer(persons[i].title)
+                                for (j in 0 until persons[i].option.size) {
+                                    sb.append(persons[i].option[j])
+                                }
+                                val person = sb.toString()
+                                if (person in cache) {
+                                    continue
+                                }
+                                CloudChoicesListActivity.list.add(persons[i])
+                                cache.add(person)
+                            }
+                            doCheckMenu()
+                        }
+                    })
         }
     }
 }

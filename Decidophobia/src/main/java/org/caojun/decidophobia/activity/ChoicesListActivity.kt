@@ -8,11 +8,16 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ExpandableListView
+import cn.bmob.v3.exception.BmobException
+import cn.bmob.v3.listener.SaveListener
+import com.socks.library.KLog
 import kotlinx.android.synthetic.main.activity_list.*
 import org.caojun.decidophobia.R
 import org.caojun.decidophobia.adapter.ExpandableListAdapter
+import org.caojun.decidophobia.bmob.BOptions
 import org.caojun.decidophobia.ormlite.Options
 import org.caojun.decidophobia.utils.OptionsUtils
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 
 /**
@@ -57,6 +62,7 @@ class ChoicesListActivity: AppCompatActivity() {
         super.onCreateContextMenu(menu, v, menuInfo)
         menu?.add(0, 0, 0, R.string.delete)
         menu?.add(0, 1, 1, R.string.share)
+        menu?.add(0, 2, 2, R.string.upload)
     }
 
     override fun onContextItemSelected(item: MenuItem?): Boolean {
@@ -82,6 +88,21 @@ class ChoicesListActivity: AppCompatActivity() {
                 intent.type = "text/plain"
                 startActivity(Intent.createChooser(intent, getString(R.string.share)));
                 return true
+            }
+            2 -> {
+                doAsync {
+                    val bOptions = BOptions(list!![groupPos])
+                    bOptions.save(object : SaveListener<String>() {
+
+                        override fun done(o: String, e: BmobException?) {
+                            if (e == null) {
+                                toast(R.string.upload_ok)
+                            } else {
+                                toast(getString(R.string.upload_error, e.toString()))
+                            }
+                        }
+                    })
+                }
             }
         }
         return super.onContextItemSelected(item)

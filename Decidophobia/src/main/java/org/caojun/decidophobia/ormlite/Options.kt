@@ -1,6 +1,6 @@
 package org.caojun.decidophobia.ormlite
 
-import android.text.TextUtils
+import java.io.Serializable
 import com.j256.ormlite.field.DataType
 import com.j256.ormlite.field.DatabaseField
 import com.j256.ormlite.table.DatabaseTable
@@ -9,7 +9,7 @@ import com.j256.ormlite.table.DatabaseTable
  * Created by CaoJun on 2017/8/16.
  */
 @DatabaseTable
-class Options() {
+class Options(): Serializable {
 
     @DatabaseField(id = true)
     var title: String = ""

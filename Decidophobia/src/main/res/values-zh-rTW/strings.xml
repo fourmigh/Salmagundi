@@ -19,4 +19,7 @@
     <string name="share">分享</string>
     <string name="which_one_to_choose">你會選哪一個？</string>
     <string name="no_n">%s、%s</string>
+    <string name="upload">分享到雲端</string>
+    <string name="upload_ok">分享到雲端成功。</string>
+    <string name="upload_error">分享到雲端失敗：%s</string>
 </resources>

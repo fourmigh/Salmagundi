@@ -30,9 +30,7 @@ open class BaseActivity: AppCompatActivity() {
         this.onDatabaseListener = onDatabaseListener
     }
 
-    fun getDecibelInfos(): List<DecibelInfo> {
-        return DecibelInfoDatabase.getDatabase(this).getDao().queryAll()
-    }
+    fun getDecibelInfos(): List<DecibelInfo> = DecibelInfoDatabase.getDatabase(this).getDao().queryAll()
 
     fun alertSaveDecibelInfo() {
         val settings = PreferenceManager.getDefaultSharedPreferences(this)
