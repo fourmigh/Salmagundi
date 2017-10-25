@@ -5,9 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.socks.library.KLog;
 
-import org.caojun.library.VelocimeterView;
+import org.caojun.library.widget.VelocimeterView;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 

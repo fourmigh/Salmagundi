@@ -1,4 +1,4 @@
-package org.caojun.library
+package org.caojun.library.widget
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -8,9 +8,9 @@ import android.graphics.Color
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Interpolator
+import org.caojun.library.R
 import org.caojun.library.painter.bottom.BottomVelocimeterPainter
 import org.caojun.library.painter.bottom.BottomVelocimeterPainterImp
 import org.caojun.library.painter.digital.Digital
