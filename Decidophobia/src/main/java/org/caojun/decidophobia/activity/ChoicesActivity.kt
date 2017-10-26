@@ -25,6 +25,7 @@ import org.caojun.library.Constant
 import org.caojun.library.activity.DiceActivity
 import org.caojun.library.utils.RandomUtils
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.startActivity
 import rx.Subscriber
 import org.jetbrains.anko.startActivityForResult
 
@@ -66,6 +67,8 @@ class ChoicesActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         }
 
         seekBar?.setOnSeekBarChangeListener(this)
+
+//        startActivity<CarouselActivity>()
     }
 
     override fun onResume() {

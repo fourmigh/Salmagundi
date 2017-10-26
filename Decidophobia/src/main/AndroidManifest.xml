@@ -35,6 +35,9 @@
         <activity android:name=".activity.CloudChoicesListActivity"
             android:label="@string/cloud" />
 
+        <activity android:name=".activity.CarouselActivity"
+            android:label="@string/app_name" />
+
         <!-- bmob.cn -->
         <meta-data
             android:name="cn.bmob.v3.appid"
