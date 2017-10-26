@@ -1,2 +1,2 @@
-include ':app', ':BloodPressure', ':CameraColor', ':RandomChineseName', ':Decidophobia', ':DiceLibrary', ':CalendarLibrary', ':Signman', ':WidgetLibrary', ':VelocimeterLibrary', ':Decibelman', ':UtilsLibrary', ':Morseman'
+include ':app', ':BloodPressure', ':CameraColor', ':RandomChineseName', ':Decidophobia', ':DiceLibrary', ':CalendarLibrary', ':Signman', ':WidgetLibrary', ':VelocimeterLibrary', ':Decibelman', ':UtilsLibrary', ':Morseman', ':CarouselLibrary'
 include ':zxing'
