@@ -3,16 +3,7 @@ package org.caojun.decibelman.utils
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
-import android.content.pm.ActivityInfo
-import android.content.pm.ApplicationInfo
-import android.content.pm.ServiceInfo
 import android.content.ComponentName
-
-
-
-
-
-
 
 /**
  * Created by CaoJun on 2017/9/29.

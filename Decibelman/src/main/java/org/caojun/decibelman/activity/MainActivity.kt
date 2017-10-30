@@ -19,7 +19,6 @@ import org.jetbrains.anko.startActivity
 import java.util.Date
 import org.caojun.decibelman.utils.ActivityUtils
 
-
 class MainActivity : AppCompatActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->

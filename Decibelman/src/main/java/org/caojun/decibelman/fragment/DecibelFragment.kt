@@ -21,7 +21,6 @@ import com.github.mikephil.charting.components.Legend.LegendForm
 import org.caojun.decibelman.Constant
 import org.caojun.decibelman.activity.MainActivity
 
-
 /**
  * Created by CaoJun on 2017/9/13.
  */

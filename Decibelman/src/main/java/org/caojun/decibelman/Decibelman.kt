@@ -3,7 +3,7 @@ package org.caojun.decibelman
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
-import com.socks.library.KLog
+//import com.socks.library.KLog
 import org.caojun.decibelman.activity.MainActivity
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -38,10 +38,10 @@ class Decibelman {
                     SAMPLE_RATE_IN_HZ, AudioFormat.CHANNEL_IN_DEFAULT,
                     AudioFormat.ENCODING_PCM_16BIT, BUFFER_SIZE)
         } catch (e: Exception) {
-            KLog.d("AudioRecord", "Exception: " + e.toString())
+//            KLog.d("AudioRecord", "Exception: " + e.toString())
         }
         if (mAudioRecord == null) {
-            KLog.d("mAudioRecord", "mAudioRecord: null")
+//            KLog.d("mAudioRecord", "mAudioRecord: null")
             return
         }
         isGetVoiceRun = true
@@ -70,7 +70,7 @@ class Decibelman {
                     }
                 } else {
                     uiThread {
-                        KLog.d("askRecordAudioPermission", "askRecordAudioPermission")
+//                        KLog.d("askRecordAudioPermission", "askRecordAudioPermission")
                         activity?.askRecordAudioPermission()
                     }
                     stop()

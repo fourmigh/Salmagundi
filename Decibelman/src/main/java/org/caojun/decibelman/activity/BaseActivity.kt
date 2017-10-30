@@ -1,11 +1,10 @@
 package org.caojun.decibelman.activity
 
-import android.app.Activity
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.SaveListener
-import com.socks.library.KLog
+//import com.socks.library.KLog
 import org.caojun.decibelman.Constant
 import org.caojun.decibelman.R
 import org.caojun.decibelman.room.DIBmob
@@ -73,11 +72,11 @@ open class BaseActivity: AppCompatActivity() {
             diBmob.save(object : SaveListener<String>() {
 
                 override fun done(o: String, e: BmobException?) {
-                    if (e == null) {
-                        KLog.d(javaClass.name, "Bomb saved ok")
-                    } else {
-                        KLog.d(javaClass.name, "Bomb saved error: " + e.toString())
-                    }
+//                    if (e == null) {
+//                        KLog.d(javaClass.name, "Bomb saved ok")
+//                    } else {
+//                        KLog.d(javaClass.name, "Bomb saved error: " + e.toString())
+//                    }
                 }
             })
             onDatabaseListener?.onSuccess()
