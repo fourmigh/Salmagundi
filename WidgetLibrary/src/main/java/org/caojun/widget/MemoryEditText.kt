@@ -65,7 +65,7 @@ class MemoryEditText: AppCompatEditText, View.OnFocusChangeListener, TextWatcher
         addTextChangedListener(this)
 
         val count = attrs?.attributeCount ?: 0
-        for (i in 0..(count - 1)) {
+        for (i in 0 until count) {
             val attributeName = attrs!!.getAttributeName(i)
             val value = attrs.getAttributeValue(i)
             if (attributeName == "text") {
@@ -111,7 +111,7 @@ class MemoryEditText: AppCompatEditText, View.OnFocusChangeListener, TextWatcher
         array.add(0, text)
         val size = array.size
         val sb = StringBuffer(size)
-        for (i in 0..(size - 1)) {
+        for (i in 0 until size) {
             if (i > 0) {
                 sb.append(Separator)
             }
@@ -133,9 +133,10 @@ class MemoryEditText: AppCompatEditText, View.OnFocusChangeListener, TextWatcher
             return
         }
         val strings = text.split(Separator.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        for (i in strings.indices) {
-            array.add(strings[i])
-        }
+//        for (i in strings.indices) {
+//            array.add(strings[i])
+//        }
+        strings.indices.mapTo(array) { strings[it] }
     }
 
     private fun getString(context: Context, value: String): String {
