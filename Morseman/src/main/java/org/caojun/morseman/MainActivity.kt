@@ -57,19 +57,17 @@ class MainActivity : AppCompatActivity() {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        cameraView.setOnColorStatusChange(object : OnColorStatusChange {
-            override fun onColorChange(color: Int) {
-                MorseUtils.addColor(color, object: MorseUtils.OnMorseListener {
-                    override fun onMorse(array: Array<String?>) {
-                        if (array[0] != null) {
-                            tvMorse.text.append(array[0])
-                        }
-                        if (array[1] != null) {
-                            tvOriginal.text.append(array[1])
-                        }
+        cameraView.setOnColorStatusChange(OnColorStatusChange { color ->
+            MorseUtils.addColor(color, object: MorseUtils.OnMorseListener {
+                override fun onMorse(array: Array<String?>) {
+                    if (array[0] != null) {
+                        tvMorse.text.append(array[0])
                     }
-                })
-            }
+                    if (array[1] != null) {
+                        tvOriginal.text.append(array[1])
+                    }
+                }
+            })
         })
 
         initTranslate()

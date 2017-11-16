@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">计算侠</string>
+    <string name="action_settings">设置</string>
+    <string name="moves">步数:%s</string>
+    <string name="goal">目标:%s</string>
+</resources>
