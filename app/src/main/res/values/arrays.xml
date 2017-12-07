@@ -1227,4 +1227,57 @@
         <item>铁</item>
         <item>迮</item>
     </string-array>
+
+    <!--移动号段-->
+    <string-array name="section_cm">
+        <item>139</item>
+        <item>138</item>
+        <item>137</item>
+        <item>136</item>
+        <item>135</item>
+        <item>134</item>
+        <item>147</item>
+        <item>150</item>
+        <item>151</item>
+        <item>152</item>
+        <item>157</item>
+        <item>158</item>
+        <item>159</item>
+        <item>178</item>
+        <item>182</item>
+        <item>183</item>
+        <item>184</item>
+        <item>187</item>
+        <item>188</item>
+    </string-array>
+
+    <!--联通号段-->
+    <string-array name="section_cu">
+        <item>130</item>
+        <item>131</item>
+        <item>132</item>
+        <item>155</item>
+        <item>156</item>
+        <item>185</item>
+        <item>186</item>
+        <item>145</item>
+        <item>176</item>
+    </string-array>
+
+    <!--电信号段-->
+    <string-array name="section_ct">
+        <item>133</item>
+        <item>153</item>
+        <item>177</item>
+        <item>173</item>
+        <item>180</item>
+        <item>181</item>
+        <item>189</item>
+    </string-array>
+
+    <!--虚拟运营商号段-->
+    <string-array name="section_vno">
+        <item>170</item>
+        <item>171</item>
+    </string-array>
 </resources>

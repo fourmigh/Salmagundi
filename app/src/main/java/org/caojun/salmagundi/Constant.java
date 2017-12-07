@@ -48,6 +48,7 @@ public class Constant {
     public static final String ACTIVITY_CALENDAR_MONTH = "/activity/calendar/month";
     public static final String ACTIVITY_DECIBELMAN = "/activity/decibelman";
     public static final String ACTIVITY_GYROSCOPE = "/activity/gyroscope";
+    public static final String ACTIVITY_TYPEWRITING = "/activity/typewriting";
 
     public static final int EXTRAS_LOGIN = 0x00000001;//需要登录
 }

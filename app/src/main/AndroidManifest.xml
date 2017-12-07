@@ -128,6 +128,8 @@
             android:label="@string/gyroscope_title" />
         <activity android:name=".gyroscope.GyroscopeKotlinActivity"
             android:label="@string/gyroscope_title" />
+        <activity android:name=".typewriting.MobileInputActivity"
+            android:label="@string/tw_title" />
     </application>
 
 </manifest>

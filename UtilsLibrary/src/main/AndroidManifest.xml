@@ -1,2 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.caojun.utils" />
+    package="org.caojun.utils" >
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+</manifest>

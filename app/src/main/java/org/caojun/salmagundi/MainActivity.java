@@ -46,6 +46,7 @@ import org.caojun.salmagundi.sysinfo.SysinfoActivity;
 import org.caojun.salmagundi.taxicab.TaxicabActivity;
 import org.caojun.salmagundi.textart.TextArtActivity;
 import org.caojun.salmagundi.today.TodayActivity;
+import org.caojun.salmagundi.typewriting.MobileInputActivity;
 import org.caojun.salmagundi.utils.DataStorageUtils;
 
 public class MainActivity extends Activity {
@@ -74,7 +75,8 @@ public class MainActivity extends Activity {
             R.drawable.icon_family,
             R.drawable.icon_sort,
             R.drawable.icon_decibelman,
-            R.drawable.icon_gyroscope
+            R.drawable.icon_gyroscope,
+            R.drawable.icon_typewriting
     };
     private final Integer[] mTextIds = {
             R.string.bp_title,
@@ -100,7 +102,8 @@ public class MainActivity extends Activity {
             R.string.fa_title,
             R.string.ss_title,
             R.string.dm_title,
-            R.string.gyroscope_title
+            R.string.gyroscope_title,
+            R.string.tw_title
     };
     private final Class[] mActivitys = {
             BloodPressureActivity.class,
@@ -126,7 +129,8 @@ public class MainActivity extends Activity {
             FamilyActivity.class,
             StringSortDemo.class,
             DecibelmanActivity.class,
-            GyroscopeActivity.class
+            GyroscopeActivity.class,
+            MobileInputActivity.class
     };
     private final String[] mARouterPaths = {
             Constant.ACTIVITY_BLOODPRESSURE,
@@ -152,7 +156,8 @@ public class MainActivity extends Activity {
             Constant.ACTIVITY_FAMILY,
             Constant.ACTIVITY_STRINGSORT_DEMO,
             Constant.ACTIVITY_DECIBELMAN,
-            Constant.ACTIVITY_GYROSCOPE
+            Constant.ACTIVITY_GYROSCOPE,
+            Constant.ACTIVITY_TYPEWRITING
     };
 
     @Override

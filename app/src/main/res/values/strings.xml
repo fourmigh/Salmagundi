@@ -209,4 +209,7 @@
     <string name="down">下</string>
     <string name="left">左</string>
     <string name="right">右</string>
+    
+    <!-- 输入法 -->
+    <string name="tw_title">输入法</string>
 </resources>
