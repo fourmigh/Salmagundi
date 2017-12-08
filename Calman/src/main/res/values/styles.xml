@@ -22,7 +22,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:padding">@dimen/padding</item>
-        <item name="android:textSize">32sp</item>
+        <item name="android:textSize">24sp</item>
     </style>
 
     <style name="Calculator_TextView">

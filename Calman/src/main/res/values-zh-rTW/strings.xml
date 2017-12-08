@@ -2,6 +2,9 @@
 <resources>
     <string name="app_name">計算俠</string>
     <string name="action_settings">設定</string>
-    <string name="moves">步數:%s</string>
-    <string name="goal">目標:%s</string>
+    <string name="moves">步數：%s</string>
+    <string name="goal">目標：%s</string>
+    <string name="hints">提示%s</string>
+    <string name="add_hints">新增提示</string>
+    <string name="error">錯誤</string>
 </resources>

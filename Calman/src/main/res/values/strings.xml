@@ -3,4 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="moves">MOVES:%s</string>
     <string name="goal">GOAL:%s</string>
+    <string name="hints">HINTS:%s</string>
+    <string name="add_hints">ADD HINTS</string>
+    <string name="error">ERROR</string>
 </resources>

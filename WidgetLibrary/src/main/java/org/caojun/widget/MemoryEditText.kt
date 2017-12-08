@@ -175,7 +175,7 @@ class MemoryEditText: AppCompatEditText, View.OnFocusChangeListener, TextWatcher
                         val strings = array.toArray(arrayOfNulls<String>(array.size))
                         AlertDialog.Builder(context)
                                 .setTitle(hint)
-                                .setItems(strings) { dialog, which ->
+                                .setItems(strings) { _, which ->
                                     this@MemoryEditText.setText(strings[which])
                                     this@MemoryEditText.setSelection(strings[which]?.length?:0)
                                 }
