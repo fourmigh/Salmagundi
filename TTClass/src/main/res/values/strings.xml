@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">TT Classes</string>
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="start_time">Start</string>
+    <string name="end_time">End</string>
+    <string name="teacher_name">Teacher Name</string>
+    <string name="mobile">Mobile</string>
+    <string name="no_wechat">No WeChat</string>
+    <string name="added_wechat">WeChat Added</string>
+    <string name="contact">Contact</string>
+    <string name="institute">Institute</string>
+    <string name="detail">Detail</string>
+    <string name="sign">Sign</string>
+    <string name="renewal">Renewal</string>
+    <string name="note">Note</string>
+    <string name="teacher">Teacher</string>
+    <string name="schedule">Schedule</string>
+    <string name="payment">Payment</string>
+    <string name="remainder">Remainder</string>
+    <string name="grade_remark">Grade/Remark</string>
+    <string name="class_name">Class Name</string>
+    <string name="colon">: </string>
+    <string name="time">Time</string>
+    <string name="amount">Amount</string>
+    <string name="times">Times</string>
+    <string name="sum">Sum: %s</string>
+    <string name="average">Average: %s</string>
+    <string name="address">Address</string>
+    <string name="private_teacher">Private Teacher</string>
+</resources>

@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "$buildTools_version"
+
+    defaultConfig {
+        applicationId "org.caojun.ttclass"
+        minSdkVersion 17
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$androidsupport_version"
+    implementation 'com.android.support.constraint:constraint-layout:latest.release'
+    implementation "com.android.support:design:$androidsupport_version"
+    implementation project(':WidgetLibrary')
+    implementation "com.github.zhaokaiqiang.klog:library:latest.release"
+    implementation "org.jetbrains.anko:anko-common:latest.release"
+    implementation "android.arch.persistence.room:runtime:$googleroom_version"
+    implementation "android.arch.lifecycle:extensions:$googleroom_version"
+    annotationProcessor "android.arch.lifecycle:compiler:$googleroom_version"
+    kapt "android.arch.persistence.room:compiler:$googleroom_version"
+}

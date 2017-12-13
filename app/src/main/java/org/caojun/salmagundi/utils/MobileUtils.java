@@ -22,8 +22,8 @@ public class MobileUtils {
     private static class SortComparator implements Comparator {
         @Override
         public int compare(Object lhs, Object rhs) {
-            int a = Integer.valueOf((String)lhs);
-            int b = Integer.valueOf((String)rhs);
+            int a = Integer.valueOf((String) lhs);
+            int b = Integer.valueOf((String) rhs);
             return a - b;
         }
     }
@@ -33,7 +33,13 @@ public class MobileUtils {
     public static final byte ChinaTelecom = 2;
     public static final byte VNO = 3;
     private static String[][] sections;
-    private static String[] AllNumbers = new String[]{"0","1","2","3","4","5","6","7","8","9"};
+    private static String[] AllNumbers = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    private static String[][] Sections = {
+            {"139", "138", "137", "136", "135", "134", "147", "150", "151", "152", "157", "158", "159", "178", "182", "183", "184", "187", "188"},//ChinaMobile
+            {"130", "131", "132", "155", "156", "185", "186", "145", "176"},//ChinaUnicom
+            {"133", "153", "177", "173", "180", "181", "189"},//ChinaTelecom
+            {"170", "171"}//VNO
+    };
 
     private static void initialize(Context context) {
         sections = new String[VNO + 1][];
@@ -45,6 +51,7 @@ public class MobileUtils {
 
     /**
      * 接下来可输入的号段
+     *
      * @param context
      * @param number
      * @return
@@ -60,8 +67,8 @@ public class MobileUtils {
             initialize(context);
         }
         ArrayList<Byte> list = new ArrayList<>();
-        for (byte i = 0;i < sections.length;i ++) {
-            for (int j = 0;j < sections[i].length;j ++) {
+        for (byte i = 0; i < sections.length; i++) {
+            for (int j = 0; j < sections[i].length; j++) {
                 if (sections[i][j].indexOf(number) == 0) {
                     list.add(i);
                     break;
@@ -73,7 +80,7 @@ public class MobileUtils {
             return null;
         }
         byte[] bytes = new byte[size];
-        for (int i = 0;i < size;i ++) {
+        for (int i = 0; i < size; i++) {
             bytes[i] = list.get(i);
         }
         return bytes;
@@ -81,6 +88,7 @@ public class MobileUtils {
 
     /**
      * 接下来要输入第几位号码
+     *
      * @param number
      * @return
      */
@@ -97,6 +105,7 @@ public class MobileUtils {
 
     /**
      * 接下来可输入的数字
+     *
      * @param context
      * @param number
      * @return
@@ -117,8 +126,8 @@ public class MobileUtils {
         if (sections == null) {
             initialize(context);
         }
-        for (int i = 0;i < types.length;i ++) {
-            for (int j = 0;j < sections[types[i]].length;j ++) {
+        for (int i = 0; i < types.length; i++) {
+            for (int j = 0; j < sections[types[i]].length; j++) {
                 if (sections[types[i]][j].indexOf(number) == 0) {
                     String s = sections[types[i]][j].substring(position, position + 1);
                     set.add(s);
@@ -130,7 +139,7 @@ public class MobileUtils {
             list.add(s);
         }
         Comparator comp = new SortComparator();
-        Collections.sort(list,comp);
+        Collections.sort(list, comp);
         return list.toArray(new String[list.size()]);
     }
 }

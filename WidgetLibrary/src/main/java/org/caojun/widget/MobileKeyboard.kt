@@ -12,13 +12,9 @@ import android.widget.TableLayout
 import org.caojun.utils.MobileUtils
 
 /**
- * Created by CaoJun on 2017/9/21.
+ * Created by CaoJun on 2017-12-8.
  */
-class DigitalKeyboard: TableLayout, View.OnClickListener {
-
-    interface OnClickListener {
-        fun onClick(key: Int): Boolean
-    }
+class MobileKeyboard: TableLayout, View.OnClickListener {
 
     val Key0 = 0
     val Key1 = 1
@@ -30,23 +26,18 @@ class DigitalKeyboard: TableLayout, View.OnClickListener {
     val Key7 = 7
     val Key8 = 8
     val Key9 = 9
-    val KeyDot = 10
-    val KeyDelete = 11
-    val KeyPrevious = 12
-    val KeyNext = 13
-    val KeyClose = 14
-    private val StringResId = intArrayOf(R.string.dk_0, R.string.dk_1, R.string.dk_2, R.string.dk_3, R.string.dk_4, R.string.dk_5, R.string.dk_6, R.string.dk_7, R.string.dk_8, R.string.dk_9, R.string.dk_dot)
-    private val ResId = intArrayOf(R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.btnDot, R.id.btnDel, R.id.btnPrevious, R.id.btnNext, R.id.btnClose)
+    val KeyDelete = 10
+    val KeyClose = 11
+    private val StringResId = intArrayOf(R.string.dk_0, R.string.dk_1, R.string.dk_2, R.string.dk_3, R.string.dk_4, R.string.dk_5, R.string.dk_6, R.string.dk_7, R.string.dk_8, R.string.dk_9)
+    private val ResId = intArrayOf(R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.btnDel, R.id.btnClose)
     private var buttons: Array<Button?>
     private var editText: EditText? = null
-    private var onClickListener: OnClickListener? = null
     private var inputType: Int = 0
-    private var isMobile = false
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
         val inflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        inflater.inflate(R.layout.digital_keyboard, this)
+        inflater.inflate(R.layout.mobile_keyboard, this)
 
         buttons = arrayOfNulls(ResId.size)
         for (i in ResId.indices) {
@@ -57,35 +48,15 @@ class DigitalKeyboard: TableLayout, View.OnClickListener {
         visibility = View.GONE
     }
 
-    fun setOnClickListener(onClickListener: OnClickListener?) {
-        this.onClickListener = onClickListener
-        buttons[KeyPrevious]?.isEnabled = onClickListener != null
-        buttons[KeyNext]?.isEnabled = onClickListener != null
-    }
-
-    fun setPreviousEnabled(enabled: Boolean) {
-        buttons[KeyPrevious]?.isEnabled = enabled
-    }
-
-    fun setNextEnabled(enabled: Boolean) {
-        buttons[KeyNext]?.isEnabled = enabled
-    }
-
     fun setEditText(editText: EditText) {
         resetEditText()
 
         this.editText = editText
 
-        buttons[KeyDot]?.isEnabled = (editText.inputType and InputType.TYPE_NUMBER_FLAG_DECIMAL) == InputType.TYPE_NUMBER_FLAG_DECIMAL
-
-        if (editText.inputType and InputType.TYPE_CLASS_PHONE == InputType.TYPE_CLASS_PHONE) {
-            isMobile = true
-        }
-
         inputType = editText.inputType
         editText.inputType = InputType.TYPE_NULL
 
-        setMotileButtons()
+        setButtons()
 
         visibility = View.VISIBLE
     }
@@ -103,7 +74,7 @@ class DigitalKeyboard: TableLayout, View.OnClickListener {
         editText?.setText(text)
         editText?.setSelection(editText?.text.toString().length)
 
-        setMotileButtons()
+        setButtons()
     }
 
     override fun onClick(v: View?) {
@@ -112,20 +83,8 @@ class DigitalKeyboard: TableLayout, View.OnClickListener {
         }
         for (i in ResId.indices) {
             if (v?.id == ResId[i]) {
-                if (i <= KeyDot) {
+                if (i <= Key9) {
                     var text = editText?.text.toString()
-                    if (i == KeyDot && text.contains(".")) {
-                        //不能输入多个“.”
-                        return
-                    }
-                    if (text == ".") {
-                        //第一个字符为“.”，前面补0
-                        text = 0.toString() + text
-                    }
-                    if (!TextUtils.isEmpty(text) && text.indexOf(".") < 0 && text.toInt() == 0 && i >= Key1 && i <= Key9) {
-                        //数值为0，且没有“.”，再输入数字时，将0清除
-                        text = ""
-                    }
                     text += context.getString(StringResId[i])
                     setEditTextContent(text)
                 } else {
@@ -137,10 +96,6 @@ class DigitalKeyboard: TableLayout, View.OnClickListener {
                                 setEditTextContent(text)
                             }
                         }
-                        KeyPrevious, KeyNext -> if (onClickListener != null) {
-                            close()
-                            buttons[i]?.isEnabled = onClickListener!!.onClick(i)
-                        }
                         KeyClose -> close()
                     }
                 }
@@ -149,16 +104,11 @@ class DigitalKeyboard: TableLayout, View.OnClickListener {
         }
     }
 
-    private fun setMotileButtons() {
-        if (!isMobile) {
-            return
-        }
+    private fun setButtons() {
         for (i in ResId.indices) {
-            if (i >= KeyPrevious) {
-                break
-            }
             buttons[i]?.isEnabled = false
         }
+        buttons[KeyClose]?.isEnabled = true
         if (editText == null) {
             return
         }
