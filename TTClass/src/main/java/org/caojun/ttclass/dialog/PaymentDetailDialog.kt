@@ -34,7 +34,7 @@ class PaymentDetailDialog: AlertDialog, DialogInterface.OnClickListener, NumberP
         setButton(DialogInterface.BUTTON_NEGATIVE, context.getString(android.R.string.cancel), this);
 
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = inflater.inflate(R.layout.dialog_payment_detail, null)
+        val view = inflater.inflate(R.layout.dialog_bill_detail, null)
         setView(view)
         mEditText = view.findViewById(R.id.editText)
         mNumberPicker = view.findViewById(R.id.numberPicker)

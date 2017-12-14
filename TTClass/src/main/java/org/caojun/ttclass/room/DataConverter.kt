@@ -2,6 +2,7 @@ package org.caojun.ttclass.room
 
 import android.arch.persistence.room.TypeConverter
 import android.text.TextUtils
+import java.util.*
 
 /**
  * Created by CaoJun on 2017-12-12.
@@ -46,5 +47,15 @@ class DataConverter {
             }
         }
         return schedule
+    }
+
+    @TypeConverter
+    fun date2Long(date: Date): Long {
+        return date.time
+    }
+
+    @TypeConverter
+    fun long2Date(date: Long): Date {
+        return Date(date)
     }
 }

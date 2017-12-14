@@ -108,12 +108,13 @@
                         android:text="@string/payment" />
 
                     <Button
+                        android:id="@+id/btnBillList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/detail" />
 
                     <Button
-                        android:id="@+id/btnPaymentDetail"
+                        android:id="@+id/btnBillDetail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/renewal" />

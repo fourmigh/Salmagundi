@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.NumberPicker
 import android.widget.TableRow
+import com.socks.library.KLog
 import kotlinx.android.synthetic.main.activity_iclass_detail.*
 import kotlinx.android.synthetic.main.layout_confirm.*
 import org.caojun.dialog.NumberPickerDialog
@@ -16,6 +17,7 @@ import org.caojun.ttclass.R
 import org.caojun.ttclass.dialog.PaymentDetailDialog
 import org.caojun.ttclass.room.*
 import org.jetbrains.anko.*
+import java.util.*
 
 class IClassDetailActivity : AppCompatActivity() {
 
@@ -37,10 +39,14 @@ class IClassDetailActivity : AppCompatActivity() {
             }, 99, 1, current).show()
         }
 
-        btnPaymentDetail.setOnClickListener {
+        btnBillList.setOnClickListener {
+            startActivity<BillListActivity>(Constant.Key_ClassID to iClass?.id)
+        }
+
+        btnBillDetail.setOnClickListener {
             PaymentDetailDialog(this, NumberPicker.OnValueChangeListener { _, amount, number ->
-                //TODO
-            }, 99, 1, 0).show()
+                addBill(amount, number)
+            }, 99, 1, 1).show()
         }
 
         btnName.setOnClickListener {
@@ -87,23 +93,26 @@ class IClassDetailActivity : AppCompatActivity() {
         }
 
         doAsync {
-            val list = TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().query(iClass!!.id)
+            val idClass = iClass!!.id
+            val list = TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().query(idClass)
             signs.clear()
             if (list.isNotEmpty()) {
                 signs.addAll(list)
             }
+            val bills = TTCDatabase.getDatabase(this@IClassDetailActivity).getBill().query(idClass)
             uiThread {
                 btnNote.isEnabled = signs.size > 0
+                etName.setText(iClass?.name)
+                etGrade.setText(iClass?.grade)
+                btnSign.isEnabled = iClass?.reminder?:0 > 0
+                btnSchool.isEnabled = iClass?.idTeacher?:-1 >= 0
+                btnRemainder.text = iClass?.reminder.toString()
+                btnBillList.isEnabled = bills.isNotEmpty()
+
+                setNameEdit(isEdit)
+                setGradeEdit(isEdit)
             }
         }
-
-        etName.setText(iClass?.name)
-        etGrade.setText(iClass?.grade)
-        btnSign.isEnabled = iClass?.reminder?:0 > 0
-        btnSchool.isEnabled = iClass?.idTeacher?:-1 >= 0
-
-        setNameEdit(isEdit)
-        setGradeEdit(isEdit)
     }
 
     private fun setNameEdit(isEdit: Boolean) {
@@ -191,5 +200,24 @@ class IClassDetailActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         doCancel()
+    }
+
+    /**
+     * 续费
+     * amount：金额，单位分
+     * number：次数
+     */
+    private fun addBill(amount: Int, number: Int) {
+        doAsync {
+            val iclass = iClass!!
+            val bill = Bill()
+            bill.idClass = iclass.id
+            bill.amount = (amount / 100).toFloat()
+            bill.times = number
+            TTCDatabase.getDatabase(this@IClassDetailActivity).getBill().insert(bill)
+            iclass.reminder += number
+            TTCDatabase.getDatabase(this@IClassDetailActivity).getIClass().update(iclass)
+            refreshUI(isAdd)
+        }
     }
 }

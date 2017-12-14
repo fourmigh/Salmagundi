@@ -22,7 +22,7 @@
     <string name="note">学习笔记</string>
     <string name="teacher">老师信息</string>
     <string name="schedule">课时安排</string>
-    <string name="payment">缴费记录</string>
+    <string name="payment">支付记录</string>
     <string name="remainder">剩余次数</string>
     <string name="grade_remark">等级/备注</string>
     <string name="class_name">兴趣班名称</string>
@@ -30,8 +30,8 @@
     <string name="time">时间</string>
     <string name="amount">金额</string>
     <string name="times">次数</string>
-    <string name="sum">总金额（元）：%s</string>
-    <string name="average">平均（元/次）：%s</string>
+    <string name="sum">总金额：%s</string>
+    <string name="average">平均：%s</string>
     <string name="address">地址</string>
     <string name="private_teacher">私人教师</string>
     <string name="add_class">添加</string>

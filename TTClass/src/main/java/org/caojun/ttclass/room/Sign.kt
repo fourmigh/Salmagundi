@@ -6,6 +6,7 @@ import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
+import java.util.*
 
 /**
  * Created by CaoJun on 2017-12-12.
@@ -17,22 +18,26 @@ class Sign: Parcelable {
     var id: Int = 0
 
     var idClass: Int = -1
-    var time: Long = 0
+    var time: Date = Date()
     var note: String = ""
 
     constructor()
     constructor(_in: Parcel): this() {
         id = _in.readInt()
         idClass = _in.readInt()
-        time = _in.readLong()
         note = _in.readString()
+
+        var dataConverter = DataConverter()
+        time = dataConverter.long2Date(_in.readLong())
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeInt(id)
         dest.writeInt(idClass)
-        dest.writeLong(time)
         dest.writeString(note)
+
+        var dataConverter = DataConverter()
+        dest.writeLong(dataConverter.date2Long(time))
     }
 
     override fun describeContents(): Int {

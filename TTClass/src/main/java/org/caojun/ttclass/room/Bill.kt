@@ -6,6 +6,7 @@ import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
+import java.util.*
 
 /**
  * Created by CaoJun on 2017-12-12.
@@ -17,7 +18,7 @@ class Bill: Parcelable {
     var id: Int = 0
 
     var idClass: Int = -1
-    var time: Long = 0
+    var time: Date = Date()
     var amount: Float = 0f
     var times: Int = 0
 
@@ -25,17 +26,21 @@ class Bill: Parcelable {
     constructor(_in: Parcel): this() {
         id = _in.readInt()
         idClass = _in.readInt()
-        time = _in.readLong()
         amount = _in.readFloat()
         times = _in.readInt()
+
+        var dataConverter = DataConverter()
+        time = dataConverter.long2Date(_in.readLong())
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeInt(id)
         dest.writeInt(idClass)
-        dest.writeLong(time)
         dest.writeFloat(amount)
         dest.writeInt(times)
+
+        var dataConverter = DataConverter()
+        dest.writeLong(dataConverter.date2Long(time))
     }
 
     override fun describeContents(): Int {
