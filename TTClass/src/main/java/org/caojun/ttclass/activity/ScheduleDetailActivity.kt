@@ -2,6 +2,7 @@ package org.caojun.ttclass.activity
 
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.CheckBox
 import kotlinx.android.synthetic.main.layout_confirm.*
@@ -10,7 +11,7 @@ import org.caojun.ttclass.R
 /**
  * Created by CaoJun on 2017-12-11.
  */
-class ScheduleDetailActivity : BaseActivity() {
+class ScheduleDetailActivity : AppCompatActivity() {
 
     private val ResIdSunday = arrayOf(R.id.btnStart0, R.id.btnEnd0)
     private val ResIdMonday = arrayOf(R.id.btnStart1, R.id.btnEnd1)

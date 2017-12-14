@@ -30,7 +30,7 @@ class IClassAdapter : BaseAdapter {
         var holder: ViewHolder
         var view = convertView
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_class, null)
+            view = LayoutInflater.from(context).inflate(R.layout.item_iclass, null)
             holder = ViewHolder()
             holder.tvClassName = view?.findViewById(R.id.tvClassName)
             holder.tvGradeRemark = view?.findViewById(R.id.tvGradeRemark)

@@ -5,4 +5,5 @@ package org.caojun.ttclass
  */
 object Constant {
     val Key_Class = "Key_Class"
+    val Key_IsNew = "Key_IsNew"
 }

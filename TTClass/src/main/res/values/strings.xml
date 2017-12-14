@@ -33,4 +33,9 @@
     <string name="average">Average: %s</string>
     <string name="address">Address</string>
     <string name="private_teacher">Private Teacher</string>
+    <string name="add_class">Add</string>
+    <string name="modify">Modify</string>
+    <string name="delete_class">Delete</string>
+    <string name="alert">Alert</string>
+    <string name="delete_class_tips">Are you sure to delete [ %s %s]?</string>
 </resources>

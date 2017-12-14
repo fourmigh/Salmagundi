@@ -34,4 +34,9 @@
     <string name="average">平均（元/次）：%s</string>
     <string name="address">地址</string>
     <string name="private_teacher">私人教师</string>
+    <string name="add_class">添加</string>
+    <string name="modify">修改</string>
+    <string name="delete_class">删除</string>
+    <string name="alert">警告</string>
+    <string name="delete_class_tips">你确定要删除【 %s %s】吗？</string>
 </resources>
