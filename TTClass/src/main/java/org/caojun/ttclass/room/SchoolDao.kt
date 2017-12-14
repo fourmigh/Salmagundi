@@ -12,11 +12,11 @@ interface SchoolDao {
     fun queryAll(): List<School>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg app: School)
+    fun insert(vararg school: School)
 
     @Delete
-    fun delete(vararg app: School): Int
+    fun delete(vararg school: School): Int
 
     @Update
-    fun update(vararg app: School): Int
+    fun update(vararg school: School): Int
 }

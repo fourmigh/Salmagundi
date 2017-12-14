@@ -12,14 +12,14 @@ interface SignDao {
     fun queryAll(): List<Sign>
 
     @Query("SELECT * FROM sign WHERE idClass = :arg0")
-    fun query(idClass: Long): List<Sign>
+    fun query(idClass: Int): List<Sign>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg app: Sign)
+    fun insert(vararg sign: Sign)
 
     @Delete
-    fun delete(vararg app: Sign): Int
+    fun delete(vararg sign: Sign): Int
 
     @Update
-    fun update(vararg app: Sign): Int
+    fun update(vararg sign: Sign): Int
 }

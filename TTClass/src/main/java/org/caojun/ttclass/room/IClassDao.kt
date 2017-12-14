@@ -6,16 +6,16 @@ import android.arch.persistence.room.*
  * Created by CaoJun on 2017-12-13.
  */
 @Dao
-interface ClassDao {
+interface IClassDao {
     @Query("SELECT * FROM class")
-    fun queryAll(): List<Class>
+    fun queryAll(): List<IClass>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg app: Class)
+    fun insert(vararg iClass: IClass)
 
     @Delete
-    fun delete(vararg app: Class): Int
+    fun delete(vararg iClass: IClass): Int
 
     @Update
-    fun update(vararg app: Class): Int
+    fun update(vararg iClass: IClass): Int
 }

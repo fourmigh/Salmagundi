@@ -9,7 +9,7 @@
         android:roundIcon="@drawable/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ClassListActivity">
+        <activity android:name=".activity.IClassListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +19,7 @@
         <activity android:name=".activity.ScheduleDetailActivity" />
         <activity android:name=".activity.TeacherDetailActivity" />
         <activity android:name=".activity.SchoolDetailActivity" />
-        <activity android:name=".activity.ClassDetailActivity" />
+        <activity android:name=".activity.IClassDetailActivity" />
     </application>
 
 </manifest>

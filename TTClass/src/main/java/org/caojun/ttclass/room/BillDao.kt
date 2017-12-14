@@ -12,14 +12,14 @@ interface BillDao {
     fun queryAll(): List<Bill>
 
     @Query("SELECT * FROM bill WHERE idClass = :arg0")
-    fun query(idClass: Long): List<Bill>
+    fun query(idClass: Int): List<Bill>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg app: Bill)
+    fun insert(vararg bill: Bill)
 
     @Delete
-    fun delete(vararg app: Bill): Int
+    fun delete(vararg bill: Bill): Int
 
     @Update
-    fun update(vararg app: Bill): Int
+    fun update(vararg bill: Bill): Int
 }

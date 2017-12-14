@@ -13,7 +13,7 @@ import android.os.Parcelable
 class Teacher: Parcelable {
 
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
+    var id: Int = 0
 
     var name: String = ""
     var mobile: String = ""
@@ -21,14 +21,14 @@ class Teacher: Parcelable {
 
     constructor()
     constructor(_in: Parcel): this() {
-        id = _in.readLong()
+        id = _in.readInt()
         name = _in.readString()
         mobile = _in.readString()
         hasWeChat = _in.readByte().compareTo(1) == 0
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeLong(id)
+        dest.writeInt(id)
         dest.writeString(name)
         dest.writeString(mobile)
         dest.writeByte((if (hasWeChat) 1 else 0).toByte())
@@ -39,6 +39,8 @@ class Teacher: Parcelable {
     }
 
     companion object {
+        @JvmField
+        @Ignore
         val CREATOR: Parcelable.Creator<Teacher> = object : Parcelable.Creator<Teacher> {
             override fun createFromParcel(_in: Parcel): Teacher {
                 return Teacher(_in)

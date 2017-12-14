@@ -34,6 +34,7 @@
                         android:hint="@string/class_name">
 
                         <android.support.design.widget.TextInputEditText
+                            android:id="@+id/etName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </android.support.design.widget.TextInputLayout>
@@ -50,6 +51,7 @@
                         android:hint="@string/grade_remark">
 
                         <android.support.design.widget.TextInputEditText
+                            android:id="@+id/etGrade"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </android.support.design.widget.TextInputLayout>
@@ -72,6 +74,7 @@
                         android:text="@string/detail" />
 
                     <Button
+                        android:id="@+id/btnSign"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/sign" />
@@ -165,6 +168,7 @@
                         android:text="@string/note" />
 
                     <Button
+                        android:id="@+id/btnNote"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_span="2"

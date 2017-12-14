@@ -7,21 +7,21 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import org.caojun.ttclass.R
-import org.caojun.ttclass.room.Class
+import org.caojun.ttclass.room.IClass
 
 /**
  * Created by CaoJun on 2017-12-12.
  */
-class ClassAdapter: BaseAdapter {
+class IClassAdapter : BaseAdapter {
     private var context: Context? = null
-    private val list = ArrayList<Class>()
+    private val list = ArrayList<IClass>()
 
-    constructor(context: Context, list: List<Class>) : super() {
+    constructor(context: Context, list: List<IClass>) : super() {
         this.context = context
         setData(list)
     }
 
-    fun setData(list: List<Class>) {
+    fun setData(list: List<IClass>) {
         this.list.clear()
         this.list.addAll(list)
     }
@@ -53,9 +53,9 @@ class ClassAdapter: BaseAdapter {
         return view!!
     }
 
-    override fun getItem(position: Int): Class = list[position]
+    override fun getItem(position: Int): IClass = list[position]
 
-    override fun getItemId(position: Int): Long = list[position].id
+    override fun getItemId(position: Int): Long = list[position].id.toLong()
 
     override fun getCount(): Int = list.size
 
