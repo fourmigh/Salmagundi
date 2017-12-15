@@ -42,4 +42,5 @@
     <string name="abort_save">放弃保存吗？</string>
     <string name="abort">放弃</string>
     <string name="save">保存</string>
+    <string name="select_from_list">从列表中选取</string>
 </resources>

@@ -24,6 +24,7 @@
         <activity android:name=".activity.IClassDetailActivity"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".activity.BillListActivity" />
+        <activity android:name=".activity.SchoolListActivity" />
     </application>
 
 </manifest>

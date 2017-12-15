@@ -17,6 +17,7 @@ import org.caojun.ttclass.room.School
 import org.caojun.ttclass.room.TTCDatabase
 import org.caojun.ttclass.room.Teacher
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.uiThread
 
 /**
@@ -83,6 +84,23 @@ class SchoolDetailActivity : AppCompatActivity() {
                 swHasWeChat.isChecked = school?.hasWeChat?:false
             }
         })
+
+        btnList.setOnClickListener {
+            startActivityForResult<SchoolListActivity>(Constant.RequestCode_School)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            Constant.RequestCode_School -> {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    school = data.getParcelableExtra(Constant.Key_School)
+                    refreshUI()
+                }
+                return
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun refreshUI() {
@@ -91,7 +109,10 @@ class SchoolDetailActivity : AppCompatActivity() {
             return
         }
         doAsync {
-            school = TTCDatabase.getDatabase(this@SchoolDetailActivity).getSchool().query(iClass!!.idSchool)
+            val schools = TTCDatabase.getDatabase(this@SchoolDetailActivity).getSchool().queryAll()
+            if (school == null) {
+                school = TTCDatabase.getDatabase(this@SchoolDetailActivity).getSchool().query(iClass!!.idSchool)
+            }
             if (school == null) {
                 isAdd = true
                 school = School()
@@ -113,6 +134,8 @@ class SchoolDetailActivity : AppCompatActivity() {
                     etMobile.setText(school?.mobile)
                     swHasWeChat.isChecked = school?.hasWeChat?:false
                 }
+
+                btnList.visibility = if (schools.isEmpty()) View.GONE else View.VISIBLE
             }
         }
     }
