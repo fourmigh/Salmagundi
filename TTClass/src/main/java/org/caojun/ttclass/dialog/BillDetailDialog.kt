@@ -14,7 +14,7 @@ import org.caojun.ttclass.R
 /**
  * Created by CaoJun on 2017-12-13.
  */
-class PaymentDetailDialog: AlertDialog, DialogInterface.OnClickListener, NumberPicker.OnValueChangeListener {
+class BillDetailDialog : AlertDialog, DialogInterface.OnClickListener, NumberPicker.OnValueChangeListener {
 
     private val MaxValue = "MaxValue"
     private val MinValue = "MinValue"

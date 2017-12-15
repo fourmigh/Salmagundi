@@ -34,8 +34,10 @@
                         android:hint="@string/institute">
 
                         <android.support.design.widget.TextInputEditText
+                            android:id="@+id/etName"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName" />
                     </android.support.design.widget.TextInputLayout>
 
                     <CheckBox
@@ -57,8 +59,11 @@
                         android:hint="@string/contact">
 
                         <android.support.design.widget.TextInputEditText
+                            android:id="@+id/etContact"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
                 </TableRow>
 
@@ -73,8 +78,12 @@
                         android:hint="@string/mobile">
 
                         <android.support.design.widget.TextInputEditText
+                            android:id="@+id/etMobile"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:inputType="phone"
+                            android:maxLength="11"
+                            android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
                 </TableRow>
 
@@ -89,8 +98,10 @@
                         android:hint="@string/address">
 
                         <android.support.design.widget.TextInputEditText
+                            android:id="@+id/etAddress"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
                 </TableRow>
 
@@ -99,6 +110,7 @@
                     android:layout_height="wrap_content">
 
                     <Switch
+                        android:id="@+id/swHasWeChat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_span="2"

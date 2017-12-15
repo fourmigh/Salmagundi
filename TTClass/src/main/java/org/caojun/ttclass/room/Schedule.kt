@@ -60,4 +60,23 @@ class Schedule: Parcelable {
             }
         }
     }
+
+    fun isChanged(schedule: Schedule?): Boolean {
+        if (schedule == null) {
+            return true
+        }
+        for (i in checked.indices) {
+            if (checked[i] != schedule.checked[i]) {
+                return true
+            }
+        }
+        for (i in time.indices) {
+            for (j in time[i].indices) {
+                if (time[i][j] != schedule.time[i][i]) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
 }

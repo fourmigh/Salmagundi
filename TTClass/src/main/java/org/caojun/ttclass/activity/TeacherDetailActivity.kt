@@ -50,6 +50,14 @@ class TeacherDetailActivity : AppCompatActivity() {
             setNameEdit(true)
         }
 
+        swHasWeChat.setOnCheckedChangeListener({ _, isChecked ->
+            if (isChecked) {
+                swHasWeChat.setText(R.string.added_wechat)
+            } else {
+                swHasWeChat.setText(R.string.no_wechat)
+            }
+        })
+
         val teachID = intent.getIntExtra(Constant.Key_TeacherID, -1)
         doAsync {
             teacher = TTCDatabase.getDatabase(this@TeacherDetailActivity).getTeacher().query(teachID)

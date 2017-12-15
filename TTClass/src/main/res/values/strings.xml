@@ -38,4 +38,7 @@
     <string name="delete_class">Delete</string>
     <string name="alert">Alert</string>
     <string name="delete_class_tips">Are you sure to delete [ %s %s]?</string>
+    <string name="abort_save">Abort to save?</string>
+    <string name="abort">Abort</string>
+    <string name="save">Save</string>
 </resources>

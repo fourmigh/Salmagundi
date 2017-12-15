@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.layout_confirm.*
 import org.caojun.dialog.NumberPickerDialog
 import org.caojun.ttclass.Constant
 import org.caojun.ttclass.R
-import org.caojun.ttclass.dialog.PaymentDetailDialog
+import org.caojun.ttclass.dialog.BillDetailDialog
 import org.caojun.ttclass.room.*
 import org.jetbrains.anko.*
 import java.util.*
@@ -25,6 +25,7 @@ class IClassDetailActivity : AppCompatActivity() {
     private var iClass: IClass? = null
     private val signs = ArrayList<Sign>()
     private var isAdd = false
+    private var isInfoChanged = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +46,7 @@ class IClassDetailActivity : AppCompatActivity() {
         }
 
         btnBillDetail.setOnClickListener {
-            PaymentDetailDialog(this, NumberPicker.OnValueChangeListener { _, amount, number ->
+            BillDetailDialog(this, NumberPicker.OnValueChangeListener { _, amount, number ->
                 addBill(amount, number)
             }, 99, 1, 10).show()
         }
@@ -83,13 +84,21 @@ class IClassDetailActivity : AppCompatActivity() {
         when (requestCode) {
             Constant.RequestCode_Schedule -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
+                    val lastSchedule = iClass?.schedule
                     iClass?.schedule = data.getParcelableExtra(Constant.Key_Schedule)
+                    if (iClass?.schedule != null && iClass?.schedule!!.isChanged(lastSchedule)) {
+                        isInfoChanged = true
+                    }
                 }
                 return
             }
             Constant.RequestCode_Teacher -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
+                    val lastTeachID = iClass?.idTeacher
                     iClass?.idTeacher = data.getIntExtra(Constant.Key_TeacherID, -1)
+                    if (lastTeachID != iClass?.idTeacher) {
+                        isInfoChanged = true
+                    }
                 }
                 return
             }
@@ -169,11 +178,35 @@ class IClassDetailActivity : AppCompatActivity() {
         return true
     }
 
+    private fun addClass() {
+        iClass = IClass()
+        isInfoChanged = false
+        refreshUI(true)
+    }
+
+    private fun doAddClass() {
+        if (checkInfoChanged()) {
+            alert(R.string.abort_save) {
+                title = getString(R.string.alert)
+                positiveButton(R.string.abort) {
+                    addClass()
+                }
+                negativeButton(R.string.save) {
+                    doAsync {
+                        doSave()
+                        addClass()
+                    }
+                }
+            }.show()
+            return
+        }
+        addClass()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_add_class -> {
-                iClass = IClass()
-                refreshUI(true)
+                doAddClass()
                 true
             }
             R.id.action_delete_class -> {
@@ -199,26 +232,61 @@ class IClassDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkInfoChanged(): Boolean {
+        if (isInfoChanged) {
+            return true
+        }
+        if (etName.text.toString() != iClass?.name) {
+            return true
+        }
+        if (etGrade.text.toString() != iClass?.grade) {
+            return true
+        }
+        return false
+    }
+
     private fun doCancel() {
+        //检查是否有内容变化过
+        if (checkInfoChanged()) {
+            alert(R.string.abort_save) {
+                title = getString(R.string.alert)
+                positiveButton(R.string.abort) {
+                    finish()
+                }
+                negativeButton(R.string.save) {
+                    doOK()
+                }
+            }.show()
+            return
+        }
+        finish()
+    }
+
+    override fun finish() {
         doAsync {
             if (isAdd) {
                 TTCDatabase.getDatabase(this@IClassDetailActivity).getIClass().delete(iClass!!)
             }
-            finish()
         }
+        super.finish()
     }
 
-    private fun doOK() {
+    private fun doSave() {
         if (iClass == null) {
             finish()
             return
         }
         iClass?.name = etName.text.toString()
         iClass?.grade = etGrade.text.toString()
+        isAdd = false
         doAsync {
             TTCDatabase.getDatabase(this@IClassDetailActivity).getIClass().insert(iClass!!)
-            finish()
         }
+    }
+
+    private fun doOK() {
+        doSave()
+        finish()
     }
 
     override fun onBackPressed() {
@@ -232,14 +300,13 @@ class IClassDetailActivity : AppCompatActivity() {
      */
     private fun addBill(amount: Int, number: Int) {
         doAsync {
-            val iclass = iClass!!
             val bill = Bill()
-            bill.idClass = iclass.id
+            bill.idClass = iClass!!.id
             bill.amount = (amount / 100).toFloat()
             bill.times = number
             TTCDatabase.getDatabase(this@IClassDetailActivity).getBill().insert(bill)
-            iclass.reminder += number
-            TTCDatabase.getDatabase(this@IClassDetailActivity).getIClass().update(iclass)
+            iClass!!.reminder += number
+            TTCDatabase.getDatabase(this@IClassDetailActivity).getIClass().update(iClass!!)
             refreshUI(isAdd)
         }
     }
