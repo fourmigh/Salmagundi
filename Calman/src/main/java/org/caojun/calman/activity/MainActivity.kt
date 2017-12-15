@@ -10,6 +10,7 @@ import org.caojun.calman.room.Level
 import org.caojun.calman.room.LevelDatabase
 import org.caojun.calman.utils.GameUtils
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.uiThread
 
 class MainActivity : BaseActivity() {
@@ -43,6 +44,8 @@ class MainActivity : BaseActivity() {
                 GameUtils.initButtons(this@MainActivity)
             }
         }
+
+        startActivity<TestActivity>()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

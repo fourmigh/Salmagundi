@@ -63,11 +63,11 @@ class IClassDetailActivity : AppCompatActivity() {
         }
 
         btnTeacher.setOnClickListener {
-            startActivity<TeacherDetailActivity>()
+            startActivityForResult<TeacherDetailActivity>(Constant.RequestCode_Teacher, Constant.Key_TeacherID to iClass?.idTeacher)
         }
 
         btnSchool.setOnClickListener {
-            startActivity<SchoolDetailActivity>()
+            startActivity<SchoolDetailActivity>(Constant.Key_Class to iClass)
         }
 
         btnOK.setOnClickListener {
@@ -84,6 +84,12 @@ class IClassDetailActivity : AppCompatActivity() {
             Constant.RequestCode_Schedule -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     iClass?.schedule = data.getParcelableExtra(Constant.Key_Schedule)
+                }
+                return
+            }
+            Constant.RequestCode_Teacher -> {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    iClass?.idTeacher = data.getIntExtra(Constant.Key_TeacherID, -1)
                 }
                 return
             }
@@ -134,6 +140,7 @@ class IClassDetailActivity : AppCompatActivity() {
         val params = TableRow.LayoutParams()
         if (isEdit) {
             params.span = 3
+            etName.requestFocus()
         } else {
             params.span = 2
         }
@@ -146,6 +153,7 @@ class IClassDetailActivity : AppCompatActivity() {
         val params = TableRow.LayoutParams()
         if (isEdit) {
             params.span = 3
+            etGrade.requestFocus()
         } else {
             params.span = 2
         }

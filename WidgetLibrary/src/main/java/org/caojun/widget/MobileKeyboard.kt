@@ -33,6 +33,7 @@ class MobileKeyboard: TableLayout, View.OnClickListener {
     private var buttons: Array<Button?>
     private var editText: EditText? = null
     private var inputType: Int = 0
+    private var closeButtonClickable = true
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
@@ -49,6 +50,13 @@ class MobileKeyboard: TableLayout, View.OnClickListener {
     }
 
     fun setEditText(editText: EditText) {
+        setEditText(editText, true)
+    }
+
+    fun setEditText(editText: EditText, closeButtonClickable: Boolean) {
+
+        this.closeButtonClickable = closeButtonClickable
+
         resetEditText()
 
         this.editText = editText
@@ -108,7 +116,7 @@ class MobileKeyboard: TableLayout, View.OnClickListener {
         for (i in ResId.indices) {
             buttons[i]?.isEnabled = false
         }
-        buttons[KeyClose]?.isEnabled = true
+        buttons[KeyClose]?.isEnabled = closeButtonClickable
         if (editText == null) {
             return
         }

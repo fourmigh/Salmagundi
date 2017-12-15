@@ -13,6 +13,7 @@
             android:id="@+id/btn7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             style="?android:attr/buttonBarButtonStyle"
             android:text="@string/dk_7" />
 
@@ -20,6 +21,7 @@
             android:id="@+id/btn8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             style="?android:attr/buttonBarButtonStyle"
             android:text="@string/dk_8" />
 
@@ -27,6 +29,7 @@
             android:id="@+id/btn9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             style="?android:attr/buttonBarButtonStyle"
             android:text="@string/dk_9" />
     </TableRow>
@@ -41,6 +44,7 @@
             android:id="@+id/btn4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             style="?android:attr/buttonBarButtonStyle"
             android:text="@string/dk_4" />
 
@@ -48,6 +52,7 @@
             android:id="@+id/btn5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             style="?android:attr/buttonBarButtonStyle"
             android:text="@string/dk_5" />
 
@@ -55,6 +60,7 @@
             android:id="@+id/btn6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             style="?android:attr/buttonBarButtonStyle"
             android:text="@string/dk_6" />
 
@@ -70,6 +76,7 @@
             android:id="@+id/btn1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             style="?android:attr/buttonBarButtonStyle"
             android:text="@string/dk_1" />
 
@@ -77,6 +84,7 @@
             android:id="@+id/btn2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             style="?android:attr/buttonBarButtonStyle"
             android:text="@string/dk_2" />
 
@@ -84,6 +92,7 @@
             android:id="@+id/btn3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             style="?android:attr/buttonBarButtonStyle"
             android:text="@string/dk_3" />
 
@@ -97,6 +106,7 @@
 
         <Button
             android:id="@+id/btnClose"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -106,11 +116,13 @@
             android:id="@+id/btn0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             style="?android:attr/buttonBarButtonStyle"
             android:text="@string/dk_0" />
 
         <Button
             android:id="@+id/btnDel"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
