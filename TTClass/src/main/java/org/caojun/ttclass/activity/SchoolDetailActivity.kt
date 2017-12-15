@@ -1,7 +1,13 @@
 package org.caojun.ttclass.activity
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import kotlinx.android.synthetic.main.activity_school_detail.*
 import kotlinx.android.synthetic.main.layout_confirm.*
 import org.caojun.ttclass.Constant
@@ -21,6 +27,7 @@ class SchoolDetailActivity : AppCompatActivity() {
     private var iClass: IClass? = null
     private var school: School? = null
     private var teacher: Teacher? = null
+    private var isAdd = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +36,15 @@ class SchoolDetailActivity : AppCompatActivity() {
         iClass = intent.getParcelableExtra(Constant.Key_Class)
 
         refreshUI()
+
+        etMobile.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
+                (this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_NOT_ALWAYS);
+                mobileKeyboard.setEditText(view as EditText, false)
+            } else {
+                mobileKeyboard.visibility = View.GONE
+            }
+        }
 
         swHasWeChat.setOnCheckedChangeListener({ _, isChecked ->
             if (isChecked) {
@@ -76,20 +92,55 @@ class SchoolDetailActivity : AppCompatActivity() {
         }
         doAsync {
             school = TTCDatabase.getDatabase(this@SchoolDetailActivity).getSchool().query(iClass!!.idSchool)
+            if (school == null) {
+                isAdd = true
+                school = School()
+            }
             teacher = TTCDatabase.getDatabase(this@SchoolDetailActivity).getTeacher().query(iClass!!.idTeacher)
 
             uiThread {
-                etName.setText(school?.name)
+
                 etAddress.setText(school?.address)
-                swHasWeChat.isChecked = school?.hasWeChat?:false
                 cbTeacher.isChecked = school?.idTeacher?:-1 >= 0
+                if (cbTeacher.isChecked) {
+                    etName.text = null
+                    etContact.setText(teacher?.name)
+                    etMobile.setText(teacher?.mobile)
+                    swHasWeChat.isChecked = teacher?.hasWeChat?:false
+                } else {
+                    etName.setText(school?.name)
+                    etContact.setText(school?.contact)
+                    etMobile.setText(school?.mobile)
+                    swHasWeChat.isChecked = school?.hasWeChat?:false
+                }
             }
         }
     }
 
     private fun doOK() {
         doAsync {
+            if (cbTeacher.isChecked) {
+                school!!.idTeacher = teacher!!.id
+            } else {
+                school!!.idTeacher = -1
+                school!!.name = etName.text.toString()
+                school!!.contact = etContact.text.toString()
+                school!!.mobile = etMobile.text.toString()
+                school!!.address = etAddress.text.toString()
+                school!!.hasWeChat = swHasWeChat.isChecked
+            }
+            if (isAdd) {
+                TTCDatabase.getDatabase(this@SchoolDetailActivity).getSchool().insert(school!!)
+                val schools = TTCDatabase.getDatabase(this@SchoolDetailActivity).getSchool().queryAll()
+                school = schools[schools.size - 1]
+            } else {
+                TTCDatabase.getDatabase(this@SchoolDetailActivity).getSchool().update(school!!)
+            }
 
+            val intent = Intent()
+            intent.putExtra(Constant.Key_SchoolID, school!!.id)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
         }
     }
 }

@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.NumberPicker
 import android.widget.TableRow
+import com.socks.library.KLog
 import kotlinx.android.synthetic.main.activity_iclass_detail.*
 import kotlinx.android.synthetic.main.layout_confirm.*
 import org.caojun.dialog.NumberPickerDialog
@@ -68,7 +69,7 @@ class IClassDetailActivity : AppCompatActivity() {
         }
 
         btnSchool.setOnClickListener {
-            startActivity<SchoolDetailActivity>(Constant.Key_Class to iClass)
+            startActivityForResult<SchoolDetailActivity>(Constant.RequestCode_School, Constant.Key_Class to iClass)
         }
 
         btnOK.setOnClickListener {
@@ -97,6 +98,17 @@ class IClassDetailActivity : AppCompatActivity() {
                     val lastTeachID = iClass?.idTeacher
                     iClass?.idTeacher = data.getIntExtra(Constant.Key_TeacherID, -1)
                     if (lastTeachID != iClass?.idTeacher) {
+                        isInfoChanged = true
+                    }
+                }
+                return
+            }
+            Constant.RequestCode_School -> {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    val lastSchoolID = iClass?.idSchool
+                    iClass?.idSchool = data.getIntExtra(Constant.Key_SchoolID, -1)
+                    KLog.d("IClassDetailActivity", "idSchool: " + iClass?.idSchool)
+                    if (lastSchoolID != iClass?.idSchool) {
                         isInfoChanged = true
                     }
                 }
