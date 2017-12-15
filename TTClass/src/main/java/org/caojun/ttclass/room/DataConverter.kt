@@ -17,7 +17,7 @@ class DataConverter {
             return ""
         }
         val sb = StringBuffer()
-        sb.append(schedule.idClass.toString()).append(SEPARATOR)
+//        sb.append(schedule.idClass.toString()).append(SEPARATOR)
         for (i in schedule.checked.indices) {
             sb.append(schedule.checked[i].toString()).append(SEPARATOR)
         }
@@ -37,7 +37,7 @@ class DataConverter {
         }
         var index = 0
         val strings = string.split(SEPARATOR)
-        schedule.idClass = strings[index++].toLong()
+//        schedule.idClass = strings[index++].toLong()
         for (i in schedule.checked.indices) {
             schedule.checked[i] = strings[index++].toBoolean()
         }

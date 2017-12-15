@@ -1,5 +1,7 @@
 package org.caojun.ttclass.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -8,7 +10,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.NumberPicker
 import android.widget.TableRow
-import com.socks.library.KLog
 import kotlinx.android.synthetic.main.activity_iclass_detail.*
 import kotlinx.android.synthetic.main.layout_confirm.*
 import org.caojun.dialog.NumberPickerDialog
@@ -46,7 +47,7 @@ class IClassDetailActivity : AppCompatActivity() {
         btnBillDetail.setOnClickListener {
             PaymentDetailDialog(this, NumberPicker.OnValueChangeListener { _, amount, number ->
                 addBill(amount, number)
-            }, 99, 1, 1).show()
+            }, 99, 1, 10).show()
         }
 
         btnName.setOnClickListener {
@@ -58,7 +59,7 @@ class IClassDetailActivity : AppCompatActivity() {
         }
 
         btnSchedule.setOnClickListener {
-            startActivity<ScheduleDetailActivity>()
+            startActivityForResult<ScheduleDetailActivity>(Constant.RequestCode_Schedule, Constant.Key_Schedule to iClass?.schedule)
         }
 
         btnTeacher.setOnClickListener {
@@ -78,6 +79,18 @@ class IClassDetailActivity : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            Constant.RequestCode_Schedule -> {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    iClass?.schedule = data.getParcelableExtra(Constant.Key_Schedule)
+                }
+                return
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
     override fun onResume() {
         super.onResume()
 
@@ -93,7 +106,7 @@ class IClassDetailActivity : AppCompatActivity() {
         }
 
         doAsync {
-            val idClass = iClass!!.id
+            val idClass = iClass?.id?:-1
             val list = TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().query(idClass)
             signs.clear()
             if (list.isNotEmpty()) {
@@ -107,6 +120,8 @@ class IClassDetailActivity : AppCompatActivity() {
                 btnSign.isEnabled = iClass?.reminder?:0 > 0
                 btnSchool.isEnabled = iClass?.idTeacher?:-1 >= 0
                 btnRemainder.text = iClass?.reminder.toString()
+
+                btnBillList.text = bills.size.toString()
                 btnBillList.isEnabled = bills.isNotEmpty()
 
                 setNameEdit(isEdit)
