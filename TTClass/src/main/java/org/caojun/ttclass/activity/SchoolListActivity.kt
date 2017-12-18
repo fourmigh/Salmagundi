@@ -17,7 +17,7 @@ import org.jetbrains.anko.uiThread
 /**
  * Created by CaoJun on 2017-12-15.
  */
-class SchoolListActivity : AppCompatActivity() {
+class SchoolListActivity : Activity() {
 
     private val schools = ArrayList<School>()
 
@@ -34,6 +34,7 @@ class SchoolListActivity : AppCompatActivity() {
             }
         }
 
+        setFinishOnTouchOutside(false)
         refreshUI()
     }
 

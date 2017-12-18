@@ -120,7 +120,6 @@ class SchoolDetailActivity : AppCompatActivity() {
             teacher = TTCDatabase.getDatabase(this@SchoolDetailActivity).getTeacher().query(iClass!!.idTeacher)
 
             uiThread {
-
                 etAddress.setText(school?.address)
                 cbTeacher.isChecked = school?.idTeacher?:-1 >= 0
                 if (cbTeacher.isChecked) {
@@ -142,6 +141,7 @@ class SchoolDetailActivity : AppCompatActivity() {
 
     private fun doOK() {
         doAsync {
+            school!!.address = etAddress.text.toString()
             if (cbTeacher.isChecked) {
                 school!!.idTeacher = teacher!!.id
             } else {
@@ -149,7 +149,6 @@ class SchoolDetailActivity : AppCompatActivity() {
                 school!!.name = etName.text.toString()
                 school!!.contact = etContact.text.toString()
                 school!!.mobile = etMobile.text.toString()
-                school!!.address = etAddress.text.toString()
                 school!!.hasWeChat = swHasWeChat.isChecked
             }
             if (isAdd) {
