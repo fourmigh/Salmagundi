@@ -12,9 +12,12 @@ object Constant {
     val Key_SchoolID = "Key_SchoolID"
     val Key_School = "Key_School"
     val Key_AddClass = "Key_AddClass"
+    val Key_Day = "Key_Day"
+    val Key_ScheduleWeekdays = "Key_ScheduleWeekdays"
 
     val RequestCode_Schedule = 10
     val RequestCode_Teacher = 11
     val RequestCode_School = 12
     val RequestCode_IClass = 13
+    val RequestCode_ScheduleList = 14
 }

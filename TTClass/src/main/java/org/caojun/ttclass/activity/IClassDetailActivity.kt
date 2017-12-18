@@ -26,6 +26,7 @@ class IClassDetailActivity : AppCompatActivity() {
     private val signs = ArrayList<Sign>()
     private var isAdd = false
     private var isInfoChanged = false
+    private var scheduleWeekdays: IntArray? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +72,10 @@ class IClassDetailActivity : AppCompatActivity() {
             startActivityForResult<SchoolDetailActivity>(Constant.RequestCode_School, Constant.Key_Class to iClass)
         }
 
+        btnSign.setOnClickListener {
+            startActivityForResult<ScheduleListActivity>(Constant.RequestCode_ScheduleList, Constant.Key_ScheduleWeekdays to scheduleWeekdays)
+        }
+
         btnOK.setOnClickListener {
             doOK()
         }
@@ -112,6 +117,10 @@ class IClassDetailActivity : AppCompatActivity() {
                 }
                 return
             }
+            Constant.RequestCode_ScheduleList -> {
+                //签到选中某天
+                //TODO
+            }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
@@ -140,11 +149,12 @@ class IClassDetailActivity : AppCompatActivity() {
                 signs.addAll(list)
             }
             val bills = TTCDatabase.getDatabase(this@IClassDetailActivity).getBill().query(idClass)
+            scheduleWeekdays = getScheduleWeekdays()
             uiThread {
                 btnNote.isEnabled = signs.size > 0
                 etName.setText(iClass?.name)
                 etGrade.setText(iClass?.grade)
-                btnSign.isEnabled = iClass?.reminder?:0 > 0
+                btnSign.isEnabled = iClass?.reminder?:0 > 0 && scheduleWeekdays != null
                 btnSchool.isEnabled = iClass?.idTeacher?:-1 >= 0
                 btnRemainder.text = iClass?.reminder.toString()
 
@@ -153,6 +163,8 @@ class IClassDetailActivity : AppCompatActivity() {
 
                 setNameEdit(isEdit)
                 setGradeEdit(isEdit)
+
+
             }
         }
     }
@@ -335,5 +347,32 @@ class IClassDetailActivity : AppCompatActivity() {
             TTCDatabase.getDatabase(this@IClassDetailActivity).getIClass().update(iClass!!)
             refreshUI(isAdd)
         }
+    }
+
+    /**
+     * 获取课程安排星期N
+     */
+    private fun getScheduleWeekdays(): IntArray? {
+        if (iClass == null || iClass?.schedule == null) {
+            return null
+        }
+        val weekdays = ArrayList<Int>()
+        for (i in iClass!!.schedule!!.checked.indices) {
+            if (!iClass!!.schedule!!.checked[i]) {
+                continue
+            }
+            if (iClass!!.schedule!!.time[i][0] == getString(R.string.start_time)) {
+                continue
+            }
+            if (iClass!!.schedule!!.time[i][1] == getString(R.string.end_time)) {
+                continue
+            }
+            weekdays.add(i)
+        }
+        var intArray = IntArray(weekdays.size)
+        for (i in weekdays.indices) {
+            intArray[i] = weekdays[i]
+        }
+        return intArray
     }
 }

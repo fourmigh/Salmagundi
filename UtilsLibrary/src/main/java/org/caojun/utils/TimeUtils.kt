@@ -1,6 +1,7 @@
 package org.caojun.utils
 
 import android.text.TextUtils
+import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.TimeZone
 import java.util.Date
@@ -60,5 +61,80 @@ object TimeUtils {
 
     fun getCalendar(): Calendar {
         return getCalendar(LocalTimeZone)
+    }
+
+    /**
+     * 在当前日期前/后n天
+     */
+    fun getDate(n: Int): Date {
+        val c = Calendar.getInstance()
+        c.add(Calendar.DATE, n)
+        return c.time
+    }
+
+    /**
+     * 当前日期是星期几
+     * 0为星期日
+     */
+    fun getWeekdayInt(date: Date): Int {
+        val cal = Calendar.getInstance()
+        val isFirstSunday = cal.firstDayOfWeek == Calendar.SUNDAY
+        cal.time = date
+        val weekDay = cal.get(Calendar.DAY_OF_WEEK)
+        if (isFirstSunday) {
+            return weekDay - 1
+        } else if (weekDay == 7) {
+            return 0
+        }
+        return weekDay - 1
+    }
+
+    fun getDayOfWeek(date: Date): Int {
+        val cal = Calendar.getInstance()
+        cal.time = date
+        return cal.get(Calendar.DAY_OF_WEEK)
+    }
+
+    fun getWeekdayString(date: Date): String {
+        val weekDay = TimeUtils.getDayOfWeek(date)
+        return DateFormatSymbols.getInstance().shortWeekdays[weekDay]
+    }
+
+    fun getTime(dateFormat: String, date: Date): String {
+        if (TextUtils.isEmpty(dateFormat)) {
+            return ""
+        }
+        val df = getSimpleDateFormat(dateFormat, LocalTimeZone)
+        return df.format(date)
+    }
+
+    fun isYesterday(date: Date): Boolean {
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        val yesterday = Calendar.getInstance()
+        yesterday.add(Calendar.DATE, -1)
+
+        return isOneDay(calendar, yesterday)
+    }
+
+    fun isTomorrow(date: Date): Boolean {
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        val tomorrow = Calendar.getInstance()
+        tomorrow.add(Calendar.DATE, 1)
+
+        return isOneDay(calendar, tomorrow)
+    }
+
+    fun isToday(date: Date): Boolean {
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        val today = Calendar.getInstance()
+
+        return isOneDay(calendar, today)
+    }
+
+    fun isOneDay(c1: Calendar, c2: Calendar): Boolean {
+        return c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR) && c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH) && c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH)
     }
 }

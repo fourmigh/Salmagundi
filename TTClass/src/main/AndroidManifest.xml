@@ -33,6 +33,8 @@
             android:label="@string/payment"/>
         <activity android:name=".activity.SchoolListActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
+        <activity android:name=".activity.ScheduleListActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
     </application>
 
 </manifest>

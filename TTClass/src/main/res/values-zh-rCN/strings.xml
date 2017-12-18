@@ -43,4 +43,7 @@
     <string name="abort">放弃</string>
     <string name="save">保存</string>
     <string name="select_from_list">从列表中选取</string>
+    <string name="yesterday">昨天</string>
+    <string name="tomorrow">明天</string>
+    <string name="today">今天</string>
 </resources>

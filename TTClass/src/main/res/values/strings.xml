@@ -42,4 +42,7 @@
     <string name="abort">Abort</string>
     <string name="save">Save</string>
     <string name="select_from_list">Select from List</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="today">Today</string>
 </resources>
