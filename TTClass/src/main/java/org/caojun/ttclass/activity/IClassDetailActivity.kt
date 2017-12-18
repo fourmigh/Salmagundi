@@ -31,6 +31,7 @@ class IClassDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_iclass_detail)
+//        actionBar.setDisplayHomeAsUpEnabled(true)
 
         btnRemainder.setOnClickListener {
             var current = 10

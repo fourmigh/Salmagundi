@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.caojun.ttclass">
 
+    <meta-data android:name="android.support.PARENT_ACTIVITY"
+        android:value=".activity.IClassListActivity"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -16,14 +19,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ScheduleDetailActivity" />
+        <activity android:name=".activity.ScheduleDetailActivity"
+            android:label="@string/schedule"/>
         <activity android:name=".activity.TeacherDetailActivity"
+            android:label="@string/teacher"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".activity.SchoolDetailActivity"
+            android:label="@string/institute"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".activity.IClassDetailActivity"
             android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".activity.BillListActivity" />
+        <activity android:name=".activity.BillListActivity"
+            android:label="@string/payment"/>
         <activity android:name=".activity.SchoolListActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
     </application>
