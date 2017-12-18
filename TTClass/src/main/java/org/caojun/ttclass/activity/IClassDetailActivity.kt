@@ -10,7 +10,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.NumberPicker
 import android.widget.TableRow
-import com.socks.library.KLog
 import kotlinx.android.synthetic.main.activity_iclass_detail.*
 import kotlinx.android.synthetic.main.layout_confirm.*
 import org.caojun.dialog.NumberPickerDialog
@@ -31,7 +30,6 @@ class IClassDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_iclass_detail)
-//        actionBar.setDisplayHomeAsUpEnabled(true)
 
         btnRemainder.setOnClickListener {
             var current = 10
@@ -108,7 +106,6 @@ class IClassDetailActivity : AppCompatActivity() {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     val lastSchoolID = iClass?.idSchool
                     iClass?.idSchool = data.getIntExtra(Constant.Key_SchoolID, -1)
-                    KLog.d("IClassDetailActivity", "idSchool: " + iClass?.idSchool)
                     if (lastSchoolID != iClass?.idSchool) {
                         isInfoChanged = true
                     }
