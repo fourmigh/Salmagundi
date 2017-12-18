@@ -31,7 +31,6 @@ class IClassListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_iclass_list)
 
         listView.setOnItemClickListener { _, _, position, _ ->
-            KLog.d("IClassListActivity", "setOnItemClickListener")
             doAsync {
                 val classes = TTCDatabase.getDatabase(this@IClassListActivity).getIClass().queryAll()
                 startActivityForResult<IClassDetailActivity>(Constant.RequestCode_IClass, Constant.Key_Class to classes[position])
@@ -50,6 +49,7 @@ class IClassListActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == Constant.RequestCode_IClass && data != null) {
             if (data.getBooleanExtra(Constant.Key_AddClass, false)) {
+                KLog.d("IClassListActivity", "onActivityResult")
                 doAsync {
                     TTCDatabase.getDatabase(this@IClassListActivity).getIClass().insert(IClass())
                     var classes = TTCDatabase.getDatabase(this@IClassListActivity).getIClass().queryAll()
@@ -63,7 +63,7 @@ class IClassListActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
+        KLog.d("IClassListActivity", "onResume")
         doAsync {
             var classes = TTCDatabase.getDatabase(this@IClassListActivity).getIClass().queryAll()
             if (classes.isEmpty()) {

@@ -288,6 +288,15 @@ class IClassDetailActivity : AppCompatActivity() {
         super.finish()
     }
 
+    override fun onDestroy() {
+        doAsync {
+            if (isAdd) {
+                TTCDatabase.getDatabase(this@IClassDetailActivity).getIClass().delete(iClass!!)
+            }
+        }
+        super.onDestroy()
+    }
+
     private fun doSave() {
         if (iClass == null) {
             finish()
