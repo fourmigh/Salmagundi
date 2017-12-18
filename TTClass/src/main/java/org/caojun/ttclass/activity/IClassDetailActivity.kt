@@ -120,7 +120,9 @@ class IClassDetailActivity : AppCompatActivity() {
         super.onResume()
 
         isAdd = intent.getBooleanExtra(Constant.Key_IsNew, false)
-        iClass = intent.getParcelableExtra(Constant.Key_Class)
+        if (iClass == null) {
+            iClass = intent.getParcelableExtra(Constant.Key_Class)
+        }
         refreshUI(isAdd)
     }
 
@@ -189,9 +191,14 @@ class IClassDetailActivity : AppCompatActivity() {
     }
 
     private fun addClass() {
-        iClass = IClass()
-        isInfoChanged = false
-        refreshUI(true)
+//        iClass = IClass()
+//        isInfoChanged = false
+//        refreshUI(true)
+        val intent = Intent()
+        intent.putExtra(Constant.Key_AddClass, true)
+        setResult(Activity.RESULT_OK, intent)
+        isAdd = false
+        finish()
     }
 
     private fun doAddClass() {

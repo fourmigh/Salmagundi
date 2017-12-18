@@ -1,5 +1,6 @@
 package org.caojun.ttclass.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.socks.library.KLog
@@ -12,6 +13,7 @@ import org.jetbrains.anko.uiThread
 import org.caojun.ttclass.room.IClass
 import org.caojun.ttclass.room.TTCDatabase
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 import java.util.*
 
 /**
@@ -32,7 +34,7 @@ class IClassListActivity : AppCompatActivity() {
             KLog.d("IClassListActivity", "setOnItemClickListener")
             doAsync {
                 val classes = TTCDatabase.getDatabase(this@IClassListActivity).getIClass().queryAll()
-                startActivity<IClassDetailActivity>(Constant.Key_Class to classes[position])
+                startActivityForResult<IClassDetailActivity>(Constant.RequestCode_IClass, Constant.Key_Class to classes[position])
             }
         }
 
@@ -40,9 +42,23 @@ class IClassListActivity : AppCompatActivity() {
             doAsync {
                 TTCDatabase.getDatabase(this@IClassListActivity).getIClass().insert(IClass())
                 val classes = TTCDatabase.getDatabase(this@IClassListActivity).getIClass().queryAll()
-                startActivity<IClassDetailActivity>(Constant.Key_Class to classes[classes.size - 1], Constant.Key_IsNew to true)
+                startActivityForResult<IClassDetailActivity>(Constant.RequestCode_IClass, Constant.Key_Class to classes[classes.size - 1], Constant.Key_IsNew to true)
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == Constant.RequestCode_IClass && data != null) {
+            if (data.getBooleanExtra(Constant.Key_AddClass, false)) {
+                doAsync {
+                    TTCDatabase.getDatabase(this@IClassListActivity).getIClass().insert(IClass())
+                    var classes = TTCDatabase.getDatabase(this@IClassListActivity).getIClass().queryAll()
+                    startActivityForResult<IClassDetailActivity>(Constant.RequestCode_IClass, Constant.Key_Class to classes[classes.size - 1], Constant.Key_IsNew to true)
+                }
+                return
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onResume() {
@@ -64,10 +80,11 @@ class IClassListActivity : AppCompatActivity() {
                             return@doAsync
                         }
                         isSingleLast = true
-                        startActivity<IClassDetailActivity>(Constant.Key_Class to classes[0], Constant.Key_IsNew to isAdd)
+                        startActivityForResult<IClassDetailActivity>(Constant.RequestCode_IClass, Constant.Key_Class to classes[0], Constant.Key_IsNew to isAdd)
                         return@doAsync
                     }
 
+                    isSingleLast = false
                     list.clear()
                     list.addAll(classes)
                     uiThread {
@@ -83,7 +100,7 @@ class IClassListActivity : AppCompatActivity() {
                 isSingleLast -> finish()
                 else -> {
                     isSingleLast = true
-                    startActivity<IClassDetailActivity>()
+                    startActivityForResult<IClassDetailActivity>(Constant.RequestCode_IClass)
                 }
             }
         }
