@@ -1,4 +1,4 @@
-package org.caojun.signman.utils
+package org.caojun.utils
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

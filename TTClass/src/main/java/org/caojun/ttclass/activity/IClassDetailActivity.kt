@@ -1,6 +1,7 @@
 package org.caojun.ttclass.activity
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -10,6 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.NumberPicker
 import android.widget.TableRow
+import com.socks.library.KLog
 import kotlinx.android.synthetic.main.activity_iclass_detail.*
 import kotlinx.android.synthetic.main.layout_confirm.*
 import org.caojun.dialog.NumberPickerDialog
@@ -23,6 +25,8 @@ import java.util.*
 
 class IClassDetailActivity : AppCompatActivity() {
 
+    private val Key_Name = "Key_Name"
+    private val Key_Grade = "Key_Grade"
     private var iClass: IClass? = null
     private val signs = ArrayList<Sign>()
     private var isAdd = false
@@ -166,13 +170,38 @@ class IClassDetailActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
+        KLog.d("IClassDetailActivity", "onResume")
         isAdd = intent.getBooleanExtra(Constant.Key_IsNew, false)
         if (iClass == null) {
             iClass = intent.getParcelableExtra(Constant.Key_Class)
         }
         refreshUI(isAdd)
     }
+
+    override fun onPause() {
+        super.onPause()
+        val edit = this.getSharedPreferences(this.javaClass.name, Context.MODE_PRIVATE).edit()
+        KLog.d("onPause", "Key_Name: " + etName.text.toString())
+        edit.putString(Key_Name, etName.text.toString())
+        edit.putString(Key_Grade, etGrade.text.toString())
+        edit.commit()
+    }
+
+
+
+//    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+//        super.onRestoreInstanceState(savedInstanceState)
+//        KLog.d("IClassDetailActivity", "onRestoreInstanceState")
+//        etName.setText(savedInstanceState?.getString(Key_Name, iClass?.name))
+//        etGrade.setText(savedInstanceState?.getString(Key_Grade, iClass?.grade))
+//    }
+//
+//    override fun onSaveInstanceState(outState: Bundle?) {
+//        super.onSaveInstanceState(outState)
+//        KLog.d("IClassDetailActivity", "onSaveInstanceState")
+//        outState?.putString(Key_Name, etName.text.toString())
+//        outState?.putString(Key_Grade, etGrade.text.toString())
+//    }
 
     private fun refreshUI(isEdit: Boolean) {
         if (iClass == null) {
@@ -190,9 +219,13 @@ class IClassDetailActivity : AppCompatActivity() {
             val bills = TTCDatabase.getDatabase(this@IClassDetailActivity).getBill().query(idClass)
             scheduleWeekdays = getScheduleWeekdays()
             uiThread {
+
+                val sp = this@IClassDetailActivity.getSharedPreferences(this@IClassDetailActivity.javaClass.name, Context.MODE_PRIVATE)
+                KLog.d("refreshUI", "Name: " + sp.getString(Key_Name, iClass?.name))
+                etName.setText(sp.getString(Key_Name, iClass?.name))
+                etGrade.setText(sp.getString(Key_Grade, iClass?.grade))
+
                 btnNote.isEnabled = signs.size > 0
-                etName.setText(iClass?.name)
-                etGrade.setText(iClass?.grade)
                 btnSign.isEnabled = iClass?.reminder?:0 > 0 && scheduleWeekdays != null
                 btnSchool.isEnabled = iClass?.idTeacher?:-1 >= 0
                 btnRemainder.text = iClass?.reminder.toString()
@@ -202,8 +235,6 @@ class IClassDetailActivity : AppCompatActivity() {
 
                 setNameEdit(isEdit)
                 setGradeEdit(isEdit)
-
-
             }
         }
     }
@@ -351,6 +382,9 @@ class IClassDetailActivity : AppCompatActivity() {
                 TTCDatabase.getDatabase(this@IClassDetailActivity).getIClass().delete(iClass!!)
             }
         }
+        val edit = this.getSharedPreferences(this.javaClass.name, Context.MODE_PRIVATE).edit()
+        edit.clear()
+        edit.commit()
         super.onDestroy()
     }
 

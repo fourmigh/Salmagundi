@@ -19,13 +19,13 @@ import org.caojun.ttclass.room.Schedule
  */
 class ScheduleDetailActivity : AppCompatActivity() {
 
-    private var TimeSunday: Array<Button>? = null
-    private var TimeMonday: Array<Button>? = null
-    private var TimeTuesday: Array<Button>? = null
-    private var TimeWednesday: Array<Button>? = null
-    private var TimeThursday: Array<Button>? = null
-    private var TimeFriday: Array<Button>? = null
-    private var TimeSaturday: Array<Button>? = null
+//    private var TimeSunday: Array<Button>? = null
+//    private var TimeMonday: Array<Button>? = null
+//    private var TimeTuesday: Array<Button>? = null
+//    private var TimeWednesday: Array<Button>? = null
+//    private var TimeThursday: Array<Button>? = null
+//    private var TimeFriday: Array<Button>? = null
+//    private var TimeSaturday: Array<Button>? = null
     private var time: Array<Array<Button>?>? = null
     private var checked: Array<CheckBox>? = null
 
@@ -38,17 +38,17 @@ class ScheduleDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule_detail)
 
-        TimeSunday = arrayOf(btnStart0, btnEnd0)
-        TimeMonday = arrayOf(btnStart1, btnEnd1)
-        TimeTuesday = arrayOf(btnStart2, btnEnd2)
-        TimeWednesday = arrayOf(btnStart3, btnEnd3)
-        TimeThursday = arrayOf(btnStart4, btnEnd4)
-        TimeFriday = arrayOf(btnStart5, btnEnd5)
-        TimeSaturday = arrayOf(btnStart6, btnEnd6)
+        val TimeSunday = arrayOf(btnStart0, btnEnd0)
+        val TimeMonday = arrayOf(btnStart1, btnEnd1)
+        val TimeTuesday = arrayOf(btnStart2, btnEnd2)
+        val TimeWednesday = arrayOf(btnStart3, btnEnd3)
+        val TimeThursday = arrayOf(btnStart4, btnEnd4)
+        val TimeFriday = arrayOf(btnStart5, btnEnd5)
+        val TimeSaturday = arrayOf(btnStart6, btnEnd6)
         time = arrayOf(TimeSunday, TimeMonday, TimeTuesday, TimeWednesday, TimeThursday, TimeFriday, TimeSaturday)
         checked = arrayOf(cbTime0, cbTime1, cbTime2, cbTime3, cbTime4, cbTime5, cbTime6)
 
-        val timePickerDialog = TimePickerDialog(this, 0, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+        val timePickerDialog = TimePickerDialog(this, 0, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
             var hour = hourOfDay.toString()
             if (hourOfDay < 10) {
                 hour = "0" + hour

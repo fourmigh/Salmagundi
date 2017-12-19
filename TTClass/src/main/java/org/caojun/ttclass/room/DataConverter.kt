@@ -1,7 +1,9 @@
 package org.caojun.ttclass.room
 
 import android.arch.persistence.room.TypeConverter
+import android.graphics.drawable.Drawable
 import android.text.TextUtils
+import org.caojun.utils.DrawableUtils
 import java.util.*
 
 /**
@@ -12,12 +14,21 @@ class DataConverter {
     private val SEPARATOR = "<>"
 
     @TypeConverter
+    fun toByteArray(drawable: Drawable): ByteArray {
+        return DrawableUtils.toByteArray(drawable)
+    }
+
+    @TypeConverter
+    fun toDrawable(data: ByteArray): Drawable {
+        return DrawableUtils.toDrawable(data)
+    }
+
+    @TypeConverter
     fun schedule2String(schedule: Schedule?): String {
         if (schedule == null) {
             return ""
         }
         val sb = StringBuffer()
-//        sb.append(schedule.idClass.toString()).append(SEPARATOR)
         for (i in schedule.checked.indices) {
             sb.append(schedule.checked[i].toString()).append(SEPARATOR)
         }
@@ -37,7 +48,6 @@ class DataConverter {
         }
         var index = 0
         val strings = string.split(SEPARATOR)
-//        schedule.idClass = strings[index++].toLong()
         for (i in schedule.checked.indices) {
             schedule.checked[i] = strings[index++].toBoolean()
         }

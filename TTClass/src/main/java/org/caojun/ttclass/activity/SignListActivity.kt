@@ -8,6 +8,7 @@ import org.caojun.ttclass.R
 import org.caojun.ttclass.adapter.SignAdapter
 import org.caojun.ttclass.room.TTCDatabase
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.uiThread
 
 /**
@@ -23,6 +24,7 @@ class SignListActivity : Activity() {
 
         listView.setOnItemClickListener { _, _, position, _ ->
             //TODO
+            startActivity<NoteDetailActivity>()
         }
 
 //        setFinishOnTouchOutside(false)

@@ -37,6 +37,8 @@
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
         <activity android:name=".activity.SignListActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
+        <activity android:name=".activity.NoteDetailActivity"
+            android:label="@string/note"/>
     </application>
 
 </manifest>
