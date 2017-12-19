@@ -37,7 +37,8 @@
     <string name="modify">Modify</string>
     <string name="delete_class">Delete</string>
     <string name="alert">Alert</string>
-    <string name="delete_class_tips">Are you sure to delete [ %s %s]?</string>
+    <string name="delete_msg">[%s %s]</string>
+    <string name="delete_class_tips">Are you sure to delete %s?</string>
     <string name="abort_save">Abort to save?</string>
     <string name="abort">Abort</string>
     <string name="save">Save</string>
@@ -45,4 +46,5 @@
     <string name="yesterday">Yesterday</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="today">Today</string>
+    <string name="delete">Delete</string>
 </resources>

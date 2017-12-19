@@ -38,7 +38,8 @@
     <string name="modify">修改</string>
     <string name="delete_class">删除</string>
     <string name="alert">警告</string>
-    <string name="delete_class_tips">你确定要删除【 %s %s】吗？</string>
+    <string name="delete_msg">【%s %s】</string>
+    <string name="delete_class_tips">确定要删除%s吗？</string>
     <string name="abort_save">放弃保存吗？</string>
     <string name="abort">放弃</string>
     <string name="save">保存</string>
@@ -46,4 +47,5 @@
     <string name="yesterday">昨天</string>
     <string name="tomorrow">明天</string>
     <string name="today">今天</string>
+    <string name="delete">删除</string>
 </resources>

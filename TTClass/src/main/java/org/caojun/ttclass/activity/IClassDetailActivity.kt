@@ -138,6 +138,7 @@ class IClassDetailActivity : AppCompatActivity() {
         doAsync {
             val idClass = iClass?.id?:-1
             var list = TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().query(idClass)
+            val lastSize = list.size
             if (Utilities.dateInSigns(date, list)) {
                 return@doAsync
             }
@@ -146,8 +147,19 @@ class IClassDetailActivity : AppCompatActivity() {
             sign.time = date
             TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().insert(sign)
             list = TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().query(idClass)
+            if (list.size - lastSize == 1) {
+                //新增一条签到记录
+                iClass!!.reminder --
+                if (iClass!!.reminder < 0) {
+                    iClass!!.reminder = 0
+                }
+                TTCDatabase.getDatabase(this@IClassDetailActivity).getIClass().update(iClass!!)
+            }
             uiThread {
                 btnNote.isEnabled = list.isNotEmpty()
+                if (list.size - lastSize == 1) {
+                    btnRemainder.text = iClass!!.reminder.toString()
+                }
             }
         }
     }
@@ -230,9 +242,6 @@ class IClassDetailActivity : AppCompatActivity() {
     }
 
     private fun addClass() {
-//        iClass = IClass()
-//        isInfoChanged = false
-//        refreshUI(true)
         val intent = Intent()
         intent.putExtra(Constant.Key_AddClass, true)
         setResult(Activity.RESULT_OK, intent)
@@ -266,15 +275,24 @@ class IClassDetailActivity : AppCompatActivity() {
                 true
             }
             R.id.action_delete_class -> {
-                val name = etName.text.toString()
+                var name = etName.text.toString()
                 var grade = etGrade.text.toString()
-                if (!TextUtils.isEmpty(grade)) {
-                    grade += " "
+                var msg: String
+                if (TextUtils.isEmpty(name) && TextUtils.isEmpty(grade)) {
+                    msg = getString(R.string.delete_class_tips, "")
+                } else {
+                    if (!TextUtils.isEmpty(name)) {
+                        name = " " + name
+                    }
+                    if (!TextUtils.isEmpty(grade)) {
+                        grade += " "
+                    }
+                    val content = getString(R.string.delete_msg, name, grade)
+                    msg = getString(R.string.delete_class_tips, content)
                 }
-                val msg = getString(R.string.delete_class_tips, name, grade)
                 alert(msg) {
                     title = getString(R.string.alert)
-                    yesButton {
+                    positiveButton(R.string.delete) {
                         doAsync {
                             TTCDatabase.getDatabase(this@IClassDetailActivity).getIClass().delete(iClass!!)
                             finish()
