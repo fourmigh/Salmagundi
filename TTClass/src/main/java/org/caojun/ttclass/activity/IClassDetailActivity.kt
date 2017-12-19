@@ -11,7 +11,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.NumberPicker
 import android.widget.TableRow
-import com.socks.library.KLog
 import kotlinx.android.synthetic.main.activity_iclass_detail.*
 import kotlinx.android.synthetic.main.layout_confirm.*
 import org.caojun.dialog.NumberPickerDialog
@@ -25,8 +24,6 @@ import java.util.*
 
 class IClassDetailActivity : AppCompatActivity() {
 
-    private val Key_Name = "Key_Name"
-    private val Key_Grade = "Key_Grade"
     private var iClass: IClass? = null
     private val signs = ArrayList<Sign>()
     private var isAdd = false
@@ -170,7 +167,6 @@ class IClassDetailActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        KLog.d("IClassDetailActivity", "onResume")
         isAdd = intent.getBooleanExtra(Constant.Key_IsNew, false)
         if (iClass == null) {
             iClass = intent.getParcelableExtra(Constant.Key_Class)
@@ -181,9 +177,8 @@ class IClassDetailActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         val edit = this.getSharedPreferences(this.javaClass.name, Context.MODE_PRIVATE).edit()
-        KLog.d("onPause", "Key_Name: " + etName.text.toString())
-        edit.putString(Key_Name, etName.text.toString())
-        edit.putString(Key_Grade, etGrade.text.toString())
+        edit.putString(Constant.Key_Name, etName.text.toString())
+        edit.putString(Constant.Key_Grade, etGrade.text.toString())
         edit.commit()
     }
 
@@ -221,9 +216,8 @@ class IClassDetailActivity : AppCompatActivity() {
             uiThread {
 
                 val sp = this@IClassDetailActivity.getSharedPreferences(this@IClassDetailActivity.javaClass.name, Context.MODE_PRIVATE)
-                KLog.d("refreshUI", "Name: " + sp.getString(Key_Name, iClass?.name))
-                etName.setText(sp.getString(Key_Name, iClass?.name))
-                etGrade.setText(sp.getString(Key_Grade, iClass?.grade))
+                etName.setText(sp.getString(Constant.Key_Name, iClass?.name))
+                etGrade.setText(sp.getString(Constant.Key_Grade, iClass?.grade))
 
                 btnNote.isEnabled = signs.size > 0
                 btnSign.isEnabled = iClass?.reminder?:0 > 0 && scheduleWeekdays != null

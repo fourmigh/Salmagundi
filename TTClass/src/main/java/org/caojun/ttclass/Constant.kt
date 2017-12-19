@@ -14,6 +14,8 @@ object Constant {
     val Key_AddClass = "Key_AddClass"
     val Key_Day = "Key_Day"
     val Key_ScheduleWeekdays = "Key_ScheduleWeekdays"
+    val Key_Name = "Key_Name"
+    val Key_Grade = "Key_Grade"
 
     val RequestCode_Schedule = 10
     val RequestCode_Teacher = 11
