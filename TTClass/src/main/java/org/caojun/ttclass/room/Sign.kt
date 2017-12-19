@@ -71,8 +71,10 @@ class Sign: Parcelable {
                 dest.writeInt(0)
             } else {
                 val image = dataConverter.toByteArray(images[i]!!)
-                dest.writeInt(image.size)
-                dest.writeByteArray(image)
+                if (image != null) {
+                    dest.writeInt(image.size)
+                    dest.writeByteArray(image)
+                }
             }
         }
     }

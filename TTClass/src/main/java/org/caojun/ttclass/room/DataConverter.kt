@@ -14,12 +14,12 @@ class DataConverter {
     private val SEPARATOR = "<>"
 
     @TypeConverter
-    fun toByteArray(drawable: Drawable): ByteArray {
+    fun toByteArray(drawable: Drawable?): ByteArray? {
         return DrawableUtils.toByteArray(drawable)
     }
 
     @TypeConverter
-    fun toDrawable(data: ByteArray): Drawable {
+    fun toDrawable(data: ByteArray?): Drawable? {
         return DrawableUtils.toDrawable(data)
     }
 

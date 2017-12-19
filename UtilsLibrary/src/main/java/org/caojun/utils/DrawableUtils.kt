@@ -10,7 +10,10 @@ import java.io.ByteArrayOutputStream
  * Created by CaoJun on 2017/9/5.
  */
 object DrawableUtils {
-    fun toByteArray(drawable: Drawable): ByteArray {
+    fun toByteArray(drawable: Drawable?): ByteArray? {
+        if (drawable == null) {
+            return null
+        }
         val bd = drawable as BitmapDrawable
         val bitmap = bd.bitmap
         val os = ByteArrayOutputStream()
@@ -18,7 +21,10 @@ object DrawableUtils {
         return os.toByteArray()
     }
 
-    fun toDrawable(data: ByteArray): Drawable {
+    fun toDrawable(data: ByteArray?): Drawable? {
+        if (data == null) {
+            return null
+        }
         val bitmap = BitmapFactory.decodeByteArray(data, 0, data.size, null)
         return BitmapDrawable(null, bitmap)
     }
