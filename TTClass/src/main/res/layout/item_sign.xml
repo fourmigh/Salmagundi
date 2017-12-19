@@ -7,6 +7,12 @@
     android:orientation="horizontal"
     android:padding="@dimen/layout_padding">
 
+    <ImageView
+        android:id="@+id/ivNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_input_get" />
+
     <TextView
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
@@ -22,10 +28,4 @@
         android:gravity="end"
         android:maxLines="1"
         android:text="TextView" />
-
-    <ImageView
-        android:id="@+id/ivSign"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/checkbox_on_background" />
 </LinearLayout>

@@ -5,13 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.TextView
-import com.socks.library.KLog
 import org.caojun.ttclass.R
-import org.caojun.ttclass.room.School
-import org.caojun.ttclass.room.Teacher
+import org.caojun.ttclass.Utilities
+import org.caojun.ttclass.room.Sign
 import org.caojun.utils.TimeUtils
-import java.text.DateFormatSymbols
 import java.util.*
 
 /**
@@ -23,9 +22,9 @@ class ScheduleAdapter : BaseAdapter {
     private var dayStart = -1
     private var dayEnd = 1
     private val days = ArrayList<Date>()
-    private val WeekDays = DateFormatSymbols.getInstance().shortWeekdays
+    private val signs = ArrayList<Sign>()
 
-    constructor(context: Context, weekDays: IntArray) : super() {
+    constructor(context: Context, weekDays: IntArray, signs: List<Sign>) : super() {
         this.context = context
         this.weekDays = weekDays
         if (weekDays.isEmpty()) {
@@ -33,10 +32,11 @@ class ScheduleAdapter : BaseAdapter {
         }
         this.dayStart *= weekDays.size * 8
         this.dayEnd *= weekDays.size * 7
-        setData()
+        this.signs.addAll(signs)
+        initData()
     }
 
-    private fun setData() {
+    private fun initData() {
         if (weekDays == null) {
             return
         }
@@ -62,14 +62,16 @@ class ScheduleAdapter : BaseAdapter {
             holder = ViewHolder()
             holder.tvDate = view?.findViewById(R.id.tvDate)
             holder.tvWeekday = view?.findViewById(R.id.tvWeekday)
+            holder.ivSign = view?.findViewById(R.id.ivSign)
             view?.tag = holder
         } else {
             holder = view.tag as ViewHolder
         }
 
         val data = getItem(position)
+        holder.ivSign?.visibility = if (Utilities.dateInSigns(data, signs)) View.VISIBLE else View.GONE
         holder.tvDate?.text = TimeUtils.getTime("yyyy/MM/dd", data)
-        holder.tvWeekday?.text = getWeekdayString(data)
+        holder.tvWeekday?.text = Utilities.getWeekday(context!!, data)
         if (position % 2 == 0) {
             view?.setBackgroundColor(0x33333333)
         } else {
@@ -88,22 +90,6 @@ class ScheduleAdapter : BaseAdapter {
     private inner class ViewHolder {
         internal var tvDate: TextView? = null
         internal var tvWeekday: TextView? = null
-    }
-
-    private fun getWeekdayString(date: Date): String {
-        if (TimeUtils.isYesterday(date)) {
-            KLog.d("isYesterday", "isYesterday: " + TimeUtils.getTime("yyyy/MM/dd", date.time))
-            return context!!.getString(R.string.yesterday)
-        }
-        if (TimeUtils.isToday(date)) {
-            KLog.d("isToday", "isToday: " + TimeUtils.getTime("yyyy/MM/dd", date.time))
-            return context!!.getString(R.string.today)
-        }
-        if (TimeUtils.isTomorrow(date)) {
-            KLog.d("isTomorrow", "isTomorrow: " + TimeUtils.getTime("yyyy/MM/dd", date.time))
-            return context!!.getString(R.string.tomorrow)
-        }
-        KLog.d("getWeekdayString", "getWeekdayString: " + TimeUtils.getTime("yyyy/MM/dd", date.time))
-        return TimeUtils.getWeekdayString(date)
+        internal var ivSign: ImageView? = null
     }
 }

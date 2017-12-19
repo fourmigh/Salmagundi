@@ -21,7 +21,7 @@ import java.util.*
  */
 class IClassListActivity : AppCompatActivity() {
 
-    private val list: ArrayList<IClass> = ArrayList()
+//    private val list: ArrayList<IClass> = ArrayList()
     private var adapter: IClassAdapter? = null
     private var isSingleLast = false
     private var isAdd = false
@@ -85,11 +85,11 @@ class IClassListActivity : AppCompatActivity() {
                     }
 
                     isSingleLast = false
-                    list.clear()
-                    list.addAll(classes)
+//                    list.clear()
+//                    list.addAll(classes)
                     uiThread {
                         if (adapter == null) {
-                            adapter = IClassAdapter(this@IClassListActivity, list)
+                            adapter = IClassAdapter(this@IClassListActivity, classes)
                             listView?.adapter = adapter
                         } else {
                             adapter?.setData(classes)

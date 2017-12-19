@@ -134,6 +134,14 @@ object TimeUtils {
         return isOneDay(calendar, today)
     }
 
+    fun isOneDay(d1: Date, d2: Date): Boolean {
+        val c1 = Calendar.getInstance()
+        c1.time = d1
+        val c2 = Calendar.getInstance()
+        c2.time = d2
+        return isOneDay(c1, c2)
+    }
+
     fun isOneDay(c1: Calendar, c2: Calendar): Boolean {
         return c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR) && c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH) && c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH)
     }

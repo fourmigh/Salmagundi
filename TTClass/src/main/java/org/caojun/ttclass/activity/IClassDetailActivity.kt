@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.layout_confirm.*
 import org.caojun.dialog.NumberPickerDialog
 import org.caojun.ttclass.Constant
 import org.caojun.ttclass.R
+import org.caojun.ttclass.Utilities
 import org.caojun.ttclass.dialog.BillDetailDialog
 import org.caojun.ttclass.room.*
 import org.jetbrains.anko.*
@@ -73,7 +74,11 @@ class IClassDetailActivity : AppCompatActivity() {
         }
 
         btnSign.setOnClickListener {
-            startActivityForResult<ScheduleListActivity>(Constant.RequestCode_ScheduleList, Constant.Key_ScheduleWeekdays to scheduleWeekdays)
+            startActivityForResult<ScheduleListActivity>(Constant.RequestCode_ScheduleList, Constant.Key_ClassID to iClass?.id, Constant.Key_ScheduleWeekdays to scheduleWeekdays)
+        }
+
+        btnNote.setOnClickListener {
+            startActivity<SignListActivity>(Constant.Key_ClassID to iClass?.id)
         }
 
         btnOK.setOnClickListener {
@@ -119,10 +124,32 @@ class IClassDetailActivity : AppCompatActivity() {
             }
             Constant.RequestCode_ScheduleList -> {
                 //签到选中某天
-                //TODO
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    val time = data.getLongExtra(Constant.Key_Day, 0)
+                    val date = Date(time)
+                    doSign(date)
+                }
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun doSign(date: Date) {
+        doAsync {
+            val idClass = iClass?.id?:-1
+            var list = TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().query(idClass)
+            if (Utilities.dateInSigns(date, list)) {
+                return@doAsync
+            }
+            val sign = Sign()
+            sign.idClass = iClass!!.id
+            sign.time = date
+            TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().insert(sign)
+            list = TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().query(idClass)
+            uiThread {
+                btnNote.isEnabled = list.isNotEmpty()
+            }
+        }
     }
 
     override fun onResume() {

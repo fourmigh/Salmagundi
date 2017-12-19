@@ -35,6 +35,8 @@
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
         <activity android:name=".activity.ScheduleListActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
+        <activity android:name=".activity.SignListActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
     </application>
 
 </manifest>
