@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mis_folder_all">所有照片</string>
+    <string name="mis_preview">預覽</string>
+    <string name="mis_msg_no_camera">沒有系統相機</string>
+    <string name="mis_msg_amount_limit">已經達到最高選擇數量</string>
+    <string name="mis_action_done">完成</string>
+    <string name="mis_photo_unit">張</string>
+    <string name="mis_tip_take_photo">拍攝照片</string>
+    <string name="mis_error_image_not_exist">圖片錯誤</string>
+    <string name="mis_error_no_permission">無許可權</string>
+    <string name="mis_permission_dialog_title">許可權拒絕</string>
+    <string name="mis_permission_dialog_ok">好</string>
+    <string name="mis_permission_dialog_cancel">拒絕</string>
+    <string name="mis_permission_rationale">瀏覽圖片需要您提供瀏覽存儲的許可權</string>
+    <string name="mis_permission_rationale_write_storage">保存拍照圖片需要您提供寫存儲許可權</string>
+</resources>

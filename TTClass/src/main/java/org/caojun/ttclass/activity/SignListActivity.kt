@@ -3,12 +3,14 @@ package org.caojun.ttclass.activity
 import android.app.Activity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_sign_list.*
+import org.caojun.library.activity.MomentsActivity
 import org.caojun.ttclass.Constant
 import org.caojun.ttclass.R
 import org.caojun.ttclass.adapter.SignAdapter
 import org.caojun.ttclass.room.TTCDatabase
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.uiThread
 
 /**
@@ -24,7 +26,7 @@ class SignListActivity : Activity() {
 
         listView.setOnItemClickListener { _, _, position, _ ->
             //TODO
-            startActivity<NoteDetailActivity>()
+            startActivityForResult<MomentsActivity>(Constant.RequestCode_Note)
         }
 
 //        setFinishOnTouchOutside(false)

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="post_delete_tv_d">拖动到此处，进行删除</string>
+    <string name="post_delete_tv_s">放开手指，进行删除</string>
+</resources>

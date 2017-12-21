@@ -22,4 +22,5 @@ object Constant {
     val RequestCode_School = 12
     val RequestCode_IClass = 13
     val RequestCode_ScheduleList = 14
+    val RequestCode_Note = 15
 }

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MomentsLibrary</string>
+    <string name="post_delete_tv_d">Drag to here, and delete.</string>
+    <string name="post_delete_tv_s">Release the finger and delete.</string>
+</resources>

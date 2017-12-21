@@ -37,5 +37,5 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:$googleroom_version"
     kapt "android.arch.persistence.room:compiler:$googleroom_version"
     implementation project(':UtilsLibrary')
-//    implementation "com.dinuscxj:recyclerrefreshlayout:latest.release"
+    implementation project(':MomentsLibrary')
 }

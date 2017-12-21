@@ -47,6 +47,4 @@
     <string name="tomorrow">Tomorrow</string>
     <string name="today">Today</string>
     <string name="delete">Delete</string>
-    <string name="post_delete_tv_d">Drag to here, and delete.</string>
-    <string name="post_delete_tv_s">Release the finger and delete.</string>
 </resources>
