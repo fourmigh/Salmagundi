@@ -16,18 +16,24 @@ import org.caojun.library.R
  */
 class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ViewHolder> {
 
-    private val paths = ArrayList<String>()
+    private var paths: ArrayList<String>? = null
     private var mLayoutInflater: LayoutInflater? = null
     private var context: Context? = null
 
-    constructor(context: Context?, paths: List<String>) : super() {
+    constructor(context: Context?, paths: ArrayList<String>) : super() {
         this.context = context
-        this.paths.addAll(paths)
         this.mLayoutInflater = LayoutInflater.from(context)
+        setData(paths)
+    }
+
+    private fun setData(paths: ArrayList<String>) {
+//        this.paths.clear()
+//        this.paths.addAll(paths)
+        this.paths = paths
     }
 
     override fun getItemCount(): Int {
-        return paths.size
+        return paths?.size?:0
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
@@ -36,7 +42,7 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ViewHolder> {
         } else {
             holder?.imageView?.visibility = View.VISIBLE
         }
-        Glide.with(context).load(paths[position]).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder?.imageView)
+        Glide.with(context).load(paths!![position]).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder?.imageView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {

@@ -1,27 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <EditText
-        android:id="@+id/etContent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:gravity="top"
-        android:padding="16dp"
-        android:inputType="textMultiLine"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="16dp"
-        app:spanCount="3"
-        android:clipToPadding="false"/>
 
     <TextView
         android:id="@+id/tvDelete"
@@ -31,5 +13,28 @@
         android:background="@android:color/holo_red_light"
         android:gravity="center"
         android:text="@string/post_delete_tv_d"
-        android:textColor="@android:color/white"/>
-</LinearLayout>
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"/>
+
+    <EditText
+        android:id="@+id/etContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:gravity="top"
+        android:padding="16dp"
+        android:layout_alignParentTop="true"
+        android:inputType="textMultiLine"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/etContent"
+        android:clipToPadding="false"
+        android:padding="16dp"
+        app:spanCount="3" />
+
+
+</RelativeLayout>

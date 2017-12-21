@@ -79,7 +79,7 @@ class IClassDetailActivity : AppCompatActivity() {
         }
 
         btnNote.setOnClickListener {
-            startActivity<SignListActivity>(Constant.Key_ClassID to iClass?.id)
+            startActivity<SignListActivity>(Constant.Key_Class to iClass)
         }
 
         btnOK.setOnClickListener {

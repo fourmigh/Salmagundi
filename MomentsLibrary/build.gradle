@@ -31,5 +31,6 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$androidsupport_version"
     implementation "org.jetbrains.anko:anko-common:latest.release"
     implementation project(':MultiImageSelectorLibrary')
-    compile project(path: ':MultiImageSelectorLibrary')
+    implementation "com.facebook.fresco:fresco:latest.release"
+    implementation "com.kuyue:utils:latest.release"
 }
