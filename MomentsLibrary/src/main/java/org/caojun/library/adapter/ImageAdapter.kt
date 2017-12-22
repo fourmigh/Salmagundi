@@ -6,10 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.nostra13.universalimageloader.core.ImageLoader
 import org.caojun.library.MultiImageSelectorActivity
 import org.caojun.library.R
+import org.caojun.library.activity.MomentsActivity
+import android.graphics.Bitmap
+import com.nostra13.universalimageloader.core.DisplayImageOptions
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
+import com.socks.library.KLog
 
 /**
  * Created by CaoJun on 2017-12-20.
@@ -19,30 +23,58 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ViewHolder> {
     private var paths: ArrayList<String>? = null
     private var mLayoutInflater: LayoutInflater? = null
     private var context: Context? = null
+    private var PlusPath = ""
+    private var options: DisplayImageOptions? = null
 
     constructor(context: Context?, paths: ArrayList<String>) : super() {
         this.context = context
         this.mLayoutInflater = LayoutInflater.from(context)
+        PlusPath = "drawable://" + R.drawable.mine_btn_plus
         setData(paths)
+
+        options = DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+//                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build()
+        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(context));
     }
 
-    private fun setData(paths: ArrayList<String>) {
+    fun setData(paths: ArrayList<String>) {
 //        this.paths.clear()
 //        this.paths.addAll(paths)
         this.paths = paths
     }
 
+    fun getData(): ArrayList<String>? {
+        return paths
+    }
+
     override fun getItemCount(): Int {
-        return paths?.size?:0
+        return if (paths == null) 1 else (paths!!.size + 1)
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+        KLog.d("ImageAdapter", "position: " + position)
         if (position >= MultiImageSelectorActivity.DEFAULT_IMAGE_SIZE) {//图片已选完时，隐藏添加按钮
             holder?.imageView?.visibility = View.GONE
+            return
         } else {
             holder?.imageView?.visibility = View.VISIBLE
         }
-        Glide.with(context).load(paths!![position]).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder?.imageView)
+        var path = PlusPath
+        if (paths == null || paths!!.size < MultiImageSelectorActivity.DEFAULT_IMAGE_SIZE) {
+            val size = if (paths == null) 0 else paths!!.size
+            if (position == size) {
+                path = PlusPath
+            } else if (paths != null && paths!!.isNotEmpty()) {
+                path = "file://" + paths!![position]
+            }
+        }
+        KLog.d("ImageAdapter", "path: " + path)
+        ImageLoader.getInstance().displayImage(path, holder?.imageView, options)
+//        Glide.with(context).load(path).thumbnail(0.2f).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder?.imageView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {

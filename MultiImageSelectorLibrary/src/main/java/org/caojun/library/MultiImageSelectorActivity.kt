@@ -78,9 +78,10 @@ class MultiImageSelectorActivity: AppCompatActivity(), MultiImageSelectorFragmen
                     val data = Intent()
                     data.putStringArrayListExtra(EXTRA_RESULT, resultList)
                     setResult(Activity.RESULT_OK, data)
-                } else {
-                    setResult(Activity.RESULT_CANCELED)
                 }
+//                else {
+//                    setResult(Activity.RESULT_CANCELED)
+//                }
                 finish()
             }
         } else {
@@ -104,7 +105,7 @@ class MultiImageSelectorActivity: AppCompatActivity(), MultiImageSelectorFragmen
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                setResult(Activity.RESULT_CANCELED)
+//                setResult(Activity.RESULT_CANCELED)
                 finish()
                 return true
             }
@@ -156,7 +157,7 @@ class MultiImageSelectorActivity: AppCompatActivity(), MultiImageSelectorFragmen
         sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(imageFile)))
 
         val data = Intent()
-        resultList!!.add(imageFile.absolutePath)
+        resultList.add(imageFile.absolutePath)
         data.putStringArrayListExtra(EXTRA_RESULT, resultList)
         setResult(Activity.RESULT_OK, data)
         finish()

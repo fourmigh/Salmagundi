@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
+import com.socks.library.KLog
 import org.caojun.library.R
 import org.caojun.library.adapter.ImageAdapter
 import java.util.*
@@ -18,15 +19,15 @@ class DragCallback : ItemTouchHelper.Callback {
     private var dragFlags: Int = 0
     private var swipeFlags: Int = 0
     private var adapter: ImageAdapter? = null
-    private var images: ArrayList<String>? = null//图片经过压缩处理
-    private var originImages: ArrayList<String>? = null//图片没有经过处理，这里传这个进来是为了使原图片的顺序与拖拽顺序保持一致
+//    private var images: ArrayList<String>? = null//图片经过压缩处理
+//    private var originImages: ArrayList<String>? = null//图片没有经过处理，这里传这个进来是为了使原图片的顺序与拖拽顺序保持一致
     private var up: Boolean = false//手指抬起标记位
     private var heightDelete = 0
 
-    constructor(context: Context, adapter: ImageAdapter?, images: ArrayList<String>, originImages: ArrayList<String>) {
+    constructor(context: Context, adapter: ImageAdapter?/*, images: ArrayList<String>, originImages: ArrayList<String>*/) {
         this.adapter = adapter
-        this.images = images
-        this.originImages = originImages
+//        this.images = images
+//        this.originImages = originImages
         heightDelete = context.resources.getDimensionPixelSize(R.dimen.article_post_delete)
     }
 
@@ -57,18 +58,24 @@ class DragCallback : ItemTouchHelper.Callback {
     override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
         val fromPosition = viewHolder.adapterPosition//得到item原来的position
         val toPosition = target.adapterPosition//得到目标position
-        if (toPosition == images!!.size - 1 || images!!.size - 1 == fromPosition) {
+        KLog.d("onMove", "fromPosition: " + fromPosition)
+        KLog.d("onMove", "toPosition: " + toPosition)
+        val size = (adapter?.itemCount?:0) - 1
+        KLog.d("onMove", "size: " + size)
+        if (toPosition == size || size == fromPosition) {
             return true
         }
+        val images = adapter?.getData()
         if (fromPosition < toPosition) {
             for (i in fromPosition until toPosition) {
+                KLog.d("onMove", "i: " + i)
                 Collections.swap(images, i, i + 1)
-                Collections.swap(originImages, i, i + 1)
+//                Collections.swap(originImages, i, i + 1)
             }
         } else {
             for (i in fromPosition downTo toPosition + 1) {
                 Collections.swap(images, i, i - 1)
-                Collections.swap(originImages, i, i - 1)
+//                Collections.swap(originImages, i, i - 1)
             }
         }
         adapter?.notifyItemMoved(fromPosition, toPosition)
@@ -136,7 +143,9 @@ class DragCallback : ItemTouchHelper.Callback {
             dragListener?.deleteState(true)
             if (up) {//在删除处放手，则删除item
                 viewHolder.itemView.visibility = View.INVISIBLE//先设置不可见，如果不设置的话，会看到viewHolder返回到原位置时才消失，因为remove会在viewHolder动画执行完成后才将viewHolder删除
-                originImages?.removeAt(viewHolder.adapterPosition)
+//                originImages?.removeAt(viewHolder.adapterPosition)
+//                images?.removeAt(viewHolder.adapterPosition)
+                val images = adapter?.getData()
                 images?.removeAt(viewHolder.adapterPosition)
                 adapter?.notifyItemRemoved(viewHolder.adapterPosition)
                 initData()
@@ -158,7 +167,7 @@ class DragCallback : ItemTouchHelper.Callback {
      * @param actionState
      */
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-        if (ItemTouchHelper.ACTION_STATE_DRAG == actionState && dragListener != null) {
+        if (ItemTouchHelper.ACTION_STATE_DRAG == actionState) {
             dragListener?.dragState(true)
         }
         super.onSelectedChanged(viewHolder, actionState)
