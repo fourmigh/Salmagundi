@@ -102,21 +102,11 @@ class MomentsActivity : AppCompatActivity() {
                 } else {
                     //TODO 预览图片
                 }
-//                if (originImages != null && originImages!![vh.adapterPosition].contains(PlusIconPrefix)) {//打开相册
-//                    MultiImageSelector.create()
-//                            .showCamera(true)
-//                            .count(MultiImageSelectorActivity.DEFAULT_IMAGE_SIZE - originImages?.size + 1)
-//                            .multi()
-//                            .start(this@MomentsActivity, REQUEST_IMAGE)
-//                } else {
-////                    ToastUtils.getInstance().show(MyApplication.getInstance().getContext(), "预览图片")
-//                    //TODO 预览图片
-//                }
             }
 
             override fun onItemLongClick(vh: RecyclerView.ViewHolder) {
                 //如果item不是最后一个，则执行拖拽
-                if (vh.layoutPosition != originImages.size - 1) {
+                if (vh.layoutPosition != originImages.size) {
                     itemTouchHelper!!.startDrag(vh)
                 }
             }

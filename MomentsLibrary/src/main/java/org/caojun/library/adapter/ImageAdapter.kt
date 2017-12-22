@@ -9,8 +9,6 @@ import android.widget.ImageView
 import com.nostra13.universalimageloader.core.ImageLoader
 import org.caojun.library.MultiImageSelectorActivity
 import org.caojun.library.R
-import org.caojun.library.activity.MomentsActivity
-import android.graphics.Bitmap
 import com.nostra13.universalimageloader.core.DisplayImageOptions
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
 import com.socks.library.KLog
@@ -23,13 +21,12 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ViewHolder> {
     private var paths: ArrayList<String>? = null
     private var mLayoutInflater: LayoutInflater? = null
     private var context: Context? = null
-    private var PlusPath = ""
+    private val PlusPath = "drawable://" + R.drawable.mine_btn_plus
     private var options: DisplayImageOptions? = null
 
     constructor(context: Context?, paths: ArrayList<String>) : super() {
         this.context = context
         this.mLayoutInflater = LayoutInflater.from(context)
-        PlusPath = "drawable://" + R.drawable.mine_btn_plus
         setData(paths)
 
         options = DisplayImageOptions.Builder()
@@ -42,8 +39,6 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ViewHolder> {
     }
 
     fun setData(paths: ArrayList<String>) {
-//        this.paths.clear()
-//        this.paths.addAll(paths)
         this.paths = paths
     }
 
@@ -56,7 +51,7 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ViewHolder> {
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        KLog.d("ImageAdapter", "position: " + position)
+        KLog.d("onBindViewHolder", "position: " + position)
         if (position >= MultiImageSelectorActivity.DEFAULT_IMAGE_SIZE) {//图片已选完时，隐藏添加按钮
             holder?.imageView?.visibility = View.GONE
             return
@@ -64,17 +59,13 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ViewHolder> {
             holder?.imageView?.visibility = View.VISIBLE
         }
         var path = PlusPath
-        if (paths == null || paths!!.size < MultiImageSelectorActivity.DEFAULT_IMAGE_SIZE) {
+        if (paths != null) {
             val size = if (paths == null) 0 else paths!!.size
-            if (position == size) {
-                path = PlusPath
-            } else if (paths != null && paths!!.isNotEmpty()) {
+            if (position < size) {
                 path = "file://" + paths!![position]
             }
         }
-        KLog.d("ImageAdapter", "path: " + path)
         ImageLoader.getInstance().displayImage(path, holder?.imageView, options)
-//        Glide.with(context).load(path).thumbnail(0.2f).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder?.imageView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {

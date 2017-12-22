@@ -136,10 +136,7 @@ class DragCallback : ItemTouchHelper.Callback {
         if (null == dragListener) {
             return
         }
-
-        if (dY >= (recyclerView.height
-                - viewHolder.itemView.bottom//item底部距离recyclerView顶部高度
-                - heightDelete)) {//拖到删除处
+        if (dY >= (recyclerView.height - viewHolder.itemView.bottom - heightDelete)) {//拖到删除处
             dragListener?.deleteState(true)
             if (up) {//在删除处放手，则删除item
                 viewHolder.itemView.visibility = View.INVISIBLE//先设置不可见，如果不设置的话，会看到viewHolder返回到原位置时才消失，因为remove会在viewHolder动画执行完成后才将viewHolder删除
@@ -167,6 +164,7 @@ class DragCallback : ItemTouchHelper.Callback {
      * @param actionState
      */
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+        KLog.d("onSelectedChanged", "actionState: " + actionState)
         if (ItemTouchHelper.ACTION_STATE_DRAG == actionState) {
             dragListener?.dragState(true)
         }
