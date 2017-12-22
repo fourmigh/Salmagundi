@@ -11,6 +11,7 @@ import android.widget.ToggleButton
 import kotlinx.android.synthetic.main.activity_main.*
 import org.caojun.signman.R
 import org.caojun.signman.activity.MainActivity
+import org.caojun.signman.listener.OnSignListener
 import org.caojun.signman.room.App
 import org.caojun.signman.room.AppDatabase
 import org.caojun.signman.utils.ActivityUtils
@@ -23,9 +24,11 @@ import org.jetbrains.anko.doAsync
 class AppAdapter: BaseAdapter {
 
     private var activity: MainActivity? = null
+    private var listener: OnSignListener? = null
 
-    constructor(context: MainActivity, list: ArrayList<App>) : super(context, list) {
+    constructor(context: MainActivity, list: ArrayList<App>, listener: OnSignListener?) : super(context, list) {
         activity = context
+        this.listener = listener
     }
 
     override fun getView(position: Int, convertView: View?, viewGrouop: ViewGroup?): View {
@@ -83,6 +86,7 @@ class AppAdapter: BaseAdapter {
             doAsync {
                 AppDatabase.getDatabase(context!!).getAppDao().update(app)
             }
+            listener?.onSignChange()
         })
         holder.tbSign?.setOnCheckedChangeListener { toggleButton, checked ->
             if (toggleButton.isPressed) {
@@ -98,21 +102,10 @@ class AppAdapter: BaseAdapter {
                 doAsync {
                     AppDatabase.getDatabase(context!!).getAppDao().update(app)
                 }
+                listener?.onSignChange()
             }
         }
         return view!!
-    }
-
-    override fun getItem(position: Int): App {
-        return super.getItem(position)
-    }
-
-    override fun getItemId(position: Int): Long {
-        return super.getItemId(position)
-    }
-
-    override fun getCount(): Int {
-        return super.getCount()
     }
 
     private inner class ViewHolder {

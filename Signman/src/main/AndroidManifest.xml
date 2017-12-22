@@ -19,7 +19,7 @@
 
         <activity android:name=".activity.AppsActivity"/>
         <activity android:name=".activity.SettingsActivity"
-            android:label="@string/settings"
+            android:label="@string/animation"
             android:theme="@android:style/Theme.Holo.Light.Dialog" />
     </application>
 

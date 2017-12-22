@@ -34,7 +34,7 @@ class MomentsActivity : AppCompatActivity() {
         val Key_Title = "Key_Title"
         val FILE_DIR_NAME = "org.caojun.library"//应用缓存地址
         val FILE_IMG_NAME = "images"//放置图片缓存
-        val IMAGE_SIZE = 9//可添加图片最大数
+//        val IMAGE_SIZE = 9//可添加图片最大数
         private val REQUEST_IMAGE = 1002
     }
 
@@ -46,11 +46,11 @@ class MomentsActivity : AppCompatActivity() {
 //    private var rcvImg: RecyclerView? = null
 //    private var tv: TextView? = null//删除区域提示
 
-    fun startPostActivity(context: Context, images: ArrayList<String>) {
-        val intent = Intent(context, MomentsActivity::class.java)
-        intent.putStringArrayListExtra("img", images)
-        context.startActivity(intent)
-    }
+//    fun startPostActivity(context: Context, images: ArrayList<String>) {
+//        val intent = Intent(context, MomentsActivity::class.java)
+//        intent.putStringArrayListExtra("img", images)
+//        context.startActivity(intent)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,15 +79,8 @@ class MomentsActivity : AppCompatActivity() {
 //        dragImages = ArrayList()
         originImages.add(plusPath)//添加按键，超过9张时在adapter中隐藏
         dragImages.addAll(originImages)
-//        Thread(MyRunnable(this, dragImages, originImages, dragImages, myHandler, false)).start()//开启线程，在新线程中去压缩图片
         doRefreshImages(false, dragImages)
     }
-
-//    private fun initView() {
-//        rcvImg = findViewById(R.id.rcv_img) as RecyclerView
-//        tv = findViewById(R.id.tv) as TextView
-//        initRcv()
-//    }
 
     private fun initRcv() {
 
@@ -105,7 +98,7 @@ class MomentsActivity : AppCompatActivity() {
                 if (originImages[vh.adapterPosition].contains(Constant.PlusIconPrefix)) {//打开相册
                     MultiImageSelector.create()
                             .showCamera(true)
-                            .count(IMAGE_SIZE - originImages.size + 1)
+                            .count(MultiImageSelectorActivity.DEFAULT_IMAGE_SIZE - originImages.size + 1)
                             .multi()
                             .start(this@MomentsActivity, REQUEST_IMAGE)
                 } else {
@@ -151,72 +144,9 @@ class MomentsActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE && resultCode == Activity.RESULT_OK) {//从相册选择完图片
             //压缩图片
-//            Thread(MyRunnable(this, data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT),
-//                    originImages, dragImages, myHandler, true)).start()
             doRefreshImages(true, data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT))
         }
     }
-
-//    /**
-//     * 另起线程压缩图片
-//     */
-//    internal class MyRunnable(var context: Context, var images: ArrayList<String>, var originImages: ArrayList<String>, var dragImages: ArrayList<String>, var handler: Handler, var add: Boolean//是否为添加图片
-//    ) : Runnable {
-//
-//        override fun run() {
-//            val sdcardUtils = SdcardUtils()
-//            var filePath: String
-//            var newBitmap: Bitmap
-//            var addIndex = originImages.size - 1
-//            for (i in images.indices) {
-//                if (images[i].contains(Constant.PlusIconPrefix)) {//说明是添加图片按钮
-//                    continue
-//                }
-//                //压缩
-//                newBitmap = ImageUtils.compressScaleByWH(images[i],
-//                        DensityUtils.dp2px(100f),
-//                        DensityUtils.dp2px(100f))
-//                //文件地址
-//                filePath = (sdcardUtils.getSDPATH() + FILE_DIR_NAME + "/"
-//                        + FILE_IMG_NAME + "/" + String.format("img_%d.jpg", System.currentTimeMillis()))
-//                //保存图片
-//                ImageUtils.save(newBitmap, filePath, Bitmap.CompressFormat.JPEG, true)
-//                //设置值
-//                if (!add) {
-//                    images[i] = filePath
-//                } else {//添加图片，要更新
-//                    dragImages.add(addIndex, filePath)
-//                    originImages.add(addIndex++, filePath)
-//                }
-//            }
-//            val message = Message()
-//            message.what = 1
-//            handler.sendMessage(message)
-//            KLog.e("MyRunnable", "run")
-//        }
-//    }
-//
-//    private val myHandler = MyHandler(this)
-//
-//    private class MyHandler(activity: Activity) : Handler() {
-//        private val reference: WeakReference<Activity>
-//
-//        init {
-//            reference = WeakReference(activity)
-//        }
-//
-//        override fun handleMessage(msg: Message) {
-//            val activity = reference.get() as MomentsActivity
-//            if (activity != null) {
-//                when (msg.what) {
-//                    1 -> {
-//                        activity.postArticleImgAdapter?.setData(dragImages)
-//                        activity.postArticleImgAdapter?.notifyDataSetChanged()
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     private fun doRefreshImages(add: Boolean, images: ArrayList<String>) {
         doAsync {
@@ -246,14 +176,8 @@ class MomentsActivity : AppCompatActivity() {
                 }
             }
             uiThread {
-//                postArticleImgAdapter?.setData(dragImages)
                 postArticleImgAdapter?.notifyDataSetChanged()
             }
         }
     }
-
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        myHandler.removeCallbacksAndMessages(null)
-//    }
 }

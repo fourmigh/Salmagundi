@@ -31,13 +31,15 @@ class AppsActivity : AppCompatActivity() {
 
 //        apps = intent.getParcelableArrayListExtra("apps")
 
-        btnSetup?.text = getString(android.R.string.ok)
+        btnAppList.text = getString(android.R.string.ok)
 
-        btnSetup?.setOnClickListener({
+        btnAppList.setOnClickListener({
             saveSelectedApps()
         })
 
         list.clear()
+
+        btnAnimation.visibility = View.GONE
     }
 
     private fun saveSelectedApps() {

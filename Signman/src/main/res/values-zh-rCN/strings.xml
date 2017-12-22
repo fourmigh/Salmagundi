@@ -4,13 +4,13 @@
     <string name="goto_sign">去签到</string>
     <string name="signed">已签</string>
     <string name="nosign">未签</string>
-    <string name="setup">设置</string>
+    <string name="applist">应用列表</string>
     <string name="select_app_tips">请选中需要签到的应用。</string>
     <string name="please_waiting">加载中，请稍后……</string>
     <string name="sign_time_title">签到时间</string>
     <string name="uninstalled_alert">【%s】已被卸载。\n确定要重装或移除？</string>
     <string name="reinstall">重装</string>
     <string name="remove">移除</string>
-    <string name="settings">设置</string>
+    <string name="animation">动画</string>
     <string name="settings_anim">随机动画效果</string>
 </resources>

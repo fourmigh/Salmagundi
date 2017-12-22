@@ -12,36 +12,42 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.caojun.signman.Constant
 import org.caojun.signman.R
 import org.caojun.signman.adapter.AppAdapter
+import org.caojun.signman.listener.OnSignListener
 import org.caojun.signman.room.App
 import org.caojun.signman.room.AppDatabase
 import org.caojun.signman.utils.ActivityUtils
 import org.caojun.signman.utils.AppSortComparator
 import org.caojun.signman.utils.TimeUtils
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.uiThread
+import org.jetbrains.anko.*
 import java.util.Collections
 
 class MainActivity : AppCompatActivity() {
 
-//    private val list: ArrayList<App> = ArrayList()
     private var canceled: Boolean = false
     private var adapter: AppAdapter? = null
+    private var menuItem: MenuItem? = null
+    private val onSignListener = object : OnSignListener {
+        override fun onSignChange() {
+            delegate.invalidateOptionsMenu()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        tvTips?.visibility = View.GONE
+        tvTips.visibility = View.GONE
 
-        listView?.setOnItemClickListener({ parent, view, position, id -> doListViewItemClick(position) })
+        listView.setOnItemClickListener({ parent, view, position, id -> doListViewItemClick(position) })
 
-        btnSetup?.setOnClickListener({
+        btnAppList.setOnClickListener({
             gotoSetupApps()
         })
 
-//        list.clear()
+        btnAnimation.setOnClickListener({
+            startActivity<SettingsActivity>()
+        })
+
         Constant.Apps.clear()
     }
 
@@ -61,10 +67,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        progressBar?.visibility = View.VISIBLE
+        btnAnimation.visibility = View.VISIBLE
+        progressBar.visibility = View.VISIBLE
         //读取数据库，若列表为空，则跳转到AppsActivity
         if (canceled) {
-            progressBar?.visibility = View.GONE
+            progressBar.visibility = View.GONE
             return
         }
         loadApps()
@@ -89,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     if (adapter == null) {
-                        adapter = AppAdapter(this@MainActivity, Constant.Apps)
+                        adapter = AppAdapter(this@MainActivity, Constant.Apps, onSignListener)
                         listView?.adapter = adapter
                     } else {
                         adapter?.setData(Constant.Apps)
@@ -98,16 +105,15 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     gotoSetupApps()
                 }
-                progressBar?.visibility = View.GONE
+                progressBar.visibility = View.GONE
+                delegate.invalidateOptionsMenu()
             }
         }
     }
 
     private fun gotoSetupApps() {
         canceled = false
-        val intent = Intent(this, AppsActivity::class.java)
-//        intent.putParcelableArrayListExtra("apps", list)
-        startActivityForResult(intent, Constant.RequestCode_AppList)
+        startActivityForResult<AppsActivity>(Constant.RequestCode_AppList)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -125,7 +131,7 @@ class MainActivity : AppCompatActivity() {
                 ActivityUtils.gotoMarket(this@MainActivity, app.packageName!!)
             }
             negativeButton(R.string.remove) {
-                progressBar?.visibility = View.VISIBLE
+                progressBar.visibility = View.VISIBLE
                 doAsync {
                     AppDatabase.getDatabase(this@MainActivity).getAppDao().delete(app)
                     loadApps()
@@ -137,16 +143,32 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
+        menuItem = menu.findItem(R.id.action_goto_first_app);
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        menuItem?.title = getSignInfo()
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> {
-                startActivity<SettingsActivity>()
+            R.id.action_goto_first_app -> {
+                for (i in Constant.Apps.indices) {
+                    if (!Constant.Apps[i].isSigned) {
+                        listView.smoothScrollToPosition(i)
+                        break
+                    }
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun getSignInfo(): String {
+        val unsigned = Constant.Apps.indices.count { Constant.Apps[it].isSigned }
+        return unsigned.toString() + "/" + Constant.Apps.size
     }
 }

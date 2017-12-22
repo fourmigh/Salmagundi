@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="org.caojun.signman.activity.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_goto_first_app"
         android:orderInCategory="100"
-        android:title="@string/settings"
+        android:title="@string/app_name"
         app:showAsAction="ifRoom" />
 </menu>

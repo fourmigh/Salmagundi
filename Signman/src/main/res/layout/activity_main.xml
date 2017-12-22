@@ -24,11 +24,26 @@
             android:layout_weight="1"
             android:dividerHeight="0dp" />
 
-        <Button
-            android:id="@+id/btnSetup"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/setup" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnAnimation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/animation" />
+
+            <Button
+                android:id="@+id/btnAppList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/applist" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <org.caojun.widget.TipsProgressBar
