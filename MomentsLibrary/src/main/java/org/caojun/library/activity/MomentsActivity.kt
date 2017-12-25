@@ -1,7 +1,6 @@
 package org.caojun.library.activity
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -32,7 +31,6 @@ class MomentsActivity : AppCompatActivity() {
     }
 
     private var originImages = ArrayList<String>()//原始图片
-    private var mContext: Context? = null
     private var adapter: ImageAdapter? = null
     private var itemTouchHelper: ItemTouchHelper? = null
 
@@ -56,12 +54,11 @@ class MomentsActivity : AppCompatActivity() {
         if (list != null) {
             originImages.addAll(list)
         }
-        mContext = applicationContext
     }
 
     private fun initRcv() {
 
-        adapter = ImageAdapter(mContext, originImages)
+        adapter = ImageAdapter(this, originImages)
         recyclerView.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.adapter = adapter
         val myCallBack = DragCallback(this, adapter/*, dragImages, originImages*/)
@@ -78,8 +75,6 @@ class MomentsActivity : AppCompatActivity() {
                             .origin(originImages)
                             .multi()
                             .start(this@MomentsActivity, REQUEST_IMAGE)
-                } else {
-                    //TODO 预览图片
                 }
             }
 
@@ -112,8 +107,6 @@ class MomentsActivity : AppCompatActivity() {
         })
     }
 
-    //------------------图片相关-----------------------------
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE && resultCode == Activity.RESULT_OK) {//从相册选择完图片
             if (data != null) {
@@ -125,37 +118,4 @@ class MomentsActivity : AppCompatActivity() {
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
-
-//    private fun doRefreshImages(add: Boolean, images: ArrayList<String>) {
-//        doAsync {
-////            val sdcardUtils = SdcardUtils()
-////            var filePath: String
-////            var newBitmap: Bitmap
-////            var addIndex = originImages.size - 1
-////            for (i in images.indices) {
-////                if (images[i].contains(PlusIconPrefix)) {//说明是添加图片按钮
-////                    continue
-////                }
-////                //压缩
-////                newBitmap = ImageUtils.compressScaleByWH(images[i],
-////                        DensityUtils.dp2px(100f),
-////                        DensityUtils.dp2px(100f))
-////                //文件地址
-////                filePath = (sdcardUtils.getSDPATH() + FILE_DIR_NAME + "/"
-////                        + FILE_IMG_NAME + "/" + String.format("img_%d.jpg", System.currentTimeMillis()))
-////                //保存图片
-////                ImageUtils.save(newBitmap, filePath, Bitmap.CompressFormat.JPEG, true)
-////                //设置值
-////                if (!add) {
-////                    images[i] = filePath
-////                } else {//添加图片，要更新
-////                    dragImages.add(addIndex++, filePath)
-//////                    originImages.add(addIndex++, filePath)
-////                }
-////            }
-//            uiThread {
-//                adapter?.notifyDataSetChanged()
-//            }
-//        }
-//    }
 }

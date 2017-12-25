@@ -6,5 +6,8 @@
             android:configChanges="orientation|screenSize"
             android:name="org.caojun.library.activity.MomentsActivity" />
 
+        <activity
+            android:configChanges="orientation|screenSize"
+            android:name="org.caojun.library.activity.GalleryActivity" />
     </application>
 </manifest>
