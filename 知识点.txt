@@ -46,3 +46,4 @@
 46、NDK实例：工程Morseman（jni.ImageUtilEngine）
 47、闪光灯：工程Morseman（utils.FlashUtils）
 48、InputType.TYPE_NULL：工程Morseman（MainActivity）
+49、更新菜单：工程Signman（MainActivity：delegate.invalidateOptionsMenu()）
