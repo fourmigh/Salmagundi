@@ -3,7 +3,6 @@ package org.caojun.library.activity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
@@ -12,7 +11,6 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.text.TextUtils
 import android.view.View
 import com.hys.utils.*
-import com.socks.library.KLog
 import org.caojun.library.MultiImageSelector
 import kotlinx.android.synthetic.main.activity_moments.*
 import org.caojun.library.MultiImageSelectorActivity
@@ -20,8 +18,6 @@ import org.caojun.library.R
 import org.caojun.library.adapter.ImageAdapter
 import org.caojun.library.listener.DragCallback
 import org.caojun.library.listener.OnRecyclerItemClickListener
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import java.util.ArrayList
 
 /**
@@ -31,25 +27,14 @@ class MomentsActivity : AppCompatActivity() {
 
     companion object {
         val Key_Title = "Key_Title"
-//        val FILE_DIR_NAME = "org.caojun.library"//应用缓存地址
-//        val FILE_IMG_NAME = "images"//放置图片缓存
-//        val IMAGE_SIZE = 9//可添加图片最大数
+        val Key_Images = "Key_Images"
         private val REQUEST_IMAGE = 1002
     }
 
     private var originImages = ArrayList<String>()//原始图片
-//    private var dragImages = ArrayList<String>()//压缩长宽后图片
     private var mContext: Context? = null
     private var adapter: ImageAdapter? = null
     private var itemTouchHelper: ItemTouchHelper? = null
-//    private var rcvImg: RecyclerView? = null
-//    private var tv: TextView? = null//删除区域提示
-
-//    fun startPostActivity(context: Context, images: ArrayList<String>) {
-//        val intent = Intent(context, MomentsActivity::class.java)
-//        intent.putStringArrayListExtra("img", images)
-//        context.startActivity(intent)
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,17 +52,11 @@ class MomentsActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        val list = intent.getStringArrayListExtra("img")
+        val list = intent.getStringArrayListExtra(Key_Images)
         if (list != null) {
             originImages.addAll(list)
         }
         mContext = applicationContext
-//        InitCacheFileUtils.initImgDir(FILE_DIR_NAME, FILE_IMG_NAME)//清除图片缓存
-        //添加按钮图片资源
-//        val plusPath = PlusIconPrefix + this.packageName + "/drawable/" + R.drawable.mine_btn_plus
-//        originImages.add(plusPath)//添加按键，超过9张时在adapter中隐藏
-//        dragImages.addAll(originImages)
-//        doRefreshImages(false, dragImages)
     }
 
     private fun initRcv() {
@@ -135,12 +114,13 @@ class MomentsActivity : AppCompatActivity() {
 
     //------------------图片相关-----------------------------
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        if (requestCode == REQUEST_IMAGE && resultCode == Activity.RESULT_OK && data != null) {//从相册选择完图片
-            originImages = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT)
-//            doRefreshImages(true, originImages)
-            adapter?.setData(originImages)
-            adapter?.notifyDataSetChanged()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_IMAGE && resultCode == Activity.RESULT_OK) {//从相册选择完图片
+            if (data != null) {
+                originImages = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT)
+                adapter?.setData(originImages)
+                adapter?.notifyDataSetChanged()
+            }
             return
         }
         super.onActivityResult(requestCode, resultCode, data)
