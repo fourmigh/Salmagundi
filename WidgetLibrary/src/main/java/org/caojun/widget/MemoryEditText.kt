@@ -89,7 +89,7 @@ class MemoryEditText: AppCompatEditText, View.OnFocusChangeListener, TextWatcher
     }
 
     private fun doCheckButton() {
-        if (array.isEmpty() || array.size === 1) {
+        if (array.isEmpty() || array.size == 1) {
             setHistoryVisible(false)
         } else {
             setHistoryVisible(true)

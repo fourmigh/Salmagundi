@@ -9,12 +9,13 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.BaseAdapter
 import android.widget.ImageView
-import com.squareup.picasso.Picasso
-import org.caojun.library.MultiImageSelectorFragment
+import com.bumptech.glide.Glide
 import org.caojun.library.R
 import org.caojun.library.bean.Image
-import java.io.File
 import java.util.ArrayList
+//import org.caojun.universalimageloader.core.DisplayImageOptions
+//import org.caojun.universalimageloader.core.ImageLoaderConfiguration
+//import org.caojun.universalimageloader.core.ImageLoader
 
 /**
  * Created by CaoJun on 2017-12-20.
@@ -34,6 +35,8 @@ class ImageGridAdapter: BaseAdapter {
 
     internal var mGridWidth: Int
 
+//    private var options: DisplayImageOptions? = null
+
     constructor(context: Context, showCamera: Boolean, column: Int) {
         mContext = context
 //        mInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -48,6 +51,14 @@ class ImageGridAdapter: BaseAdapter {
             width = wm.defaultDisplay.width
         }
         mGridWidth = width / column
+
+//        options = DisplayImageOptions.Builder()
+//                .cacheInMemory(true)
+//                .cacheOnDisk(true)
+//                .considerExifParams(true)
+////                .bitmapConfig(Bitmap.Config.RGB_565)
+//                .build()
+//        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(context))
     }
 
     /**
@@ -166,7 +177,7 @@ class ImageGridAdapter: BaseAdapter {
             holder = view.tag as ViewHolder
         }
 
-        holder?.bindData(getItem(i))
+        holder.bindData(getItem(i))
 
         return view
     }
@@ -200,19 +211,21 @@ class ImageGridAdapter: BaseAdapter {
             } else {
                 indicator.visibility = View.GONE
             }
-            val imageFile = File(data.path)
-            if (imageFile.exists()) {
-                // 显示图片
-                Picasso.with(mContext)
-                        .load(imageFile)
-                        .placeholder(R.drawable.mis_default_error)
-                        .tag(MultiImageSelectorFragment.TAG)
-                        .resize(mGridWidth, mGridWidth)
-                        .centerCrop()
-                        .into(image)
-            } else {
-                image.setImageResource(R.drawable.mis_default_error)
-            }
+//            val imageFile = File(data.path)
+//            if (imageFile.exists()) {
+//                // 显示图片
+//                Picasso.with(mContext)
+//                        .load(imageFile)
+//                        .placeholder(R.drawable.mis_default_error)
+//                        .tag(MultiImageSelectorFragment.TAG)
+//                        .resize(mGridWidth, mGridWidth)
+//                        .centerCrop()
+//                        .into(image)
+//            } else {
+//                image.setImageResource(R.drawable.mis_default_error)
+//            }
+//            ImageLoader.getInstance().displayImage(data.path, image, options)
+            Glide.with(mContext).load(data.path).into(image)
         }
     }
 }

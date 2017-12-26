@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import org.caojun.library.R
 import org.caojun.library.bean.Folder
-import java.io.File
 import java.util.ArrayList
+//import org.caojun.universalimageloader.core.DisplayImageOptions
+//import org.caojun.universalimageloader.core.ImageLoaderConfiguration
+//import org.caojun.universalimageloader.core.ImageLoader
 
 /**
  * Created by CaoJun on 2017-12-20.
@@ -26,10 +28,20 @@ class FolderAdapter : BaseAdapter {
 
     private var lastSelected = 0
 
+//    private var options: DisplayImageOptions? = null
+
     constructor(context: Context) {
         mContext = context
         mInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         mImageSize = mContext.resources.getDimensionPixelOffset(R.dimen.mis_folder_cover_size)
+//        options = DisplayImageOptions.Builder()
+//                .cacheInMemory(true)
+//                .cacheOnDisk(true)
+//                .considerExifParams(true)
+//                .showImageOnLoading(R.drawable.mis_default_error)
+////                .bitmapConfig(Bitmap.Config.RGB_565)
+//                .build()
+//        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(context))
     }
 
     /**
@@ -71,12 +83,14 @@ class FolderAdapter : BaseAdapter {
             holder.size.text = String.format("%d%s",
                     getTotalImageSize(), mContext.resources.getString(R.string.mis_photo_unit))
             if (mFolders.size > 0) {
-                Picasso.with(mContext)
-                        .load(File(mFolders[0].cover!!.path))
-                        .error(R.drawable.mis_default_error)
-                        .resizeDimen(R.dimen.mis_folder_cover_size, R.dimen.mis_folder_cover_size)
-                        .centerCrop()
-                        .into(holder.cover)
+//                Picasso.with(mContext)
+//                        .load(File(mFolders[0].cover!!.path))
+//                        .error(R.drawable.mis_default_error)
+//                        .resizeDimen(R.dimen.mis_folder_cover_size, R.dimen.mis_folder_cover_size)
+//                        .centerCrop()
+//                        .into(holder.cover)
+//                ImageLoader.getInstance().displayImage(mFolders[0].cover!!.path, holder.cover, options)
+                Glide.with(mContext).load(mFolders[0].cover!!.path).into(holder.cover)
             }
         } else {
             holder.bindData(getItem(i))
@@ -131,17 +145,19 @@ class FolderAdapter : BaseAdapter {
             } else {
                 size.text = "*" + mContext.resources.getString(R.string.mis_photo_unit)
             }
-            if (data.cover != null) {
-                // 显示图片
-                Picasso.with(mContext)
-                        .load(File(data.cover!!.path))
-                        .placeholder(R.drawable.mis_default_error)
-                        .resizeDimen(R.dimen.mis_folder_cover_size, R.dimen.mis_folder_cover_size)
-                        .centerCrop()
-                        .into(cover)
-            } else {
-                cover.setImageResource(R.drawable.mis_default_error)
-            }
+//            if (data.cover != null) {
+//                // 显示图片
+//                Picasso.with(mContext)
+//                        .load(File(data.cover!!.path))
+//                        .placeholder(R.drawable.mis_default_error)
+//                        .resizeDimen(R.dimen.mis_folder_cover_size, R.dimen.mis_folder_cover_size)
+//                        .centerCrop()
+//                        .into(cover)
+//            } else {
+//                cover.setImageResource(R.drawable.mis_default_error)
+//            }
+//            ImageLoader.getInstance().displayImage(data.cover?.path, cover, options)
+            Glide.with(mContext).load(data.cover?.path).into(cover)
         }
     }
 }

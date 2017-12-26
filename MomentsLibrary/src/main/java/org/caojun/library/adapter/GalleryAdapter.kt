@@ -5,9 +5,10 @@ import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.nostra13.universalimageloader.core.DisplayImageOptions
-import com.nostra13.universalimageloader.core.ImageLoader
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
+//import com.bumptech.glide.Glide
+import org.caojun.universalimageloader.core.DisplayImageOptions
+import org.caojun.universalimageloader.core.ImageLoader
+import org.caojun.universalimageloader.core.ImageLoaderConfiguration
 import org.caojun.library.R
 import org.caojun.widget.SmoothImageView
 
@@ -57,8 +58,9 @@ class GalleryAdapter: PagerAdapter {
         smoothImageView.transformIn()
 
         if (paths != null && position < count) {
-            val path = "file://" + paths!![position]
+            val path = paths!![position]
             ImageLoader.getInstance().displayImage(path, smoothImageView, options)
+//            Glide.with(activity).load(path).into(smoothImageView)
         }
 
 

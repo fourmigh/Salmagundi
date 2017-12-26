@@ -9,11 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.nostra13.universalimageloader.core.ImageLoader
+//import com.bumptech.glide.Glide
 import org.caojun.library.MultiImageSelectorActivity
 import org.caojun.library.R
-import com.nostra13.universalimageloader.core.DisplayImageOptions
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
+import org.caojun.universalimageloader.core.ImageLoader
+import org.caojun.universalimageloader.core.DisplayImageOptions
+import org.caojun.universalimageloader.core.ImageLoaderConfiguration
 import org.caojun.library.activity.GalleryActivity
 
 /**
@@ -38,7 +39,7 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ViewHolder> {
                 .considerExifParams(true)
 //                .bitmapConfig(Bitmap.Config.RGB_565)
                 .build()
-        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(activity));
+        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(activity))
     }
 
     fun setData(paths: ArrayList<String>) {
@@ -64,7 +65,7 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ViewHolder> {
         if (paths != null) {
             val size = if (paths == null) 0 else paths!!.size
             if (position < size) {
-                path = "file://" + paths!![position]
+                path = paths!![position]
                 holder?.imageView?.setOnClickListener({ v ->
                     val location = IntArray(2)
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -93,6 +94,7 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ViewHolder> {
             }
         }
         ImageLoader.getInstance().displayImage(path, holder?.imageView, options)
+//        Glide.with(activity).load(path).into(holder?.imageView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {

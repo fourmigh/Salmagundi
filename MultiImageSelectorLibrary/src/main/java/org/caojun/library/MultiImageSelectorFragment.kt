@@ -25,7 +25,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.mis_fragment_multi_image.*
 import org.caojun.library.adapter.FolderAdapter
 import org.caojun.library.adapter.ImageGridAdapter
@@ -148,19 +147,19 @@ class MultiImageSelectorFragment: Fragment() {
                 selectImageFromGrid(image, mode)
             }
         }
-        grid.setOnScrollListener(object : AbsListView.OnScrollListener {
-            override fun onScrollStateChanged(view: AbsListView, scrollState: Int) {
-                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) {
-                    Picasso.with(view.context).pauseTag(TAG)
-                } else {
-                    Picasso.with(view.context).resumeTag(TAG)
-                }
-            }
-
-            override fun onScroll(view: AbsListView, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
-
-            }
-        })
+//        grid.setOnScrollListener(object : AbsListView.OnScrollListener {
+//            override fun onScrollStateChanged(view: AbsListView, scrollState: Int) {
+//                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) {
+//                    Picasso.with(view.context).pauseTag(TAG)
+//                } else {
+//                    Picasso.with(view.context).resumeTag(TAG)
+//                }
+//            }
+//
+//            override fun onScroll(view: AbsListView, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
+//
+//            }
+//        })
 
         mFolderAdapter = FolderAdapter(activity)
     }
