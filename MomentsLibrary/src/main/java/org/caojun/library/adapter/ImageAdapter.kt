@@ -16,6 +16,7 @@ import org.caojun.universalimageloader.core.ImageLoader
 import org.caojun.universalimageloader.core.DisplayImageOptions
 import org.caojun.universalimageloader.core.ImageLoaderConfiguration
 import org.caojun.library.activity.GalleryActivity
+import org.caojun.library.activity.MomentsActivity
 
 /**
  * Created by CaoJun on 2017-12-20.
@@ -81,7 +82,10 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ViewHolder> {
                     val width = v.width
                     val height = v.height
 
+                    location[1] -= height + 36//TODO 减去偏差值（偏差原因未明）
+
                     val intent = Intent(activity, GalleryActivity::class.java)
+                    intent.putExtra(MomentsActivity.Key_Title, activity?.title)
                     intent.putExtra(GalleryActivity.PHOTO_SOURCE_ID, paths)
                     intent.putExtra(GalleryActivity.PHOTO_SELECT_POSITION, position)
                     intent.putExtra(GalleryActivity.PHOTO_SELECT_X_TAG, location[0])

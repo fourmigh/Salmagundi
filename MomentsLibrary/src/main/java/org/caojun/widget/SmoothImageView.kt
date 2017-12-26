@@ -54,8 +54,9 @@ class SmoothImageView: ImageView {
         mOriginalWidth = width
         mOriginalHeight = height
         mOriginalLocationX = locationX
-        mOriginalLocationY = locationY
-        mOriginalLocationY = mOriginalLocationY - getStatusBarHeight(context)
+//        mOriginalLocationY = locationY
+//        mOriginalLocationY = mOriginalLocationY - getStatusBarHeight(context)
+        mOriginalLocationY = locationY - getStatusBarHeight(context)
     }
 
     private fun getStatusBarHeight(context: Context): Int {
