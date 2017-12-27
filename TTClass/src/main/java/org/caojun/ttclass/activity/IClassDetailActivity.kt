@@ -227,8 +227,8 @@ class IClassDetailActivity : AppCompatActivity() {
                 btnBillList.text = bills.size.toString()
                 btnBillList.isEnabled = bills.isNotEmpty()
 
-                setNameEdit(isEdit)
                 setGradeEdit(isEdit)
+                setNameEdit(isEdit)
             }
         }
     }

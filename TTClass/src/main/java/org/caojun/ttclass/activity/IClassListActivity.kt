@@ -23,8 +23,9 @@ class IClassListActivity : AppCompatActivity() {
 
 //    private val list: ArrayList<IClass> = ArrayList()
     private var adapter: IClassAdapter? = null
-    private var isSingleLast = false
-    private var isAdd = false
+//    private var isSingleLast = false
+//    private var isAdd = false
+    private var classes: List<IClass>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,12 +45,20 @@ class IClassListActivity : AppCompatActivity() {
                 startActivityForResult<IClassDetailActivity>(Constant.RequestCode_IClass, Constant.Key_Class to classes[classes.size - 1], Constant.Key_IsNew to true)
             }
         }
+
+        doAsync {
+            var classes = TTCDatabase.getDatabase(this@IClassListActivity).getIClass().queryAll()
+            if (classes.isEmpty()) {
+                TTCDatabase.getDatabase(this@IClassListActivity).getIClass().insert(IClass())
+                classes = TTCDatabase.getDatabase(this@IClassListActivity).getIClass().queryAll()
+                startActivityForResult<IClassDetailActivity>(Constant.RequestCode_IClass, Constant.Key_Class to classes[classes.size - 1], Constant.Key_IsNew to true)
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == Constant.RequestCode_IClass && data != null) {
             if (data.getBooleanExtra(Constant.Key_AddClass, false)) {
-                KLog.d("IClassListActivity", "onActivityResult")
                 doAsync {
                     TTCDatabase.getDatabase(this@IClassListActivity).getIClass().insert(IClass())
                     var classes = TTCDatabase.getDatabase(this@IClassListActivity).getIClass().queryAll()
@@ -63,46 +72,18 @@ class IClassListActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        KLog.d("IClassListActivity", "onResume")
         doAsync {
-            var classes = TTCDatabase.getDatabase(this@IClassListActivity).getIClass().queryAll()
-            if (classes.isEmpty()) {
-                TTCDatabase.getDatabase(this@IClassListActivity).getIClass().insert(IClass())
-                classes = TTCDatabase.getDatabase(this@IClassListActivity).getIClass().queryAll()
-                isAdd = true
-            }
-            when {
-                classes.isNotEmpty() -> {
-
-                    if (classes.size == 1) {
-                        if (isSingleLast) {
-                            finish()
-                            return@doAsync
-                        }
-                        isSingleLast = true
-                        startActivityForResult<IClassDetailActivity>(Constant.RequestCode_IClass, Constant.Key_Class to classes[0], Constant.Key_IsNew to isAdd)
-                        return@doAsync
-                    }
-
-                    isSingleLast = false
-//                    list.clear()
-//                    list.addAll(classes)
-                    uiThread {
-                        if (adapter == null) {
-                            adapter = IClassAdapter(this@IClassListActivity, classes)
-                            listView?.adapter = adapter
-                        } else {
-                            adapter?.setData(classes)
-                            adapter?.notifyDataSetChanged()
-                        }
-                    }
-                }
-                isSingleLast -> finish()
-                else -> {
-                    isSingleLast = true
-                    startActivityForResult<IClassDetailActivity>(Constant.RequestCode_IClass)
+            classes = TTCDatabase.getDatabase(this@IClassListActivity).getIClass().queryAll()
+            uiThread {
+                if (adapter == null) {
+                    adapter = IClassAdapter(this@IClassListActivity, classes!!)
+                    listView?.adapter = adapter
+                } else {
+                    adapter?.setData(classes!!)
+                    adapter?.notifyDataSetChanged()
                 }
             }
         }
+
     }
 }
