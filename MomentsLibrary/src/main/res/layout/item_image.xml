@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/article_img_margin_top"
+    android:padding="@dimen/article_img_padding"
     android:descendantFocusability="afterDescendants">
 
     <ImageView
