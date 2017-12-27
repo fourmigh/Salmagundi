@@ -21,11 +21,7 @@ import java.util.*
  */
 class IClassListActivity : AppCompatActivity() {
 
-//    private val list: ArrayList<IClass> = ArrayList()
     private var adapter: IClassAdapter? = null
-//    private var isSingleLast = false
-//    private var isAdd = false
-    private var classes: List<IClass>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +57,7 @@ class IClassListActivity : AppCompatActivity() {
             if (data.getBooleanExtra(Constant.Key_AddClass, false)) {
                 doAsync {
                     TTCDatabase.getDatabase(this@IClassListActivity).getIClass().insert(IClass())
-                    var classes = TTCDatabase.getDatabase(this@IClassListActivity).getIClass().queryAll()
+                    val classes = TTCDatabase.getDatabase(this@IClassListActivity).getIClass().queryAll()
                     startActivityForResult<IClassDetailActivity>(Constant.RequestCode_IClass, Constant.Key_Class to classes[classes.size - 1], Constant.Key_IsNew to true)
                 }
                 return
@@ -73,13 +69,13 @@ class IClassListActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         doAsync {
-            classes = TTCDatabase.getDatabase(this@IClassListActivity).getIClass().queryAll()
+            val classes = TTCDatabase.getDatabase(this@IClassListActivity).getIClass().queryAll()
             uiThread {
                 if (adapter == null) {
-                    adapter = IClassAdapter(this@IClassListActivity, classes!!)
+                    adapter = IClassAdapter(this@IClassListActivity, classes)
                     listView?.adapter = adapter
                 } else {
-                    adapter?.setData(classes!!)
+                    adapter?.setData(classes)
                     adapter?.notifyDataSetChanged()
                 }
             }
