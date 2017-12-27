@@ -38,4 +38,5 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:$googleroom_version"
     implementation project(':UtilsLibrary')
     implementation project(':MomentsLibrary')
+    implementation "com.kuyue:utils:latest.release"
 }

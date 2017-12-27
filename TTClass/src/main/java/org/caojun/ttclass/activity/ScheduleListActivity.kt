@@ -10,6 +10,7 @@ import org.caojun.ttclass.Utilities
 import org.caojun.ttclass.adapter.ScheduleAdapter
 import org.caojun.ttclass.room.TTCDatabase
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 /**
  * Created by CaoJun on 2017-12-15.
@@ -25,16 +26,18 @@ class ScheduleListActivity : Activity() {
             val signs = TTCDatabase.getDatabase(this@ScheduleListActivity).getSign().query(idClass)
             val scheduleWeekdays = intent.getIntArrayExtra(Constant.Key_ScheduleWeekdays)
             val adapter = ScheduleAdapter(this@ScheduleListActivity, scheduleWeekdays, signs)
-            listView.adapter = adapter
-            listView.setOnItemClickListener { _, _, position, _ ->
-                val date = adapter.getItem(position)
-                if (Utilities.dateInSigns(date, signs)) {
-                    return@setOnItemClickListener
+            uiThread {
+                listView.adapter = adapter
+                listView.setOnItemClickListener { _, _, position, _ ->
+                    val date = adapter.getItem(position)
+                    if (Utilities.dateInSigns(date, signs)) {
+                        return@setOnItemClickListener
+                    }
+                    val intent = Intent()
+                    intent.putExtra(Constant.Key_Day, date.time)
+                    setResult(Activity.RESULT_OK, intent)
+                    finish()
                 }
-                val intent = Intent()
-                intent.putExtra(Constant.Key_Day, date.time)
-                setResult(Activity.RESULT_OK, intent)
-                finish()
             }
         }
 

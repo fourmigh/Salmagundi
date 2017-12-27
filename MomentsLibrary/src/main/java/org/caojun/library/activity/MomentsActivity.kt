@@ -30,6 +30,7 @@ class MomentsActivity : AppCompatActivity() {
         val Key_Title = "Key_Title"
         val Key_ImagePaths = "Key_ImagePaths"
         val Key_Content = "Key_Content"
+        val Key_Hint = "Key_Hint"
         private val REQUEST_IMAGE = 1002
     }
 
@@ -43,20 +44,23 @@ class MomentsActivity : AppCompatActivity() {
 
         Utils.init(this)
 
-        val title = intent.getStringExtra(Key_Title)
-        if (!TextUtils.isEmpty(title)) {
-            this.title = title
-        }
-
         initData()
         initRcv()
     }
 
     private fun initData() {
+        val title = intent.getStringExtra(Key_Title)
+        if (!TextUtils.isEmpty(title)) {
+            this.title = title
+        }
         val list = intent.getStringArrayListExtra(Key_ImagePaths)
         if (list != null) {
             originImages.addAll(list)
         }
+        val content = intent.getStringExtra(Key_Content)
+        etContent.setText(content)
+        val hint = intent.getStringExtra(Key_Hint)
+        etContent.hint = hint
     }
 
     private fun initRcv() {
@@ -140,8 +144,12 @@ class MomentsActivity : AppCompatActivity() {
     private fun doOK() {
         val content = etContent.text.toString()
         val size = adapter?.itemCount?:0
+        val intent = Intent()
         if (!TextUtils.isEmpty(content) || size > 0) {
-
+            intent.putExtra(Key_Content, content)
+            intent.putStringArrayListExtra(Key_ImagePaths, adapter?.getData())
+            setResult(Activity.RESULT_OK, intent)
         }
+        finish()
     }
 }
