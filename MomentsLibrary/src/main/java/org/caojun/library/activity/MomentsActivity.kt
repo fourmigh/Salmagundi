@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.text.TextUtils
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import com.hys.utils.*
 import org.caojun.library.MultiImageSelector
@@ -26,7 +28,8 @@ class MomentsActivity : AppCompatActivity() {
 
     companion object {
         val Key_Title = "Key_Title"
-        val Key_Images = "Key_Images"
+        val Key_ImagePaths = "Key_ImagePaths"
+        val Key_Content = "Key_Content"
         private val REQUEST_IMAGE = 1002
     }
 
@@ -50,7 +53,7 @@ class MomentsActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        val list = intent.getStringArrayListExtra(Key_Images)
+        val list = intent.getStringArrayListExtra(Key_ImagePaths)
         if (list != null) {
             originImages.addAll(list)
         }
@@ -117,5 +120,28 @@ class MomentsActivity : AppCompatActivity() {
             return
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_ok -> {
+                doOK()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun doOK() {
+        val content = etContent.text.toString()
+        val size = adapter?.itemCount?:0
+        if (!TextUtils.isEmpty(content) || size > 0) {
+
+        }
     }
 }

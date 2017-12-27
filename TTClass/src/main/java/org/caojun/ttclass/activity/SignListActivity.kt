@@ -12,7 +12,6 @@ import org.caojun.ttclass.room.IClass
 import org.caojun.ttclass.room.TTCDatabase
 import org.caojun.utils.TimeUtils
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.uiThread
 
@@ -23,6 +22,7 @@ class SignListActivity : Activity() {
 
     private var adapter: SignAdapter? = null
     private var iClass: IClass? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

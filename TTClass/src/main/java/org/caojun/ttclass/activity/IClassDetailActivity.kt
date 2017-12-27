@@ -220,7 +220,7 @@ class IClassDetailActivity : AppCompatActivity() {
                 etGrade.setText(sp.getString(Constant.Key_Grade, iClass?.grade))
 
                 btnNote.isEnabled = signs.size > 0
-                btnSign.isEnabled = iClass?.reminder?:0 > 0 && scheduleWeekdays != null
+                btnSign.isEnabled = iClass?.reminder?:0 > 0 && scheduleWeekdays != null && scheduleWeekdays!!.isNotEmpty()
                 btnSchool.isEnabled = iClass?.idTeacher?:-1 >= 0
                 btnRemainder.text = iClass?.reminder.toString()
 
