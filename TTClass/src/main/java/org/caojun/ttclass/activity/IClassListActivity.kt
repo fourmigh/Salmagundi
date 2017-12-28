@@ -28,7 +28,7 @@ class IClassListActivity : AppCompatActivity() {
         override fun onSignClick(iClass: IClass) {
             this@IClassListActivity.iClass = iClass
             val scheduleWeekdays = Utilities.getScheduleWeekdays(this@IClassListActivity, iClass)
-            startActivityForResult<ScheduleListActivity>(Constant.RequestCode_ScheduleList, Constant.Key_ClassID to iClass?.id, Constant.Key_ScheduleWeekdays to scheduleWeekdays)
+            startActivityForResult<ScheduleListActivity>(Constant.RequestCode_ScheduleList, Constant.Key_ClassID to iClass.id, Constant.Key_ScheduleWeekdays to scheduleWeekdays)
         }
     }
 

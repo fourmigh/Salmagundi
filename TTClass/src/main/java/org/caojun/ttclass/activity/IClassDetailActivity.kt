@@ -138,7 +138,6 @@ class IClassDetailActivity : AppCompatActivity() {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     val time = data.getLongExtra(Constant.Key_Day, 0)
                     val date = Date(time)
-//                    doSign(date)
                     Utilities.doSign(this, iClass, date) {
                         onAsyncListener()
                     }
@@ -147,36 +146,6 @@ class IClassDetailActivity : AppCompatActivity() {
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
-
-//    private fun doSign(date: Date) {
-//        doAsync {
-//            val idClass = iClass?.id?:-1
-//            var list = TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().query(idClass)
-//            val lastSize = list.size
-//            if (Utilities.dateInSigns(date, list)) {
-//                return@doAsync
-//            }
-//            val sign = Sign()
-//            sign.idClass = iClass!!.id
-//            sign.time = date
-//            TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().insert(sign)
-//            list = TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().query(idClass)
-//            if (list.size - lastSize == 1) {
-//                //新增一条签到记录
-//                iClass!!.reminder --
-//                if (iClass!!.reminder < 0) {
-//                    iClass!!.reminder = 0
-//                }
-//                TTCDatabase.getDatabase(this@IClassDetailActivity).getIClass().update(iClass!!)
-//            }
-//            uiThread {
-//                btnNote.isEnabled = list.isNotEmpty()
-//                if (list.size - lastSize == 1) {
-//                    btnRemainder.text = iClass!!.reminder.toString()
-//                }
-//            }
-//        }
-//    }
 
     override fun onResume() {
         super.onResume()
@@ -209,7 +178,7 @@ class IClassDetailActivity : AppCompatActivity() {
                 signs.addAll(list)
             }
             val bills = TTCDatabase.getDatabase(this@IClassDetailActivity).getBill().query(idClass)
-            scheduleWeekdays = Utilities.getScheduleWeekdays(this@IClassDetailActivity, iClass)
+            scheduleWeekdays = Utilities.getScheduleWeekdays(this@IClassDetailActivity, iClass!!)
             uiThread {
 
                 if (isSetEditText) {
@@ -219,7 +188,8 @@ class IClassDetailActivity : AppCompatActivity() {
                 }
 
                 btnNote.isEnabled = signs.size > 0
-                btnSign.isEnabled = iClass?.reminder?:0 > 0 && scheduleWeekdays != null && scheduleWeekdays!!.isNotEmpty()
+//                btnSign.isEnabled = iClass?.reminder?:0 > 0 && scheduleWeekdays != null && scheduleWeekdays!!.isNotEmpty()
+                btnSign.isEnabled = Utilities.getSignButtonEnable(this@IClassDetailActivity, iClass!!)
                 btnSchool.isEnabled = iClass?.idTeacher?:-1 >= 0
                 btnRemainder.text = iClass?.reminder.toString()
 

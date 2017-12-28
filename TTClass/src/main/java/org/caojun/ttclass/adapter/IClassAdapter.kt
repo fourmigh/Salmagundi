@@ -8,6 +8,7 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
 import org.caojun.ttclass.R
+import org.caojun.ttclass.Utilities
 import org.caojun.ttclass.activity.IClassListActivity
 import org.caojun.ttclass.listener.OnListListener
 import org.caojun.ttclass.room.IClass
@@ -48,6 +49,7 @@ class IClassAdapter : BaseAdapter {
 
         val data = getItem(position)
 
+        holder.btnSign?.isEnabled = Utilities.getSignButtonEnable(context!!, data)
         holder.btnSign?.setOnClickListener({
             listener?.onSignClick(data)
         })

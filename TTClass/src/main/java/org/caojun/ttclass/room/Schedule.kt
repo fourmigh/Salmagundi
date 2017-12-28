@@ -72,7 +72,7 @@ class Schedule: Parcelable {
         }
         for (i in time.indices) {
             for (j in time[i].indices) {
-                if (time[i][j] != schedule.time[i][i]) {
+                if (time[i][j] != schedule.time[i][j]) {
                     return true
                 }
             }

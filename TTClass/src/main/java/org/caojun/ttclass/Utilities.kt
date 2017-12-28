@@ -32,8 +32,8 @@ object Utilities {
     /**
      * 获取课程安排星期N
      */
-    fun getScheduleWeekdays(context: Context, iClass: IClass?): IntArray? {
-        if (iClass == null || iClass.schedule == null) {
+    fun getScheduleWeekdays(context: Context, iClass: IClass): IntArray? {
+        if (iClass.schedule == null) {
             return null
         }
         val weekdays = ArrayList<Int>()
@@ -77,8 +77,12 @@ object Utilities {
                 }
                 TTCDatabase.getDatabase(context).getIClass().update(iClass)
             }
-//            listener.onFinish()
             listener()
         }
+    }
+
+    fun getSignButtonEnable(context: Context, iClass: IClass): Boolean {
+        val scheduleWeekdays = Utilities.getScheduleWeekdays(context, iClass)
+        return iClass.reminder > 0 && scheduleWeekdays != null && scheduleWeekdays.isNotEmpty()
     }
 }
