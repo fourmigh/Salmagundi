@@ -48,3 +48,4 @@
 48、InputType.TYPE_NULL：工程Morseman（MainActivity）
 49、更新菜单：工程Signman（MainActivity：delegate.invalidateOptionsMenu()）
 50、手机号输入键盘：WidgetLibrary（widget.MobileKeyboard）
+51、将无参函数作为参数传递：工程TTClass（Utilities）
