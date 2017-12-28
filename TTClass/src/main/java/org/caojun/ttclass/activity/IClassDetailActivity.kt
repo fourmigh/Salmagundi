@@ -18,6 +18,7 @@ import org.caojun.ttclass.Constant
 import org.caojun.ttclass.R
 import org.caojun.ttclass.Utilities
 import org.caojun.ttclass.dialog.BillDetailDialog
+import org.caojun.ttclass.listener.OnAsyncListener
 import org.caojun.ttclass.room.*
 import org.jetbrains.anko.*
 import java.util.*
@@ -29,6 +30,16 @@ class IClassDetailActivity : AppCompatActivity() {
     private var isAdd = false
     private var isInfoChanged = false
     private var scheduleWeekdays: IntArray? = null
+    private val onAsyncListener: OnAsyncListener = object : OnAsyncListener {
+        override fun onFinish(list: List<Sign>) {
+            doAsync {
+                uiThread {
+                    btnNote.isEnabled = list.isNotEmpty()
+                    btnRemainder.text = iClass!!.reminder.toString()
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -128,42 +139,43 @@ class IClassDetailActivity : AppCompatActivity() {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     val time = data.getLongExtra(Constant.Key_Day, 0)
                     val date = Date(time)
-                    doSign(date)
+//                    doSign(date)
+                    Utilities.doSign(this, iClass, date, onAsyncListener)
                 }
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    private fun doSign(date: Date) {
-        doAsync {
-            val idClass = iClass?.id?:-1
-            var list = TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().query(idClass)
-            val lastSize = list.size
-            if (Utilities.dateInSigns(date, list)) {
-                return@doAsync
-            }
-            val sign = Sign()
-            sign.idClass = iClass!!.id
-            sign.time = date
-            TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().insert(sign)
-            list = TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().query(idClass)
-            if (list.size - lastSize == 1) {
-                //新增一条签到记录
-                iClass!!.reminder --
-                if (iClass!!.reminder < 0) {
-                    iClass!!.reminder = 0
-                }
-                TTCDatabase.getDatabase(this@IClassDetailActivity).getIClass().update(iClass!!)
-            }
-            uiThread {
-                btnNote.isEnabled = list.isNotEmpty()
-                if (list.size - lastSize == 1) {
-                    btnRemainder.text = iClass!!.reminder.toString()
-                }
-            }
-        }
-    }
+//    private fun doSign(date: Date) {
+//        doAsync {
+//            val idClass = iClass?.id?:-1
+//            var list = TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().query(idClass)
+//            val lastSize = list.size
+//            if (Utilities.dateInSigns(date, list)) {
+//                return@doAsync
+//            }
+//            val sign = Sign()
+//            sign.idClass = iClass!!.id
+//            sign.time = date
+//            TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().insert(sign)
+//            list = TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().query(idClass)
+//            if (list.size - lastSize == 1) {
+//                //新增一条签到记录
+//                iClass!!.reminder --
+//                if (iClass!!.reminder < 0) {
+//                    iClass!!.reminder = 0
+//                }
+//                TTCDatabase.getDatabase(this@IClassDetailActivity).getIClass().update(iClass!!)
+//            }
+//            uiThread {
+//                btnNote.isEnabled = list.isNotEmpty()
+//                if (list.size - lastSize == 1) {
+//                    btnRemainder.text = iClass!!.reminder.toString()
+//                }
+//            }
+//        }
+//    }
 
     override fun onResume() {
         super.onResume()
@@ -182,22 +194,6 @@ class IClassDetailActivity : AppCompatActivity() {
         edit.commit()
     }
 
-
-
-//    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-//        super.onRestoreInstanceState(savedInstanceState)
-//        KLog.d("IClassDetailActivity", "onRestoreInstanceState")
-//        etName.setText(savedInstanceState?.getString(Key_Name, iClass?.name))
-//        etGrade.setText(savedInstanceState?.getString(Key_Grade, iClass?.grade))
-//    }
-//
-//    override fun onSaveInstanceState(outState: Bundle?) {
-//        super.onSaveInstanceState(outState)
-//        KLog.d("IClassDetailActivity", "onSaveInstanceState")
-//        outState?.putString(Key_Name, etName.text.toString())
-//        outState?.putString(Key_Grade, etGrade.text.toString())
-//    }
-
     private fun refreshUI(isEdit: Boolean) {
         if (iClass == null) {
             finish()
@@ -212,7 +208,7 @@ class IClassDetailActivity : AppCompatActivity() {
                 signs.addAll(list)
             }
             val bills = TTCDatabase.getDatabase(this@IClassDetailActivity).getBill().query(idClass)
-            scheduleWeekdays = getScheduleWeekdays()
+            scheduleWeekdays = Utilities.getScheduleWeekdays(this@IClassDetailActivity, iClass)
             uiThread {
 
                 val sp = this@IClassDetailActivity.getSharedPreferences(this@IClassDetailActivity.javaClass.name, Context.MODE_PRIVATE)
@@ -422,30 +418,4 @@ class IClassDetailActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * 获取课程安排星期N
-     */
-    private fun getScheduleWeekdays(): IntArray? {
-        if (iClass == null || iClass?.schedule == null) {
-            return null
-        }
-        val weekdays = ArrayList<Int>()
-        for (i in iClass!!.schedule!!.checked.indices) {
-            if (!iClass!!.schedule!!.checked[i]) {
-                continue
-            }
-            if (iClass!!.schedule!!.time[i][0] == getString(R.string.start_time)) {
-                continue
-            }
-            if (iClass!!.schedule!!.time[i][1] == getString(R.string.end_time)) {
-                continue
-            }
-            weekdays.add(i)
-        }
-        var intArray = IntArray(weekdays.size)
-        for (i in weekdays.indices) {
-            intArray[i] = weekdays[i]
-        }
-        return intArray
-    }
 }
