@@ -184,7 +184,7 @@ class IClassDetailActivity : AppCompatActivity() {
         if (iClass == null) {
             iClass = intent.getParcelableExtra(Constant.Key_Class)
         }
-        refreshUI(isAdd)
+        refreshUI(isAdd, true)
     }
 
     override fun onPause() {
@@ -195,7 +195,7 @@ class IClassDetailActivity : AppCompatActivity() {
         edit.commit()
     }
 
-    private fun refreshUI(isEdit: Boolean) {
+    private fun refreshUI(isEdit: Boolean, isSetEditText: Boolean) {
         if (iClass == null) {
             finish()
             return
@@ -212,9 +212,11 @@ class IClassDetailActivity : AppCompatActivity() {
             scheduleWeekdays = Utilities.getScheduleWeekdays(this@IClassDetailActivity, iClass)
             uiThread {
 
-                val sp = this@IClassDetailActivity.getSharedPreferences(this@IClassDetailActivity.javaClass.name, Context.MODE_PRIVATE)
-                etName.setText(sp.getString(Constant.Key_Name, iClass?.name))
-                etGrade.setText(sp.getString(Constant.Key_Grade, iClass?.grade))
+                if (isSetEditText) {
+                    val sp = this@IClassDetailActivity.getSharedPreferences(this@IClassDetailActivity.javaClass.name, Context.MODE_PRIVATE)
+                    etName.setText(sp.getString(Constant.Key_Name, iClass?.name))
+                    etGrade.setText(sp.getString(Constant.Key_Grade, iClass?.grade))
+                }
 
                 btnNote.isEnabled = signs.size > 0
                 btnSign.isEnabled = iClass?.reminder?:0 > 0 && scheduleWeekdays != null && scheduleWeekdays!!.isNotEmpty()
@@ -415,7 +417,7 @@ class IClassDetailActivity : AppCompatActivity() {
             TTCDatabase.getDatabase(this@IClassDetailActivity).getBill().insert(bill)
             iClass!!.reminder += number
             TTCDatabase.getDatabase(this@IClassDetailActivity).getIClass().update(iClass!!)
-            refreshUI(isAdd)
+            refreshUI(isAdd, false)
         }
     }
 
