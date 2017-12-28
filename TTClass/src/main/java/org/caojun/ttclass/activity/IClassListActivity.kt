@@ -4,20 +4,16 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.socks.library.KLog
 import kotlinx.android.synthetic.main.activity_iclass_list.*
 import org.caojun.ttclass.Constant
 import org.caojun.ttclass.R
 import org.caojun.ttclass.Utilities
 import org.caojun.ttclass.adapter.IClassAdapter
-import org.caojun.ttclass.listener.OnAsyncListener
 import org.caojun.ttclass.listener.OnListListener
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import org.caojun.ttclass.room.IClass
-import org.caojun.ttclass.room.Sign
 import org.caojun.ttclass.room.TTCDatabase
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import java.util.*
 
@@ -33,11 +29,6 @@ class IClassListActivity : AppCompatActivity() {
             this@IClassListActivity.iClass = iClass
             val scheduleWeekdays = Utilities.getScheduleWeekdays(this@IClassListActivity, iClass)
             startActivityForResult<ScheduleListActivity>(Constant.RequestCode_ScheduleList, Constant.Key_ClassID to iClass?.id, Constant.Key_ScheduleWeekdays to scheduleWeekdays)
-        }
-    }
-    private val onAsyncListener: OnAsyncListener = object : OnAsyncListener {
-        override fun onFinish(list: List<Sign>) {
-            refreshUI()
         }
     }
 
@@ -84,7 +75,9 @@ class IClassListActivity : AppCompatActivity() {
         if (requestCode == Constant.RequestCode_ScheduleList && resultCode == Activity.RESULT_OK && data != null) {
             val time = data.getLongExtra(Constant.Key_Day, 0)
             val date = Date(time)
-            Utilities.doSign(this@IClassListActivity, iClass, date, onAsyncListener)
+            Utilities.doSign(this@IClassListActivity, iClass, date) {
+                refreshUI()
+            }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

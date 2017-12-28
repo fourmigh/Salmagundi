@@ -18,7 +18,6 @@ import org.caojun.ttclass.Constant
 import org.caojun.ttclass.R
 import org.caojun.ttclass.Utilities
 import org.caojun.ttclass.dialog.BillDetailDialog
-import org.caojun.ttclass.listener.OnAsyncListener
 import org.caojun.ttclass.room.*
 import org.jetbrains.anko.*
 import java.util.*
@@ -30,13 +29,13 @@ class IClassDetailActivity : AppCompatActivity() {
     private var isAdd = false
     private var isInfoChanged = false
     private var scheduleWeekdays: IntArray? = null
-    private val onAsyncListener: OnAsyncListener = object : OnAsyncListener {
-        override fun onFinish(list: List<Sign>) {
-            doAsync {
-                uiThread {
-                    btnNote.isEnabled = list.isNotEmpty()
-                    btnRemainder.text = iClass!!.reminder.toString()
-                }
+
+    private fun onAsyncListener() {
+        doAsync {
+            val list = TTCDatabase.getDatabase(this@IClassDetailActivity).getSign().query(iClass!!.id)
+            uiThread {
+                btnNote.isEnabled = list.isNotEmpty()
+                btnRemainder.text = iClass!!.reminder.toString()
             }
         }
     }
@@ -140,7 +139,9 @@ class IClassDetailActivity : AppCompatActivity() {
                     val time = data.getLongExtra(Constant.Key_Day, 0)
                     val date = Date(time)
 //                    doSign(date)
-                    Utilities.doSign(this, iClass, date, onAsyncListener)
+                    Utilities.doSign(this, iClass, date) {
+                        onAsyncListener()
+                    }
                 }
             }
         }

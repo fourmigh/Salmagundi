@@ -1,15 +1,11 @@
 package org.caojun.ttclass
 
 import android.content.Context
-import kotlinx.android.synthetic.main.activity_iclass_detail.*
-import org.caojun.ttclass.R.id.btnNote
-import org.caojun.ttclass.listener.OnAsyncListener
 import org.caojun.ttclass.room.IClass
 import org.caojun.ttclass.room.Sign
 import org.caojun.ttclass.room.TTCDatabase
 import org.caojun.utils.TimeUtils
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import java.util.*
 
 /**
@@ -60,7 +56,32 @@ object Utilities {
         return intArray
     }
 
-    fun doSign(context: Context, iClass: IClass?, date: Date, listener: OnAsyncListener) {
+//    fun doSign(context: Context, iClass: IClass?, date: Date, listener: OnAsyncListener) {
+//        doAsync {
+//            val idClass = iClass?.id?:-1
+//            var list = TTCDatabase.getDatabase(context).getSign().query(idClass)
+//            val lastSize = list.size
+//            if (Utilities.dateInSigns(date, list)) {
+//                return@doAsync
+//            }
+//            val sign = Sign()
+//            sign.idClass = iClass!!.id
+//            sign.time = date
+//            TTCDatabase.getDatabase(context).getSign().insert(sign)
+//            list = TTCDatabase.getDatabase(context).getSign().query(idClass)
+//            if (list.size - lastSize == 1) {
+//                //新增一条签到记录
+//                iClass!!.reminder --
+//                if (iClass!!.reminder < 0) {
+//                    iClass!!.reminder = 0
+//                }
+//                TTCDatabase.getDatabase(context).getIClass().update(iClass!!)
+//            }
+//            listener.onFinish()
+//        }
+//    }
+
+    fun doSign(context: Context, iClass: IClass?, date: Date, listener: () -> Unit) {
         doAsync {
             val idClass = iClass?.id?:-1
             var list = TTCDatabase.getDatabase(context).getSign().query(idClass)
@@ -75,13 +96,14 @@ object Utilities {
             list = TTCDatabase.getDatabase(context).getSign().query(idClass)
             if (list.size - lastSize == 1) {
                 //新增一条签到记录
-                iClass!!.reminder --
-                if (iClass!!.reminder < 0) {
-                    iClass!!.reminder = 0
+                iClass.reminder --
+                if (iClass.reminder < 0) {
+                    iClass.reminder = 0
                 }
-                TTCDatabase.getDatabase(context).getIClass().update(iClass!!)
+                TTCDatabase.getDatabase(context).getIClass().update(iClass)
             }
-            listener.onFinish()
+//            listener.onFinish()
+            listener()
         }
     }
 }
