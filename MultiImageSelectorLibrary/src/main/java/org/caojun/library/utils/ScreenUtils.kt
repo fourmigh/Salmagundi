@@ -4,6 +4,9 @@ import android.content.Context
 import android.graphics.Point
 import android.os.Build
 import android.view.WindowManager
+import android.util.DisplayMetrics
+
+
 
 /**
  * Created by CaoJun on 2017-12-20.
@@ -11,15 +14,9 @@ import android.view.WindowManager
 object ScreenUtils {
     fun getScreenSize(context: Context): Point {
         val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val display = wm.defaultDisplay
         val out = Point()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            display.getSize(out)
-        } else {
-            val width = display.width
-            val height = display.height
-            out.set(width, height)
-        }
+        val display = wm.defaultDisplay
+        display.getSize(out)
         return out
     }
 }
