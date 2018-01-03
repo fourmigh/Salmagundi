@@ -46,7 +46,8 @@ class SignAdapter : BaseAdapter {
         }
 
         val data = getItem(position)
-        holder.ivNote?.visibility = if (TextUtils.isEmpty(data.note)) View.INVISIBLE else View.VISIBLE
+//        holder.ivNote?.visibility = if (TextUtils.isEmpty(data.note)) View.INVISIBLE else View.VISIBLE
+        holder.ivNote?.visibility = if (!TextUtils.isEmpty(data.note) || data.images.isNotEmpty()) View.VISIBLE else View.INVISIBLE
         holder.tvDate?.text = TimeUtils.getTime("yyyy/MM/dd", data.time)
         holder.tvWeekday?.text = Utilities.getWeekday(context!!, data.time)
         if (position % 2 == 0) {
