@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.caojun.library" >
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application android:allowBackup="true">
 
         <activity
@@ -9,5 +11,9 @@
         <activity
             android:configChanges="orientation|screenSize"
             android:name="org.caojun.library.activity.GalleryActivity" />
+
+        <activity
+            android:configChanges="orientation|screenSize"
+            android:name="org.caojun.library.activity.MultiImageSelectorActivity" />
     </application>
 </manifest>

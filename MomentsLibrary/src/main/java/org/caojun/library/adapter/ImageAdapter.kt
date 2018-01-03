@@ -9,12 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-//import com.bumptech.glide.Glide
-import org.caojun.library.MultiImageSelectorActivity
+import com.bumptech.glide.Glide
+import org.caojun.library.activity.MultiImageSelectorActivity
 import org.caojun.library.R
-import org.caojun.universalimageloader.core.ImageLoader
-import org.caojun.universalimageloader.core.DisplayImageOptions
-import org.caojun.universalimageloader.core.ImageLoaderConfiguration
+//import org.caojun.universalimageloader.core.ImageLoader
+//import org.caojun.universalimageloader.core.DisplayImageOptions
+//import org.caojun.universalimageloader.core.ImageLoaderConfiguration
 import org.caojun.library.activity.GalleryActivity
 import org.caojun.library.activity.MomentsActivity
 
@@ -26,21 +26,22 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ViewHolder> {
     private var paths: ArrayList<String>? = null
     private var mLayoutInflater: LayoutInflater? = null
     private var activity: Activity? = null
-    private val PlusPath = "drawable://" + R.drawable.mine_btn_plus
-    private var options: DisplayImageOptions? = null
+    private var PlusPath = "drawable://" + R.drawable.mine_btn_plus
+//    private var options: DisplayImageOptions? = null
 
     constructor(activity: Activity?, paths: ArrayList<String>) : super() {
         this.activity = activity
         this.mLayoutInflater = LayoutInflater.from(activity)
         setData(paths)
 
-        options = DisplayImageOptions.Builder()
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .considerExifParams(true)
-//                .bitmapConfig(Bitmap.Config.RGB_565)
-                .build()
-        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(activity))
+        PlusPath = "android.resource://" + activity?.packageName + "/drawable/" + R.drawable.mine_btn_plus;
+//        options = DisplayImageOptions.Builder()
+//                .cacheInMemory(true)
+//                .cacheOnDisk(true)
+//                .considerExifParams(true)
+////                .bitmapConfig(Bitmap.Config.RGB_565)
+//                .build()
+//        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(activity))
     }
 
     fun setData(paths: ArrayList<String>) {
@@ -97,8 +98,8 @@ class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ViewHolder> {
                 })
             }
         }
-        ImageLoader.getInstance().displayImage(path, holder?.imageView, options)
-//        Glide.with(activity).load(path).into(holder?.imageView)
+//        ImageLoader.getInstance().displayImage(path, holder?.imageView, options)
+        Glide.with(activity).load(path).into(holder?.imageView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {

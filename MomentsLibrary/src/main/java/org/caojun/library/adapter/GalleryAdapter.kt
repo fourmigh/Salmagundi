@@ -5,10 +5,10 @@ import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-//import com.bumptech.glide.Glide
-import org.caojun.universalimageloader.core.DisplayImageOptions
-import org.caojun.universalimageloader.core.ImageLoader
-import org.caojun.universalimageloader.core.ImageLoaderConfiguration
+import com.bumptech.glide.Glide
+//import org.caojun.universalimageloader.core.DisplayImageOptions
+//import org.caojun.universalimageloader.core.ImageLoader
+//import org.caojun.universalimageloader.core.ImageLoaderConfiguration
 import org.caojun.library.R
 import org.caojun.widget.SmoothImageView
 
@@ -23,7 +23,7 @@ class GalleryAdapter: PagerAdapter {
     private var locationX = 0
     private var locationY = 0
     private var pos = 0
-    private var options: DisplayImageOptions? = null
+//    private var options: DisplayImageOptions? = null
 
     constructor(activity: Activity, paths: ArrayList<String>, w: Int, h: Int, x: Int, y: Int, pos: Int) {
         this.activity = activity
@@ -33,13 +33,13 @@ class GalleryAdapter: PagerAdapter {
         this.locationX = x
         this.locationY = y
         this.pos = pos
-        options = DisplayImageOptions.Builder()
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .considerExifParams(true)
-//                .bitmapConfig(Bitmap.Config.RGB_565)
-                .build()
-        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(activity));
+//        options = DisplayImageOptions.Builder()
+//                .cacheInMemory(true)
+//                .cacheOnDisk(true)
+//                .considerExifParams(true)
+////                .bitmapConfig(Bitmap.Config.RGB_565)
+//                .build()
+//        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(activity));
     }
 
     fun setData(paths: ArrayList<String>) {
@@ -59,8 +59,8 @@ class GalleryAdapter: PagerAdapter {
 
         if (paths != null && position < count) {
             val path = paths!![position]
-            ImageLoader.getInstance().displayImage(path, smoothImageView, options)
-//            Glide.with(activity).load(path).into(smoothImageView)
+//            ImageLoader.getInstance().displayImage(path, smoothImageView, options)
+            Glide.with(activity).load(path).into(smoothImageView)
         }
 
 

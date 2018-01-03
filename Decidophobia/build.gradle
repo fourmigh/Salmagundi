@@ -34,5 +34,5 @@ dependencies {
     repositories {
         maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
     }
-    implementation "cn.bmob.android:bmob-sdk:latest.release"
+    implementation "cn.bmob.android:bmob-sdk:3.5.8"
 }

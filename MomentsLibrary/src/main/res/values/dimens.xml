@@ -4,4 +4,8 @@
     <dimen name="article_post_delete">50dp</dimen>
     <dimen name="article_img_padding">20dp</dimen>
     <dimen name="article_img_dimens">70dp</dimen>
+
+    <dimen name="mis_image_size">120dp</dimen>
+    <dimen name="mis_space_size">2dp</dimen>
+    <dimen name="mis_folder_cover_size">72dp</dimen>
 </resources>

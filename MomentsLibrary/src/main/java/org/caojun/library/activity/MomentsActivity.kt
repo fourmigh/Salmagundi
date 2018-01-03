@@ -14,7 +14,6 @@ import android.view.View
 import com.hys.utils.*
 import org.caojun.library.MultiImageSelector
 import kotlinx.android.synthetic.main.activity_moments.*
-import org.caojun.library.MultiImageSelectorActivity
 import org.caojun.library.R
 import org.caojun.library.adapter.ImageAdapter
 import org.caojun.library.listener.DragCallback
