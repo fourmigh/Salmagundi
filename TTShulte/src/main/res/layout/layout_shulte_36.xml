@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.caojun.ttshulte.widget.SquareLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tlShulte36"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        style="@style/ShulteLayout">
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/ShulteLayout">
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/ShulteLayout">
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/ShulteLayout">
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/ShulteLayout">
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/ShulteLayout">
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+    </LinearLayout>
+</org.caojun.ttshulte.widget.SquareLinearLayout>
