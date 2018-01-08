@@ -1,105 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:stretchColumns="*"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<org.caojun.ttshulte.widget.SquareLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tlShulte25"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="?android:attr/buttonBarStyle">
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+    <LinearLayout
+        style="@style/ShulteLayout">
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+        <Button style="@style/ShulteButton"/>
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+        <Button style="@style/ShulteButton"/>
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+        <Button style="@style/ShulteButton"/>
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
-    </TableRow>
+        <Button style="@style/ShulteButton"/>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="?android:attr/buttonBarStyle">
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+        <Button style="@style/ShulteButton"/>
+    </LinearLayout>
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+    <LinearLayout
+        style="@style/ShulteLayout">
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+        <Button style="@style/ShulteButton"/>
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+        <Button style="@style/ShulteButton"/>
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
-    </TableRow>
+        <Button style="@style/ShulteButton"/>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="?android:attr/buttonBarStyle">
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+        <Button style="@style/ShulteButton"/>
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+        <Button style="@style/ShulteButton"/>
+    </LinearLayout>
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+    <LinearLayout
+        style="@style/ShulteLayout">
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+        <Button style="@style/ShulteButton"/>
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
-    </TableRow>
+        <Button style="@style/ShulteButton"/>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="?android:attr/buttonBarStyle">
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+        <Button style="@style/ShulteButton"/>
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+        <Button style="@style/ShulteButton"/>
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+        <Button style="@style/ShulteButton"/>
+    </LinearLayout>
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+    <LinearLayout
+        style="@style/ShulteLayout">
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
-    </TableRow>
+        <Button style="@style/ShulteButton"/>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="?android:attr/buttonBarStyle">
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+        <Button style="@style/ShulteButton"/>
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+        <Button style="@style/ShulteButton"/>
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+        <Button style="@style/ShulteButton"/>
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
+        <Button style="@style/ShulteButton"/>
+    </LinearLayout>
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"/>
-    </TableRow>
-</TableLayout>
+    <LinearLayout
+        style="@style/ShulteLayout">
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+
+        <Button style="@style/ShulteButton"/>
+    </LinearLayout>
+</org.caojun.ttshulte.widget.SquareLinearLayout>
