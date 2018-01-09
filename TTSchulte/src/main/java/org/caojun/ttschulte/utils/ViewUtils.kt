@@ -1,4 +1,4 @@
-package org.caojun.ttshulte.utils
+package org.caojun.ttschulte.utils
 
 import android.view.ViewGroup
 import android.widget.Button

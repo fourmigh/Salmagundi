@@ -8,13 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ShulteLayout" parent="Widget.AppCompat.ButtonBar">
+    <style name="SchulteLayout" parent="Widget.AppCompat.ButtonBar">
         <item name="android:layout_weight">1</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
     </style>
 
-    <style name="ShulteButton" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+    <style name="SchulteButton" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:layout_weight">1</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>

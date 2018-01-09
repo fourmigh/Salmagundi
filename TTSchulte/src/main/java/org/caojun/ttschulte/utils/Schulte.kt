@@ -1,5 +1,6 @@
-package org.caojun.ttshulte.utils
+package org.caojun.ttschulte.utils
 
+import com.socks.library.KLog
 import org.caojun.utils.RandomUtils
 
 /**
@@ -19,7 +20,7 @@ object Schulte {
     val Type_Even = 5//偶数
     val Type_Lowercase = 6//小写字母
     val Type_Uppercase = 7//大写字母
-    val Type_Alphabet = 7//大小写字母
+    val Type_Alphabet = 8//大小写字母
 
     fun getSize(layout: Int): Int {
         when (layout) {
@@ -107,8 +108,10 @@ object Schulte {
         var C = 'A'
         while (chars.size < size) {
             if (RandomUtils.getRandom()) {
+                KLog.d("getAlphabet", "Lowercase")
                 chars.add(c.toString())
             } else {
+                KLog.d("getAlphabet", "Uppercase")
                 chars.add(C.toString())
             }
             c ++

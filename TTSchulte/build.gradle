@@ -7,7 +7,7 @@ android {
 
 
     defaultConfig {
-        applicationId "org.caojun.ttshulte"
+        applicationId "org.caojun.ttschulte"
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1

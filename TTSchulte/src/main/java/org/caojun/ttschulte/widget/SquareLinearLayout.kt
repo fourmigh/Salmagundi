@@ -1,4 +1,4 @@
-package org.caojun.ttshulte.widget
+package org.caojun.ttschulte.widget
 
 import android.content.Context
 import android.util.AttributeSet

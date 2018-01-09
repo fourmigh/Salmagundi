@@ -1,77 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.caojun.ttshulte.widget.SquareLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tlShulte25"
+<org.caojun.ttschulte.widget.SquareLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tlSchulte25"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
-        style="@style/ShulteLayout">
+        style="@style/SchulteLayout">
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
     </LinearLayout>
 
     <LinearLayout
-        style="@style/ShulteLayout">
+        style="@style/SchulteLayout">
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
     </LinearLayout>
 
     <LinearLayout
-        style="@style/ShulteLayout">
+        style="@style/SchulteLayout">
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
     </LinearLayout>
 
     <LinearLayout
-        style="@style/ShulteLayout">
+        style="@style/SchulteLayout">
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
     </LinearLayout>
 
     <LinearLayout
-        style="@style/ShulteLayout">
+        style="@style/SchulteLayout">
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
 
-        <Button style="@style/ShulteButton"/>
+        <Button style="@style/SchulteButton"/>
     </LinearLayout>
-</org.caojun.ttshulte.widget.SquareLinearLayout>
+</org.caojun.ttschulte.widget.SquareLinearLayout>
