@@ -34,9 +34,9 @@ class SchulteActivity : AppCompatActivity() {
 //        val chars = Schulte.getChars(LayoutIndex, Schulte.Type_Cubic)
 //        val chars = Schulte.getChars(LayoutIndex, Schulte.Type_Odd)
 //        val chars = Schulte.getChars(LayoutIndex, Schulte.Type_Even)
-        val chars = Schulte.getChars(LayoutIndex, Schulte.Type_Lowercase)
+//        val chars = Schulte.getChars(LayoutIndex, Schulte.Type_Lowercase)
 //        val chars = Schulte.getChars(LayoutIndex, Schulte.Type_Uppercase)
-//        val chars = Schulte.getChars(LayoutIndex, Schulte.Type_Alphabet)
+        val chars = Schulte.getChars(LayoutIndex, Schulte.Type_Alphabet)
         for (i in 0 until chars.size) {
             buttons[i].text = chars[i]
         }
