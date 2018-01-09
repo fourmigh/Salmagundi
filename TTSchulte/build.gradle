@@ -36,4 +36,5 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$googleroom_version"
     annotationProcessor "android.arch.lifecycle:compiler:$googleroom_version"
     kapt "android.arch.persistence.room:compiler:$googleroom_version"
+    implementation project(path: ':UtilsLibrary')
 }
