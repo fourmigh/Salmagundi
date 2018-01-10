@@ -23,62 +23,42 @@ object Schulte {
     val Type_Alphabet = 8//大小写字母
 
     fun getSize(layout: Int): Int {
-        when (layout) {
-            Layout_9 -> {
-                return 9
-            }
-            Layout_16 -> {
-                return 16
-            }
-            Layout_25 -> {
-                return 25
-            }
-            Layout_36 -> {
-                return 36
-            }
-            else -> {
-                return 0
-            }
+        return when (layout) {
+            Layout_9 -> 9
+            Layout_16 -> 16
+            Layout_25 -> 25
+            Layout_36 -> 36
+            else -> 0
         }
     }
 
     private fun getNatural(size: Int): ArrayList<String> {
         val chars = ArrayList<String>()
-        for (i in 0 until size) {
-            chars.add((i + 1).toString())
-        }
+        (0 until size).mapTo(chars) { (it + 1).toString() }
         return chars
     }
 
     private fun getSquare(size: Int): ArrayList<String> {
         val chars = ArrayList<String>()
-        for (i in 0 until size) {
-            chars.add(Math.pow((i + 1).toDouble(), 2.toDouble()).toInt().toString())
-        }
+        (0 until size).mapTo(chars) { Math.pow((it + 1).toDouble(), 2.toDouble()).toInt().toString() }
         return chars
     }
 
     private fun getCubic(size: Int): ArrayList<String> {
         val chars = ArrayList<String>()
-        for (i in 0 until size) {
-            chars.add(Math.pow((i + 1).toDouble(), 3.toDouble()).toInt().toString())
-        }
+        (0 until size).mapTo(chars) { Math.pow((it + 1).toDouble(), 3.toDouble()).toInt().toString() }
         return chars
     }
 
     private fun getOdd(size: Int): ArrayList<String> {
         val chars = ArrayList<String>()
-        for (i in 0 until size) {
-            chars.add(((i + 1) * 2).toString())
-        }
+        (0 until size).mapTo(chars) { ((it + 1) * 2).toString() }
         return chars
     }
 
     private fun getEven(size: Int): ArrayList<String> {
         val chars = ArrayList<String>()
-        for (i in 0 until size) {
-            chars.add((i * 2 + 1).toString())
-        }
+        (0 until size).mapTo(chars) { (it * 2 + 1).toString() }
         return chars
     }
 
@@ -108,10 +88,8 @@ object Schulte {
         var C = 'A'
         while (chars.size < size) {
             if (RandomUtils.getRandom()) {
-                KLog.d("getAlphabet", "Lowercase")
                 chars.add(c.toString())
             } else {
-                KLog.d("getAlphabet", "Uppercase")
                 chars.add(C.toString())
             }
             c ++
@@ -131,32 +109,16 @@ object Schulte {
         if (layout == Layout_36 && type >= Type_Lowercase && type <= Type_Alphabet) {
             return ArrayList<String>()
         }
-        when (type) {
-            Type_Natural -> {
-                return getNatural(size)
-            }
-            Type_Square -> {
-                return getSquare(size)
-            }
-            Type_Cubic -> {
-                return getCubic(size)
-            }
-            Type_Odd -> {
-                return getOdd(size)
-            }
-            Type_Even -> {
-                return getEven(size)
-            }
-            Type_Lowercase -> {
-                return getLowercase(size)
-            }
-            Type_Uppercase -> {
-                return getUppercase(size)
-            }
-            Type_Alphabet -> {
-                return getAlphabet(size)
-            }
+        return when (type) {
+            Type_Natural -> getNatural(size)
+            Type_Square -> getSquare(size)
+            Type_Cubic -> getCubic(size)
+            Type_Odd -> getOdd(size)
+            Type_Even -> getEven(size)
+            Type_Lowercase -> getLowercase(size)
+            Type_Uppercase -> getUppercase(size)
+            Type_Alphabet -> getAlphabet(size)
+            else -> ArrayList<String>()
         }
-        return ArrayList<String>()
     }
 }
