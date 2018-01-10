@@ -24,14 +24,16 @@ class SchulteActivity : AppCompatActivity() {
 
     private val RequestCode_Countdown = 1
 
-    private val LayoutIds = arrayOf(R.layout.layout_schulte_9, R.layout.layout_schulte_16, R.layout.layout_schulte_25, R.layout.layout_schulte_36)
-    private var LayoutIndex = Schulte.Layout_16
+//    private val LayoutIds = arrayOf(R.layout.layout_schulte_9, R.layout.layout_schulte_16, R.layout.layout_schulte_25, R.layout.layout_schulte_36)
+    private var LayoutIndex = Schulte.Layout_9
     private var indexButton = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(LayoutIds[LayoutIndex])
         setContentView(R.layout.activity_schulte)
+
+        initLayoutSchulte()
 
         val root = getRoot()
 
@@ -77,6 +79,17 @@ class SchulteActivity : AppCompatActivity() {
     private fun startAnimation(v: View) {
         val shake = AnimationUtils.loadAnimation(this, R.anim.shake)//加载动画资源文件
         v.startAnimation(shake) //给组件播放动画效果
+    }
+
+    private fun initLayoutSchulte() {
+        val layouts = arrayOf(tlSchulte9, tlSchulte16, tlSchulte25, tlSchulte36)
+        for (i in layouts.indices) {
+            if (i == LayoutIndex) {
+                layouts[i].visibility = View.VISIBLE
+            } else {
+                layouts[i].visibility = View.GONE
+            }
+        }
     }
 
     private fun getRoot(): ViewGroup {

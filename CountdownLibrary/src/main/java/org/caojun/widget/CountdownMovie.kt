@@ -96,7 +96,9 @@ class CountdownMovie: View {
         drawText(canvas)
 
         //扇形
-        drawArc(canvas)
+        if (time > 0) {
+            drawArc(canvas)
+        }
 
         //双圆
         drawCircle(canvas)

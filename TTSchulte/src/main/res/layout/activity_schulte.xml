@@ -7,7 +7,25 @@
     tools:context=".activity.SchulteActivity">
 
     <include
+        layout="@layout/layout_schulte_9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <include
         layout="@layout/layout_schulte_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <include
+        layout="@layout/layout_schulte_25"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <include
+        layout="@layout/layout_schulte_36"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
