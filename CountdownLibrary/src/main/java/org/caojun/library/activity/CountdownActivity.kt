@@ -34,7 +34,7 @@ class CountdownActivity : Activity() {
     }
 
     override fun onBackPressed() {
-
+        //屏蔽返回键
     }
 
     override fun onResume() {
