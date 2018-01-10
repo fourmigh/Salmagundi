@@ -50,3 +50,4 @@
 50、手机号输入键盘：WidgetLibrary（widget.MobileKeyboard）
 51、将无参函数作为参数传递：工程TTClass（Utilities）
 52、ArrayList乱序：Collections.shuffle
+53、正方形布局：WidgetLibrary（widget.SquareLinearLayout）

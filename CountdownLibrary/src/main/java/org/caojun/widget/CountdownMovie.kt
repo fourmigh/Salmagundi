@@ -1,4 +1,4 @@
-package org.caojun.ttschulte.widget
+package org.caojun.widget
 
 import android.content.Context
 import android.graphics.*
@@ -16,7 +16,7 @@ import android.view.animation.LinearInterpolator
  */
 class CountdownMovie: View {
 
-    private val bgPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val STEP = 2//重绘间隔帧数
     private val circlePaint = Paint()
     private val linePaint = Paint()
     private val textPaint = Paint()
@@ -31,12 +31,11 @@ class CountdownMovie: View {
     private var min = 0f
     private var max = 0f
     private var yText = 0f
+    private var count = 0
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        bgPaint.isFilterBitmap = true
-        bgPaint.isDither = true
 
         circlePaint.style = Paint.Style.STROKE
         circlePaint.isAntiAlias = true
@@ -91,7 +90,7 @@ class CountdownMovie: View {
         super.onDraw(canvas)
 
         //背景色
-        canvas.drawARGB(0xff,0xcc,0xcc,0xcc)
+        canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), arcPaint)
 
         //文字
         drawText(canvas)
@@ -125,7 +124,10 @@ class CountdownMovie: View {
         aAngle.addUpdateListener { valueAnimator ->
             angle = valueAnimator.animatedValue as Float
             sweepAngle = 270 - angle
-            invalidate()
+            count ++
+            if (count % STEP == 0) {
+                invalidate()
+            }
         }
         val asAngle = AnimatorSet()
         asAngle.play(aAngle)
@@ -138,8 +140,9 @@ class CountdownMovie: View {
                 sweepAngle = 0f
                 time --
                 if (time <= 0) {
+                    invalidate()
                     clearAnimation()
-                    listener?.finish()
+                    listener?.finished()
                 } else {
                     startArc()
                 }
@@ -157,11 +160,11 @@ class CountdownMovie: View {
 
     private var listener: OnCountdownListener? = null
 
-    fun setOnLoadingFinishListener(listener: OnCountdownListener) {
+    fun setOnCountdownListener(listener: OnCountdownListener) {
         this.listener = listener
     }
 
     interface OnCountdownListener {
-        fun finish()
+        fun finished()
     }
 }

@@ -1,5 +1,7 @@
 package org.caojun.ttschulte.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -15,11 +17,12 @@ import org.caojun.ttschulte.utils.ViewUtils
 import java.util.*
 import android.view.animation.AnimationUtils
 import kotlinx.android.synthetic.main.activity_schulte.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
-
+import org.caojun.library.activity.CountdownActivity
+import org.jetbrains.anko.startActivityForResult
 
 class SchulteActivity : AppCompatActivity() {
+
+    private val RequestCode_Countdown = 1
 
     private val LayoutIds = arrayOf(R.layout.layout_schulte_9, R.layout.layout_schulte_16, R.layout.layout_schulte_25, R.layout.layout_schulte_36)
     private var LayoutIndex = Schulte.Layout_16
@@ -58,7 +61,17 @@ class SchulteActivity : AppCompatActivity() {
             })
         }
 
-        countdownMovie.init(10)
+        button.setOnClickListener {
+            startActivityForResult<CountdownActivity>(RequestCode_Countdown, CountdownActivity.Key_Time to 10)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == RequestCode_Countdown && resultCode == Activity.RESULT_OK) {
+            //TODO 开始计时
+            return
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun startAnimation(v: View) {
@@ -72,16 +85,6 @@ class SchulteActivity : AppCompatActivity() {
             Schulte.Layout_16 -> tlSchulte16
             Schulte.Layout_25 -> tlSchulte25
             else -> tlSchulte36
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        doAsync {
-            Thread.sleep(500)
-            uiThread {
-                countdownMovie.start()
-            }
         }
     }
 }

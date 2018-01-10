@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.caojun.ttschulte.widget.SquareLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<org.caojun.widget.SquareLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tlSchulte25"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -74,4 +74,4 @@
 
         <Button style="@style/SchulteButton"/>
     </LinearLayout>
-</org.caojun.ttschulte.widget.SquareLinearLayout>
+</org.caojun.widget.SquareLinearLayout>
