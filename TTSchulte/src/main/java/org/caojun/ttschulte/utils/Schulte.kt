@@ -13,14 +13,14 @@ object Schulte {
     val Layout_25 = 2//25格5*5
     val Layout_36 = 3//36格6*6
 
-    val Type_Natural = 1//自然数
-    val Type_Square = 2//平方数
-    val Type_Cubic = 3//立方数
-    val Type_Odd = 4//奇数
-    val Type_Even = 5//偶数
-    val Type_Lowercase = 6//小写字母
-    val Type_Uppercase = 7//大写字母
-    val Type_Alphabet = 8//大小写字母
+    val Type_Natural = 0//自然数
+    val Type_Square = 1//平方数
+    val Type_Cubic = 2//立方数
+    val Type_Odd = 3//奇数
+    val Type_Even = 4//偶数
+    val Type_Lowercase = 5//小写字母
+    val Type_Uppercase = 6//大写字母
+    val Type_Alphabet = 7//大小写字母
 
     fun getSize(layout: Int): Int {
         return when (layout) {
@@ -63,6 +63,7 @@ object Schulte {
     }
 
     private fun getLowercase(size: Int): ArrayList<String> {
+        val size = Math.min(size, 26)
         val chars = ArrayList<String>()
         var c = 'a'
         while (chars.size < size) {
@@ -73,6 +74,7 @@ object Schulte {
     }
 
     private fun getUppercase(size: Int): ArrayList<String> {
+        val size = Math.min(size, 26)
         val chars = ArrayList<String>()
         var c = 'A'
         while (chars.size < size) {
@@ -83,6 +85,7 @@ object Schulte {
     }
 
     private fun getAlphabet(size: Int): ArrayList<String> {
+        val size = Math.min(size, 26)
         val chars = ArrayList<String>()
         var c = 'a'
         var C = 'A'
@@ -103,12 +106,12 @@ object Schulte {
         if (size < 1) {
             return ArrayList<String>()
         }
-        if (layout >= Layout_25 && (type == Type_Square || type == Type_Cubic)) {
-            return ArrayList<String>()
-        }
-        if (layout == Layout_36 && type >= Type_Lowercase && type <= Type_Alphabet) {
-            return ArrayList<String>()
-        }
+//        if (layout >= Layout_25 && (type == Type_Square || type == Type_Cubic)) {
+//            return ArrayList<String>()
+//        }
+//        if (layout == Layout_36 && type >= Type_Lowercase && type <= Type_Alphabet) {
+//            return ArrayList<String>()
+//        }
         return when (type) {
             Type_Natural -> getNatural(size)
             Type_Square -> getSquare(size)

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">天天舒尔特</string>
+    <string name="grid">方格</string>
+    <string name="layout9">3×3</string>
+    <string name="layout16">4×4</string>
+    <string name="layout25">5×5</string>
+    <string name="layout36">6×6</string>
+    <string name="type">类型</string>
+    <string name="natural">自然数</string>
+    <string name="square">平方数</string>
+    <string name="cubic">立方数</string>
+    <string name="odd">奇数</string>
+    <string name="even">偶数</string>
+    <string name="lowercase">小写字母</string>
+    <string name="uppercase">大写字母</string>
+    <string name="alphabet">随机大小写字母</string>
+    <string name="play">开始</string>
+</resources>

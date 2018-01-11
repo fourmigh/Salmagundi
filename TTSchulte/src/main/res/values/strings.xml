@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">TTSchulte</string>
+    <string name="grid">Grid</string>
+    <string name="layout9">3x3</string>
+    <string name="layout16">4x4</string>
+    <string name="layout25">5x5</string>
+    <string name="layout36">6x6</string>
+    <string name="type">Type</string>
+    <string name="natural">Natural</string>
+    <string name="square">Square</string>
+    <string name="cubic">Cubic</string>
+    <string name="odd">Odd</string>
+    <string name="even">Even</string>
+    <string name="lowercase">Lowercase</string>
+    <string name="uppercase">Uppercase</string>
+    <string name="alphabet">Alphabet</string>
+    <string name="play">Play</string>
 </resources>

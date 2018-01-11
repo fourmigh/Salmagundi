@@ -22,16 +22,30 @@ import org.jetbrains.anko.startActivityForResult
 
 class SchulteActivity : AppCompatActivity() {
 
+    companion object {
+        val Key_Layout = "Key_Layout"
+        val Key_Type = "Key_Type"
+    }
+
     private val RequestCode_Countdown = 1
 
-//    private val LayoutIds = arrayOf(R.layout.layout_schulte_9, R.layout.layout_schulte_16, R.layout.layout_schulte_25, R.layout.layout_schulte_36)
     private var LayoutIndex = Schulte.Layout_9
+    private var TypeIndex = Schulte.Type_Natural
     private var indexButton = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(LayoutIds[LayoutIndex])
         setContentView(R.layout.activity_schulte)
+
+        LayoutIndex = intent.getIntExtra(Key_Layout, Schulte.Layout_9)
+        TypeIndex = intent.getIntExtra(Key_Type, Schulte.Type_Natural)
+
+        if (LayoutIndex < Schulte.Layout_9) {
+            LayoutIndex = Schulte.Layout_9
+        }
+        if (TypeIndex < Schulte.Type_Natural) {
+            TypeIndex = Schulte.Type_Natural
+        }
 
         initLayoutSchulte()
 
@@ -41,15 +55,9 @@ class SchulteActivity : AppCompatActivity() {
         ViewUtils.findButtons(root, buttons)
 
         Collections.shuffle(buttons)
-        val chars = Schulte.getChars(LayoutIndex, Schulte.Type_Natural)
-//        val chars = Schulte.getChars(LayoutIndex, Schulte.Type_Square)
-//        val chars = Schulte.getChars(LayoutIndex, Schulte.Type_Cubic)
-//        val chars = Schulte.getChars(LayoutIndex, Schulte.Type_Odd)
-//        val chars = Schulte.getChars(LayoutIndex, Schulte.Type_Even)
-//        val chars = Schulte.getChars(LayoutIndex, Schulte.Type_Lowercase)
-//        val chars = Schulte.getChars(LayoutIndex, Schulte.Type_Uppercase)
-//        val chars = Schulte.getChars(LayoutIndex, Schulte.Type_Alphabet)
+        val chars = Schulte.getChars(LayoutIndex, TypeIndex)
         for (i in 0 until chars.size) {
+            buttons[i].isEnabled = true
             buttons[i].tag = i.toString()
             buttons[i].text = chars[i]
             buttons[i].setOnClickListener ({ v ->

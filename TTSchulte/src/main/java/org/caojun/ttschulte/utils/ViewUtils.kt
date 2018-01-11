@@ -14,6 +14,7 @@ object ViewUtils {
                     if (it is ViewGroup) {
                         findButtons(it, list)
                     } else if (it is Button) {
+                        it.isEnabled = false
                         list.add(it)
                     }
                 }
