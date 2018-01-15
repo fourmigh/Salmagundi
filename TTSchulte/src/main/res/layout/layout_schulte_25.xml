@@ -8,70 +8,145 @@
     <LinearLayout
         style="@style/SchulteLayout">
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
     </LinearLayout>
 
     <LinearLayout
         style="@style/SchulteLayout">
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
     </LinearLayout>
 
     <LinearLayout
         style="@style/SchulteLayout">
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
     </LinearLayout>
 
     <LinearLayout
         style="@style/SchulteLayout">
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
     </LinearLayout>
 
     <LinearLayout
         style="@style/SchulteLayout">
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
 
-        <Button style="@style/SchulteButton"/>
+        <org.caojun.widget.AutofitLayout
+            style="@style/AutofitLayout">
+            <Button style="@style/SchulteButton"/>
+        </org.caojun.widget.AutofitLayout>
     </LinearLayout>
 </org.caojun.widget.SquareLinearLayout>

@@ -32,6 +32,7 @@ class SchulteActivity : AppCompatActivity() {
     private var LayoutIndex = Schulte.Layout_9
     private var TypeIndex = Schulte.Type_Natural
     private var indexButton = 0
+    private val buttons = ArrayList<Button>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +52,6 @@ class SchulteActivity : AppCompatActivity() {
 
         val root = getRoot()
 
-        val buttons = ArrayList<Button>()
         ViewUtils.findButtons(root, buttons)
 
         Collections.shuffle(buttons)
@@ -65,20 +65,24 @@ class SchulteActivity : AppCompatActivity() {
                 if (tag == indexButton) {
                     v.visibility = View.INVISIBLE
                     indexButton ++
+
+                    if (isGameWin()) {
+                        //游戏完成
+                        stopwatch.stop()
+                    }
                 } else {
                     startAnimation(v)
                 }
             })
         }
 
-        button.setOnClickListener {
-            startActivityForResult<CountdownActivity>(RequestCode_Countdown, CountdownActivity.Key_Time to 10)
-        }
+        startActivityForResult<CountdownActivity>(RequestCode_Countdown, CountdownActivity.Key_Time to 3)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == RequestCode_Countdown && resultCode == Activity.RESULT_OK) {
-            //TODO 开始计时
+            //开始计时
+            stopwatch.start()
             return
         }
         super.onActivityResult(requestCode, resultCode, data)
@@ -107,5 +111,9 @@ class SchulteActivity : AppCompatActivity() {
             Schulte.Layout_25 -> tlSchulte25
             else -> tlSchulte36
         }
+    }
+
+    private fun isGameWin(): Boolean {
+        return (0 until buttons.size).none { buttons[it].visibility != View.INVISIBLE }
     }
 }
