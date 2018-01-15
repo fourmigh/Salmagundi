@@ -15,4 +15,12 @@
     <string name="uppercase">Uppercase</string>
     <string name="alphabet">Alphabet</string>
     <string name="play">Play</string>
+    <string name="game_win_info">Your score is %s seconds in %s %s, try again or upload score?</string>
+    <string name="game_win_again">Try Again</string>
+    <string name="game_win_upload">Upload Score</string>
+    <string name="game_win_quit">Quit</string>
+    <string name="ask_name">Is your name %s ?</string>
+    <string name="my_name_is">No, I\'m </string>
+    <string name="period">.</string>
+    <string name="my_name">Abby</string>
 </resources>

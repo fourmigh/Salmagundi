@@ -227,6 +227,11 @@ class Stopwatch: View {
         invalidate()
     }
 
+    fun getScore(): Float {
+        val score = time.toString() + "." + value
+        return score.toFloat()
+    }
+
     object TimeUtil {
         fun formatTime(second: Int): String {
             var second = second
