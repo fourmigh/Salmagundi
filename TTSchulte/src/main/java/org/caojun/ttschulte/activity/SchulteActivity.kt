@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -140,8 +141,9 @@ class SchulteActivity : AppCompatActivity() {
     private fun doGameWin() {
         stopwatch.stop()
         val info = getString(R.string.game_win_info, stopwatch.getScore().toString(), LayoutName, TypeName)
+        val msg = Html.fromHtml(info)
         alert {
-            message = info
+            message = msg
             positiveButton(R.string.game_win_again, {
                 gameStart()
             })
@@ -158,7 +160,7 @@ class SchulteActivity : AppCompatActivity() {
         val score = stopwatch.getScore()
         val name = DataStorageUtils.loadString(this, Constant.Key_MyName, getString(R.string.my_name))
         val view = LayoutInflater.from(this).inflate(R.layout.dialog_ask_name, null)
-        view.tvName.text = getString(R.string.ask_name, name)
+        view.tvName.text = Html.fromHtml(getString(R.string.ask_name, name))
         alert {
             customView = view
             positiveButton(R.string.game_win_upload, {

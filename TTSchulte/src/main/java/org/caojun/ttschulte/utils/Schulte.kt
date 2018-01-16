@@ -52,13 +52,13 @@ object Schulte {
 
     private fun getOdd(size: Int): ArrayList<String> {
         val chars = ArrayList<String>()
-        (0 until size).mapTo(chars) { ((it + 1) * 2).toString() }
+        (0 until size).mapTo(chars) { (it * 2 + 1).toString() }
         return chars
     }
 
     private fun getEven(size: Int): ArrayList<String> {
         val chars = ArrayList<String>()
-        (0 until size).mapTo(chars) { (it * 2 + 1).toString() }
+        (0 until size).mapTo(chars) { ((it + 1) * 2).toString() }
         return chars
     }
 

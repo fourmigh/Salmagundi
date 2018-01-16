@@ -16,11 +16,11 @@
     <string name="uppercase">大写字母</string>
     <string name="alphabet">随机大小写字母</string>
     <string name="play">开始</string>
-    <string name="game_win_info">你以%s秒的成绩完成了%s的%s，再来一次还是上传成绩？</string>
+    <string name="game_win_info"><Data><![CDATA[你以<b>%s</b>秒的成绩完成了<b>%s</b>的<b>%s</b>，再来一次还是上传成绩？]]></Data></string>
     <string name="game_win_again">再来一次</string>
     <string name="game_win_upload">上传成绩</string>
     <string name="game_win_quit">退出</string>
-    <string name="ask_name">请问你的名字是%s吗？</string>
+    <string name="ask_name"><Data><![CDATA[请问你的名字是<b>%s</b>吗？]]></Data></string>
     <string name="my_name_is">不，我的名字是</string>
     <string name="period">。</string>
     <string name="my_name">天天</string>
