@@ -22,11 +22,15 @@ class CountdownActivity : Activity() {
         setContentView(R.layout.activity_countdown)
 
         val time = intent.getIntExtra(Key_Time, 10)
+        if (time < 1) {
+            over()
+            return
+        }
+
         countdownMovie.init(time)
         countdownMovie.setOnCountdownListener(object : CountdownMovie.OnCountdownListener {
             override fun finished() {
-                setResult(Activity.RESULT_OK)
-                finish()
+                over()
             }
         })
 
@@ -45,5 +49,10 @@ class CountdownActivity : Activity() {
                 countdownMovie.start()
             }
         }
+    }
+
+    private fun over() {
+        setResult(Activity.RESULT_OK)
+        finish()
     }
 }

@@ -14,4 +14,5 @@ object Constant {
     val Key_Time = "Key_Time"
     val Key_Title = "Key_Title"
     val Key_IsLocal = "Key_IsLocal"
+    val Key_Countdown_Time = "Key_Countdown_Time"
 }

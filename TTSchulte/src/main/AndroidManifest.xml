@@ -18,6 +18,8 @@
         </activity>
         <activity android:name=".activity.SchulteActivity"/>
         <activity android:name=".activity.ScoreListActivity"/>
+        <activity android:name=".activity.SettingsActivity"
+            android:label="@string/settings"/>
     </application>
 
 </manifest>

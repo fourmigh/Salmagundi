@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import android.text.Html
 import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.RadioButton
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.dialog_ask_name.view.*
@@ -16,6 +18,7 @@ import org.caojun.ttschulte.R
 import org.caojun.ttschulte.utils.Schulte
 import org.caojun.utils.DataStorageUtils
 import org.jetbrains.anko.alert
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import java.util.*
 
@@ -110,5 +113,20 @@ class GameActivity : AppCompatActivity() {
         (rgLayout.getChildAt(layout) as RadioButton).isChecked = true
         (rgType.getChildAt(type) as RadioButton).isChecked = true
         doAskName()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                startActivity<SettingsActivity>()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

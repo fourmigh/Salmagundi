@@ -22,9 +22,12 @@
     <string name="ask_name"><Data><![CDATA[Is your name <b>%s</b> ?]]></Data></string>
     <string name="my_name_is">No, I\'m </string>
     <string name="period">.</string>
+    <string name="my_name_title">My Name</string>
     <string name="my_name">Abby</string>
     <string name="score_time">%ss</string>
     <string name="my_score">My Score</string>
     <string name="online_score">Online Score</string>
     <string name="app_title">%s\'s Schulte Grid</string>
+    <string name="settings">Settings</string>
+    <string name="countdown_title">Countdown</string>
 </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:defaultValue="@string/my_name"
+        android:key="Key_MyName"
+        android:singleLine="true"
+        android:title="@string/my_name_title" />
+
+    <org.caojun.widget.SeekBarPreference
+        android:key="Key_Countdown_Time"
+        android:defaultValue="3"
+        android:title="@string/countdown_title"
+        android:max="10"/>
+
+</PreferenceScreen>

@@ -135,7 +135,8 @@ class SchulteActivity : AppCompatActivity() {
             })
         }
 
-        startActivityForResult<CountdownActivity>(RequestCode_Countdown, CountdownActivity.Key_Time to 3)
+        val time = DataStorageUtils.loadInt(this, Constant.Key_Countdown_Time, 3)
+        startActivityForResult<CountdownActivity>(RequestCode_Countdown, CountdownActivity.Key_Time to time)
     }
 
     private fun doGameWin() {
