@@ -31,4 +31,6 @@
     <string name="app_title">%s\的舒尔特表</string>
     <string name="settings">设置</string>
     <string name="countdown_title">倒计时数</string>
+    <string name="upload_ok">上传成绩成功。</string>
+    <string name="upload_error">上传成绩失败：%s</string>
 </resources>

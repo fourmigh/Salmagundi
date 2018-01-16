@@ -19,16 +19,21 @@ import org.caojun.ttschulte.utils.Schulte
 import org.caojun.ttschulte.utils.ViewUtils
 import java.util.*
 import android.view.animation.AnimationUtils
+import cn.bmob.v3.exception.BmobException
+import cn.bmob.v3.listener.SaveListener
 import kotlinx.android.synthetic.main.activity_schulte.*
 import kotlinx.android.synthetic.main.dialog_ask_name.view.*
 import org.caojun.library.activity.CountdownActivity
 import org.caojun.ttschulte.Constant
+import org.caojun.ttschulte.bmob.BOScore
 import org.caojun.ttschulte.room.Score
 import org.caojun.ttschulte.room.TTSDatabase
 import org.caojun.utils.DataStorageUtils
+import org.caojun.utils.DeviceUtils
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.toast
 
 class SchulteActivity : AppCompatActivity() {
 
@@ -182,19 +187,27 @@ class SchulteActivity : AppCompatActivity() {
 
     private fun doUploadScore(name: String, score: Float, time: Date) {
         var nickname = name
-        if (TextUtils.isEmpty(name)) {
+        if (TextUtils.isEmpty(nickname)) {
             nickname = getString(R.string.my_name)
         }
 
-        doUpdateScore(name)
+        doUpdateScore(nickname)
 
-        val intent = Intent()
-        intent.putExtra(Constant.Key_Layout, LayoutIndex)
-        intent.putExtra(Constant.Key_Type, TypeIndex)
-        intent.putExtra(Constant.Key_Nickname, nickname)
-        intent.putExtra(Constant.Key_Score, score)
-        intent.putExtra(Constant.Key_Time, time.time)
-        setResult(Activity.RESULT_OK, intent)
+        doAsync {
+            val imei = DeviceUtils.getImei(this@SchulteActivity)
+            val boScore = BOScore(nickname, score, LayoutIndex, TypeIndex, time.time, imei)
+            boScore.save(object : SaveListener<String>() {
+
+                override fun done(o: String, e: BmobException?) {
+                    if (e == null) {
+                        toast(R.string.upload_ok)
+                    } else {
+                        toast(getString(R.string.upload_error, e.toString()))
+                    }
+                }
+            })
+        }
+
         finish()
     }
 

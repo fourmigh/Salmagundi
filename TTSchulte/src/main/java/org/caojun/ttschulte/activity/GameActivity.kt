@@ -10,16 +10,19 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.RadioButton
+import cn.bmob.v3.exception.BmobException
+import cn.bmob.v3.listener.SaveListener
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.dialog_ask_name.view.*
 import kotlinx.android.synthetic.main.layout_type.*
 import org.caojun.ttschulte.Constant
 import org.caojun.ttschulte.R
+import org.caojun.ttschulte.bmob.BOScore
+import org.caojun.ttschulte.room.Score
 import org.caojun.ttschulte.utils.Schulte
 import org.caojun.utils.DataStorageUtils
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.startActivityForResult
+import org.caojun.utils.DeviceUtils
+import org.jetbrains.anko.*
 import java.util.*
 
 /**
@@ -49,19 +52,6 @@ class GameActivity : AppCompatActivity() {
         btnOnlineScore.setOnClickListener {
             gotoScoreList(false)
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == RequestCode_Game && resultCode == Activity.RESULT_OK && data != null) {
-            val layout = intent.getIntExtra(Constant.Key_Layout, rgLayout.indexOfChild(rgLayout.findViewById(rgLayout.checkedRadioButtonId)))
-            val type = intent.getIntExtra(Constant.Key_Type, rgType.indexOfChild(rgType.findViewById(rgType.checkedRadioButtonId)))
-            val nickname = intent.getStringExtra(Constant.Key_Nickname)
-            val score = intent.getFloatExtra(Constant.Key_Score, 99.99f)
-            val time = intent.getLongExtra(Constant.Key_Time, Date().time)
-            //TODO 上传成绩
-            return
-        }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun gotoScoreList(isLocal: Boolean) {
