@@ -19,23 +19,18 @@ import org.caojun.ttschulte.utils.Schulte
 import org.caojun.ttschulte.utils.ViewUtils
 import java.util.*
 import android.view.animation.AnimationUtils
-import com.socks.library.KLog
 import kotlinx.android.synthetic.main.activity_schulte.*
 import kotlinx.android.synthetic.main.dialog_ask_name.view.*
 import org.caojun.library.activity.CountdownActivity
 import org.caojun.ttschulte.Constant
+import org.caojun.ttschulte.room.Score
+import org.caojun.ttschulte.room.TTSDatabase
 import org.caojun.utils.DataStorageUtils
 import org.jetbrains.anko.alert
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.startActivityForResult
 
 class SchulteActivity : AppCompatActivity() {
-
-    companion object {
-        val Key_Layout = "Key_Layout"
-        val Key_Type = "Key_Type"
-        val Key_LayoutName = "Key_LayoutName"
-        val Key_TypeName = "Key_TypeName"
-    }
 
     private val RequestCode_Countdown = 1
 
@@ -50,10 +45,10 @@ class SchulteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schulte)
 
-        LayoutIndex = intent.getIntExtra(Key_Layout, Schulte.Layout_9)
-        TypeIndex = intent.getIntExtra(Key_Type, Schulte.Type_Natural)
-        LayoutName = intent.getStringExtra(Key_LayoutName)
-        TypeName = intent.getStringExtra(Key_TypeName)
+        LayoutIndex = intent.getIntExtra(Constant.Key_Layout, Schulte.Layout_9)
+        TypeIndex = intent.getIntExtra(Constant.Key_Type, Schulte.Type_Natural)
+        LayoutName = intent.getStringExtra(Constant.Key_LayoutName)
+        TypeName = intent.getStringExtra(Constant.Key_TypeName)
 
         if (LayoutIndex < Schulte.Layout_9) {
             LayoutIndex = Schulte.Layout_9
@@ -140,7 +135,12 @@ class SchulteActivity : AppCompatActivity() {
 
     private fun doGameWin() {
         stopwatch.stop()
-        val info = getString(R.string.game_win_info, stopwatch.getScore().toString(), LayoutName, TypeName)
+        val time = Date()
+        val score = stopwatch.getScore()
+        val name = DataStorageUtils.loadString(this, Constant.Key_MyName, getString(R.string.my_name))
+        doSaveScore(name, score, time)
+
+        val info = getString(R.string.game_win_info, score.toString(), LayoutName, TypeName)
         val msg = Html.fromHtml(info)
         alert {
             message = msg
@@ -148,15 +148,16 @@ class SchulteActivity : AppCompatActivity() {
                 gameStart()
             })
             negativeButton(R.string.game_win_upload, {
-                uploadScore()
+                uploadScore(time)
             })
             neutralPressed(R.string.game_win_quit, {
                 finish()
             })
+            isCancelable = false
         }.show()
     }
 
-    private fun uploadScore() {
+    private fun uploadScore(time: Date) {
         val score = stopwatch.getScore()
         val name = DataStorageUtils.loadString(this, Constant.Key_MyName, getString(R.string.my_name))
         val view = LayoutInflater.from(this).inflate(R.layout.dialog_ask_name, null)
@@ -164,24 +165,53 @@ class SchulteActivity : AppCompatActivity() {
         alert {
             customView = view
             positiveButton(R.string.game_win_upload, {
-                doUploadScore(view.etName.text.toString(), score)
+                doUploadScore(view.etName.text.toString(), score, time)
             })
             negativeButton(R.string.game_win_quit, {
                 finish()
             })
+            isCancelable = false
         }.show()
     }
 
-    private fun doUploadScore(name: String, score: Float) {
+    private fun doUploadScore(name: String, score: Float, time: Date) {
         var nickname = name
         if (TextUtils.isEmpty(name)) {
             nickname = getString(R.string.my_name)
         }
-        //TODO
-        KLog.d("doUploadScore", "nickname: " + nickname)
-        KLog.d("doUploadScore", "score: " + score)
-        KLog.d("doUploadScore", "LayoutIndex: " + LayoutIndex)
-        KLog.d("doUploadScore", "TypeIndex: " + TypeIndex)
+
+        doUpdateScore(name)
+
+        val intent = Intent()
+        intent.putExtra(Constant.Key_Layout, LayoutIndex)
+        intent.putExtra(Constant.Key_Type, TypeIndex)
+        intent.putExtra(Constant.Key_Nickname, nickname)
+        intent.putExtra(Constant.Key_Score, score)
+        intent.putExtra(Constant.Key_Time, time.time)
+        setResult(Activity.RESULT_OK, intent)
         finish()
+    }
+
+    private fun doSaveScore(name: String, score: Float, time: Date) {
+        doAsync {
+            val s = Score()
+            s.layout = LayoutIndex
+            s.type = TypeIndex
+            s.name = name
+            s.score = score
+            s.time = time
+            TTSDatabase.getDatabase(this@SchulteActivity).getScore().insert(s)
+        }
+    }
+
+    private fun doUpdateScore(name: String) {
+        doAsync {
+            val list = TTSDatabase.getDatabase(this@SchulteActivity).getScore().query(LayoutIndex, TypeIndex)
+            if (list[list.size - 1].name == name) {
+                return@doAsync
+            }
+            list[list.size - 1].name = name
+            TTSDatabase.getDatabase(this@SchulteActivity).getScore().update(list[list.size - 1])
+        }
     }
 }

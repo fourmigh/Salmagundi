@@ -23,4 +23,7 @@
     <string name="my_name_is">No, I\'m </string>
     <string name="period">.</string>
     <string name="my_name">Abby</string>
+    <string name="score_time">%ss</string>
+    <string name="my_score">My Score</string>
+    <string name="online_score">Online Score</string>
 </resources>

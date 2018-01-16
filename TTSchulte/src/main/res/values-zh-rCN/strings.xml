@@ -24,4 +24,7 @@
     <string name="my_name_is">不，我的名字是</string>
     <string name="period">。</string>
     <string name="my_name">天天</string>
+    <string name="score_time">%s秒</string>
+    <string name="my_score">我的成绩单</string>
+    <string name="online_score">在线成绩单</string>
 </resources>

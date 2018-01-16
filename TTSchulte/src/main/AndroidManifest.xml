@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.SchulteActivity"/>
+        <activity android:name=".activity.ScoreListActivity"/>
     </application>
 
 </manifest>

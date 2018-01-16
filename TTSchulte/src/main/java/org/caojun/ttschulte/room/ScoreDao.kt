@@ -7,7 +7,7 @@ import android.arch.persistence.room.*
  */
 @Dao
 interface ScoreDao {
-    @Query("SELECT * FROM score WHERE layout = :arg0 and type = :arg1")
+    @Query("SELECT * FROM score WHERE layout = :arg0 and type = :arg1 ORDER BY score")
     fun query(layout: Int, type: Int): List<Score>
 
     @Insert
@@ -15,4 +15,7 @@ interface ScoreDao {
 
     @Delete
     fun delete(vararg score: Score): Int
+
+    @Update
+    fun update(vararg score: Score)
 }
