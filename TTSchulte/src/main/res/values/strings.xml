@@ -26,4 +26,5 @@
     <string name="score_time">%ss</string>
     <string name="my_score">My Score</string>
     <string name="online_score">Online Score</string>
+    <string name="app_title">%s\'s Schulte Grid</string>
 </resources>

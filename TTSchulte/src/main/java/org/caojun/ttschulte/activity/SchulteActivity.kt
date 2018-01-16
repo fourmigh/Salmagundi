@@ -45,6 +45,11 @@ class SchulteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schulte)
 
+        var name = DataStorageUtils.loadString(this, Constant.Key_MyName, "")
+        if (!TextUtils.isEmpty(name)) {
+            this.title = getString(R.string.app_title, name)
+        }
+
         LayoutIndex = intent.getIntExtra(Constant.Key_Layout, Schulte.Layout_9)
         TypeIndex = intent.getIntExtra(Constant.Key_Type, Schulte.Type_Natural)
         LayoutName = intent.getStringExtra(Constant.Key_LayoutName)

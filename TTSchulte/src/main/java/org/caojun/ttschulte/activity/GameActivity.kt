@@ -4,11 +4,18 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.Html
+import android.text.TextUtils
+import android.view.LayoutInflater
 import android.widget.RadioButton
 import kotlinx.android.synthetic.main.activity_game.*
+import kotlinx.android.synthetic.main.dialog_ask_name.view.*
 import kotlinx.android.synthetic.main.layout_type.*
 import org.caojun.ttschulte.Constant
 import org.caojun.ttschulte.R
+import org.caojun.ttschulte.utils.Schulte
+import org.caojun.utils.DataStorageUtils
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivityForResult
 import java.util.*
 
@@ -23,9 +30,6 @@ class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
-
-        rgLayout.check(rbLayout9.id)
-        rgType.check(rbNatural.id)
 
         btnPlay.setOnClickListener {
             val layout = rgLayout.indexOfChild(rgLayout.findViewById(rgLayout.checkedRadioButtonId))
@@ -51,7 +55,7 @@ class GameActivity : AppCompatActivity() {
             val nickname = intent.getStringExtra(Constant.Key_Nickname)
             val score = intent.getFloatExtra(Constant.Key_Score, 99.99f)
             val time = intent.getLongExtra(Constant.Key_Time, Date().time)
-            //上传成绩
+            //TODO 上传成绩
             return
         }
         super.onActivityResult(requestCode, resultCode, data)
@@ -62,5 +66,49 @@ class GameActivity : AppCompatActivity() {
         val type = rgType.indexOfChild(rgType.findViewById(rgType.checkedRadioButtonId))
         val title = if (isLocal) getString(R.string.my_score) else getString(R.string.online_score)
         startActivityForResult<ScoreListActivity>(RequestCode_ScoreList, Constant.Key_Layout to layout, Constant.Key_Type to type, Constant.Key_IsLocal to isLocal, Constant.Key_Title to title)
+    }
+
+    private fun doAskName() {
+        var name = DataStorageUtils.loadString(this, Constant.Key_MyName, "")
+        if (!TextUtils.isEmpty(name)) {
+            this.title = getString(R.string.app_title, name)
+            return
+        }
+        name = getString(R.string.my_name)
+        val view = LayoutInflater.from(this).inflate(R.layout.dialog_ask_name, null)
+        view.tvName.text = Html.fromHtml(getString(R.string.ask_name, name))
+        alert {
+            customView = view
+            positiveButton(android.R.string.ok, {
+                doSaveMyName(view.etName.text.toString())
+            })
+            isCancelable = false
+        }.show()
+    }
+
+    private fun doSaveMyName(name: String) {
+        var nickname = name
+        if (TextUtils.isEmpty(name)) {
+            nickname = getString(R.string.my_name)
+        }
+        DataStorageUtils.saveString(this, Constant.Key_MyName, nickname)
+        this.title = getString(R.string.app_title, nickname)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val layout = rgLayout.indexOfChild(rgLayout.findViewById(rgLayout.checkedRadioButtonId))
+        val type = rgType.indexOfChild(rgType.findViewById(rgType.checkedRadioButtonId))
+        DataStorageUtils.saveInt(this, Constant.Key_Layout, layout)
+        DataStorageUtils.saveInt(this, Constant.Key_Type, type)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val layout = DataStorageUtils.loadInt(this, Constant.Key_Layout, Schulte.Layout_9)
+        val type = DataStorageUtils.loadInt(this, Constant.Key_Type, Schulte.Type_Natural)
+        (rgLayout.getChildAt(layout) as RadioButton).isChecked = true
+        (rgType.getChildAt(type) as RadioButton).isChecked = true
+        doAskName()
     }
 }

@@ -13,7 +13,6 @@
         android:layout_height="wrap_content">
 
         <RadioButton
-            android:id="@+id/rbLayout9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/layout9" />
@@ -45,7 +44,6 @@
         android:layout_height="wrap_content">
 
         <RadioButton
-            android:id="@+id/rbNatural"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/natural" />

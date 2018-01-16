@@ -27,4 +27,5 @@
     <string name="score_time">%s秒</string>
     <string name="my_score">我的成绩单</string>
     <string name="online_score">在线成绩单</string>
+    <string name="app_title">%s\的舒尔特表</string>
 </resources>
