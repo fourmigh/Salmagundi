@@ -228,7 +228,7 @@ class Stopwatch: View {
     }
 
     fun getScore(): Float {
-        val score = time.toString() + "." + value
+        val score = time.toString() + "." + if (value < 10) "0" + value else value
         return score.toFloat()
     }
 

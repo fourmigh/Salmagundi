@@ -8,6 +8,7 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import org.caojun.ttschulte.R
 import org.caojun.ttschulte.room.Score
+import org.caojun.utils.DigitUtils
 import org.caojun.utils.TimeUtils
 
 /**
@@ -44,7 +45,7 @@ class ScoreAdapter : BaseAdapter {
         val data = getItem(position)
         holder.tvTime?.text = TimeUtils.getTime("yyyy/MM/dd HH:mm:ss", data.time.time)
         holder.tvName?.text = data.name
-        holder.tvScore?.text = context!!.getString(R.string.score_time, data.score.toString())
+        holder.tvScore?.text = context!!.getString(R.string.score_time, DigitUtils.getRound(data.score, 2))
         if (position % 2 == 0) {
             view?.setBackgroundColor(0x33333333)
         } else {
