@@ -63,10 +63,10 @@ object Schulte {
     }
 
     private fun getLowercase(size: Int): ArrayList<String> {
-        val size = Math.min(size, 26)
+        val s = Math.min(size, 26)
         val chars = ArrayList<String>()
         var c = 'a'
-        while (chars.size < size) {
+        while (chars.size < s) {
             chars.add(c.toString())
             c ++
         }
@@ -74,10 +74,10 @@ object Schulte {
     }
 
     private fun getUppercase(size: Int): ArrayList<String> {
-        val size = Math.min(size, 26)
+        val s = Math.min(size, 26)
         val chars = ArrayList<String>()
         var c = 'A'
-        while (chars.size < size) {
+        while (chars.size < s) {
             chars.add(c.toString())
             c ++
         }
@@ -85,11 +85,11 @@ object Schulte {
     }
 
     private fun getAlphabet(size: Int): ArrayList<String> {
-        val size = Math.min(size, 26)
+        val s = Math.min(size, 26)
         val chars = ArrayList<String>()
         var c = 'a'
         var C = 'A'
-        while (chars.size < size) {
+        while (chars.size < s) {
             if (RandomUtils.getRandom()) {
                 chars.add(c.toString())
             } else {

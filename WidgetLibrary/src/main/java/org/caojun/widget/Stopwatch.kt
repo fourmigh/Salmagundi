@@ -233,8 +233,8 @@ class Stopwatch: View {
     }
 
     object TimeUtil {
-        fun formatTime(second: Int): String {
-            var second = second
+        fun formatTime(sec: Int): String {
+            var second = sec
             var minute = 0
             if (second > 60) {
                 minute = second / 60

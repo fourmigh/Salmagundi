@@ -5,6 +5,7 @@ import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
+import cn.bmob.v3.BmobObject
 import java.util.*
 
 /**
@@ -19,7 +20,7 @@ class Score: Parcelable {
     var score: Float = 0f
     var layout: Int = 0
     var type: Int = 0
-    var time: Date = Date()
+    var time: Long = 0
 
     constructor()
     constructor(_in: Parcel): this() {
@@ -28,9 +29,14 @@ class Score: Parcelable {
         score = _in.readFloat()
         layout = _in.readInt()
         type = _in.readInt()
-
-        var dataConverter = DataConverter()
-        time = dataConverter.long2Date(_in.readLong())
+        time = _in.readLong()
+    }
+    constructor(sb: ScoreBmob) {
+        name = sb.name
+        score = sb.score
+        layout = sb.layout
+        type = sb.type
+        time = sb.time
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
@@ -39,9 +45,7 @@ class Score: Parcelable {
         dest.writeFloat(score)
         dest.writeInt(layout)
         dest.writeInt(type)
-
-        var dataConverter = DataConverter()
-        dest.writeLong(dataConverter.date2Long(time))
+        dest.writeLong(time)
     }
 
     override fun describeContents(): Int {

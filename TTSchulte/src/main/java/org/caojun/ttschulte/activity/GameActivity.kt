@@ -1,7 +1,5 @@
 package org.caojun.ttschulte.activity
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Html
@@ -10,20 +8,14 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.RadioButton
-import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.SaveListener
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.dialog_ask_name.view.*
 import kotlinx.android.synthetic.main.layout_type.*
 import org.caojun.ttschulte.Constant
 import org.caojun.ttschulte.R
-import org.caojun.ttschulte.bmob.BOScore
-import org.caojun.ttschulte.room.Score
 import org.caojun.ttschulte.utils.Schulte
 import org.caojun.utils.DataStorageUtils
-import org.caojun.utils.DeviceUtils
 import org.jetbrains.anko.*
-import java.util.*
 
 /**
  * Created by CaoJun on 2018-1-11.
@@ -69,6 +61,7 @@ class GameActivity : AppCompatActivity() {
         }
         name = getString(R.string.my_name)
         val view = LayoutInflater.from(this).inflate(R.layout.dialog_ask_name, null)
+        @Suppress("DEPRECATION")
         view.tvName.text = Html.fromHtml(getString(R.string.ask_name, name))
         alert {
             customView = view

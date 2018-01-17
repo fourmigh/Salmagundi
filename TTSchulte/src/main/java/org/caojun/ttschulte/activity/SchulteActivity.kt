@@ -22,14 +22,14 @@ import android.view.animation.AnimationUtils
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.SaveListener
 import kotlinx.android.synthetic.main.activity_schulte.*
-import kotlinx.android.synthetic.main.dialog_ask_name.view.*
 import org.caojun.library.activity.CountdownActivity
 import org.caojun.ttschulte.Constant
-import org.caojun.ttschulte.bmob.BOScore
 import org.caojun.ttschulte.room.Score
+import org.caojun.ttschulte.room.ScoreBmob
 import org.caojun.ttschulte.room.TTSDatabase
 import org.caojun.utils.DataStorageUtils
 import org.caojun.utils.DeviceUtils
+import org.caojun.utils.DigitUtils
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.startActivityForResult
@@ -146,12 +146,13 @@ class SchulteActivity : AppCompatActivity() {
 
     private fun doGameWin() {
         stopwatch.stop()
-        val time = Date()
+        val time = Date().time
         val score = stopwatch.getScore()
         val name = DataStorageUtils.loadString(this, Constant.Key_MyName, getString(R.string.my_name))
         doSaveScore(name, score, time)
 
-        val info = getString(R.string.game_win_info, score.toString(), LayoutName, TypeName)
+        val info = getString(R.string.game_win_info, DigitUtils.getRound(score, 2), LayoutName, TypeName)
+        @Suppress("DEPRECATION")
         val msg = Html.fromHtml(info)
         alert {
             message = msg
@@ -159,7 +160,7 @@ class SchulteActivity : AppCompatActivity() {
                 gameStart()
             })
             negativeButton(R.string.game_win_upload, {
-                uploadScore(time)
+                doUploadScore()
             })
             neutralPressed(R.string.game_win_quit, {
                 finish()
@@ -168,35 +169,13 @@ class SchulteActivity : AppCompatActivity() {
         }.show()
     }
 
-    private fun uploadScore(time: Date) {
-        val score = stopwatch.getScore()
-        val name = DataStorageUtils.loadString(this, Constant.Key_MyName, getString(R.string.my_name))
-        val view = LayoutInflater.from(this).inflate(R.layout.dialog_ask_name, null)
-        view.tvName.text = Html.fromHtml(getString(R.string.ask_name, name))
-        alert {
-            customView = view
-            positiveButton(R.string.game_win_upload, {
-                doUploadScore(view.etName.text.toString(), score, time)
-            })
-            negativeButton(R.string.game_win_quit, {
-                finish()
-            })
-            isCancelable = false
-        }.show()
-    }
-
-    private fun doUploadScore(name: String, score: Float, time: Date) {
-        var nickname = name
-        if (TextUtils.isEmpty(nickname)) {
-            nickname = getString(R.string.my_name)
-        }
-
-        doUpdateScore(nickname)
+    private fun doUploadScore() {
 
         doAsync {
-            val imei = DeviceUtils.getImei(this@SchulteActivity)
-            val boScore = BOScore(nickname, score, LayoutIndex, TypeIndex, time.time, imei)
-            boScore.save(object : SaveListener<String>() {
+            val list = TTSDatabase.getDatabase(this@SchulteActivity).getScore().queryAll(LayoutIndex, TypeIndex)
+            val s = list[list.size - 1]
+            val sb = ScoreBmob(s, DeviceUtils.getImei(this@SchulteActivity))
+            sb.save(object : SaveListener<String>() {
 
                 override fun done(o: String, e: BmobException?) {
                     if (e == null) {
@@ -206,12 +185,12 @@ class SchulteActivity : AppCompatActivity() {
                     }
                 }
             })
-        }
 
-        finish()
+            finish()
+        }
     }
 
-    private fun doSaveScore(name: String, score: Float, time: Date) {
+    private fun doSaveScore(name: String, score: Float, time: Long) {
         doAsync {
             val s = Score()
             s.layout = LayoutIndex
@@ -220,17 +199,6 @@ class SchulteActivity : AppCompatActivity() {
             s.score = score
             s.time = time
             TTSDatabase.getDatabase(this@SchulteActivity).getScore().insert(s)
-        }
-    }
-
-    private fun doUpdateScore(name: String) {
-        doAsync {
-            val list = TTSDatabase.getDatabase(this@SchulteActivity).getScore().query(LayoutIndex, TypeIndex)
-            if (list[list.size - 1].name == name) {
-                return@doAsync
-            }
-            list[list.size - 1].name = name
-            TTSDatabase.getDatabase(this@SchulteActivity).getScore().update(list[list.size - 1])
         }
     }
 }

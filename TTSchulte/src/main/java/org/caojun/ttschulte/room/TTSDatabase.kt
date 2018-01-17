@@ -10,7 +10,6 @@ import android.content.Context
  * Created by CaoJun on 2018-1-15.
  */
 @Database(entities = arrayOf(Score::class), version = 1, exportSchema = false)
-@TypeConverters(DataConverter::class)
 abstract class TTSDatabase: RoomDatabase {
     constructor() : super()
 

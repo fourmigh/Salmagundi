@@ -10,6 +10,9 @@ interface ScoreDao {
     @Query("SELECT * FROM score WHERE layout = :arg0 and type = :arg1 ORDER BY score")
     fun query(layout: Int, type: Int): List<Score>
 
+    @Query("SELECT * FROM score WHERE layout = :arg0 and type = :arg1 ORDER BY id")
+    fun queryAll(layout: Int, type: Int): List<Score>
+
     @Insert
     fun insert(vararg score: Score)
 

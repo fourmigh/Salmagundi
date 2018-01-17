@@ -3,11 +3,16 @@ package org.caojun.ttschulte.activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.RadioButton
+import cn.bmob.v3.BmobQuery
+import cn.bmob.v3.exception.BmobException
+import cn.bmob.v3.listener.FindListener
 import kotlinx.android.synthetic.main.activity_score_list.*
 import kotlinx.android.synthetic.main.layout_type.*
 import org.caojun.ttschulte.Constant
 import org.caojun.ttschulte.R
 import org.caojun.ttschulte.adapter.ScoreAdapter
+import org.caojun.ttschulte.room.Score
+import org.caojun.ttschulte.room.ScoreBmob
 import org.caojun.ttschulte.room.TTSDatabase
 import org.caojun.ttschulte.utils.Schulte
 import org.jetbrains.anko.doAsync
@@ -49,10 +54,33 @@ class ScoreListActivity : AppCompatActivity() {
         (rgType.getChildAt(type) as RadioButton).isChecked = true
 
         doAsync {
-            val list = TTSDatabase.getDatabase(this@ScoreListActivity).getScore().query(layout, type)
-            uiThread {
-                listView.adapter = ScoreAdapter(this@ScoreListActivity, list)
+            if (isLocal) {
+                val list = TTSDatabase.getDatabase(this@ScoreListActivity).getScore().query(layout, type)
+                uiThread {
+                    listView.adapter = ScoreAdapter(this@ScoreListActivity, list)
+                }
+            } else {
+                val query = BmobQuery<ScoreBmob>()
+                query.addWhereEqualTo("layout", layout)
+                query.addWhereEqualTo("type", type)
+                query.order("score")
+                query.findObjects(object : FindListener<ScoreBmob>() {
+                    override fun done(list: MutableList<ScoreBmob>?, e: BmobException?) {
+                        uiThread {
+                            listView.adapter = ScoreAdapter(this@ScoreListActivity, online2local(list))
+                        }
+                    }
+                })
             }
         }
+    }
+
+    private fun online2local(list: MutableList<ScoreBmob>?): ArrayList<Score>? {
+        if (list == null || list.isEmpty()) {
+            return null
+        }
+        val scores = ArrayList<Score>()
+        list.indices.mapTo(scores) { Score(list[it]) }
+        return scores
     }
 }

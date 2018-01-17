@@ -18,14 +18,16 @@ class ScoreAdapter : BaseAdapter {
     private var context: Context? = null
     private val list = ArrayList<Score>()
 
-    constructor(context: Context, list: List<Score>) : super() {
+    constructor(context: Context, list: List<Score>?) : super() {
         this.context = context
         setData(list)
     }
 
-    fun setData(list: List<Score>) {
+    fun setData(list: List<Score>?) {
         this.list.clear()
-        this.list.addAll(list)
+        if (list != null) {
+            this.list.addAll(list)
+        }
     }
 
     override fun getView(position: Int, convertView: View?, viewGrouop: ViewGroup?): View {
@@ -43,7 +45,7 @@ class ScoreAdapter : BaseAdapter {
         }
 
         val data = getItem(position)
-        holder.tvTime?.text = TimeUtils.getTime("yyyy/MM/dd HH:mm:ss", data.time.time)
+        holder.tvTime?.text = TimeUtils.getTime("yyyy/MM/dd HH:mm:ss", data.time)
         holder.tvName?.text = data.name
         holder.tvScore?.text = context!!.getString(R.string.score_time, DigitUtils.getRound(data.score, 2))
         if (position % 2 == 0) {
