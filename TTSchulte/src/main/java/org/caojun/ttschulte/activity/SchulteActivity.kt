@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.text.TextUtils
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -121,12 +120,11 @@ class SchulteActivity : AppCompatActivity() {
         val chars = Schulte.getChars(LayoutIndex, TypeIndex)
         for (i in 0 until chars.size) {
             buttons[i].isEnabled = true
-            buttons[i].tag = i.toString()
             buttons[i].text = chars[i]
             buttons[i].visibility = View.VISIBLE
             buttons[i].setOnClickListener ({ v ->
-                val tag = v.tag.toString().toInt()
-                if (tag == indexButton) {
+                val c = (v as Button).text.toString()
+                if (c == chars[indexButton]) {
                     v.visibility = View.INVISIBLE
                     indexButton ++
 

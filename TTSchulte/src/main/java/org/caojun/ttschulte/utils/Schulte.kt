@@ -21,6 +21,7 @@ object Schulte {
     val Type_Lowercase = 5//小写字母
     val Type_Uppercase = 6//大写字母
     val Type_Alphabet = 7//大小写字母
+    val Type_ChinesePoetry = 8//中文诗词
 
     fun getSize(layout: Int): Int {
         return when (layout) {
@@ -101,17 +102,15 @@ object Schulte {
         return chars
     }
 
+//    private fun getChinesePoetry(size: Int): ArrayList<String> {
+//
+//    }
+
     fun getChars(layout: Int, type: Int): ArrayList<String> {
         val size = getSize(layout)
         if (size < 1) {
             return ArrayList<String>()
         }
-//        if (layout >= Layout_25 && (type == Type_Square || type == Type_Cubic)) {
-//            return ArrayList<String>()
-//        }
-//        if (layout == Layout_36 && type >= Type_Lowercase && type <= Type_Alphabet) {
-//            return ArrayList<String>()
-//        }
         return when (type) {
             Type_Natural -> getNatural(size)
             Type_Square -> getSquare(size)
