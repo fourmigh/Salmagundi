@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="punctuation">
+        <item>，</item>
+        <item>。</item>
+        <item>！</item>
+        <item>？</item>
+        <item>：</item>
+        <item>…</item>
+        <item>\n</item>
+    </string-array>
+
     <string-array name="chinese9">
         <item>一夜漫天漫地飛銀灰</item>
         <item>遮卻千枝萬枝火樹開</item>
