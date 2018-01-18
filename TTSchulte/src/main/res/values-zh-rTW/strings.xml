@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">天天舒爾特</string>
+    <string name="grid">方格</string>
+    <string name="layout9">3×3</string>
+    <string name="layout16">4×4</string>
+    <string name="layout25">5×5</string>
+    <string name="layout36">6×6</string>
+    <string name="type">類型</string>
+    <string name="natural">自然數</string>
+    <string name="square">平方數</string>
+    <string name="cubic">立方數</string>
+    <string name="odd">奇數</string>
+    <string name="even">偶數</string>
+    <string name="lowercase">小寫字母</string>
+    <string name="uppercase">大寫字母</string>
+    <string name="alphabet">隨機大小寫字母</string>
+    <string name="chinese">中文</string>
+    <string name="play">開始</string>
+    <string name="game_win_info"><Data><![CDATA[你以<b>%s</b>秒的成績完成了<b>%s</b>的<b>%s</b>，再來一次還是上傳成績？]]></Data></string>
+    <string name="game_win_again">再來一次</string>
+    <string name="game_win_upload">上傳成績</string>
+    <string name="game_win_quit">退出</string>
+    <string name="ask_name"><Data><![CDATA[請問你的名字是<b>%s</b>嗎？]]></Data></string>
+    <string name="my_name_is">不，我的名字是</string>
+    <string name="period">。</string>
+    <string name="my_name_title">我的名字</string>
+    <string name="my_name">天天</string>
+    <string name="score_time">%s秒</string>
+    <string name="my_score">我的成績單</string>
+    <string name="online_score">線上成绩单</string>
+    <string name="app_title">%s\的舒爾特表</string>
+    <string name="settings">設定</string>
+    <string name="countdown_title">倒數計時數</string>
+    <string name="upload_ok">上傳成績成功。</string>
+    <string name="upload_error">上傳成績失敗：%s</string>
+</resources>
