@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TTSchulte</string>
+    <string name="app_name">SchulteGrid</string>
     <string name="grid">Grid</string>
     <string name="layout9">3x3</string>
     <string name="layout16">4x4</string>
