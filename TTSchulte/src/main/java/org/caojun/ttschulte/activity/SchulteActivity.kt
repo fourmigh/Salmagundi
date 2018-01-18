@@ -29,10 +29,7 @@ import org.caojun.ttschulte.room.TTSDatabase
 import org.caojun.utils.DataStorageUtils
 import org.caojun.utils.DeviceUtils
 import org.caojun.utils.DigitUtils
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.startActivityForResult
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 
 class SchulteActivity : AppCompatActivity() {
 
@@ -44,6 +41,7 @@ class SchulteActivity : AppCompatActivity() {
     private var TypeName = ""
     private var indexButton = 0
     private val buttons = ArrayList<Button>()
+    private var ChineseIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +56,7 @@ class SchulteActivity : AppCompatActivity() {
         TypeIndex = intent.getIntExtra(Constant.Key_Type, Schulte.Type_Natural)
         LayoutName = intent.getStringExtra(Constant.Key_LayoutName)
         TypeName = intent.getStringExtra(Constant.Key_TypeName)
+        ChineseIndex = intent.getIntExtra(Constant.Key_Chinese, 0)
 
         if (LayoutIndex < Schulte.Layout_9) {
             LayoutIndex = Schulte.Layout_9
@@ -117,25 +116,29 @@ class SchulteActivity : AppCompatActivity() {
         ViewUtils.findButtons(root, buttons)
         stopwatch.reset()
         Collections.shuffle(buttons)
-        val chars = Schulte.getChars(LayoutIndex, TypeIndex)
-        for (i in 0 until chars.size) {
-            buttons[i].isEnabled = true
-            buttons[i].text = chars[i]
-            buttons[i].visibility = View.VISIBLE
-            buttons[i].setOnClickListener ({ v ->
-                val c = (v as Button).text.toString()
-                if (c == chars[indexButton]) {
-                    v.visibility = View.INVISIBLE
-                    indexButton ++
+        doAsync {
+            val chars = Schulte.getChars(this@SchulteActivity, LayoutIndex, TypeIndex, ChineseIndex)
+            uiThread {
+                for (i in 0 until chars.size) {
+                    buttons[i].isEnabled = true
+                    buttons[i].text = chars[i]
+                    buttons[i].visibility = View.VISIBLE
+                    buttons[i].setOnClickListener ({ v ->
+                        val c = (v as Button).text.toString()
+                        if (c == chars[indexButton]) {
+                            v.visibility = View.INVISIBLE
+                            indexButton ++
 
-                    if (isGameWin()) {
-                        //游戏完成
-                        doGameWin()
-                    }
-                } else {
-                    startAnimation(v)
+                            if (isGameWin()) {
+                                //游戏完成
+                                doGameWin()
+                            }
+                        } else {
+                            startAnimation(v)
+                        }
+                    })
                 }
-            })
+            }
         }
 
         val time = DataStorageUtils.loadInt(this, Constant.Key_Countdown_Time, 3)

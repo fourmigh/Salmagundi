@@ -86,12 +86,15 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/chinese_poetry" />
+            android:text="@string/chinese" />
     </org.caojun.widget.MultiRadioGroup>
 
     <org.caojun.widget.AutofitTextView
-        android:id="@+id/tvContent"
-        android:maxLines="1"
+        android:id="@+id/tvChinese"
+        android:maxLines="6"
+        android:textSize="32sp"
+        android:gravity="center"
+        android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

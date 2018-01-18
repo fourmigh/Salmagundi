@@ -14,7 +14,7 @@
     <string name="lowercase">Lowercase</string>
     <string name="uppercase">Uppercase</string>
     <string name="alphabet">Alphabet</string>
-    <string name="chinese_poetry">Chinese Poetry</string>
+    <string name="chinese">Chinese</string>
     <string name="play">Play</string>
     <string name="game_win_info"><Data><![CDATA[Your score is <b>%s</b> seconds in <b>%s</b> <b>%s</b>, try again or upload score?]]></Data></string>
     <string name="game_win_again">Try Again</string>

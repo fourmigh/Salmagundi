@@ -15,7 +15,7 @@
     <string name="lowercase">小写字母</string>
     <string name="uppercase">大写字母</string>
     <string name="alphabet">随机大小写字母</string>
-    <string name="chinese_poetry">中文诗词</string>
+    <string name="chinese">中文</string>
     <string name="play">开始</string>
     <string name="game_win_info"><Data><![CDATA[你以<b>%s</b>秒的成绩完成了<b>%s</b>的<b>%s</b>，再来一次还是上传成绩？]]></Data></string>
     <string name="game_win_again">再来一次</string>

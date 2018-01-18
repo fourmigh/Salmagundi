@@ -9,10 +9,10 @@ object Constant {
     val Key_Type = "Key_Type"
     val Key_LayoutName = "Key_LayoutName"
     val Key_TypeName = "Key_TypeName"
-    val Key_Nickname = "Key_Nickname"
-    val Key_Score = "Key_Score"
-    val Key_Time = "Key_Time"
     val Key_Title = "Key_Title"
     val Key_IsLocal = "Key_IsLocal"
     val Key_Countdown_Time = "Key_Countdown_Time"
+    val Key_Chinese = "Key_Chinese"
+
+    val ChineseArrays = arrayOf(R.array.chinese9, R.array.chinese16, R.array.chinese25, R.array.chinese36)
 }

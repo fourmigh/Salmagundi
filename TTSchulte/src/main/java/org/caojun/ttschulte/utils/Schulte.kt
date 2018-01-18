@@ -1,6 +1,9 @@
 package org.caojun.ttschulte.utils
 
+import android.content.Context
 import com.socks.library.KLog
+import org.caojun.ttschulte.Constant
+import org.caojun.ttschulte.R
 import org.caojun.utils.RandomUtils
 
 /**
@@ -21,7 +24,7 @@ object Schulte {
     val Type_Lowercase = 5//小写字母
     val Type_Uppercase = 6//大写字母
     val Type_Alphabet = 7//大小写字母
-    val Type_ChinesePoetry = 8//中文诗词
+    val Type_Chinese = 8//中文
 
     fun getSize(layout: Int): Int {
         return when (layout) {
@@ -102,11 +105,22 @@ object Schulte {
         return chars
     }
 
-//    private fun getChinesePoetry(size: Int): ArrayList<String> {
-//
-//    }
+    private fun getChinese(context: Context, layout: Int, chinese: Int): ArrayList<String> {
+        val strings = context.resources.getStringArray(Constant.ChineseArrays[layout])
+        val punctuations = context.resources.getStringArray(R.array.punctuation)
+        val chineses = ArrayList<String>()
+        for (i in strings[chinese].indices) {
+            val c = strings[chinese][i].toString()
+            if (c in punctuations) {
+                continue
+            }
+            KLog.d("getChinese", chineses.size.toString() + " : " + c)
+            chineses.add(c)
+        }
+        return chineses
+    }
 
-    fun getChars(layout: Int, type: Int): ArrayList<String> {
+    fun getChars(context: Context, layout: Int, type: Int, chinese: Int): ArrayList<String> {
         val size = getSize(layout)
         if (size < 1) {
             return ArrayList<String>()
@@ -120,6 +134,7 @@ object Schulte {
             Type_Lowercase -> getLowercase(size)
             Type_Uppercase -> getUppercase(size)
             Type_Alphabet -> getAlphabet(size)
+            Type_Chinese -> getChinese(context, layout, chinese)
             else -> ArrayList<String>()
         }
     }
