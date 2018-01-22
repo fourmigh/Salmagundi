@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.animation.LinearInterpolator
@@ -28,11 +29,12 @@ class Stopwatch: View {
     private var timeTextColor: Int = 0//大的时间颜色
     private var millTextColor: Int = 0//毫秒时间颜色
 
-    private var value = -1//毫秒时间 0-99
+    private var value = 0//毫秒时间 0-999
     private var time: Int = 0//秒数
 
     private var mWidth = 0
     private var mHeight = 0
+    private val MaxMill = 999
 
     constructor(context: Context): this(context, null)
 
@@ -96,28 +98,29 @@ class Stopwatch: View {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         //处理value 为 0 往前数为负数的情况
+        val value = this.value / 10
         var value1 = value - 1
         var value2 = value - 2
         var value3 = value - 3
         var value4 = value - 4
         if (time > 0) {
             if (value == 0) {
-                value1 = 99
-                value2 = 98
-                value3 = 97
-                value4 = 96
+                value1 = MaxMill
+                value2 = MaxMill - 1
+                value3 = MaxMill - 2
+                value4 = MaxMill - 3
             } else if (value == 1) {
-                value1 = 99
-                value2 = 98
-                value3 = 97
+                value1 = MaxMill
+                value2 = MaxMill - 1
+                value3 = MaxMill - 2
                 value4 = 0
             } else if (value == 2) {
-                value1 = 99
-                value2 = 98
+                value1 = MaxMill
+                value2 = MaxMill - 1
                 value3 = 0
                 value4 = 1
             } else if (value == 3) {
-                value1 = 99
+                value1 = MaxMill
                 value2 = 0
                 value3 = 1
                 value4 = 2
@@ -144,18 +147,18 @@ class Stopwatch: View {
                     canvas.drawLine((mWidth / 2).toFloat(), 0f, (mWidth / 2).toFloat(), ScreenUtil.dpToPx(context, 6), ringNormalPaint!!)
                 }
             }
-            canvas.rotate(360f / 100f, (mWidth / 2).toFloat(), (mHeight / 2).toFloat())
+            canvas.rotate(360f / 100, (mWidth / 2).toFloat(), (mHeight / 2).toFloat())
         }
         canvas.restore()
 
         //定义文本
         var timeString = "00:00"
-        var timeMillString = "00"
+        var timeMillString = "000"
         //测量文本
         val timeRect = Rect()
-        timeTextPaint!!.getTextBounds("00:00", 0, timeString.length, timeRect)
+        timeTextPaint!!.getTextBounds(timeString, 0, timeString.length, timeRect)
         val millTimeRect = Rect()
-        millTextPaint!!.getTextBounds("00", 0, timeMillString.length, millTimeRect)
+        millTextPaint!!.getTextBounds(timeMillString, 0, timeMillString.length, millTimeRect)
         //绘制文本
         val textTotalWidth = timeRect.width() + millTimeRect.width()
         val textTotalHeight = timeRect.height()
@@ -164,15 +167,16 @@ class Stopwatch: View {
                 ((mWidth - textTotalWidth) / 2).toFloat(),
                 ((mHeight - textTotalHeight) / 2 + timeRect.height()).toFloat(),
                 timeTextPaint!!)
-        if (value < 10) {
-            if (value > 0) {
-                timeMillString = "0" + value
-            } else {
-                timeMillString = "00"
-            }
-        } else {
-            timeMillString = "" + value
-        }
+//        if (value < 10) {
+//            if (value > 0) {
+//                timeMillString = "0" + value
+//            } else {
+//                timeMillString = "00"
+//            }
+//        } else {
+//            timeMillString = "" + value
+//        }
+        timeMillString = String.format("%03d", this.value)
         canvas.drawText(timeMillString,
                 (mWidth - textTotalWidth) / 2 + timeRect.width() + ScreenUtil.spToPx(context, 6),
                 ((mHeight - textTotalHeight) / 2 + timeRect.height()).toFloat(),
@@ -185,7 +189,7 @@ class Stopwatch: View {
 
     fun start() {
         if (valueAnimator == null) {
-            valueAnimator = ValueAnimator.ofInt(0, 99)
+            valueAnimator = ValueAnimator.ofInt(0, MaxMill)
             valueAnimator!!.interpolator = LinearInterpolator()
             valueAnimator!!.duration = 1000
             valueAnimator!!.repeatCount = ValueAnimator.INFINITE//设置无限循环
@@ -221,14 +225,14 @@ class Stopwatch: View {
         if (valueAnimator != null) {
             valueAnimator!!.cancel()
         }
-        value = -1
+        value = 0
         time = 0
         isReset = true
         invalidate()
     }
 
     fun getScore(): Float {
-        val score = time.toString() + "." + if (value < 10) "0" + value else value
+        val score = time.toString() + "." + String.format("%03d", value)
         return score.toFloat()
     }
 

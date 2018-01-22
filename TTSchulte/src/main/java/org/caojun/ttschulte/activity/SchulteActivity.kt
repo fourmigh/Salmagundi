@@ -162,7 +162,7 @@ class SchulteActivity : AppCompatActivity() {
             TTSDatabase.getDatabase(this@SchulteActivity).getScore().insert(s)
             val isNewRecord = list.isEmpty() || score < list[0].score
 
-            val info = getString(R.string.game_win_info, DigitUtils.getRound(score, 2), LayoutName, TypeName)
+            val info = getString(R.string.game_win_info, DigitUtils.getRound(score, 3), LayoutName, TypeName)
             @Suppress("DEPRECATION")
             val msg = Html.fromHtml(info)
             uiThread {

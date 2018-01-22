@@ -2,6 +2,7 @@ package org.caojun.ttschulte.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.RadioButton
 import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.exception.BmobException
@@ -30,6 +31,7 @@ class ScoreListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_score_list)
+        tvChinese.visibility = View.GONE
 
         this.title = intent.getStringExtra(Constant.Key_Title)
 
