@@ -150,24 +150,39 @@ class SchulteActivity : AppCompatActivity() {
         val time = Date().time
         val score = stopwatch.getScore()
         val name = DataStorageUtils.loadString(this, Constant.Key_MyName, getString(R.string.my_name))
-        doSaveScore(name, score, time)
+//        doSaveScore(name, score, time)
+        doAsync {
+            val list = TTSDatabase.getDatabase(this@SchulteActivity).getScore().query(LayoutIndex, TypeIndex)
+            val s = Score()
+            s.layout = LayoutIndex
+            s.type = TypeIndex
+            s.name = name
+            s.score = score
+            s.time = time
+            TTSDatabase.getDatabase(this@SchulteActivity).getScore().insert(s)
+            val isNewRecord = list.isEmpty() || score < list[0].score
 
-        val info = getString(R.string.game_win_info, DigitUtils.getRound(score, 2), LayoutName, TypeName)
-        @Suppress("DEPRECATION")
-        val msg = Html.fromHtml(info)
-        alert {
-            message = msg
-            positiveButton(R.string.game_win_again, {
-                gameStart()
-            })
-            negativeButton(R.string.game_win_upload, {
-                doUploadScore()
-            })
-            neutralPressed(R.string.game_win_quit, {
-                finish()
-            })
-            isCancelable = false
-        }.show()
+            val info = getString(R.string.game_win_info, DigitUtils.getRound(score, 2), LayoutName, TypeName)
+            @Suppress("DEPRECATION")
+            val msg = Html.fromHtml(info)
+            uiThread {
+                alert {
+                    message = msg
+                    positiveButton(R.string.game_win_again, {
+                        gameStart()
+                    })
+                    if (isNewRecord) {
+                        negativeButton(R.string.game_win_upload, {
+                            doUploadScore()
+                        })
+                    }
+                    neutralPressed(R.string.game_win_quit, {
+                        finish()
+                    })
+                    isCancelable = false
+                }.show()
+            }
+        }
     }
 
     private fun doUploadScore() {
@@ -191,15 +206,15 @@ class SchulteActivity : AppCompatActivity() {
         }
     }
 
-    private fun doSaveScore(name: String, score: Float, time: Long) {
-        doAsync {
-            val s = Score()
-            s.layout = LayoutIndex
-            s.type = TypeIndex
-            s.name = name
-            s.score = score
-            s.time = time
-            TTSDatabase.getDatabase(this@SchulteActivity).getScore().insert(s)
-        }
-    }
+//    private fun doSaveScore(name: String, score: Float, time: Long) {
+//        doAsync {
+//            val s = Score()
+//            s.layout = LayoutIndex
+//            s.type = TypeIndex
+//            s.name = name
+//            s.score = score
+//            s.time = time
+//            TTSDatabase.getDatabase(this@SchulteActivity).getScore().insert(s)
+//        }
+//    }
 }
