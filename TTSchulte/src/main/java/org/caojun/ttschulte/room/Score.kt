@@ -22,6 +22,9 @@ class Score: Parcelable {
     var type: Int = 0
     var time: Long = 0
 
+    @Ignore
+    var imei: String = ""
+
     constructor()
     constructor(_in: Parcel): this() {
         id = _in.readInt()
@@ -30,6 +33,7 @@ class Score: Parcelable {
         layout = _in.readInt()
         type = _in.readInt()
         time = _in.readLong()
+        imei = _in.readString()
     }
     constructor(sb: ScoreBmob) {
         name = sb.name
@@ -37,6 +41,7 @@ class Score: Parcelable {
         layout = sb.layout
         type = sb.type
         time = sb.time
+        imei = sb.imei
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
@@ -46,6 +51,7 @@ class Score: Parcelable {
         dest.writeInt(layout)
         dest.writeInt(type)
         dest.writeLong(time)
+        dest.writeString(imei)
     }
 
     override fun describeContents(): Int {

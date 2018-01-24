@@ -8,6 +8,7 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import org.caojun.ttschulte.R
 import org.caojun.ttschulte.room.Score
+import org.caojun.utils.DeviceUtils
 import org.caojun.utils.DigitUtils
 import org.caojun.utils.TimeUtils
 
@@ -17,10 +18,12 @@ import org.caojun.utils.TimeUtils
 class ScoreAdapter : BaseAdapter {
     private var context: Context? = null
     private val list = ArrayList<Score>()
+    private val imei: String
 
     constructor(context: Context, list: List<Score>?) : super() {
         this.context = context
         setData(list)
+        imei = DeviceUtils.getImei(context)
     }
 
     fun setData(list: List<Score>?) {
@@ -39,6 +42,7 @@ class ScoreAdapter : BaseAdapter {
             holder.tvTime = view?.findViewById(R.id.tvTime)
             holder.tvName = view?.findViewById(R.id.tvName)
             holder.tvScore = view?.findViewById(R.id.tvScore)
+            holder.tvMe = view?.findViewById(R.id.tvMe)
             view?.tag = holder
         } else {
             holder = view.tag as ViewHolder
@@ -48,6 +52,12 @@ class ScoreAdapter : BaseAdapter {
         holder.tvTime?.text = TimeUtils.getTime("yyyy/MM/dd HH:mm:ss", data.time)
         holder.tvName?.text = data.name
         holder.tvScore?.text = context!!.getString(R.string.score_time, DigitUtils.getRound(data.score, 3))
+        if (imei == data.imei) {
+            holder.tvMe?.setText(data.name[0].toString())
+            holder.tvMe?.visibility = View.VISIBLE
+        } else {
+            holder.tvMe?.visibility = View.INVISIBLE
+        }
         if (position % 2 == 0) {
             view?.setBackgroundColor(0x33333333)
         } else {
@@ -67,5 +77,6 @@ class ScoreAdapter : BaseAdapter {
         internal var tvTime: TextView? = null
         internal var tvName: TextView? = null
         internal var tvScore: TextView? = null
+        internal var tvMe: TextView? = null
     }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">雨霁的烟纸店</string>
+    <string name="im_customer">我是顾客。</string>
+    <string name="im_storekeeper">我是店主。</string>
+    <string name="goods_detail_title">商品详情</string>
+    <string name="goods_name">名称</string>
+    <string name="goods_describe">描述</string>
+    <string name="goods_unit">单位</string>
+    <string name="goods_cost">进价</string>
+    <string name="goods_cost_average">平均进价</string>
+    <string name="goods_price">售价</string>
+    <string name="goods_stock">库存</string>
+    <string name="goods_stock_sold">已售库存</string>
+    <string name="goods_stock_total">累计库存</string>
+    <string name="goods_cost_total">总成本</string>
+    <string name="goods_income_total">总收入</string>
+    <string name="goods_profit_total">利润</string>
+    <string name="order_customer">顾客</string>
+    <string name="order_time">时间</string>
+    <string name="order_amount">金额</string>
+    <string name="order_weight">重量</string>
+    <string name="btn_stock">进货</string>
+    <string name="price">售价：￥%s/%s</string>
+    <string name="stock">库存：%s%s</string>
+    <string name="money">￥%s</string>
+    <string name="money_price">￥%s/%s</string>
+</resources>
