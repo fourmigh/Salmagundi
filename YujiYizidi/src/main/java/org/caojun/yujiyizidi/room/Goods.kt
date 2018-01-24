@@ -3,7 +3,7 @@ package org.caojun.yujiyizidi.room
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
-import android.graphics.drawable.Drawable
+import android.graphics.Bitmap
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -16,7 +16,7 @@ class Goods: Parcelable {
     var id: Int = 0
 
     var name: String = ""
-    var picture: Drawable? = null//图片
+    var picture: Bitmap? = null//图片
     var describe: String = ""//描述
     var unit: String = ""//单位
     var cost: Float = 0f//平均进价
@@ -46,7 +46,7 @@ class Goods: Parcelable {
             val ba = ByteArray(size)
             _in.readByteArray(ba)
             val dc = DataConverter()
-            picture = dc.toDrawable(ba)
+            picture = dc.toBitmap(ba)
         }
     }
 
@@ -68,7 +68,7 @@ class Goods: Parcelable {
         } else {
             var dc = DataConverter()
             var ba = dc.toByteArray(picture!!)
-            dest.writeInt(ba.size)
+            dest.writeInt(ba!!.size)
             dest.writeByteArray(ba)
         }
     }

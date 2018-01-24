@@ -7,8 +7,8 @@
     <string name="goods_name">名称</string>
     <string name="goods_describe">描述</string>
     <string name="goods_unit">单位</string>
-    <string name="goods_cost">进价</string>
-    <string name="goods_cost_average">平均进价</string>
+    <string name="goods_cost">单价</string>
+    <string name="goods_cost_average">平均单价</string>
     <string name="goods_price">售价</string>
     <string name="goods_stock">库存</string>
     <string name="goods_stock_sold">已售库存</string>

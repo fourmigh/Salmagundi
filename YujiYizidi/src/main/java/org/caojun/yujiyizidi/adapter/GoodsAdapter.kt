@@ -43,7 +43,7 @@ class GoodsAdapter: BaseAdapter {
         val data = getItem(position)
         holder.tvName?.text = data.name
         if (Constant.IsStorekeeper) {
-            holder.tvInfo?.text = context?.getString(R.string.stock, data.cost.toString(), data.unit)
+            holder.tvInfo?.text = context?.getString(R.string.stock, data.stock.toString(), data.unit)
         } else {
             holder.tvInfo?.text = context?.getString(R.string.price, data.price.toString(), data.unit)
         }

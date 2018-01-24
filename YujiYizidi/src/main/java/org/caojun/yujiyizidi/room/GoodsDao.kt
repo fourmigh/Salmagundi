@@ -10,6 +10,12 @@ interface GoodsDao {
     @Query("SELECT * FROM goods ORDER BY name")
     fun query(): List<Goods>
 
+    @Query("SELECT * FROM goods")
+    fun queryAll(): List<Goods>
+
+    @Query("SELECT * FROM goods WHERE id = :arg0")
+    fun query(id: Int): Goods
+
     @Insert
     fun insert(vararg goods: Goods)
 

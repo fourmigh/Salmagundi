@@ -1,8 +1,11 @@
 package org.caojun.yujiyizidi.room
 
 import android.arch.persistence.room.TypeConverter
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import org.caojun.utils.DrawableUtils
+import java.io.ByteArrayOutputStream
 import java.util.Date
 
 /**
@@ -11,13 +14,21 @@ import java.util.Date
 class DataConverter {
 
     @TypeConverter
-    fun toByteArray(drawable: Drawable): ByteArray {
-        return DrawableUtils.toByteArray(drawable)
+    fun toByteArray(bitmap: Bitmap?): ByteArray? {
+        if (bitmap == null) {
+            return null
+        }
+        val os = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, os)
+        return os.toByteArray()
     }
 
     @TypeConverter
-    fun toDrawable(data: ByteArray): Drawable {
-        return DrawableUtils.toDrawable(data)
+    fun toBitmap(data: ByteArray?): Bitmap? {
+        if (data == null) {
+            return null
+        }
+        return BitmapFactory.decodeByteArray(data, 0, data.size)
     }
 
     @TypeConverter
