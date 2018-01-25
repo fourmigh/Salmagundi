@@ -70,8 +70,6 @@ class GoodsDetailActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         refreshUI()
-
-        btnStock.isEnabled = !TextUtils.isEmpty(etName.text)
     }
 
     private fun refreshUI() {
@@ -84,13 +82,15 @@ class GoodsDetailActivity : AppCompatActivity() {
             etUnit.setText(goods?.unit)
             etCost.setText(getString(R.string.money, goods!!.cost.toString()))
             etPrice.setText(goods!!.price.toString())
-            etStock.setText(getString(R.string.money, goods!!.stock.toString()))
-            etSoldStock.setText(getString(R.string.money, goods!!.soldStock.toString()))
-            etTotalStock.setText(getString(R.string.money, goods!!.totalStock.toString()))
+            etStock.setText(goods!!.stock.toString())
+            etSoldStock.setText(goods!!.soldStock.toString())
+            etTotalStock.setText(goods!!.totalStock.toString())
             etTotalCost.setText(getString(R.string.money, goods!!.totalCost.toString()))
             etTotalIncome.setText(getString(R.string.money, goods!!.totalIncome.toString()))
             etProfit.setText(getString(R.string.money, (goods!!.totalIncome - goods!!.totalCost).toString()))
         }
+
+        btnStock.isEnabled = !TextUtils.isEmpty(etName.text)
     }
 
     override fun onBackPressed() {

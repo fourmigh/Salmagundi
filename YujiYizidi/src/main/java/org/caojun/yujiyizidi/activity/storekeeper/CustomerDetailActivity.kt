@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import kotlinx.android.synthetic.main.activity_customer_detail.*
 import org.caojun.ttschulte.Constant
 import org.caojun.yujiyizidi.R
@@ -28,7 +31,8 @@ class CustomerDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer_detail)
 
-        customer = intent.getParcelableExtra(Constant.Key_Customer)
+//        customer = intent.getParcelableExtra(Constant.Key_Customer)
+        customer = Constant.customer
 
         etName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
@@ -47,6 +51,10 @@ class CustomerDetailActivity : AppCompatActivity() {
                 }
             }
         })
+
+        if (customer == null) {
+            btnOrder.visibility = View.GONE
+        }
 
         btnOrder.setOnClickListener({
 
@@ -83,6 +91,30 @@ class CustomerDetailActivity : AppCompatActivity() {
             } else {
                 YZDDatabase.getDatabase(this@CustomerDetailActivity).getCustomer().update(customer!!)
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        if (customer != null) {
+            menuInflater.inflate(R.menu.customer, menu)
+        }
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_delete -> {
+                doDelete()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun doDelete() {
+        doAsync {
+            YZDDatabase.getDatabase(this@CustomerDetailActivity).getCustomer().delete(customer!!)
+            finish()
         }
     }
 }

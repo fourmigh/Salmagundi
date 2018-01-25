@@ -3,14 +3,16 @@ package org.caojun.yujiyizidi.activity.customer
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import kotlinx.android.synthetic.main.activity_list.*
 import org.caojun.ttschulte.Constant
 import org.caojun.yujiyizidi.R
 import org.caojun.yujiyizidi.adapter.GoodsAdapter
+import org.caojun.yujiyizidi.room.Customer
 import org.caojun.yujiyizidi.room.Goods
 import org.caojun.yujiyizidi.room.YZDDatabase
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.uiThread
 
 /**
@@ -19,10 +21,7 @@ import org.jetbrains.anko.uiThread
  */
 class GoodsListActivity : Activity() {
 
-    companion object {
-        private val REQUEST_GOODS = 1
-    }
-
+    private var customer: Customer? = null
     private val list = ArrayList<Goods>()
     private var adapter: GoodsAdapter? = null
 
@@ -30,19 +29,24 @@ class GoodsListActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
-        doReadGoodsList()
+//        customer = intent.getParcelableExtra(Constant.Key_Customer)
+        customer = Constant.customer
 
-        listView.setOnItemClickListener { adapterView, view, i, l ->
-            startActivityForResult<GoodsBuyActivity>(REQUEST_GOODS, Constant.Key_Goods to list[i])
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_GOODS) {
-            doReadGoodsList()
+        if (customer == null) {
+            finish()
             return
         }
-        super.onActivityResult(requestCode, resultCode, data)
+
+        listView.setOnItemClickListener { adapterView, view, i, l ->
+            startActivity<GoodsBuyActivity>(Constant.Key_Goods to list[i]/*, Constant.Key_Customer to customer*/)
+        }
+
+        btnAdd.visibility = View.GONE
+    }
+
+    override fun onResume() {
+        super.onResume()
+        doReadGoodsList()
     }
 
     private fun doReadGoodsList() {

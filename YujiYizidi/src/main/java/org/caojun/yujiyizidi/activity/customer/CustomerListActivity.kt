@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.activity_list.*
+import org.caojun.ttschulte.Constant
 import org.caojun.yujiyizidi.R
 import org.caojun.yujiyizidi.activity.storekeeper.SGoodsListActivity
 import org.caojun.yujiyizidi.adapter.CustomerAdapter
@@ -29,7 +30,8 @@ class CustomerListActivity : Activity() {
         doReadCustomerList()
 
         listView.setOnItemClickListener { adapterView, view, i, l ->
-            startActivity<SGoodsListActivity>()
+            Constant.customer = list[i]
+            startActivity<GoodsListActivity>(/*Constant.Key_Customer to list[i]*/)
         }
 
         btnAdd.visibility = View.GONE

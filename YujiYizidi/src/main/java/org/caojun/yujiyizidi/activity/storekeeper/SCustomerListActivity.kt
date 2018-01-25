@@ -34,7 +34,13 @@ class SCustomerListActivity : AppCompatActivity() {
         doReadCustomerList(false)
 
         listView.setOnItemClickListener { adapterView, view, i, l ->
-            startActivityForResult<CustomerDetailActivity>(REQUEST_CUSTOMER, Constant.Key_Customer to list[i])
+            Constant.customer = list[i]
+            startActivityForResult<CustomerDetailActivity>(REQUEST_CUSTOMER/*, Constant.Key_Customer to list[i]*/)
+        }
+
+        btnAdd.setOnClickListener {
+            Constant.customer = null
+            startActivityForResult<CustomerDetailActivity>(REQUEST_CUSTOMER)
         }
     }
 
