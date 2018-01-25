@@ -19,19 +19,19 @@ class Customer/*: Parcelable*/ {
     var mobile: String = ""
     var cart = ArrayList<OrderGoods>()
 
-    constructor()
-    constructor(_in: Parcel): this() {
-        id = _in.readInt()
-        name = _in.readString()
-        mobile = _in.readString()
-
-        val string = _in.readString()
-        if (!TextUtils.isEmpty(string)) {
-            val dc = DataConverter()
-            cart.clear()
-            cart.addAll(dc.toCart(string))
-        }
-    }
+//    constructor()
+//    constructor(_in: Parcel): this() {
+//        id = _in.readInt()
+//        name = _in.readString()
+//        mobile = _in.readString()
+//
+//        val string = _in.readString()
+//        if (!TextUtils.isEmpty(string)) {
+//            val dc = DataConverter()
+//            cart.clear()
+//            cart.addAll(dc.toCart(string))
+//        }
+//    }
 
 //    override fun writeToParcel(dest: Parcel, flags: Int) {
 //        dest.writeInt(id)

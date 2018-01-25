@@ -147,12 +147,12 @@ class GoodsDetailActivity : AppCompatActivity() {
         }
         val oldCost = goods!!.cost
         val oldStock = goods!!.totalStock
-        val paid = cost.toFloat() * stock.toFloat()
-        val newStock = oldStock + stock.toFloat()
+        val paid = cost.toFloat() * stock.toInt()
+        val newStock = oldStock + stock.toInt()
         val newCost = (oldCost * oldStock + paid) / newStock
         goods!!.cost = newCost
         goods!!.totalStock = newStock
-        goods!!.stock += stock.toFloat()
+        goods!!.stock += stock.toInt()
         goods!!.totalCost += paid
         doAsync {
             doUpdate()

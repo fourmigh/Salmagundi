@@ -34,4 +34,6 @@
     <string name="delete">删除</string>
     <string name="btn_add_cart">加入购物车</string>
     <string name="weight">%s%s</string>
+    <string name="btn_cart">购物车</string>
+    <string name="btn_buy">购买</string>
 </resources>

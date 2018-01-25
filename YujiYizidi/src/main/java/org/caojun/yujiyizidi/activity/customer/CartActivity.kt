@@ -2,33 +2,29 @@ package org.caojun.yujiyizidi.activity.customer
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import kotlinx.android.synthetic.main.activity_list.*
 import org.caojun.ttschulte.Constant
 import org.caojun.yujiyizidi.R
-import org.caojun.yujiyizidi.adapter.GoodsAdapter
+import org.caojun.yujiyizidi.adapter.CartAdapter
 import org.caojun.yujiyizidi.room.Customer
-import org.caojun.yujiyizidi.room.Goods
 import org.caojun.yujiyizidi.room.YZDDatabase
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.uiThread
 
 /**
- * 商品列表
- * Created by CaoJun on 2018-1-23.
+ * 购物车
+ * Created by CaoJun on 2018-1-25.
  */
-class GoodsListActivity : AppCompatActivity() {
+class CartActivity : AppCompatActivity() {
 
     private var customer: Customer? = null
-    private val list = ArrayList<Goods>()
-    private var adapter: GoodsAdapter? = null
+    private var adapter: CartAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
-//        customer = intent.getParcelableExtra(Constant.Key_Customer)
         customer = Constant.customer
 
         if (customer == null) {
@@ -38,13 +34,15 @@ class GoodsListActivity : AppCompatActivity() {
 
         title = customer?.name
 
-        listView.setOnItemClickListener { adapterView, view, i, l ->
-            startActivity<GoodsBuyActivity>(Constant.Key_Goods to list[i]/*, Constant.Key_Customer to customer*/)
-        }
+        btnAdd.setText(R.string.btn_buy)
 
-        btnAdd.setText(R.string.btn_cart)
-        btnAdd.setOnClickListener {
-            startActivity<CartActivity>()
+        listView.setOnItemClickListener { adapterView, view, i, l ->
+            doAsync {
+                val goods = YZDDatabase.getDatabase(this@CartActivity).getGoods().query(customer!!.cart[i].idGoods)
+                uiThread {
+                    startActivity<GoodsBuyActivity>(Constant.Key_Goods to goods/*, Constant.Key_Customer to customer*/)
+                }
+            }
         }
     }
 
@@ -55,18 +53,20 @@ class GoodsListActivity : AppCompatActivity() {
 
     private fun refreshUI() {
         doAsync {
-            list.clear()
-            list.addAll(YZDDatabase.getDatabase(this@GoodsListActivity).getGoods().query())
+            for (i in customer!!.cart.indices) {
+                val goods = YZDDatabase.getDatabase(this@CartActivity).getGoods().query(customer!!.cart[i].idGoods)
+                customer!!.cart[i].unit = goods.unit
+                customer!!.cart[i].name = goods.name
+            }
             uiThread {
-                if (list.isEmpty()) {
-                    finish()
+                if (customer!!.cart.isEmpty()) {
                     return@uiThread
                 }
                 if (adapter == null) {
-                    adapter = GoodsAdapter(this@GoodsListActivity, list, false)
+                    adapter = CartAdapter(this@CartActivity, customer!!.cart)
                     listView.adapter = adapter
                 } else {
-                    adapter?.setData(list)
+                    adapter?.setData(customer!!.cart)
                     adapter?.notifyDataSetChanged()
                 }
             }

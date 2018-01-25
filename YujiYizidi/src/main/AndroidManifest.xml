@@ -25,13 +25,13 @@
         <activity android:name=".activity.storekeeper.GoodsDetailActivity" />
         <activity android:name=".activity.customer.GoodsBuyActivity"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
-        <activity android:name=".activity.customer.GoodsListActivity"
-            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
+        <activity android:name=".activity.customer.GoodsListActivity" />
         <activity android:name=".activity.customer.CustomerListActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
         <activity android:name=".activity.storekeeper.CustomerDetailActivity" />
         <activity android:name=".activity.storekeeper.SGoodsListActivity" />
         <activity android:name=".activity.storekeeper.SCustomerListActivity" />
+        <activity android:name=".activity.customer.CartActivity"/>
     </application>
 
 </manifest>

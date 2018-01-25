@@ -14,22 +14,31 @@ class OrderGoods: Parcelable {
     var idOrder: Int = 0
     var idGoods: Int = 0
 
-    var weight: Float = 0f//重量
+    var weight: Int = 0//重量
     var price: Float = 0f//价格
+
+    @Ignore
+    var name: String = ""
+    @Ignore
+    var unit: String = ""
 
     constructor()
     constructor(_in: Parcel): this() {
         idOrder = _in.readInt()
         idGoods = _in.readInt()
-        weight = _in.readFloat()
+        weight = _in.readInt()
         price = _in.readFloat()
+        name = _in.readString()
+        unit = _in.readString()
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeInt(idOrder)
         dest.writeInt(idGoods)
-        dest.writeFloat(weight)
+        dest.writeInt(weight)
         dest.writeFloat(price)
+        dest.writeString(name)
+        dest.writeString(unit)
     }
 
     override fun describeContents(): Int {

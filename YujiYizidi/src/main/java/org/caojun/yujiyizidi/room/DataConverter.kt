@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
+import com.socks.library.KLog
 import org.caojun.utils.DrawableUtils
 import java.io.ByteArrayOutputStream
 import java.util.Date
@@ -51,16 +52,17 @@ class DataConverter {
 
         cart.indices
                 .map { cart[it] }
-                .map { it.idOrder.toString() + SEPARATOR + it.idGoods.toString() + it.price + SEPARATOR + it.weight }
+                .map { it.idOrder.toString() + SEPARATOR + it.idGoods.toString() + SEPARATOR + it.price + SEPARATOR + it.weight }
                 .forEach { sb.append(it).append(SEPARATORS) }
 
+        KLog.d("DataConverter", "toString: " + sb.toString())
         return sb.toString()
     }
 
     @TypeConverter
     fun toCart(string: String): ArrayList<OrderGoods> {
         val cart = ArrayList<OrderGoods>()
-
+        KLog.d("DataConverter", "toCart: " + string)
         if (!TextUtils.isEmpty(string)) {
             val list = string.split(SEPARATORS)
             if (list.isNotEmpty()) {
@@ -73,7 +75,7 @@ class DataConverter {
                     og.idOrder = ogs[0].toInt()
                     og.idGoods = ogs[1].toInt()
                     og.price = ogs[2].toFloat()
-                    og.weight = ogs[3].toFloat()
+                    og.weight = ogs[3].toInt()
                     cart.add(og)
                 }
             }

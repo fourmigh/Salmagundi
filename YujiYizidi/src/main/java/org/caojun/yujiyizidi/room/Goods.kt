@@ -21,9 +21,9 @@ class Goods: Parcelable {
     var unit: String = ""//单位
     var cost: Float = 0f//平均进价
     var price: Float = 0f//售价
-    var stock: Float = 0f//当前库存
-    var soldStock: Float = 0f//已售库存
-    var totalStock: Float = 0f//累计库存
+    var stock: Int = 0//当前库存
+    var soldStock: Int = 0//已售库存
+    var totalStock: Int = 0//累计库存
     var totalCost: Float = 0f//总成本
     var totalIncome: Float = 0f//总收入
 
@@ -35,9 +35,9 @@ class Goods: Parcelable {
         unit = _in.readString()
         cost = _in.readFloat()
         price = _in.readFloat()
-        stock = _in.readFloat()
-        soldStock = _in.readFloat()
-        totalStock = _in.readFloat()
+        stock = _in.readInt()
+        soldStock = _in.readInt()
+        totalStock = _in.readInt()
         totalCost = _in.readFloat()
         totalIncome = _in.readFloat()
 
@@ -57,9 +57,9 @@ class Goods: Parcelable {
         dest.writeString(unit)
         dest.writeFloat(cost)
         dest.writeFloat(price)
-        dest.writeFloat(stock)
-        dest.writeFloat(soldStock)
-        dest.writeFloat(totalStock)
+        dest.writeInt(stock)
+        dest.writeInt(soldStock)
+        dest.writeInt(totalStock)
         dest.writeFloat(totalCost)
         dest.writeFloat(totalIncome)
 

@@ -12,7 +12,10 @@ import org.caojun.yujiyizidi.room.Customer
 import org.caojun.yujiyizidi.room.Goods
 import android.widget.SeekBar
 import kotlinx.android.synthetic.main.dialog_buy.view.*
+import org.caojun.yujiyizidi.room.OrderGoods
+import org.caojun.yujiyizidi.room.YZDDatabase
 import org.jetbrains.anko.alert
+import org.jetbrains.anko.doAsync
 
 /**
  * 商品购买，只能顾客访问
@@ -21,6 +24,7 @@ import org.jetbrains.anko.alert
 class GoodsBuyActivity : AppCompatActivity() {
     private var customer: Customer? = null
     private var goods: Goods? = null
+    private var og: OrderGoods? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +38,8 @@ class GoodsBuyActivity : AppCompatActivity() {
             finish()
             return
         }
+
+        initOrderGoods()
 
         title = customer?.name
 
@@ -64,12 +70,16 @@ class GoodsBuyActivity : AppCompatActivity() {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int,
                                            fromUser: Boolean) {
                 tvWeight.text = getString(R.string.weight, progress.toString(), tvUnit.text.toString())
-                btnAddCart.isEnabled = sbWeight.progress > 0
+//                btnAddCart.isEnabled = sbWeight.progress > 0
             }
         });
 
         tvWeight.setOnClickListener {
             showBuy()
+        }
+
+        btnAddCart.setOnClickListener {
+            doAddCart()
         }
     }
 
@@ -87,6 +97,7 @@ class GoodsBuyActivity : AppCompatActivity() {
             ivPicture.visibility = View.GONE
             ivFullscreen.visibility = View.GONE
         }
+        sbWeight.progress = og!!.weight
         if (goods != null) {
             etName.setText(goods?.name)
             etDescribe.setText(goods?.describe)
@@ -98,7 +109,7 @@ class GoodsBuyActivity : AppCompatActivity() {
             tvWeight.text = getString(R.string.weight, sbWeight.progress.toString(), tvUnit.text.toString())
         }
 
-        btnAddCart.isEnabled = sbWeight.progress > 0
+//        btnAddCart.isEnabled = sbWeight.progress > 0
     }
 
     private fun showBuy() {
@@ -129,5 +140,34 @@ class GoodsBuyActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    private fun doAddCart() {
+        doAsync {
+            og!!.weight = sbWeight.progress
+            og!!.price = goods!!.price
+            if (og!!.weight <= 0) {
+                customer!!.cart.remove(og!!)
+            }
+            YZDDatabase.getDatabase(this@GoodsBuyActivity).getCustomer().update(customer!!)
+            finish()
+        }
+    }
+
+    private fun initOrderGoods() {
+        val cart = customer!!.cart
+        og = OrderGoods()
+        og!!.idGoods = goods!!.id
+        if (cart.isEmpty()) {
+            customer!!.cart.add(og!!)
+            return
+        }
+        for (i in cart.indices) {
+            if (cart[i].idGoods == og!!.idGoods) {
+                og = cart[i]
+                return
+            }
+        }
+        customer!!.cart.add(og!!)
     }
 }
