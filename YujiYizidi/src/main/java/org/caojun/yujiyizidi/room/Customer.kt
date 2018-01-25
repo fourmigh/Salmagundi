@@ -15,16 +15,19 @@ class Customer: Parcelable {
     var id: Int = 0
 
     var name: String = ""
+    var mobile: String = ""
 
     constructor()
     constructor(_in: Parcel): this() {
         id = _in.readInt()
         name = _in.readString()
+        mobile = _in.readString()
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeInt(id)
         dest.writeString(name)
+        dest.writeString(mobile)
     }
 
     override fun describeContents(): Int {

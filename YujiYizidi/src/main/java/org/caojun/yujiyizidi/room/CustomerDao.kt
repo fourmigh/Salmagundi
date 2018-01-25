@@ -15,4 +15,7 @@ interface CustomerDao {
 
     @Delete
     fun delete(vararg customer: Customer): Int
+
+    @Update
+    fun update(vararg customer: Customer): Int
 }

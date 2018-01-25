@@ -8,23 +8,21 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import org.caojun.ttschulte.Constant
 import org.caojun.yujiyizidi.R
-import org.caojun.yujiyizidi.room.Goods
+import org.caojun.yujiyizidi.room.Customer
 
 /**
  * Created by CaoJun on 2018-1-23.
  */
-class GoodsAdapter: BaseAdapter {
+class CustomerAdapter : BaseAdapter {
     private var context: Context? = null
-    private val list = ArrayList<Goods>()
-    private var isStorekeeper = false
+    private val list = ArrayList<Customer>()
 
-    constructor(context: Context, list: List<Goods>, isStorekeeper: Boolean) : super() {
+    constructor(context: Context, list: List<Customer>) : super() {
         this.context = context
-        this.isStorekeeper = isStorekeeper
         setData(list)
     }
 
-    fun setData(list: List<Goods>) {
+    fun setData(list: List<Customer>) {
         this.list.clear()
         this.list.addAll(list)
     }
@@ -44,11 +42,7 @@ class GoodsAdapter: BaseAdapter {
 
         val data = getItem(position)
         holder.tvName?.text = data.name
-        if (isStorekeeper) {
-            holder.tvInfo?.text = context?.getString(R.string.stock, data.stock.toString(), data.unit)
-        } else {
-            holder.tvInfo?.text = context?.getString(R.string.price, data.price.toString(), data.unit)
-        }
+        holder.tvInfo?.text = data.mobile
         if (position % 2 == 0) {
             view?.setBackgroundColor(0x33333333)
         } else {
@@ -58,7 +52,7 @@ class GoodsAdapter: BaseAdapter {
         return view!!
     }
 
-    override fun getItem(position: Int): Goods = list[position]
+    override fun getItem(position: Int): Customer = list[position]
 
     override fun getItemId(position: Int): Long = list[position].id.toLong()
 

@@ -3,8 +3,11 @@ package org.caojun.yujiyizidi.activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
-import org.caojun.ttschulte.Constant
 import org.caojun.yujiyizidi.R
+import org.caojun.yujiyizidi.activity.customer.CustomerListActivity
+import org.caojun.yujiyizidi.activity.customer.GoodsListActivity
+import org.caojun.yujiyizidi.activity.storekeeper.SCustomerListActivity
+import org.caojun.yujiyizidi.activity.storekeeper.SGoodsListActivity
 import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
@@ -14,16 +17,32 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btnCustomer.setOnClickListener {
-            gotoGoodsList(false)
+            gotoCustomerList(false)
         }
 
         btnStorekeeper.setOnClickListener {
+            gotoCustomerList(true)
+        }
+
+        btnStorekeeper.setOnLongClickListener {
             gotoGoodsList(true)
+            true
         }
     }
 
     private fun gotoGoodsList(isStorekeeper: Boolean) {
-        Constant.IsStorekeeper = isStorekeeper
-        startActivity<GoodsListActivity>()
+        if (isStorekeeper) {
+            startActivity<SGoodsListActivity>()
+        } else {
+            startActivity<GoodsListActivity>()
+        }
+    }
+
+    private fun gotoCustomerList(isStorekeeper: Boolean) {
+        if (isStorekeeper) {
+            startActivity<SCustomerListActivity>()
+        } else {
+            startActivity<CustomerListActivity>()
+        }
     }
 }

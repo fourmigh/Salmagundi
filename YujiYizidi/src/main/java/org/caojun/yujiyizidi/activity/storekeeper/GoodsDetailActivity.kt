@@ -1,4 +1,4 @@
-package org.caojun.yujiyizidi.activity
+package org.caojun.yujiyizidi.activity.storekeeper
 
 import android.app.Activity
 import android.content.Intent
@@ -50,6 +50,11 @@ class GoodsDetailActivity : AppCompatActivity() {
 
             override fun afterTextChanged(editable: Editable) {
                 btnStock.isEnabled = !TextUtils.isEmpty(editable)
+                if (btnStock.isEnabled) {
+                    title = editable
+                } else {
+                    title = getString(R.string.goods_title)
+                }
             }
         })
 

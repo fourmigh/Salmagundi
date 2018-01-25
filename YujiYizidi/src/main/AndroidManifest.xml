@@ -22,10 +22,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.GoodsDetailActivity" />
-        <activity android:name=".activity.GoodsBuyActivity" />
-        <activity android:name=".activity.GoodsListActivity"
+        <activity android:name=".activity.storekeeper.GoodsDetailActivity" />
+        <activity android:name=".activity.customer.GoodsBuyActivity" />
+        <activity android:name=".activity.customer.GoodsListActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
+        <activity android:name=".activity.customer.CustomerListActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
+        <activity android:name=".activity.storekeeper.CustomerDetailActivity" />
+        <activity android:name=".activity.storekeeper.SGoodsListActivity" />
+        <activity android:name=".activity.storekeeper.SCustomerListActivity" />
     </application>
 
 </manifest>

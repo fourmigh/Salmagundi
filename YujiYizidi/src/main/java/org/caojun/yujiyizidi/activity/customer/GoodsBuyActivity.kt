@@ -1,4 +1,4 @@
-package org.caojun.yujiyizidi.activity
+package org.caojun.yujiyizidi.activity.customer
 
 import android.support.v7.app.AppCompatActivity
 

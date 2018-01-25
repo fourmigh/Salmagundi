@@ -25,4 +25,10 @@
     <string name="stock">库存：%s%s</string>
     <string name="money">￥%s</string>
     <string name="money_price">￥%s/%s</string>
+    <string name="customer_name">姓名</string>
+    <string name="customer_mobile">手机号</string>
+    <string name="btn_order">订单</string>
+    <string name="goods_title">商品详情</string>
+    <string name="customer_title">顾客详情</string>
+    <string name="btn_add">新增</string>
 </resources>

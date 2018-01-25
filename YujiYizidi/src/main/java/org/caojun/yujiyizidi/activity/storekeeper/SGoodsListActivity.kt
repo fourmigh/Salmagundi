@@ -1,9 +1,10 @@
-package org.caojun.yujiyizidi.activity
+package org.caojun.yujiyizidi.activity.storekeeper
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_goods_list.*
+import android.support.v7.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_list.*
 import org.caojun.ttschulte.Constant
 import org.caojun.yujiyizidi.R
 import org.caojun.yujiyizidi.adapter.GoodsAdapter
@@ -17,7 +18,7 @@ import org.jetbrains.anko.uiThread
  * 商品列表
  * Created by CaoJun on 2018-1-23.
  */
-class GoodsListActivity : Activity() {
+class SGoodsListActivity : AppCompatActivity() {
 
     companion object {
         private val REQUEST_GOODS = 1
@@ -28,7 +29,7 @@ class GoodsListActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_goods_list)
+        setContentView(R.layout.activity_list)
 
         doReadGoodsList(false)
 
@@ -48,18 +49,18 @@ class GoodsListActivity : Activity() {
     private fun doReadGoodsList(canFinish: Boolean) {
         doAsync {
             list.clear()
-            list.addAll(YZDDatabase.getDatabase(this@GoodsListActivity).getGoods().query())
+            list.addAll(YZDDatabase.getDatabase(this@SGoodsListActivity).getGoods().query())
             uiThread {
                 if (canFinish && list.isEmpty()) {
                     finish()
                     return@uiThread
                 }
-                if (Constant.IsStorekeeper && list.isEmpty()) {
+                if (list.isEmpty()) {
                     startActivityForResult<GoodsDetailActivity>(REQUEST_GOODS)
                     return@uiThread
                 }
                 if (adapter == null) {
-                    adapter = GoodsAdapter(this@GoodsListActivity, list)
+                    adapter = GoodsAdapter(this@SGoodsListActivity, list, true)
                     listView.adapter = adapter
                 } else {
                     adapter?.setData(list)
