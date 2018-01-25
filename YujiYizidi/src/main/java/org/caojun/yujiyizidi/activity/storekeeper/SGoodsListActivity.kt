@@ -8,7 +8,6 @@ import kotlinx.android.synthetic.main.activity_list.*
 import org.caojun.ttschulte.Constant
 import org.caojun.yujiyizidi.R
 import org.caojun.yujiyizidi.adapter.GoodsAdapter
-import org.caojun.yujiyizidi.room.Customer
 import org.caojun.yujiyizidi.room.Goods
 import org.caojun.yujiyizidi.room.YZDDatabase
 import org.jetbrains.anko.doAsync

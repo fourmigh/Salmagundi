@@ -62,6 +62,7 @@ class CartActivity : AppCompatActivity() {
                 if (customer!!.cart.isEmpty()) {
                     return@uiThread
                 }
+                btnAdd.isEnabled = customer!!.cart.isNotEmpty()
                 if (adapter == null) {
                     adapter = CartAdapter(this@CartActivity, customer!!.cart)
                     listView.adapter = adapter

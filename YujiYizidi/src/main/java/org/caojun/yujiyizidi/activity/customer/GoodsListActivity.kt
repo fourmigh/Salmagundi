@@ -2,7 +2,6 @@ package org.caojun.yujiyizidi.activity.customer
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import kotlinx.android.synthetic.main.activity_list.*
 import org.caojun.ttschulte.Constant
 import org.caojun.yujiyizidi.R
@@ -62,6 +61,7 @@ class GoodsListActivity : AppCompatActivity() {
                     finish()
                     return@uiThread
                 }
+                btnAdd.isEnabled = customer!!.cart.isNotEmpty()
                 if (adapter == null) {
                     adapter = GoodsAdapter(this@GoodsListActivity, list, false)
                     listView.adapter = adapter
