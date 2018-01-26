@@ -9,6 +9,7 @@
 
     <application
         android:allowBackup="true"
+        android:name="org.caojun.ttschulte.MainApplication"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_launcher_round"
@@ -22,7 +23,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.storekeeper.GoodsDetailActivity" />
+        <activity android:name=".activity.storekeeper.GoodsDetailActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
         <activity android:name=".activity.customer.GoodsBuyActivity"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
         <activity android:name=".activity.customer.GoodsListActivity" />
@@ -30,8 +32,22 @@
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
         <activity android:name=".activity.storekeeper.CustomerDetailActivity" />
         <activity android:name=".activity.storekeeper.SGoodsListActivity" />
-        <activity android:name=".activity.storekeeper.SCustomerListActivity" />
+        <activity android:name=".activity.storekeeper.SCustomerListActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
         <activity android:name=".activity.customer.CartActivity"/>
+        <activity android:name=".activity.customer.OrderListActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
+        <activity android:name=".activity.customer.OrderDetailActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
+        <activity android:name=".activity.storekeeper.SOrderDetailActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
+        <activity android:name=".activity.storekeeper.SOrderListActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
+
+        <!-- bmob.cn -->
+        <meta-data
+            android:name="cn.bmob.v3.appid"
+            android:value="d05646b9b25a9fcb63d65797c2b5e098" />
     </application>
 
 </manifest>

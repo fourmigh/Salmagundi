@@ -2,6 +2,7 @@ package org.caojun.yujiyizidi.activity.customer
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import kotlinx.android.synthetic.main.activity_list.*
 import org.caojun.ttschulte.Constant
 import org.caojun.yujiyizidi.R
@@ -44,6 +45,11 @@ class GoodsListActivity : AppCompatActivity() {
         btnAdd.setText(R.string.btn_cart)
         btnAdd.setOnClickListener {
             startActivity<CartActivity>()
+        }
+
+        btnOrder.visibility = View.VISIBLE
+        btnOrder.setOnClickListener {
+            startActivity<OrderListActivity>()
         }
     }
 

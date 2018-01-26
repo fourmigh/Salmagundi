@@ -11,9 +11,11 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_customer_detail.*
 import org.caojun.ttschulte.Constant
 import org.caojun.yujiyizidi.R
+import org.caojun.yujiyizidi.activity.customer.OrderListActivity
 import org.caojun.yujiyizidi.room.Customer
 import org.caojun.yujiyizidi.room.YZDDatabase
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.startActivity
 
 /**
  * 顾客详情，只能店主访问
@@ -43,12 +45,10 @@ class CustomerDetailActivity : AppCompatActivity() {
 
             }
 
-            override fun afterTextChanged(editable: Editable) {
-                if (TextUtils.isEmpty(editable)) {
-                    title = getString(R.string.customer_title)
-                } else {
-                    title = editable
-                }
+            override fun afterTextChanged(editable: Editable) = if (TextUtils.isEmpty(editable)) {
+                title = getString(R.string.customer_title)
+            } else {
+                title = editable
             }
         })
 
@@ -57,7 +57,7 @@ class CustomerDetailActivity : AppCompatActivity() {
         }
 
         btnOrder.setOnClickListener({
-
+            startActivity<SOrderListActivity>()
         })
     }
 

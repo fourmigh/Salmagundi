@@ -36,6 +36,19 @@
     <string name="weight">%s%s</string>
     <string name="btn_cart">购物车</string>
     <string name="btn_buy">购买</string>
-    <string name="cart_goods">%s：</string>
-    <string name="cart_amount">总计：</string>
+    <string name="cart_goods">%s：%s，%s</string>
+    <string name="cart_amount">总计：%s</string>
+    <string name="btn_express">物流信息</string>
+    <string name="btn_pay">去支付</string>
+    <string name="btn_paid">已支付</string>
+    <string name="btn_noshipped">未发货</string>
+    <string name="btn_ship">去发货</string>
+    <string name="status_shipped">已发货</string>
+    <string name="btn_receipt">确认收货</string>
+    <string name="status_unpay">未支付</string>
+    <string name="status_completed">已完成</string>
+    <string name="status_receipt">已收货</string>
+    <string name="status_canceled">已取消</string>
+    <string name="complete">完成</string>
+    <string name="no_stock">【%s】库存不足</string>
 </resources>

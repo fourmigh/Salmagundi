@@ -12,7 +12,4 @@ interface OrderGoodsDao {
 
     @Insert
     fun insert(vararg og: OrderGoods)
-
-    @Update
-    fun update(vararg og: OrderGoods): Int
 }
