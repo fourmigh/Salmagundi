@@ -1,2 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.caojun.widget" />
+    package="org.caojun.widget" >
+    <application android:allowBackup="true">
+
+        <activity
+            android:name="org.caojun.dialog.WebViewDialog"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
+    </application>
+</manifest>

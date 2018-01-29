@@ -3,18 +3,17 @@ package org.caojun.yujiyizidi.activity.customer
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
-import android.view.LayoutInflater
 import android.view.View
+import android.widget.NumberPicker
 import kotlinx.android.synthetic.main.activity_goods_buy.*
 import org.caojun.ttschulte.Constant
 import org.caojun.yujiyizidi.R
 import org.caojun.yujiyizidi.room.Customer
 import org.caojun.yujiyizidi.room.Goods
 import android.widget.SeekBar
-import kotlinx.android.synthetic.main.dialog_buy.view.*
+import org.caojun.dialog.NumberPickerDialog
 import org.caojun.yujiyizidi.room.OrderGoods
 import org.caojun.yujiyizidi.room.YZDDatabase
-import org.jetbrains.anko.alert
 import org.jetbrains.anko.doAsync
 
 /**
@@ -113,15 +112,10 @@ class GoodsBuyActivity : AppCompatActivity() {
     }
 
     private fun showBuy() {
-        val view = LayoutInflater.from(this).inflate(R.layout.dialog_buy, null)
-        alert {
-            customView = view
-            positiveButton(android.R.string.ok, {
-                val weight = view.etWeight.text.toString()
-                doSetWeight(weight)
-            })
-            negativeButton(android.R.string.cancel, {})
-        }.show()
+        NumberPickerDialog(this, NumberPicker.OnValueChangeListener { _, _, newValue ->
+            val weight = newValue.toString()
+            doSetWeight(weight)
+        }, sbWeight.max, 1, sbWeight.progress).show()
     }
 
     private fun doSetWeight(weight: String) {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">雨霁的烟纸店</string>
+    <string name="express_url">http://www.kuaidi100.com</string>
     <string name="im_customer">我是顾客</string>
     <string name="im_storekeeper">我是店主</string>
     <string name="goods_detail_title">商品详情</string>

@@ -7,9 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
 import kotlinx.android.synthetic.main.activity_express_detail.*
 import org.caojun.ttschulte.Constant
 import org.caojun.yujiyizidi.R
@@ -63,7 +61,7 @@ class ExpressDetailActivity : AppCompatActivity() {
         webView.webViewClient = WebViewClient()
         webView.webChromeClient = WebChromeClient()
         webView.settings.domStorageEnabled = true
-        webView.loadUrl("http://www.kuaidi100.com")
+        webView.loadUrl(getString(R.string.express_url))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

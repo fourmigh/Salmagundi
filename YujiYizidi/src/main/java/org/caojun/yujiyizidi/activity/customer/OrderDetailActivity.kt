@@ -2,9 +2,11 @@ package org.caojun.yujiyizidi.activity.customer
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_order_detail.*
+import org.caojun.dialog.WebViewDialog
 import org.caojun.ttschulte.Constant
 import org.caojun.utils.TimeUtils
 import org.caojun.yujiyizidi.R
@@ -105,6 +107,10 @@ class OrderDetailActivity : AppCompatActivity() {
                     btnReceipt.isEnabled = false
                     btnExpress.isEnabled = false
                 }
+
+                if (TextUtils.isEmpty(order!!.expressNo)) {
+                    btnReceipt.isEnabled = false
+                }
             }
         }
     }
@@ -136,7 +142,7 @@ class OrderDetailActivity : AppCompatActivity() {
     }
 
     private fun doExpress() {
-        //TODO
+        WebViewDialog.show(this, getString(R.string.express_url), getString(R.string.cm_tips, order!!.expressNo), order!!.expressNo)
     }
 
     private fun doReceipt() {
