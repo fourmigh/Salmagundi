@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="org.caojun.yujiyizidi.activity.storekeeper.GoodsDetailActivity">
+
+    <Button
+        android:id="@+id/btnExpress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/express_name" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/express_no">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/etExpressNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true" />
+    </android.support.design.widget.TextInputLayout>
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+</LinearLayout>

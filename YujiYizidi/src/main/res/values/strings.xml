@@ -51,4 +51,8 @@
     <string name="status_canceled">已取消</string>
     <string name="complete">完成</string>
     <string name="no_stock">【%s】库存不足</string>
+    <string name="express_name">快递公司</string>
+    <string name="express_no">快递单号</string>
+    <string name="refresh_express">刷新快递信息</string>
+    <string name="cm_tips">快递单号【%s】已复制到剪贴板。</string>
 </resources>

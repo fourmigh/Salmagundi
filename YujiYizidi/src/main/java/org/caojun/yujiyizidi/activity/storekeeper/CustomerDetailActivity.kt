@@ -83,6 +83,11 @@ class CustomerDetailActivity : AppCompatActivity() {
             customer = Customer()
         }
         customer?.name = etName.text.toString()
+
+        if (TextUtils.isEmpty(customer?.name)) {
+            return
+        }
+
         customer?.mobile = etMobile.text.toString()
 
         doAsync {

@@ -30,7 +30,8 @@
         <activity android:name=".activity.customer.GoodsListActivity" />
         <activity android:name=".activity.customer.CustomerListActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
-        <activity android:name=".activity.storekeeper.CustomerDetailActivity" />
+        <activity android:name=".activity.storekeeper.CustomerDetailActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
         <activity android:name=".activity.storekeeper.SGoodsListActivity" />
         <activity android:name=".activity.storekeeper.SCustomerListActivity"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
@@ -42,6 +43,10 @@
         <activity android:name=".activity.storekeeper.SOrderDetailActivity"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
         <activity android:name=".activity.storekeeper.SOrderListActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
+        <activity android:name=".activity.storekeeper.ExpressDetailActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
+        <activity android:name=".activity.storekeeper.ExpressListActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
 
         <!-- bmob.cn -->

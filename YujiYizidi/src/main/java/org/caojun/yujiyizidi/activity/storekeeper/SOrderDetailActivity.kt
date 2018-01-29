@@ -14,6 +14,7 @@ import org.caojun.yujiyizidi.room.Order
 import org.caojun.yujiyizidi.room.YZDDatabase
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.uiThread
 
 /**
@@ -122,7 +123,7 @@ class SOrderDetailActivity : AppCompatActivity() {
     }
 
     private fun doExpress() {
-        //TODO
+        startActivity<ExpressDetailActivity>()
     }
 
     private fun doReceipt() {
