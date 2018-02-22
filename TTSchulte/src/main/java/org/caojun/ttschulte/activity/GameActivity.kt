@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.RadioButton
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.dialog_ask_name.view.*
@@ -52,7 +53,7 @@ class GameActivity : AppCompatActivity() {
             if (type == Schulte.Type_Chinese) {
                 initChinese()
             } else {
-                tvChinese.text = null
+                tvChinese.visibility = View.GONE
             }
         }
 
@@ -69,6 +70,7 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun initChinese() {
+        tvChinese.visibility = View.VISIBLE
         val layout = rgLayout.indexOfChild(rgLayout.findViewById(rgLayout.checkedRadioButtonId))
         val strings = resources.getStringArray(Constant.ChineseArrays[layout])
         ChineseIndex = RandomUtils.getRandom(0, strings.size - 1)
