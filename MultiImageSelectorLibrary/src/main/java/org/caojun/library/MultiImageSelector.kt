@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
@@ -63,7 +64,8 @@ class MultiImageSelector {
         if (hasPermission(activity)) {
             activity.startActivityForResult(createIntent(activity), requestCode)
         } else {
-            Toast.makeText(activity, R.string.mis_error_no_permission, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(activity, R.string.mis_error_no_permission, Toast.LENGTH_SHORT).show()
+            ActivityCompat.requestPermissions(activity, arrayOf( Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), requestCode)
         }
     }
 
