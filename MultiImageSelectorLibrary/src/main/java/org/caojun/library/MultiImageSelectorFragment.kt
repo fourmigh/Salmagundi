@@ -7,9 +7,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
@@ -17,6 +19,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.LoaderManager
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.CursorLoader
+import android.support.v4.content.FileProvider
 import android.support.v4.content.Loader
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.ListPopupWindow
@@ -71,7 +74,7 @@ class MultiImageSelectorFragment: Fragment() {
     // folder result data set
     private val mResultFolder = ArrayList<Folder>()
 
-//    private var mGridView: GridView? = null
+    //    private var mGridView: GridView? = null
     private var mCallback: Callback? = null
 
     private var mImageAdapter: ImageGridAdapter? = null
@@ -134,7 +137,7 @@ class MultiImageSelectorFragment: Fragment() {
 
 //        mGridView = view.findViewById(R.id.grid) as GridView
         grid.adapter = mImageAdapter
-        grid.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l ->
+        grid.onItemClickListener = AdapterView.OnItemClickListener { adapterView, _, i, _ ->
             if (mImageAdapter!!.isShowCamera()) {
                 if (i == 0) {
                     showCameraAction()
@@ -179,7 +182,7 @@ class MultiImageSelectorFragment: Fragment() {
         mFolderPopupWindow?.height = height
         mFolderPopupWindow?.anchorView = footer
         mFolderPopupWindow?.isModal = true
-        mFolderPopupWindow?.setOnItemClickListener { adapterView, view, i, l ->
+        mFolderPopupWindow?.setOnItemClickListener { adapterView, _, i, _ ->
             mFolderAdapter?.setSelectIndex(i)
 
             Handler().postDelayed({
@@ -232,6 +235,21 @@ class MultiImageSelectorFragment: Fragment() {
             if (resultCode == Activity.RESULT_OK) {
                 if (mTmpFile != null) {
                     mCallback?.onCameraShot(mTmpFile!!)
+                } else if (data != null){
+                    val bundle = data.extras
+                    val bm = bundle.get("data") as Bitmap
+                    try {
+                        mTmpFile = FileUtils.createTmpFile(activity)
+                        FileUtils.saveBitmap(bm, mTmpFile!!)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                    if (bm != null) {
+                        bm.recycle()
+                    }
+                    if (mTmpFile != null) {
+                        mCallback?.onCameraShot(mTmpFile!!)
+                    }
                 }
             } else {
                 // delete tmp file
@@ -280,8 +298,21 @@ class MultiImageSelectorFragment: Fragment() {
             }
 
             if (mTmpFile != null && mTmpFile!!.exists()) {
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile))
-                startActivityForResult(intent, REQUEST_CAMERA)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    val contentUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".fileProvider", mTmpFile);
+                    intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri)
+                    try {
+                        startActivityForResult(intent, REQUEST_CAMERA)
+                    } catch (e: Exception) {
+                        mTmpFile = null
+                        startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), REQUEST_CAMERA)
+                    }
+                } else {
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile))
+                    startActivityForResult(intent, REQUEST_CAMERA)
+                }
             } else {
                 Toast.makeText(activity, R.string.mis_error_image_not_exist, Toast.LENGTH_SHORT).show()
             }
@@ -295,7 +326,7 @@ class MultiImageSelectorFragment: Fragment() {
             AlertDialog.Builder(context)
                     .setTitle(R.string.mis_permission_dialog_title)
                     .setMessage(rationale)
-                    .setPositiveButton(R.string.mis_permission_dialog_ok) { dialog, which -> requestPermissions(arrayOf(permission), requestCode) }
+                    .setPositiveButton(R.string.mis_permission_dialog_ok) { _, _ -> requestPermissions(arrayOf(permission), requestCode) }
                     .setNegativeButton(R.string.mis_permission_dialog_cancel, null)
                     .create().show()
         } else {
@@ -430,13 +461,13 @@ class MultiImageSelectorFragment: Fragment() {
     }
 
     private fun getFolderByPath(path: String): Folder? {
-        if (mResultFolder != null) {
-            for (folder in mResultFolder) {
-                if (TextUtils.equals(folder.path, path)) {
-                    return folder
-                }
+//        if (mResultFolder != null) {
+        for (folder in mResultFolder) {
+            if (TextUtils.equals(folder.path, path)) {
+                return folder
             }
         }
+//        }
         return null
     }
 

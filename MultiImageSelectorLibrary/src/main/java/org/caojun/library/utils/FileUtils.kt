@@ -2,9 +2,11 @@ package org.caojun.library.utils
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Environment
 import android.text.TextUtils
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 
 /**
@@ -122,5 +124,18 @@ object FileUtils {
     private fun hasExternalStoragePermission(context: Context): Boolean {
         val perm = context.checkCallingOrSelfPermission(EXTERNAL_STORAGE_PERMISSION)
         return perm == PackageManager.PERMISSION_GRANTED
+    }
+
+    fun saveBitmap(bitmap: Bitmap, file: File): Boolean {
+        try {
+            val out = FileOutputStream(file)
+            if (bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out)) {
+                out.flush()
+                out.close()
+            }
+            return true
+        } catch (e: Exception) {
+            return false
+        }
     }
 }
