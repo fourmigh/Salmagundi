@@ -8,6 +8,8 @@ import android.text.TextUtils
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by CaoJun on 2017-12-20.
@@ -20,9 +22,9 @@ object FileUtils {
     fun createTmpFile(context: Context): File {
         var dir: File
         if (TextUtils.equals(Environment.getExternalStorageState(), Environment.MEDIA_MOUNTED)) {
-            dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
+            dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
             if (!dir.exists()) {
-                dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM + "/Camera")
+                dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
                 if (!dir.exists()) {
                     dir = getCacheDirectory(context, true)
                 }
@@ -30,7 +32,8 @@ object FileUtils {
         } else {
             dir = getCacheDirectory(context, true)
         }
-        return File.createTempFile(JPEG_FILE_PREFIX, JPEG_FILE_SUFFIX, dir)
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        return File.createTempFile(JPEG_FILE_PREFIX + timeStamp, JPEG_FILE_SUFFIX, dir)
     }
 
 

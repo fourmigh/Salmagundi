@@ -235,21 +235,6 @@ class MultiImageSelectorFragment: Fragment() {
             if (resultCode == Activity.RESULT_OK) {
                 if (mTmpFile != null) {
                     mCallback?.onCameraShot(mTmpFile!!)
-                } else if (data != null){
-                    val bundle = data.extras
-                    val bm = bundle.get("data") as Bitmap
-                    try {
-                        mTmpFile = FileUtils.createTmpFile(activity)
-                        FileUtils.saveBitmap(bm, mTmpFile!!)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                    if (bm != null) {
-                        bm.recycle()
-                    }
-                    if (mTmpFile != null) {
-                        mCallback?.onCameraShot(mTmpFile!!)
-                    }
                 }
             } else {
                 // delete tmp file
@@ -301,14 +286,8 @@ class MultiImageSelectorFragment: Fragment() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
                     val contentUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".fileProvider", mTmpFile);
-                    intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri)
-                    try {
-                        startActivityForResult(intent, REQUEST_CAMERA)
-                    } catch (e: Exception) {
-                        mTmpFile = null
-                        startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), REQUEST_CAMERA)
-                    }
+                    startActivityForResult(intent, REQUEST_CAMERA)
                 } else {
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile))
                     startActivityForResult(intent, REQUEST_CAMERA)
