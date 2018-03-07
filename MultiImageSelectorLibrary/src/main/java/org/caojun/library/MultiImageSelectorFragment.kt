@@ -258,28 +258,35 @@ class MultiImageSelectorFragment: Fragment() {
      * Open camera
      */
     private fun showCameraAction() {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            requestPermission(Manifest.permission.CAMERA,
+                    getString(R.string.mis_permission_rationale_write_storage),
+                    REQUEST_CAMERA)
+            return
+        }
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     getString(R.string.mis_permission_rationale_write_storage),
                     REQUEST_STORAGE_WRITE_ACCESS_PERMISSION)
-        } else {
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            if (intent.resolveActivity(activity.packageManager) != null) {
-                try {
-                    mTmpFile = FileUtils.createTmpFile(activity)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
+            return
+        }
 
-                if (mTmpFile != null && mTmpFile!!.exists()) {
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile))
-                    startActivityForResult(intent, REQUEST_CAMERA)
-                } else {
-                    Toast.makeText(activity, R.string.mis_error_image_not_exist, Toast.LENGTH_SHORT).show()
-                }
-            } else {
-                Toast.makeText(activity, R.string.mis_msg_no_camera, Toast.LENGTH_SHORT).show()
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (intent.resolveActivity(activity.packageManager) != null) {
+            try {
+                mTmpFile = FileUtils.createTmpFile(activity)
+            } catch (e: IOException) {
+                e.printStackTrace()
             }
+
+            if (mTmpFile != null && mTmpFile!!.exists()) {
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile))
+                startActivityForResult(intent, REQUEST_CAMERA)
+            } else {
+                Toast.makeText(activity, R.string.mis_error_image_not_exist, Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(activity, R.string.mis_msg_no_camera, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -297,7 +304,7 @@ class MultiImageSelectorFragment: Fragment() {
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode == REQUEST_STORAGE_WRITE_ACCESS_PERMISSION) {
+        if (requestCode == REQUEST_CAMERA || requestCode == REQUEST_STORAGE_WRITE_ACCESS_PERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 showCameraAction()
             }
