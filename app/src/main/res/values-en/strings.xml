@@ -197,4 +197,7 @@
 
     <!-- 输入法 -->
     <string name="tw_title">Typewriting</string>
+
+    <!-- 头像 -->
+    <string name="ci_title">Header Picture</string>
 </resources>

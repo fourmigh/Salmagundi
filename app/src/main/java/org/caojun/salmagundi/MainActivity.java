@@ -29,6 +29,7 @@ import org.caojun.salmagundi.clicaptcha.CaptchaDemo;
 import org.caojun.salmagundi.color.Color;
 import org.caojun.salmagundi.color.ColorActivity;
 import org.caojun.salmagundi.color.ColorUtils;
+import org.caojun.salmagundi.cropimage.CropImageActivity;
 import org.caojun.salmagundi.decibelman.DecibelmanActivity;
 import org.caojun.salmagundi.family.FamilyActivity;
 import org.caojun.salmagundi.gyroscope.GyroscopeActivity;
@@ -76,7 +77,8 @@ public class MainActivity extends Activity {
             R.drawable.icon_sort,
             R.drawable.icon_decibelman,
             R.drawable.icon_gyroscope,
-            R.drawable.icon_typewriting
+            R.drawable.icon_typewriting,
+            R.drawable.icon_cropimage
     };
     private final Integer[] mTextIds = {
             R.string.bp_title,
@@ -103,7 +105,8 @@ public class MainActivity extends Activity {
             R.string.ss_title,
             R.string.dm_title,
             R.string.gyroscope_title,
-            R.string.tw_title
+            R.string.tw_title,
+            R.string.ci_title
     };
     private final Class[] mActivitys = {
             BloodPressureActivity.class,
@@ -130,7 +133,8 @@ public class MainActivity extends Activity {
             StringSortDemo.class,
             DecibelmanActivity.class,
             GyroscopeActivity.class,
-            MobileInputActivity.class
+            MobileInputActivity.class,
+            CropImageActivity.class
     };
     private final String[] mARouterPaths = {
             Constant.ACTIVITY_BLOODPRESSURE,
@@ -157,7 +161,8 @@ public class MainActivity extends Activity {
             Constant.ACTIVITY_STRINGSORT_DEMO,
             Constant.ACTIVITY_DECIBELMAN,
             Constant.ACTIVITY_GYROSCOPE,
-            Constant.ACTIVITY_TYPEWRITING
+            Constant.ACTIVITY_TYPEWRITING,
+            Constant.ACTIVITY_CROPIMAGE
     };
 
     @Override

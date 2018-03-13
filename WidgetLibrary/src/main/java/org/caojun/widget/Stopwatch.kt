@@ -247,7 +247,7 @@ class Stopwatch: View {
                 minute %= 60
             }
             // 转换时分秒 00:00
-            return (if (minute >= 10) minute else "0" + minute).toString() + ":" + if (second >= 10) second else "0" + second
+            return (if (minute >= 10) minute else "0" + minute).toString() + ":" + (if (second >= 10) second else "0" + second).toString()
         }
     }
 

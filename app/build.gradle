@@ -15,7 +15,7 @@ android {
     buildToolsVersion "$buildTools_version"
     defaultConfig {
         applicationId "org.caojun.salmagundi"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 26
         javaCompileOptions {
             annotationProcessorOptions {
@@ -61,7 +61,7 @@ dependencies {
     implementation 'commons-lang:commons-lang:latest.release'
     implementation 'commons-codec:commons-codec:latest.release'
     implementation 'io.reactivex:rxandroid:latest.release'
-    implementation 'io.reactivex:rxjava:1.3.0'
+    implementation 'io.reactivex:rxjava:latest.release'
     implementation 'com.maksim88:PasswordEditText:latest.release'
     implementation 'com.j256.ormlite:ormlite-android:latest.release'
     implementation 'se.emilsjolander:stickylistheaders:latest.release'
@@ -70,10 +70,13 @@ dependencies {
     implementation project(':CalendarLibrary')
     implementation "com.android.support:design:$androidsupport_version"
     implementation project(':VelocimeterLibrary')
-    implementation "org.jetbrains.anko:anko-common:latest.release"
+    implementation 'org.jetbrains.anko:anko-common:latest.release'
     implementation 'com.android.support.constraint:constraint-layout:latest.release'
-    implementation "org.jetbrains.anko:anko-common:latest.release"
+    implementation 'org.jetbrains.anko:anko-common:latest.release'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation project(':MultiImageSelectorLibrary')
+    implementation project(':CropImageLibrary')
+    implementation project(':WidgetLibrary')
 }
 repositories {
     mavenCentral()

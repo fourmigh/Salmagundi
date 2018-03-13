@@ -19,10 +19,10 @@ class MultilineGridView : HorizontalScrollView {
         private var Columns = 4
         fun <E> resort(list: ArrayList<E>): ArrayList<E> {
             val size = list.size
-            var numPages = size / (Lines * Columns)
-            if (size % (Lines * Columns) > 0) {
-                numPages ++//总页数
-            }
+//            var numPages = size / (Lines * Columns)
+//            if (size % (Lines * Columns) > 0) {
+//                numPages ++//总页数
+//            }
             var numParts = size / Columns
             if (size % Columns > 0) {
                 numParts ++//总行数

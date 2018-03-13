@@ -140,7 +140,7 @@ class FolderAdapter : BaseAdapter {
             }
             name.text = data.name
             path.text = data.path
-            if (data.images != null) {
+            if (data.images.isNotEmpty()) {
                 size.text = String.format("%d%s", data.images.size, mContext.resources.getString(R.string.mis_photo_unit))
             } else {
                 size.text = "*" + mContext.resources.getString(R.string.mis_photo_unit)

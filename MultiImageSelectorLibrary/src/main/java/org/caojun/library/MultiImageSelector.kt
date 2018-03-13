@@ -17,9 +17,11 @@ import java.util.ArrayList
  */
 class MultiImageSelector {
     companion object {
+        @JvmField
         val EXTRA_RESULT = MultiImageSelectorActivity.EXTRA_RESULT
         private var sSelector: MultiImageSelector? = null
 
+        @JvmStatic
         fun create(): MultiImageSelector {
             if (sSelector == null) {
                 sSelector = MultiImageSelector()

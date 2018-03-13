@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="save">保存</string>
+    <string name="saving_image">保存图片</string>
+    <string name="preparing_card">准备SD卡</string>
+    <string name="no_storage_card">没有SD卡</string>
+    <string name="not_enough_space">SD卡没有足够空间</string>
+    <string name="please_wait">请稍后……</string>
+</resources>

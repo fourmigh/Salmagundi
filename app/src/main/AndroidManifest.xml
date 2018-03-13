@@ -19,6 +19,7 @@
 
     <application
         android:name=".MainApplication"
+        android:hardwareAccelerated="false"
         android:allowBackup="true"
         android:anyDensity="false"
         android:icon="@drawable/ic_launcher"
@@ -130,6 +131,8 @@
             android:label="@string/gyroscope_title" />
         <activity android:name=".typewriting.MobileInputActivity"
             android:label="@string/tw_title" />
+        <activity android:name=".cropimage.CropImageActivity"
+            android:label="@string/ci_title" />
     </application>
 
 </manifest>

@@ -23,7 +23,7 @@ public class LoginInterceptor implements IInterceptor {
 
     @Override
     public void process(Postcard postcard, InterceptorCallback interceptorCallback) {
-        if ((postcard.getExtra() & Constant.EXTRAS_LOGIN) == 1) {
+        if ((postcard.getExtra() & Constant.EXTRAS_LOGIN) == Constant.EXTRAS_LOGIN) {
             String hostGesture = postcard.getExtras().getString("hostGesture");
             String gesture = postcard.getExtras().getString("gesture");
             //需要登录

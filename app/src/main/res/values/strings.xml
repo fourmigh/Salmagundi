@@ -212,4 +212,7 @@
     
     <!-- 输入法 -->
     <string name="tw_title">输入法</string>
+
+    <!-- 头像 -->
+    <string name="ci_title">头像</string>
 </resources>
