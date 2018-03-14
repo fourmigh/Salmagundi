@@ -4,11 +4,10 @@
     android:orientation="horizontal">
 
     <org.caojun.library.CropImageView
-        android:id="@+id/image"
+        android:id="@+id/cropImageView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_x="0dip"
-        android:layout_y="0dip"
+        android:layout_centerInParent="true"
         android:background="#55000000" />
 
     <RelativeLayout

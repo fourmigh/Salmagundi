@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import com.alibaba.android.arouter.facade.annotation.Route;
+
 import org.caojun.library.CropImage;
 import org.caojun.library.CropImageUtils;
-
 import org.caojun.library.MultiImageSelector;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
