@@ -16,6 +16,7 @@
 
 package org.caojun.library;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -46,11 +47,10 @@ import java.util.concurrent.CountDownLatch;
 /**
  * The activity can crop specific region of interest from an image.
  */
-public class CropImage extends MonitoredActivity {
+public class CropImage extends Activity {
 
     final int IMAGE_MAX_SIZE = 1024;
 
-    private static final String TAG = "CropImage";
     public static final String IMAGE_PATH = "image-path";
     public static final String SCALE = "scale";
     public static final String ORIENTATION_IN_DEGREES = "orientation_in_degrees";
@@ -239,34 +239,33 @@ public class CropImage extends MonitoredActivity {
 
         mImageView.setImageBitmapResetBase(mBitmap, true);
 
-        CropImageUtils.startBackgroundJob(this, null, getString(R.string.please_wait),
-                new Runnable() {
+        new Thread() {
+            public void run() {
+
+                final CountDownLatch latch = new CountDownLatch(1);
+                final Bitmap b = mBitmap;
+                mHandler.post(new Runnable() {
                     public void run() {
 
-                        final CountDownLatch latch = new CountDownLatch(1);
-                        final Bitmap b = mBitmap;
-                        mHandler.post(new Runnable() {
-                            public void run() {
-
-                                if (b != mBitmap && b != null) {
-                                    mImageView.setImageBitmapResetBase(b, true);
-                                    mBitmap.recycle();
-                                    mBitmap = b;
-                                }
-                                if (mImageView.getScale() == 1F) {
-                                    mImageView.center(true, true);
-                                }
-                                latch.countDown();
-                            }
-                        });
-                        try {
-                            latch.await();
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
+                        if (b != mBitmap && b != null) {
+                            mImageView.setImageBitmapResetBase(b, true);
+                            mBitmap.recycle();
+                            mBitmap = b;
                         }
-                        mRunFaceDetection.run();
+                        if (mImageView.getScale() == 1F) {
+                            mImageView.center(true, true);
+                        }
+                        latch.countDown();
                     }
-                }, mHandler);
+                });
+                try {
+                    latch.await();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                mRunFaceDetection.run();
+            }
+        }.start();
     }
 
 
@@ -381,13 +380,12 @@ public class CropImage extends MonitoredActivity {
             finish();
         } else {
             final Bitmap b = croppedImage;
-            CropImageUtils.startBackgroundJob(this, null, getString(R.string.saving_image),
-                    new Runnable() {
-                        public void run() {
+            new Thread() {
+                public void run() {
 
-                            saveOutput(b);
-                        }
-                    }, mHandler);
+                    saveOutput(b);
+                }
+            }.start();
         }
     }
 
@@ -520,7 +518,7 @@ public class CropImage extends MonitoredActivity {
             hv.setup(mImageMatrix, imageRect, cropRect, mCircleCrop,
                     mAspectX != 0 && mAspectY != 0);
 
-            mImageView.mHighlightViews.clear(); // Thong added for rotate
+            mImageView.getHighlightViews().clear(); // Thong added for rotate
 
             mImageView.add(hv);
         }
@@ -573,8 +571,8 @@ public class CropImage extends MonitoredActivity {
                         makeDefault();
                     }
                     mImageView.invalidate();
-                    if (mImageView.mHighlightViews.size() == 1) {
-                        mCrop = mImageView.mHighlightViews.get(0);
+                    if (mImageView.getHighlightViews().size() == 1) {
+                        mCrop = mImageView.getHighlightViews().get(0);
                         mCrop.setFocus(true);
                     }
 

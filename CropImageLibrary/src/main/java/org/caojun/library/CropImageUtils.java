@@ -35,12 +35,6 @@ import java.io.File;
  */
 public class CropImageUtils {
 
-    private static final String TAG = "db.Util";
-
-    private CropImageUtils() {
-
-    }
-
     /*
      * Compute the sample size as a function of minSideLength
      * and maxNumOfPixels.
@@ -138,80 +132,6 @@ public class CropImageUtils {
         }
 
         return b2;
-    }
-
-    private static class BackgroundJob
-            extends MonitoredActivity.LifeCycleAdapter implements Runnable {
-
-        private final MonitoredActivity mActivity;
-        private final ProgressDialog    mDialog;
-        private final Runnable          mJob;
-        private final Handler           mHandler;
-        private final Runnable mCleanupRunner = new Runnable() {
-            public void run() {
-
-                mActivity.removeLifeCycleListener(BackgroundJob.this);
-                if (mDialog.getWindow() != null) mDialog.dismiss();
-            }
-        };
-
-        public BackgroundJob(MonitoredActivity activity, Runnable job,
-                             ProgressDialog dialog, Handler handler) {
-
-            mActivity = activity;
-            mDialog = dialog;
-            mJob = job;
-            mActivity.addLifeCycleListener(this);
-            mHandler = handler;
-        }
-
-        public void run() {
-
-            try {
-                mJob.run();
-            } finally {
-                mHandler.post(mCleanupRunner);
-            }
-        }
-
-
-        @Override
-        public void onActivityDestroyed(MonitoredActivity activity) {
-            // We get here only when the onDestroyed being called before
-            // the mCleanupRunner. So, run it now and remove it from the queue
-            mCleanupRunner.run();
-            mHandler.removeCallbacks(mCleanupRunner);
-        }
-
-        @Override
-        public void onActivityStopped(MonitoredActivity activity) {
-
-            mDialog.hide();
-        }
-
-        @Override
-        public void onActivityStarted(MonitoredActivity activity) {
-
-            mDialog.show();
-        }
-    }
-
-    public static void startBackgroundJob(MonitoredActivity activity,
-                                          String title, String message, Runnable job, Handler handler) {
-        // Make the progress dialog uncancelable, so that we can gurantee
-        // the thread will be done before the activity getting destroyed.
-        ProgressDialog dialog = ProgressDialog.show(
-                activity, title, message, true, false);
-        new Thread(new BackgroundJob(activity, job, dialog, handler)).start();
-    }
-
-
-    // Returns Options that set the puregeable flag for Bitmap decode.
-    public static BitmapFactory.Options createNativeAllocOptions() {
-
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        //options.inNativeAlloc = true;
-        return options;
     }
 
     // Thong added for rotate

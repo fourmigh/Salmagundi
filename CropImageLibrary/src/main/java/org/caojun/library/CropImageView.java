@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 class CropImageView extends ImageViewTouchBase {
 
-    ArrayList<HighlightView> mHighlightViews      = new ArrayList<HighlightView>();
-    HighlightView            mMotionHighlightView = null;
-    float mLastX, mLastY;
-    int mMotionEdge;
+    private ArrayList<HighlightView> mHighlightViews = new ArrayList<>();
+    private HighlightView mMotionHighlightView = null;
+    private float mLastX, mLastY;
+    private int mMotionEdge;
 
-    private Context mContext;
+//    private Context mContext;
 
     @Override
     protected void onLayout(boolean changed, int left, int top,
@@ -34,9 +34,11 @@ class CropImageView extends ImageViewTouchBase {
     }
 
     public CropImageView(Context context, AttributeSet attrs) {
-
         super(context, attrs);
-        this.mContext = context;
+    }
+
+    public ArrayList<HighlightView> getHighlightViews() {
+        return mHighlightViews;
     }
 
     @Override
@@ -107,7 +109,7 @@ class CropImageView extends ImageViewTouchBase {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        CropImage cropImage = (CropImage) mContext;
+        CropImage cropImage = (CropImage) getContext();
         if (cropImage.mSaving) {
             return false;
         }
@@ -147,7 +149,7 @@ class CropImageView extends ImageViewTouchBase {
                                 mHighlightViews.get(j).setHidden(true);
                             }
                             centerBasedOnHighlightView(hv);
-                            ((CropImage) mContext).mWaitingToPick = false;
+                            ((CropImage) getContext()).mWaitingToPick = false;
                             return true;
                         }
                     }
