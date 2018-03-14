@@ -76,6 +76,7 @@ dependencies {
     implementation project(':MultiImageSelectorLibrary')
     implementation project(':CropImageLibrary')
     implementation project(':WidgetLibrary')
+    implementation 'com.github.bumptech.glide:glide:latest.release'
 }
 repositories {
     mavenCentral()

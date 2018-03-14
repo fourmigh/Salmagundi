@@ -123,21 +123,17 @@ public class CropImage extends Activity {
             mBitmap = getBitmap(mImagePath);
 
             if (extras.containsKey(ASPECT_X) && extras.get(ASPECT_X) instanceof Integer) {
-
                 mAspectX = extras.getInt(ASPECT_X);
-            } else {
-
-                throw new IllegalArgumentException("aspect_x must be integer");
             }
             if (extras.containsKey(ASPECT_Y) && extras.get(ASPECT_Y) instanceof Integer) {
-
                 mAspectY = extras.getInt(ASPECT_Y);
-            } else {
-
-                throw new IllegalArgumentException("aspect_y must be integer");
             }
             mOutputX = extras.getInt(OUTPUT_X);
             mOutputY = extras.getInt(OUTPUT_Y);
+            if (mOutputX != 0 && mOutputY != 0) {
+                mAspectX = mOutputX;
+                mAspectY = mOutputY;
+            }
             mScale = extras.getBoolean(SCALE, true);
             mScaleUp = extras.getBoolean(SCALE_UP_IF_NEEDED, true);
         }

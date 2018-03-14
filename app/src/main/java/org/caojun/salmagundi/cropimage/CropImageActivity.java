@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bumptech.glide.Glide;
 
 import org.caojun.library.CropImage;
 import org.caojun.library.CropImageUtils;
@@ -80,10 +81,10 @@ public class CropImageActivity extends Activity {
         intent.putExtra(CropImage.IMAGE_PATH, path);
         intent.putExtra(CropImage.SCALE, true);
         intent.putExtra(CropImage.RETURN_DATA, true);
-//        intent.putExtra("outputX", 300);
-//        intent.putExtra("outputY", 300);
-        intent.putExtra(CropImage.ASPECT_X, 1);
-        intent.putExtra(CropImage.ASPECT_Y, 1);
+        intent.putExtra(CropImage.OUTPUT_X, 300);
+        intent.putExtra(CropImage.OUTPUT_Y, 300);
+//        intent.putExtra(CropImage.ASPECT_X, 1);
+//        intent.putExtra(CropImage.ASPECT_Y, 1);
         startActivityForResult(intent, Request_Image_Crop);
     }
 
@@ -106,7 +107,8 @@ public class CropImageActivity extends Activity {
                     byte[] bytes = data.getExtras().getByteArray(CropImage.RETURN_DATA_AS_BITMAP);
                     if (bytes != null) {
                         Bitmap bitmap = CropImageUtils.bytes2Bitmap(bytes);
-                        ivCurrent.setImageBitmap(bitmap);
+//                        ivCurrent.setImageBitmap(bitmap);
+                        Glide.with(this).load(bitmap).into(ivCurrent);
                     }
                     return;
             }
