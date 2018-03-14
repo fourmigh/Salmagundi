@@ -3,19 +3,16 @@ package org.caojun.salmagundi.cropimage;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.allinpay.library.CropImage;
-import com.allinpay.library.CropImageUtils;
+import org.caojun.library.CropImage;
+import org.caojun.library.CropImageUtils;
+
 import org.caojun.library.MultiImageSelector;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
-import java.io.File;
 import java.util.List;
 
 /**

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.allinpay.library" >
+    package="org.caojun.library" >
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -7,7 +7,7 @@
 
         <activity
             android:configChanges="orientation|screenSize"
-            android:name="com.allinpay.library.CropImage" />
+            android:name="org.caojun.library.CropImage" />
 
     </application>
 </manifest>
