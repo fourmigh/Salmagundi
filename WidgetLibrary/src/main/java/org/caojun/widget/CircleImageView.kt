@@ -17,18 +17,18 @@ class CircleImageView: ImageView {
     private var mBitmapWidth: Int = 0
     private var mBitmapheight: Int = 0
     private var mBorderColor: Int = 0
-    private var mFillColor: Int = 0
+//    private var mFillColor: Int = 0
     private var mStrokeWidth: Float = 0f
 
     private val DEFAULT_BORDER_COLOR = Color.RED
-    private val DEFAULT_FILL_COLOR = Color.GRAY
+//    private val DEFAULT_FILL_COLOR = Color.GRAY
     private val DEFAULT_STROKE_WIDTH = 0f
     private val SCALE_TYPE = ImageView.ScaleType.CENTER_CROP
     private val BITMAP_CONFIG = Bitmap.Config.ARGB_8888
 
     private var mBitmap: Bitmap? = null
     private val mPaint = Paint()
-    private val mFillPaint = Paint()
+//    private val mFillPaint = Paint()
     private val mBorderPaint = Paint()
     private val mMatrix = Matrix()
     private val mDrawableRec = RectF()
@@ -50,7 +50,7 @@ class CircleImageView: ImageView {
     fun init() {
         this.scaleType = SCALE_TYPE
         mBorderColor = DEFAULT_BORDER_COLOR
-        mFillColor = DEFAULT_FILL_COLOR
+//        mFillColor = DEFAULT_FILL_COLOR
         mStrokeWidth = DEFAULT_STROKE_WIDTH
         setUp()
     }
@@ -59,9 +59,9 @@ class CircleImageView: ImageView {
         mBorderColor = color
     }
 
-    fun setFillColor(color: Int) {
-        mFillColor = color
-    }
+//    fun setFillColor(color: Int) {
+//        mFillColor = color
+//    }
 
     fun setStrokeWidth(pd: Float) {
         mStrokeWidth = pd
@@ -91,7 +91,7 @@ class CircleImageView: ImageView {
         setUp()
     }
 
-    fun getBitmapFromDrawable(drawable: Drawable?): Bitmap? {
+    private fun getBitmapFromDrawable(drawable: Drawable?): Bitmap? {
         if (drawable == null) {
             return null
         }
@@ -115,7 +115,7 @@ class CircleImageView: ImageView {
         return bitmap
     }
 
-    fun setUp() {
+    private fun setUp() {
         if (width == 0 && height == 0) {
             return
         }
@@ -125,9 +125,9 @@ class CircleImageView: ImageView {
             return
         }
 
-        mFillPaint.style = Paint.Style.FILL
-        mFillPaint.isAntiAlias = true
-        mFillPaint.color = mFillColor
+//        mFillPaint.style = Paint.Style.FILL
+//        mFillPaint.isAntiAlias = true
+//        mFillPaint.color = mFillColor
 
         if (mStrokeWidth != 0f) {
             mBorderPaint.style = Paint.Style.STROKE
@@ -165,7 +165,7 @@ class CircleImageView: ImageView {
             return
         }
         //填充
-        canvas.drawCircle(width / 2.0f, height / 2.0f, mRadius, mFillPaint)
+//        canvas.drawCircle(width / 2.0f, height / 2.0f, mRadius, mFillPaint)
         canvas.drawCircle(width / 2.0f, height / 2.0f, mRadius, mPaint)
         //描边
         if (mStrokeWidth != 0f)

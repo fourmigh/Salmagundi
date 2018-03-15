@@ -67,19 +67,19 @@ abstract class ImageViewTouchBase extends AppCompatImageView {
 
     int mBottom;
 
-    // ImageViewTouchBase will pass a Bitmap to the Recycler if it has finished
-    // its use of that Bitmap.
-    public interface Recycler {
-
-        public void recycle(Bitmap b);
-    }
-
-    public void setRecycler(Recycler r) {
-
-        mRecycler = r;
-    }
-
-    private Recycler mRecycler;
+//    // ImageViewTouchBase will pass a Bitmap to the Recycler if it has finished
+//    // its use of that Bitmap.
+//    public interface Recycler {
+//
+//        public void recycle(Bitmap b);
+//    }
+//
+//    public void setRecycler(Recycler r) {
+//
+//        mRecycler = r;
+//    }
+//
+//    private Recycler mRecycler;
 
     @Override
     protected void onLayout(boolean changed, int left, int top,
@@ -131,13 +131,13 @@ abstract class ImageViewTouchBase extends AppCompatImageView {
             d.setDither(true);
         }
 
-        Bitmap old = mBitmapDisplayed.getBitmap();
+//        Bitmap old = mBitmapDisplayed.getBitmap();
         mBitmapDisplayed.setBitmap(bitmap);
         mBitmapDisplayed.setRotation(rotation);
 
-        if (old != null && old != bitmap && mRecycler != null) {
-            mRecycler.recycle(old);
-        }
+//        if (old != null && old != bitmap && mRecycler != null) {
+//            mRecycler.recycle(old);
+//        }
     }
 
 //    public void clear() {
