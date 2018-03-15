@@ -53,3 +53,6 @@
 53、正方形布局：WidgetLibrary（widget.SquareLinearLayout）
 54、剪贴板：工程YujiYizidi（activity.storekeeper.ExpressDetailActivity）
 55、动态设置provider的authorities值：工程MultiImageSelectorLibrary（AndroidManifest.xml）
+56、拍照、选择图片：工程MultiImageSelectorLibrary
+57、裁剪图片：工程CropImageLibrary
+58、圆形ImageView：工程WidgetLibrary（CircleImageView）
