@@ -52,3 +52,4 @@
 52、ArrayList乱序：Collections.shuffle
 53、正方形布局：WidgetLibrary（widget.SquareLinearLayout）
 54、剪贴板：工程YujiYizidi（activity.storekeeper.ExpressDetailActivity）
+55、动态设置provider的authorities值：工程MultiImageSelectorLibrary（AndroidManifest.xml）
