@@ -215,4 +215,8 @@
 
     <!-- 头像 -->
     <string name="ci_title">头像</string>
+
+    <!-- Demo -->
+    <string name="demo_title">演示</string>
+    <string name="imei_permission">获取IMEI，需要READ_PHONE_STATE权限。</string>
 </resources>

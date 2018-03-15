@@ -200,4 +200,8 @@
 
     <!-- 头像 -->
     <string name="ci_title">Header Picture</string>
+
+    <!-- Demo -->
+    <string name="demo_title">Demo</string>
+    <string name="imei_permission">To get IMEI，needs permission: READ_PHONE_STATE.</string>
 </resources>
