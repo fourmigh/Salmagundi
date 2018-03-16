@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.view.animation.Animation
 import org.caojun.library.Constant
 import org.caojun.library.R
 import org.caojun.library.utils.RandomUtils
@@ -77,7 +76,7 @@ class DiceActivity : Activity() {
         }
     }
 
-    fun doGif() {
+    private fun doGif() {
         handler.sendMessage(Message.obtain())
     }
 }

@@ -1,2 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.caojun.library" />
+    package="org.caojun.library" >
+
+    <application android:allowBackup="true">
+
+        <activity
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
+            android:name=".activity.DiceActivity" />
+    </application>
+</manifest>
