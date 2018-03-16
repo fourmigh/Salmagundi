@@ -14,7 +14,10 @@ object DeviceUtils {
     fun getImei(context: Context): String {
         val tm = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            return tm.imei
+            try {
+                return tm.imei
+            } catch (e: SecurityException) {
+            }
         }
         @Suppress("DEPRECATION")
         return tm.deviceId
