@@ -27,7 +27,7 @@ class ExpressListActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stickylist)
 
-        listView.setOnItemClickListener { adapterView, view, i, l ->
+        listView.setOnItemClickListener { _, _, i, _ ->
             doSelect(i)
         }
     }

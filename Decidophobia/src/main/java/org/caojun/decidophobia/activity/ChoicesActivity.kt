@@ -21,11 +21,10 @@ import org.caojun.decidophobia.R
 import org.caojun.decidophobia.bmob.BOptions
 import org.caojun.decidophobia.ormlite.Options
 import org.caojun.decidophobia.utils.OptionsUtils
-import org.caojun.library.Constant
-import org.caojun.library.activity.DiceActivity
-import org.caojun.library.utils.RandomUtils
+import org.caojun.library.dice.Constant
+import org.caojun.library.dice.activity.DiceActivity
+import org.caojun.library.dice.utils.RandomUtils
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.startActivity
 import rx.Subscriber
 import org.jetbrains.anko.startActivityForResult
 

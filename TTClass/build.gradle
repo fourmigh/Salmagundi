@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-//apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 26
@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId "org.caojun.ttclass"
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0.0"
     }

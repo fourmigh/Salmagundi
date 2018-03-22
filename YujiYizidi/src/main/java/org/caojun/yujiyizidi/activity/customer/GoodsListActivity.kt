@@ -38,7 +38,7 @@ class GoodsListActivity : AppCompatActivity() {
 
         title = customer?.name
 
-        listView.setOnItemClickListener { adapterView, view, i, l ->
+        listView.setOnItemClickListener { _, _, i, _ ->
             startActivity<GoodsBuyActivity>(Constant.Key_Goods to list[i]/*, Constant.Key_Customer to customer*/)
         }
 

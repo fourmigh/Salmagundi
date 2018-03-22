@@ -38,7 +38,7 @@ class SOrderListActivity : Activity() {
 
         title = customer?.name
 
-        listView.setOnItemClickListener { adapterView, view, i, l ->
+        listView.setOnItemClickListener { _, _, i, _ ->
             gotoOrderDetail(i)
         }
 

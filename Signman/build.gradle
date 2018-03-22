@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 26
     buildToolsVersion "$buildTools_version"
@@ -43,4 +45,5 @@ dependencies {
     implementation "com.luhuiguo:chinese-utils:latest.release"
     implementation "com.github.zhaokaiqiang.klog:library:latest.release"
     implementation "org.jetbrains.anko:anko-common:latest.release"
+    implementation project(':UtilsLibrary')
 }

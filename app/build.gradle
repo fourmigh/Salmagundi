@@ -22,6 +22,10 @@ android {
                 arguments = [moduleName: project.getName()]
             }
         }
+        multiDexEnabled true
+    }
+    packagingOptions {//More than one file was found with OS independent path 'META-INF/rxjava.properties'
+        pickFirst 'META-INF/*'
     }
     buildTypes {
         release {
@@ -61,7 +65,7 @@ dependencies {
     implementation 'commons-lang:commons-lang:latest.release'
     implementation 'commons-codec:commons-codec:latest.release'
     implementation 'io.reactivex:rxandroid:latest.release'
-    implementation 'io.reactivex:rxjava:latest.release'
+//    implementation 'io.reactivex:rxjava:latest.release'
     implementation 'com.maksim88:PasswordEditText:latest.release'
     implementation 'com.j256.ormlite:ormlite-android:latest.release'
     implementation 'se.emilsjolander:stickylistheaders:latest.release'
@@ -73,12 +77,14 @@ dependencies {
     implementation project(':VelocimeterLibrary')
     implementation 'org.jetbrains.anko:anko-common:latest.release'
     implementation 'com.android.support.constraint:constraint-layout:latest.release'
-    implementation project(':MultiImageSelectorLibrary')
-    implementation project(':CropImageLibrary')
+//    implementation project(':MultiImageSelectorLibrary')
+//    implementation project(':CropImageLibrary')
     implementation project(':WidgetLibrary')
-    implementation 'com.github.bumptech.glide:glide:latest.release'
+//    implementation 'com.github.bumptech.glide:glide:latest.release'
     implementation project(':UtilsLibrary')
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.0'
 }
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }

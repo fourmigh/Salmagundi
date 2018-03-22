@@ -37,4 +37,5 @@ dependencies {
     implementation "com.luhuiguo:chinese-utils:latest.release"
     implementation "com.google.android.gms:play-services-ads:latest.release"
     implementation project(':DiceLibrary')
+    implementation 'com.github.zhaokaiqiang.klog:library:latest.release'
 }

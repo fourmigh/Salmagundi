@@ -38,7 +38,7 @@ class AppAdapter: BaseAdapter {
             view = LayoutInflater.from(context).inflate(R.layout.item_app, null)
             holder = ViewHolder()
             holder.tvName = view.findViewById(R.id.tvName)
-            holder.tbSign = view.findViewById(R.id.tbSign)
+            holder.tbSign = view.findViewById(R.id.tbSign) as ToggleButton
             holder.btnSign = view.findViewById(R.id.btnSign)
             view.tag = holder
         } else {

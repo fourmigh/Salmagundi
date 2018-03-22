@@ -33,7 +33,7 @@ class SCustomerListActivity : AppCompatActivity() {
 
         doReadCustomerList(false)
 
-        listView.setOnItemClickListener { adapterView, view, i, l ->
+        listView.setOnItemClickListener { _, _, i, _ ->
             Constant.customer = list[i]
             startActivityForResult<CustomerDetailActivity>(REQUEST_CUSTOMER/*, Constant.Key_Customer to list[i]*/)
         }

@@ -3,6 +3,8 @@ package org.caojun.decibelman
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
+import android.text.TextUtils
+import com.socks.library.KLog
 //import com.socks.library.KLog
 import org.caojun.decibelman.activity.MainActivity
 import org.jetbrains.anko.doAsync
@@ -62,7 +64,9 @@ class Decibelman {
                     val mean = v / r.toDouble()
                     val volume = 10 * Math.log10(mean)
                     uiThread {
-                        listener?.onGetDecibel(volume)
+                        if (volume.toString().indexOf(".") > 0) {
+                            listener?.onGetDecibel(volume)
+                        }
                     }
                     // 大概一秒十次
                     synchronized(this) {

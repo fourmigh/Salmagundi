@@ -2,7 +2,7 @@ package org.caojun.rcn.utils
 
 import android.content.Context
 import com.luhuiguo.chinese.ChineseUtils
-import org.caojun.library.utils.RandomUtils
+import org.caojun.library.dice.utils.RandomUtils
 import org.caojun.rcn.R
 import java.util.Locale
 import java.util.Random

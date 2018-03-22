@@ -4,7 +4,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <org.caojun.library.widget.VelocimeterView
+    <org.caojun.library.velocimeter.widget.VelocimeterView
         android:layout_gravity="center"
         android:id="@+id/velocimeterView"
         android:layout_width="match_parent"

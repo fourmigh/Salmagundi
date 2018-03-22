@@ -62,10 +62,18 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
+		create();
+	}
+
+	public void create() {
 		if (mCamera != null) {
 			return;
 		}
-		mCamera = Camera.open();// 开启摄像头（2.3版本后支持多摄像头,需传入参数）
+		try {
+			mCamera = Camera.open();// 开启摄像头（2.3版本后支持多摄像头,需传入参数）
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		imageEngine = new ImageUtilEngine();
 		try {
 			mCamera.setPreviewDisplay(mSurfaceHolder);// 设置预览
@@ -92,7 +100,7 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 	/**
 	 * 初始化Camera
 	 */
-	private void initCamera()// surfaceChanged中调用
+	public void initCamera()// surfaceChanged中调用
 	{
 		if (null != mCamera) {
 			mCamera.stopPreview();// stopCamera();

@@ -1,10 +1,9 @@
 package org.caojun.decibelman.activity
 
 import android.preference.PreferenceManager
-import android.support.v7.app.AppCompatActivity
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.SaveListener
-//import com.socks.library.KLog
+import org.caojun.activity.BaseAppCompatActivity
 import org.caojun.decibelman.Constant
 import org.caojun.decibelman.R
 import org.caojun.decibelman.room.DIBmob
@@ -17,7 +16,7 @@ import java.util.Date
 /**
  * Created by CaoJun on 2017/9/25.
  */
-open class BaseActivity: AppCompatActivity() {
+open class BaseActivity: BaseAppCompatActivity() {
 
     interface OnDatabaseListener {
         fun onSuccess()

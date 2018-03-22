@@ -1,10 +1,8 @@
 package org.caojun.morseman
 
-import android.hardware.Camera
 import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.InputType
 import android.text.TextUtils
@@ -14,19 +12,18 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_camera.*
 import kotlinx.android.synthetic.main.layout_morsecode.*
 import kotlinx.android.synthetic.main.layout_translate.*
+import org.caojun.activity.BaseAppCompatActivity
 import org.caojun.morseman.adapter.MorseCodeAdapter
 import org.caojun.morseman.listener.OnColorStatusChange
-import org.caojun.morseman.utils.ActivityUtils
-import org.caojun.morseman.utils.FlashUtils
+import org.caojun.morseman.utils.FlashlightUtils
 import org.caojun.morseman.utils.MorseUtils
 import org.caojun.morseman.utils.ViewUtils
 import org.caojun.morseman.widget.MorseKeyboard
-import org.jetbrains.anko.alert
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.lang.Thread.sleep
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseAppCompatActivity() {
 
     private var isMorseShowing = false
     private var isScreen = false
@@ -38,9 +35,10 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_camera -> {
-                if (initSystemCamera()) {
-                    showCamera()
-                }
+//                if (initSystemCamera()) {
+//                    showCamera()
+//                }
+                doShowCamera()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_help -> {
@@ -185,13 +183,14 @@ class MainActivity : AppCompatActivity() {
         })
 
         btnFlashlight.setOnClickListener({
-            if (initSystemCamera()) {
-                isScreen = false
-                startShowMorse()
-                btnScreen.isEnabled = true
-                btnStop.isEnabled = true
-                btnFlashlight.isEnabled = false
-            }
+            doSartShowMorse()
+//            if (initSystemCamera()) {
+//                isScreen = false
+//                startShowMorse()
+//                btnScreen.isEnabled = true
+//                btnStop.isEnabled = true
+//                btnFlashlight.isEnabled = false
+//            }
         })
 
         btnStop.setOnClickListener({
@@ -247,7 +246,7 @@ class MainActivity : AppCompatActivity() {
                                 if (isScreen) {
                                     ViewUtils.on(container)
                                 } else {
-                                    FlashUtils.on(this@MainActivity)
+                                    FlashlightUtils.on(this@MainActivity)
                                 }
                             }
                             sleep(MorseUtils.Time)
@@ -257,7 +256,7 @@ class MainActivity : AppCompatActivity() {
                                 if (isScreen) {
                                     ViewUtils.on(container)
                                 } else {
-                                    FlashUtils.on(this@MainActivity)
+                                    FlashlightUtils.on(this@MainActivity)
                                 }
                             }
                             sleep(MorseUtils.Time * 3)
@@ -267,7 +266,7 @@ class MainActivity : AppCompatActivity() {
                                 if (isScreen) {
                                     ViewUtils.off(container)
                                 } else {
-                                    FlashUtils.off(this@MainActivity)
+                                    FlashlightUtils.off(this@MainActivity)
                                 }
                             }
                             when (byteArray[i]) {
@@ -291,36 +290,51 @@ class MainActivity : AppCompatActivity() {
             if (!isMorseShowing) {
                 uiThread {
                     container.setBackgroundColor(0x00ffffff)
-                    FlashUtils.off(this@MainActivity)
+                    FlashlightUtils.off(this@MainActivity)
                 }
             }
         }
     }
 
-    private fun initSystemCamera(): Boolean {
-        if (FlashUtils.camera != null) {
-            return true
-        }
-        try {
-            FlashUtils.camera = Camera.open()
-            return true
-        } catch (e: Exception) {
-            askCameraPermission()
-            return false
-        }
+//    private fun initSystemCamera(): Boolean {
+//        if (FlashUtils.camera != null) {
+//            return true
+//        }
+//        try {
+//            FlashUtils.camera = Camera.open()
+//            return true
+//        } catch (e: Exception) {
+//            askCameraPermission()
+//            return false
+//        }
+//    }
+
+    private fun doShowCamera() {
+        FlashlightUtils.init(this, object : BaseAppCompatActivity.RequestPermissionListener {
+            override fun onSuccess() {
+                if (FlashlightUtils.initCamera()) {
+                    showCamera()
+                }
+            }
+
+            override fun onFail() {
+            }
+        })
     }
 
-    private fun askCameraPermission() {
-        alert(R.string.ask_camera_permission) {
-            positiveButton(android.R.string.ok) {
-                ActivityUtils.gotoPermission(this@MainActivity)
+    private fun doSartShowMorse() {
+        FlashlightUtils.releaseCamera()
+        FlashlightUtils.init(this, object : BaseAppCompatActivity.RequestPermissionListener {
+            override fun onSuccess() {
+                isScreen = false
+                startShowMorse()
+                btnScreen.isEnabled = true
+                btnStop.isEnabled = true
+                btnFlashlight.isEnabled = false
             }
-            negativeButton(R.string.quit) {
-                finish()
+
+            override fun onFail() {
             }
-            onCancelled {
-                finish()
-            }
-        }.show()
+        })
     }
 }

@@ -7,7 +7,7 @@ import android.os.Bundle
 import com.hys.utils.FileUtils
 import com.hys.utils.ImageUtils
 import kotlinx.android.synthetic.main.activity_sign_list.*
-import org.caojun.library.activity.MomentsActivity
+import org.caojun.library.moments.activity.MomentsActivity
 import org.caojun.ttclass.Constant
 import org.caojun.ttclass.R
 import org.caojun.ttclass.Utilities

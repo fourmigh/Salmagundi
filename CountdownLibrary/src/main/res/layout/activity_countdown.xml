@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.CountdownActivity">
+    tools:context=".countdown.activity.CountdownActivity">
 
-    <org.caojun.widget.CountdownMovie
+    <org.caojun.library.countdown.widget.CountdownMovie
         android:id="@+id/countdownMovie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

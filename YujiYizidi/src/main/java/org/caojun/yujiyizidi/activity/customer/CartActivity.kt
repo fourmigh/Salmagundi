@@ -35,7 +35,7 @@ class CartActivity : AppCompatActivity() {
 
         btnAdd.setText(R.string.btn_buy)
 
-        listView.setOnItemClickListener { adapterView, view, i, l ->
+        listView.setOnItemClickListener { _, _, i, _ ->
             doAsync {
                 val goods = YZDDatabase.getDatabase(this@CartActivity).getGoods().query(customer!!.cart[i].idGoods)
                 uiThread {

@@ -11,8 +11,8 @@ import android.view.LayoutInflater
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_goods_detail.*
 import kotlinx.android.synthetic.main.dialog_stock.view.*
-import org.caojun.library.MultiImageSelector
-import org.caojun.library.MultiImageSelectorActivity
+import org.caojun.library.miselector.MultiImageSelector
+import org.caojun.library.miselector.moments.activity.MultiImageSelectorActivity
 import org.caojun.ttschulte.Constant
 import org.caojun.yujiyizidi.R
 import org.caojun.yujiyizidi.room.Goods

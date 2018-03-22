@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.caojun.library.view.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<org.caojun.library.miselector.moments.view.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <org.caojun.library.view.SquaredImageView
@@ -25,4 +25,4 @@
         android:layout_height="wrap_content"
         android:src="@drawable/mis_btn_unselected"/>
 
-</org.caojun.library.view.SquareFrameLayout>
+</org.caojun.library.miselector.moments.view.SquareFrameLayout>

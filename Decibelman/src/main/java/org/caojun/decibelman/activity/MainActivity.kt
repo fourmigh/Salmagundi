@@ -1,5 +1,6 @@
 package org.caojun.decibelman.activity
 
+import android.Manifest
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -19,7 +20,7 @@ import org.jetbrains.anko.startActivity
 import java.util.Date
 import org.caojun.decibelman.utils.ActivityUtils
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -28,7 +29,16 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_map -> {
-                doMapFragment()
+//                doMapFragment()
+                this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION, object : RequestPermissionListener {
+                    override fun onSuccess() {
+                        doMapFragment()
+                    }
+
+                    override fun onFail() {
+                        //finish()
+                    }
+                })
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -40,6 +50,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         initDecibelInfoDatabase()
+
+        this.checkSelfPermission(Manifest.permission.RECORD_AUDIO, object : RequestPermissionListener {
+            override fun onSuccess() {
+
+            }
+
+            override fun onFail() {
+                finish()
+            }
+        })
     }
 
     private fun setFragment(/*hide: Fragment, */show: Fragment) {

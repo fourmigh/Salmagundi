@@ -33,7 +33,7 @@ class SGoodsListActivity : AppCompatActivity() {
 
         doReadGoodsList(false)
 
-        listView.setOnItemClickListener { adapterView, view, i, l ->
+        listView.setOnItemClickListener { _, _, i, _ ->
             startActivityForResult<GoodsDetailActivity>(REQUEST_GOODS, Constant.Key_Goods to list[i])
         }
 

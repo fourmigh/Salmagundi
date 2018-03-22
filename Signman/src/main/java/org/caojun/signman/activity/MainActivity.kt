@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         tvTips.visibility = View.GONE
 
-        listView.setOnItemClickListener({ parent, view, position, id -> doListViewItemClick(position) })
+        listView.setOnItemClickListener({ _, _, position, _ -> doListViewItemClick(position) })
 
         btnAppList.setOnClickListener({
             gotoSetupApps()

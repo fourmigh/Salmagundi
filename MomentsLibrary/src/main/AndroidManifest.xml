@@ -1,19 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.caojun.library" >
+    package="org.caojun.library.moments" >
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application android:allowBackup="true">
 
         <activity
             android:configChanges="orientation|screenSize"
-            android:name="org.caojun.library.activity.MomentsActivity" />
+            android:name=".activity.MomentsActivity" />
 
         <activity
             android:configChanges="orientation|screenSize"
-            android:name="org.caojun.library.activity.GalleryActivity" />
+            android:name=".activity.GalleryActivity" />
 
         <activity
             android:configChanges="orientation|screenSize"
-            android:name="org.caojun.library.activity.MultiImageSelectorActivity" />
+            android:name=".activity.MultiImageSelectorActivity" />
     </application>
 </manifest>

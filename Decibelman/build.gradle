@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 26
     buildToolsVersion "$buildTools_version"
@@ -9,8 +11,8 @@ android {
         applicationId "org.caojun.decibelman"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 2
-        versionName "1.1.0"
+        versionCode 3
+        versionName "1.2.0"
 
         vectorDrawables.useSupportLibrary = true
     }
@@ -43,23 +45,22 @@ dependencies {
     implementation "com.android.support:support-vector-drawable:$androidsupport_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation project(':VelocimeterLibrary')
-    implementation "com.github.zhaokaiqiang.klog:library:latest.release"
-    implementation "org.jetbrains.anko:anko-common:latest.release"
+    implementation 'com.github.zhaokaiqiang.klog:library:latest.release'
+    implementation 'org.jetbrains.anko:anko-common:latest.release'
     implementation "android.arch.persistence.room:runtime:$googleroom_version"
     implementation "android.arch.lifecycle:extensions:$googleroom_version"
     annotationProcessor "android.arch.lifecycle:compiler:$googleroom_version"
     kapt "android.arch.persistence.room:compiler:$googleroom_version"
     //BMOB
-//    implementation "io.reactivex:rxjava:latest.release"
-//    implementation "com.google.code.gson:gson:latest.release"
-//    implementation "io.reactivex:rxandroid:latest.release"
-//    implementation "com.squareup.okio:okio:latest.release"
-
+    //    implementation "io.reactivex:rxjava:latest.release"
+    //    implementation "com.google.code.gson:gson:latest.release"
+    //    implementation "io.reactivex:rxandroid:latest.release"
+    //    implementation "com.squareup.okio:okio:latest.release"
     repositories {
         maven { url "https://jitpack.io" }
         maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
     }
-    implementation "com.github.PhilJay:MPAndroidChart:latest.release"
-
-    implementation "cn.bmob.android:bmob-sdk:3.5.8"
+    implementation 'com.github.PhilJay:MPAndroidChart:latest.release'
+    implementation 'cn.bmob.android:bmob-sdk:3.5.8'
+    implementation project(':UtilsLibrary')
 }

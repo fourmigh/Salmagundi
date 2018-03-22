@@ -3,7 +3,7 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal">
 
-    <org.caojun.library.CropImageView
+    <org.caojun.library.cropimage.CropImageView
         android:id="@+id/cropImageView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

@@ -21,7 +21,7 @@ import android.view.animation.AnimationUtils
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.SaveListener
 import kotlinx.android.synthetic.main.activity_schulte.*
-import org.caojun.library.activity.CountdownActivity
+import org.caojun.library.countdown.activity.CountdownActivity
 import org.caojun.ttschulte.Constant
 import org.caojun.ttschulte.room.Score
 import org.caojun.ttschulte.room.ScoreBmob

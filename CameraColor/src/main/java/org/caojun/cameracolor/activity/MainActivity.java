@@ -1,5 +1,6 @@
 package org.caojun.cameracolor.activity;
 
+import android.Manifest;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,13 +10,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.alibaba.android.arouter.launcher.ARouter;
+
+import org.caojun.activity.BaseActivity;
 import org.caojun.cameracolor.Constant;
 import org.caojun.cameracolor.R;
 import org.caojun.cameracolor.listener.OnColorStatusChange;
 import org.caojun.cameracolor.utils.ColorUtils;
 import org.caojun.cameracolor.widget.CameraView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
 //    private LinearLayout llRoot;
 //    private TextureView mTextureView;
@@ -132,6 +135,20 @@ public class MainActivity extends AppCompatActivity {
                 tvHEX.setText(getString(R.string.color_hex, HEX));
 
                 ivColor.setBackgroundColor(color);
+            }
+        });
+
+        this.checkSelfPermission(Manifest.permission.CAMERA, new RequestPermissionListener() {
+
+            @Override
+            public void onFail() {
+                finish();
+            }
+
+            @Override
+            public void onSuccess() {
+                cameraView.create();
+                cameraView.initCamera();
             }
         });
     }

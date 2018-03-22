@@ -19,8 +19,8 @@ import com.google.android.gms.ads.reward.RewardedVideoAdListener
 import org.caojun.rcn.utils.ChineseNameUtils
 import org.caojun.rcn.utils.DiaryUtils
 import com.google.android.gms.ads.InterstitialAd
-import org.caojun.library.Constant
-import org.caojun.library.activity.DiceActivity
+import org.caojun.library.dice.Constant
+import org.caojun.library.dice.activity.DiceActivity
 import org.caojun.rcn.R
 import org.caojun.rcn.ormlite.Diary
 import org.caojun.rcn.utils.TimeUtils
@@ -270,6 +270,9 @@ class MainActivity : AppCompatActivity(), RewardedVideoAdListener {
     }
 
     override fun onRewardedVideoAdLeftApplication() {
+    }
+
+    override fun onRewardedVideoCompleted() {
     }
 
     override fun onRewardedVideoAdLoaded() {

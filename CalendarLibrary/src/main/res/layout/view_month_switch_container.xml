@@ -4,17 +4,17 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <org.caojun.library.monthswitchpager.view.MonthSwitchTextView
+    <org.caojun.library.calendar.monthswitchpager.view.MonthSwitchTextView
         android:id="@+id/monthSwitchTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <org.caojun.library.widget.WeekLabelView
+    <org.caojun.library.calendar.widget.WeekLabelView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white" />
 
-    <org.caojun.library.monthswitchpager.view.MonthRecyclerView
+    <org.caojun.library.calendar.monthswitchpager.view.MonthRecyclerView
         android:id="@+id/monthRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

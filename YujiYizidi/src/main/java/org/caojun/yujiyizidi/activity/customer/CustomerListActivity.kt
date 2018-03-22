@@ -28,7 +28,7 @@ class CustomerListActivity : Activity() {
 
         doReadCustomerList()
 
-        listView.setOnItemClickListener { adapterView, view, i, l ->
+        listView.setOnItemClickListener { _, _, i, _ ->
             Constant.customer = list[i]
             startActivity<GoodsListActivity>(/*Constant.Key_Customer to list[i]*/)
         }

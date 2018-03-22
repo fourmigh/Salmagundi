@@ -6,7 +6,7 @@
     android:background="@color/velocimeter_background"
     android:orientation="horizontal">
 
-    <org.caojun.library.widget.VelocimeterView
+    <org.caojun.library.velocimeter.widget.VelocimeterView
         android:id="@+id/velocimeterView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

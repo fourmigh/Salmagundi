@@ -8,12 +8,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <org.caojun.library.widget.WeekLabelView
+        <org.caojun.library.calendar.widget.WeekLabelView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white" />
 
-        <org.caojun.library.expandcalendar.view.ExpandMonthRecyclerView
+        <org.caojun.library.calendar.expandcalendar.view.ExpandMonthRecyclerView
             android:id="@+id/expandMonthRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_expand_view_min_height"
