@@ -11,7 +11,7 @@ interface BillDao {
     @Query("SELECT * FROM bill")
     fun queryAll(): List<Bill>
 
-    @Query("SELECT * FROM bill WHERE idClass = :arg0")
+    @Query("SELECT * FROM bill WHERE idClass = :idClass")
     fun query(idClass: Int): List<Bill>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

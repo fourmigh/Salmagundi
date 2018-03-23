@@ -7,7 +7,7 @@ import android.arch.persistence.room.*
  */
 @Dao
 interface OrderGoodsDao {
-    @Query("SELECT * FROM ordergoods WHERE idOrder = :arg0")
+    @Query("SELECT * FROM ordergoods WHERE idOrder = :idOrder")
     fun query(idOrder: Int): List<OrderGoods>
 
     @Insert

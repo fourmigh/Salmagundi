@@ -10,7 +10,7 @@ interface OrderDao {
     @Query("SELECT * FROM orderform")
     fun query(): List<Order>
 
-    @Query("SELECT * FROM orderform WHERE idCustomer = :arg0")
+    @Query("SELECT * FROM orderform WHERE idCustomer = :idCustomer")
     fun query(idCustomer: Int): List<Order>
 
     @Insert

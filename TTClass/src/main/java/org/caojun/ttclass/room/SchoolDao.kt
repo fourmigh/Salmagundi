@@ -11,7 +11,7 @@ interface SchoolDao {
     @Query("SELECT * FROM school")
     fun queryAll(): List<School>
 
-    @Query("SELECT * FROM school WHERE id = :arg0")
+    @Query("SELECT * FROM school WHERE id = :idSchool")
     fun query(idSchool: Int): School
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

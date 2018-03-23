@@ -7,10 +7,10 @@ import android.arch.persistence.room.*
  */
 @Dao
 interface ScoreDao {
-    @Query("SELECT * FROM score WHERE layout = :arg0 and type = :arg1 ORDER BY score")
+    @Query("SELECT * FROM score WHERE layout = :layout and type = :type ORDER BY score")
     fun query(layout: Int, type: Int): List<Score>
 
-    @Query("SELECT * FROM score WHERE layout = :arg0 and type = :arg1 ORDER BY id")
+    @Query("SELECT * FROM score WHERE layout = :layout and type = :type ORDER BY id")
     fun queryAll(layout: Int, type: Int): List<Score>
 
     @Insert

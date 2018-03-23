@@ -11,7 +11,7 @@ interface SignDao {
     @Query("SELECT * FROM sign")
     fun queryAll(): List<Sign>
 
-    @Query("SELECT * FROM sign WHERE idClass = :arg0")
+    @Query("SELECT * FROM sign WHERE idClass = :idClass")
     fun query(idClass: Int): List<Sign>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
