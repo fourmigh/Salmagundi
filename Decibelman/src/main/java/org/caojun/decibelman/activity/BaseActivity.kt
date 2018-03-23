@@ -31,6 +31,9 @@ open class BaseActivity: BaseAppCompatActivity() {
     fun getDecibelInfos(): List<DecibelInfo> = DecibelInfoDatabase.getDatabase(this).getDao().queryAll()
 
     fun alertSaveDecibelInfo() {
+        if (Constant.min.toString().indexOf(".") < 0 || Constant.max.toString().indexOf(".") < 0 || Constant.average.toString().indexOf(".") < 0) {
+            return
+        }
         val settings = PreferenceManager.getDefaultSharedPreferences(this)
         if (settings.getBoolean(getString(R.string.key_show_confirm_dialog), true)) {
             alert(R.string.alert_save_data) {
