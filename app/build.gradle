@@ -11,12 +11,12 @@ android {
             storePassword 'zhuwenxuan'
         }
     }
-    compileSdkVersion 26
-    buildToolsVersion "$buildTools_version"
+    compileSdkVersion rootProject.ext.sdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         applicationId "org.caojun.salmagundi"
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion rootProject.ext.sdkVersion
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [moduleName: project.getName()]

@@ -2,14 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 android {
-    compileSdkVersion 26
-    buildToolsVersion "$buildTools_version"
-
+    compileSdkVersion rootProject.ext.sdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "org.caojun.morseman"
         minSdkVersion 14
-        targetSdkVersion 26
+        targetSdkVersion rootProject.ext.sdkVersion
         versionCode 2
         versionName "1.1.0"
 

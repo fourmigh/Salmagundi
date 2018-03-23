@@ -11,7 +11,8 @@ buildscript {
         kotlin_version = "latest.release"
         androidsupport_version = "26.1.0"
         googleroom_version = "1.0.0-alpha9"
-        buildTools_version = "26.0.2"
+        buildToolsVersion = "26.0.2"
+        sdkVersion = 26
     }
     repositories {
         jcenter()
@@ -36,7 +37,7 @@ allprojects {
             resolutionStrategy.eachDependency { details ->
                 if (details.requested.group == 'com.android.support'
                         && !details.requested.name.contains('multidex') ) {
-                    details.useVersion "$buildTools_version"
+                    details.useVersion rootProject.ext.buildToolsVersion
                 }
             }
         }

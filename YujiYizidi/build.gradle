@@ -4,14 +4,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "$buildTools_version"
-
+    compileSdkVersion rootProject.ext.sdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "org.caojun.yujiyizidi"
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion rootProject.ext.sdkVersion
         versionCode 1
         versionName "1.0.0"
 
