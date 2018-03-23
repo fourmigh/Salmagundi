@@ -1,16 +1,15 @@
 package org.caojun.cameracolor.activity;
 
-import android.Manifest;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.alibaba.android.arouter.launcher.ARouter;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import org.caojun.activity.BaseActivity;
 import org.caojun.cameracolor.Constant;
 import org.caojun.cameracolor.R;
@@ -18,6 +17,7 @@ import org.caojun.cameracolor.listener.OnColorStatusChange;
 import org.caojun.cameracolor.utils.ColorUtils;
 import org.caojun.cameracolor.widget.CameraView;
 
+@Route(path = Constant.ACTIVITY_MAIN)
 public class MainActivity extends BaseActivity {
 
 //    private LinearLayout llRoot;
@@ -138,19 +138,19 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        this.checkSelfPermission(Manifest.permission.CAMERA, new RequestPermissionListener() {
-
-            @Override
-            public void onFail() {
-                finish();
-            }
-
-            @Override
-            public void onSuccess() {
-                cameraView.create();
-                cameraView.initCamera();
-            }
-        });
+//        this.checkSelfPermission(Manifest.permission.CAMERA, new RequestPermissionListener() {
+//
+//            @Override
+//            public void onFail() {
+//                finish();
+//            }
+//
+//            @Override
+//            public void onSuccess() {
+//                cameraView.create();
+//                cameraView.initCamera();
+//            }
+//        });
     }
 
     @Override

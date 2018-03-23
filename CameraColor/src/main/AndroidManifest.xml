@@ -14,13 +14,15 @@
         android:roundIcon="@drawable/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.MainActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".activity.RGB2HSVActivity"
             android:windowSoftInputMode="stateHidden"
             android:label="@string/rgb2hsv_title"/>
