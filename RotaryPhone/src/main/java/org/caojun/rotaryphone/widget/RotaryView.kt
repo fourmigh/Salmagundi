@@ -1,13 +1,11 @@
 package org.caojun.rotaryphone.widget
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
-import android.R.attr.centerY
-import android.graphics.Bitmap
+import android.graphics.*
+import android.view.MotionEvent
+import com.socks.library.KLog
 
 
 class RotaryView: View {
@@ -15,9 +13,11 @@ class RotaryView: View {
     val RadiusNumber = 100f//数字键半径
     val Angle0 = 150
     val AngleInterval = 24
-    private var angle0 = Angle0
+    val TextSize = 50f
+    private var degree = 0f
     private val Numbers = arrayOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "*", "#")
     private var bitmapRotary: Bitmap? = null
+    private var matrixRotary = Matrix()
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -54,7 +54,8 @@ class RotaryView: View {
             canvas.drawText(Numbers[i], x.toFloat(), baseLineY.toFloat(), p)
         }
 
-        canvas.drawBitmap(bitmapRotary, 0f, 0f, null)
+        matrix.postRotate(degree % 360, x0, y0);
+        canvas.drawBitmap(bitmapRotary, matrixRotary, null)
     }
 
     private fun toRadians(angel: Int): Double {
@@ -82,7 +83,7 @@ class RotaryView: View {
 
         p.color = Color.RED
         for (i in 0 until Numbers.size) {
-            val angle = angle0 - AngleInterval * i
+            val angle = Angle0 - AngleInterval * i
             val radians = toRadians(angle)
             val x = x0 - (r - RadiusNumber) * Math.cos(radians)
             val y = y0 - (r - RadiusNumber) * Math.sin(radians)
@@ -111,5 +112,54 @@ class RotaryView: View {
 
         return bmp
 
+    }
+
+    private fun getTouchNumber(x: Float, y: Float): String? {
+        val p = Paint().apply {
+            textSize = TextSize
+            textAlign = Paint.Align.CENTER
+        }
+        val x0 = width.toFloat() / 2
+        val y0 = height.toFloat() / 2
+        val r = Math.min(width, height).toFloat() / 2
+        val square = 2.toDouble()
+
+        for (i in 0 until Numbers.size) {
+            val angle = Angle0 - AngleInterval * i
+            val radians = toRadians(angle)
+            val x1 = x0 - (r - RadiusNumber) * Math.cos(radians)
+            val y2 = y0 - (r - RadiusNumber) * Math.sin(radians)
+            val fontMetrics = p.fontMetrics
+            val top = fontMetrics.top//为基线到字体上边框的距离,即上图中的top
+            val bottom = fontMetrics.bottom//为基线到字体下边框的距离,即上图中的bottom
+            val y1 = y2 - top / 2 - bottom / 2//基线中间点的y轴计算公式
+
+            if (Math.pow(x1 - x, square) + Math.pow(y1 - y, square) <= Math.pow(RadiusNumber.toDouble(), square)) {
+                return Numbers[i]
+            }
+        }
+        return null
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        if (degree != 0f) {
+            return super.onTouchEvent(event)
+        }
+        when (event?.action) {
+            MotionEvent.ACTION_DOWN -> {
+                val number = getTouchNumber(event.x, event.y)
+                KLog.d("onTouchEvent", "ACTION_DOWN: " + number)
+                return true
+            }
+            MotionEvent.ACTION_UP -> {
+                return true
+            }
+            MotionEvent.ACTION_MOVE -> {
+                return true
+            }
+            else -> {
+                return true
+            }
+        }
     }
 }
