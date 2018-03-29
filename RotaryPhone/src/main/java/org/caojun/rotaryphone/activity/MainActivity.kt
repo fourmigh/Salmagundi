@@ -1,7 +1,8 @@
-package org.caojun.rotaryphone
+package org.caojun.rotaryphone.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import org.caojun.rotaryphone.R
 
 class MainActivity : AppCompatActivity() {
 
