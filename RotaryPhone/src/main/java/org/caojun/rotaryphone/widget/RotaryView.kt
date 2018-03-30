@@ -6,7 +6,6 @@ import android.view.View
 import android.graphics.*
 import android.text.TextUtils
 import android.view.MotionEvent
-import com.socks.library.KLog
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -26,6 +25,18 @@ class RotaryView: View {
     private var lastRotation = 0f
     private var number: String? = null
     private var isRotating = false
+    private var listener: OnRotaryListener? = null
+
+    interface OnRotaryListener {
+        fun onDial(number: String)
+        fun onRotating()//回转
+        fun onDialing()//拨号
+        fun onStopDialing()//停止拨号
+    }
+
+    fun setOnRotaryListener(listener: OnRotaryListener) {
+        this.listener = listener
+    }
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -163,11 +174,11 @@ class RotaryView: View {
     private fun goback() {
         doAsync {
             do {
+                listener?.onRotating()
                 matrixRotary.postRotate(-0.1f, width / 2f, height / 2f)
                 uiThread {
                     invalidate()
                 }
-//                sleep(500)
                 degree -= 0.1f
             } while (degree > 0)
 
@@ -177,7 +188,10 @@ class RotaryView: View {
                 invalidate()
             }
             if (!isRotating) {
-                KLog.d("onTouchEvent", "goback.number: " + number)
+//                KLog.d("onTouchEvent", "goback.number: " + number)
+                uiThread {
+                    listener?.onDial(number!!)
+                }
             }
         }
     }
@@ -193,7 +207,6 @@ class RotaryView: View {
                 oldRotation = rotation(event)
                 downRotation = oldRotation
                 number = getTouchNumber(event.x, event.y)
-                KLog.d("onTouchEvent", "ACTION_DOWN.number: " + number)
                 return true
             }
             MotionEvent.ACTION_UP -> {
@@ -213,8 +226,10 @@ class RotaryView: View {
                 isRotating = rotation >= 0
                 if (!isRotating) {
                     //只能顺时针
+                    listener?.onStopDialing()
                     return true
                 }
+                listener?.onDialing()
                 lastRotation = current - downRotation
 
                 matrixRotary.postRotate(rotation, width / 2f, height / 2f)
