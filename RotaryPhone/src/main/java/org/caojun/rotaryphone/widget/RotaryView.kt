@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.graphics.*
+import android.text.TextUtils
 import android.view.MotionEvent
 import com.socks.library.KLog
 import org.jetbrains.anko.doAsync
@@ -22,7 +23,9 @@ class RotaryView: View {
     private var savedMatrix = Matrix()
     private var oldRotation = 0f
     private var downRotation = 0f
+    private var lastRotation = 0f
     private var number: String? = null
+    private var isRotating = false
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -153,7 +156,8 @@ class RotaryView: View {
         val deltaX = event.x - x0
         val deltaY = event.y - y0
         val radians = Math.atan2(deltaY, deltaX)
-        return Math.toDegrees(radians).toFloat()
+        val degrees = Math.toDegrees(radians).toFloat()
+        return if (degrees < 0) degrees + 360 else degrees
     }
 
     private fun goback() {
@@ -168,7 +172,13 @@ class RotaryView: View {
             } while (degree > 0)
 
             degree = 0f
-            KLog.d("goback", "number: " + number)
+            matrixRotary.set(savedMatrix)
+            uiThread {
+                invalidate()
+            }
+            if (!isRotating) {
+                KLog.d("onTouchEvent", "goback.number: " + number)
+            }
         }
     }
 
@@ -178,15 +188,16 @@ class RotaryView: View {
         }
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
+                isRotating = true
                 savedMatrix.set(matrix)
                 oldRotation = rotation(event)
                 downRotation = oldRotation
                 number = getTouchNumber(event.x, event.y)
-                KLog.d("onTouchEvent", "number: " + number)
+                KLog.d("onTouchEvent", "ACTION_DOWN.number: " + number)
                 return true
             }
             MotionEvent.ACTION_UP -> {
-                degree = rotation(event) - downRotation
+                degree = lastRotation
                 if (degree < 0) {
                     degree += 360
                 }
@@ -194,10 +205,21 @@ class RotaryView: View {
                 return true
             }
             MotionEvent.ACTION_MOVE -> {
-                val rotation = rotation(event) - oldRotation
+                if (TextUtils.isEmpty(number)) {
+                    return true
+                }
+                val current = rotation(event)
+                val rotation = current - oldRotation
+                isRotating = rotation >= 0
+                if (!isRotating) {
+                    //只能顺时针
+                    return true
+                }
+                lastRotation = current - downRotation
+
                 matrixRotary.postRotate(rotation, width / 2f, height / 2f)
                 invalidate()
-                oldRotation = rotation(event)
+                oldRotation = current
                 return true
             }
             else -> {
