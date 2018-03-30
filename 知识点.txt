@@ -56,3 +56,5 @@
 56、拍照、选择图片：工程MultiImageSelectorLibrary
 57、裁剪图片：工程CropImageLibrary
 58、圆形ImageView：工程WidgetLibrary（CircleImageView）
+59、图片选择（56+57）：工程app（CropImageActivity）
+60、图片中局部区域透明：工程RotaryPhone（RotaryView）

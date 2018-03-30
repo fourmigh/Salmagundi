@@ -8,8 +8,6 @@ import android.view.MotionEvent
 import com.socks.library.KLog
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
-import java.lang.Thread.sleep
-
 
 class RotaryView: View {
 
