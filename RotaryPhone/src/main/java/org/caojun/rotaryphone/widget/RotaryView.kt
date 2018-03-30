@@ -11,7 +11,6 @@ import org.jetbrains.anko.uiThread
 
 class RotaryView: View {
 
-    val RadiusNumber = 100f//数字键半径
     val Angle0 = 150
     val AngleInterval = 24
     val TextSize = 50f
@@ -26,6 +25,10 @@ class RotaryView: View {
     private var number: String? = null
     private var isRotating = false
     private var listener: OnRotaryListener? = null
+    private var radiusNumber = 0f//数字键半径
+    private var x0 = 0f
+    private var y0 = 0f
+    private var R = 0f
 
     interface OnRotaryListener {
         fun onDial(number: String)
@@ -57,15 +60,12 @@ class RotaryView: View {
             //该方法即为设置基线上那个点究竟是left,center,还是right  这里我设置为center
             textAlign = Paint.Align.CENTER
         }
-        val x0 = width.toFloat() / 2
-        val y0 = height.toFloat() / 2
-        val r = Math.min(width, height).toFloat() / 2
 
         for (i in 0 until Numbers.size) {
             val angle = Angle0 - AngleInterval * i
             val radians = toRadians(angle)
-            val x = x0 - (r - RadiusNumber) * Math.cos(radians)
-            val y = y0 - (r - RadiusNumber) * Math.sin(radians)
+            val x = x0 - (3 * R / 4) * Math.cos(radians)
+            val y = y0 - (3 * R / 4) * Math.sin(radians)
             val fontMetrics = p.fontMetrics
             val top = fontMetrics.top//为基线到字体上边框的距离,即上图中的top
             val bottom = fontMetrics.bottom//为基线到字体下边框的距离,即上图中的bottom
@@ -91,21 +91,24 @@ class RotaryView: View {
             // 设置画笔的锯齿效果
             isAntiAlias = true
         }
-        val x0 = width.toFloat() / 2
-        val y0 = height.toFloat() / 2
-        val r = Math.min(width, height).toFloat() / 2
+        //计算圆心坐标、半径
+        x0 = width.toFloat() / 2
+        y0 = height.toFloat() / 2
+        R = Math.min(width, height).toFloat() / 2
+        radiusNumber = R / 6
+
         canvas.drawCircle(x0, y0, Math.min(width, height).toFloat() / 2, p)
 
         p.color = Color.WHITE
-        canvas.drawCircle(x0, y0, r - RadiusNumber * 2, p)
+        canvas.drawCircle(x0, y0, R / 2, p)
 
         p.color = Color.RED
         for (i in 0 until Numbers.size) {
             val angle = Angle0 - AngleInterval * i
             val radians = toRadians(angle)
-            val x = x0 - (r - RadiusNumber) * Math.cos(radians)
-            val y = y0 - (r - RadiusNumber) * Math.sin(radians)
-            canvas.drawCircle(x.toFloat(), y.toFloat(), RadiusNumber - 20, p)
+            val x = x0 - (3 * R / 4) * Math.cos(radians)
+            val y = y0 - (3 * R / 4) * Math.sin(radians)
+            canvas.drawCircle(x.toFloat(), y.toFloat(), radiusNumber - 10, p)
         }
     }
 
@@ -137,22 +140,19 @@ class RotaryView: View {
             textSize = TextSize
             textAlign = Paint.Align.CENTER
         }
-        val x0 = width / 2f
-        val y0 = height / 2f
-        val r = Math.min(width, height) / 2f
         val square = 2.toDouble()
 
         for (i in 0 until Numbers.size) {
             val angle = Angle0 - AngleInterval * i
             val radians = toRadians(angle)
-            val x1 = x0 - (r - RadiusNumber) * Math.cos(radians)
-            val y2 = y0 - (r - RadiusNumber) * Math.sin(radians)
+            val x1 = x0 - (3 * R / 4) * Math.cos(radians)
+            val y2 = y0 - (3 * R / 4) * Math.sin(radians)
             val fontMetrics = p.fontMetrics
             val top = fontMetrics.top//为基线到字体上边框的距离,即上图中的top
             val bottom = fontMetrics.bottom//为基线到字体下边框的距离,即上图中的bottom
             val y1 = y2 - top / 2 - bottom / 2//基线中间点的y轴计算公式
 
-            if (Math.pow(x1 - x, square) + Math.pow(y1 - y, square) <= Math.pow(RadiusNumber.toDouble(), square)) {
+            if (Math.pow(x1 - x, square) + Math.pow(y1 - y, square) <= Math.pow(radiusNumber.toDouble(), square)) {
                 return Numbers[i]
             }
         }

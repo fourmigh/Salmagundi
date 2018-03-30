@@ -33,4 +33,10 @@ dependencies {
     implementation 'com.github.zhaokaiqiang.klog:library:latest.release'
     implementation 'org.jetbrains.anko:anko-common:latest.release'
     implementation project(':UtilsLibrary')
+    implementation project(':WidgetLibrary')
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.0'
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
 }
