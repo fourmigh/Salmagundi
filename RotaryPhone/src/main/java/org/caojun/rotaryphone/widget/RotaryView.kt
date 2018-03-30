@@ -73,7 +73,6 @@ class RotaryView: View {
             canvas.drawText(Numbers[i], x.toFloat(), baseLineY.toFloat(), p)
         }
 
-//        matrix.postRotate(degree % 360, x0, y0)
         canvas.drawBitmap(bitmapRotary, matrixRotary, null)
     }
 

@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         rotaryView.setOnRotaryListener(object : RotaryView.OnRotaryListener {
             override fun onDial(number: String) {
                 val text = tvNumbers.text.toString() + number
-                tvNumbers.setText(text)
+                tvNumbers.text = text
             }
 
             override fun onRotating() {
