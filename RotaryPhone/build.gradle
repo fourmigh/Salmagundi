@@ -31,4 +31,5 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$androidsupport_version"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.github.zhaokaiqiang.klog:library:latest.release'
+    implementation 'org.jetbrains.anko:anko-common:latest.release'
 }

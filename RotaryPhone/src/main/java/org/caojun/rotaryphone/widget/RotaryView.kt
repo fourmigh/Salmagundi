@@ -6,6 +6,9 @@ import android.view.View
 import android.graphics.*
 import android.view.MotionEvent
 import com.socks.library.KLog
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
+import java.lang.Thread.sleep
 
 
 class RotaryView: View {
@@ -18,6 +21,10 @@ class RotaryView: View {
     private val Numbers = arrayOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "*", "#")
     private var bitmapRotary: Bitmap? = null
     private var matrixRotary = Matrix()
+    private var savedMatrix = Matrix()
+    private var oldRotation = 0f
+    private var downRotation = 0f
+    private var number: String? = null
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -54,7 +61,7 @@ class RotaryView: View {
             canvas.drawText(Numbers[i], x.toFloat(), baseLineY.toFloat(), p)
         }
 
-        matrix.postRotate(degree % 360, x0, y0);
+//        matrix.postRotate(degree % 360, x0, y0)
         canvas.drawBitmap(bitmapRotary, matrixRotary, null)
     }
 
@@ -119,9 +126,9 @@ class RotaryView: View {
             textSize = TextSize
             textAlign = Paint.Align.CENTER
         }
-        val x0 = width.toFloat() / 2
-        val y0 = height.toFloat() / 2
-        val r = Math.min(width, height).toFloat() / 2
+        val x0 = width / 2f
+        val y0 = height / 2f
+        val r = Math.min(width, height) / 2f
         val square = 2.toDouble()
 
         for (i in 0 until Numbers.size) {
@@ -141,20 +148,58 @@ class RotaryView: View {
         return null
     }
 
+    // 取旋转角度
+    private fun rotation(event: MotionEvent): Float {
+        val x0 = width / 2.toDouble()
+        val y0 = height / 2.toDouble()
+        val deltaX = event.x - x0
+        val deltaY = event.y - y0
+        val radians = Math.atan2(deltaY, deltaX)
+        return Math.toDegrees(radians).toFloat()
+    }
+
+    private fun goback() {
+        doAsync {
+            do {
+                matrixRotary.postRotate(-0.1f, width / 2f, height / 2f)
+                uiThread {
+                    invalidate()
+                }
+//                sleep(500)
+                degree -= 0.1f
+            } while (degree > 0)
+
+            degree = 0f
+            KLog.d("goback", "number: " + number)
+        }
+    }
+
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         if (degree != 0f) {
             return super.onTouchEvent(event)
         }
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
-                val number = getTouchNumber(event.x, event.y)
-                KLog.d("onTouchEvent", "ACTION_DOWN: " + number)
+                savedMatrix.set(matrix)
+                oldRotation = rotation(event)
+                downRotation = oldRotation
+                number = getTouchNumber(event.x, event.y)
+                KLog.d("onTouchEvent", "number: " + number)
                 return true
             }
             MotionEvent.ACTION_UP -> {
+                degree = rotation(event) - downRotation
+                if (degree < 0) {
+                    degree += 360
+                }
+                goback()
                 return true
             }
             MotionEvent.ACTION_MOVE -> {
+                val rotation = rotation(event) - oldRotation
+                matrixRotary.postRotate(rotation, width / 2f, height / 2f)
+                invalidate()
+                oldRotation = rotation(event)
                 return true
             }
             else -> {
