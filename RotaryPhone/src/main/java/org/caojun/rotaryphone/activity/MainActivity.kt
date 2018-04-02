@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import com.socks.library.KLog
 import kotlinx.android.synthetic.main.activity_main.*
 import org.caojun.rotaryphone.R
 import org.caojun.rotaryphone.widget.RotaryView
@@ -18,13 +17,14 @@ import com.bumptech.glide.Glide
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
-import com.luck.picture.lib.tools.PictureFileUtils
+import org.caojun.utils.DataStorageUtils
 
 
 class MainActivity : BaseAppCompatActivity() {
 
     private val Request_Select_Picture = 1
     private val SEPARATOR = "，"
+    private val ImageData = "ImageData"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,15 +92,21 @@ class MainActivity : BaseAppCompatActivity() {
                     // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+                    val path: String
                     if (selectList[0].isCut) {
-                        Glide.with(this).load(selectList[0].cutPath).into(circleImageView)
+                        path = selectList[0].cutPath
+//                        Glide.with(this).load(selectList[0].cutPath).into(circleImageView)
                     } else if (selectList[0].isCompressed) {
-                        Glide.with(this).load(selectList[0].compressPath).into(circleImageView)
+                        path = selectList[0].compressPath
+//                        Glide.with(this).load(selectList[0].compressPath).into(circleImageView)
                     } else {
-                        Glide.with(this).load(selectList[0].path).into(circleImageView)
+                        path = selectList[0].path
+//                        Glide.with(this).load(selectList[0].path).into(circleImageView)
                     }
+                    Glide.with(this).load(path).into(circleImageView)
+                    DataStorageUtils.saveString(this@MainActivity, ImageData, path)
                     //包括裁剪和压缩后的缓存，要在上传成功后调用，注意：需要系统sd卡权限
-                    PictureFileUtils.deleteCacheDirFile(this)
+//                    PictureFileUtils.deleteCacheDirFile(this)
                     return
                 }
             }
@@ -112,10 +118,16 @@ class MainActivity : BaseAppCompatActivity() {
         super.onResume()
         rotaryView.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
+
                 val params = circleImageView.layoutParams as RelativeLayout.LayoutParams
                 params.width = Math.min(rotaryView.width, rotaryView.height) / 2 - 30
                 params.height = params.width
                 circleImageView.layoutParams = params
+
+                val path = DataStorageUtils.loadString(this@MainActivity, ImageData, "")
+                if (!TextUtils.isEmpty(path)) {
+                    Glide.with(this@MainActivity).load(path).into(circleImageView)
+                }
             }
         })
 

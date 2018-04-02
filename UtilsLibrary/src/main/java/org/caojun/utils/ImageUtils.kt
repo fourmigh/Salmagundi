@@ -39,4 +39,17 @@ object ImageUtils {
         }
         return BitmapFactory.decodeByteArray(data, 0, data.size)
     }
+
+    fun toBitmap(path: String): Bitmap? {
+        try {
+            return BitmapFactory.decodeFile(path)
+        } catch (e: Exception) {
+            return null
+        }
+    }
+
+    fun toByteArray(path: String): ByteArray? {
+        val bitmap = toBitmap(path)
+        return toByteArray(bitmap)
+    }
 }
