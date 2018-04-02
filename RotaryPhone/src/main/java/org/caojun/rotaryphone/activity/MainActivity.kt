@@ -38,15 +38,15 @@ class MainActivity : BaseAppCompatActivity() {
             }
 
             override fun onRotating() {
-                KLog.d("OnRotaryListener", "onRotating")
+//                KLog.d("OnRotaryListener", "onRotating")
             }
 
             override fun onDialing() {
-                KLog.d("OnRotaryListener", "onDialing")
+//                KLog.d("OnRotaryListener", "onDialing")
             }
 
             override fun onStopDialing() {
-                KLog.d("OnRotaryListener", "onStopDialing")
+//                KLog.d("OnRotaryListener", "onStopDialing")
             }
         })
 
@@ -113,8 +113,8 @@ class MainActivity : BaseAppCompatActivity() {
         rotaryView.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 val params = circleImageView.layoutParams as RelativeLayout.LayoutParams
-                params.width = rotaryView.width / 2
-                params.height = rotaryView.height / 2
+                params.width = Math.min(rotaryView.width, rotaryView.height) / 2 - 30
+                params.height = params.width
                 circleImageView.layoutParams = params
             }
         })
