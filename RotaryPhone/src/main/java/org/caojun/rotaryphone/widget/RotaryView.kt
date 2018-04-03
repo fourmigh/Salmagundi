@@ -8,13 +8,18 @@ import android.text.TextUtils
 import android.view.MotionEvent
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import android.graphics.Bitmap
 
 class RotaryView: View {
 
-    val Angle0 = 150
-    val AngleInterval = 24
-    val TextSize = 50f
-    private var degree = 0f
+    private val Angle0 = 150
+    private val AngleInterval = 24
+    private val TextSize = 50f
+    private val BackgroundColor = Color.BLACK
+    private val FontColor = Color.BLACK
+    private val BitmapConfig = Bitmap.Config.ARGB_8888
+    private val TransparentColor = 0x00000000
+
     private val Numbers = arrayOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "*", "#")
     private var bitmapRotary: Bitmap? = null
     private var matrixRotary = Matrix()
@@ -28,13 +33,15 @@ class RotaryView: View {
     private var radiusNumber = 0f//数字键半径
     private var x0 = 0f
     private var y0 = 0f
-    private var R = 0f
+    private var r0 = 0f
+    private var degree = 0f
 
     interface OnRotaryListener {
         fun onDial(number: String)
         fun onRotating()//回转
         fun onDialing()//拨号
         fun onStopDialing()//停止拨号
+        fun onBackgroundClicked()//在非按键处点击
     }
 
     fun setOnRotaryListener(listener: OnRotaryListener) {
@@ -52,7 +59,7 @@ class RotaryView: View {
             bitmapRotary = transparentImage(bitmapRotary!!)
         }
         val p = Paint().apply {
-            color = Color.BLACK
+            color = FontColor
             // 设置画笔的锯齿效果
             isAntiAlias = true
             textSize = 50f
@@ -64,8 +71,8 @@ class RotaryView: View {
         for (i in 0 until Numbers.size) {
             val angle = Angle0 - AngleInterval * i
             val radians = toRadians(angle)
-            val x = x0 - (3 * R / 4) * Math.cos(radians)
-            val y = y0 - (3 * R / 4) * Math.sin(radians)
+            val x = x0 - (3 * r0 / 4) * Math.cos(radians)
+            val y = y0 - (3 * r0 / 4) * Math.sin(radians)
             val fontMetrics = p.fontMetrics
             val top = fontMetrics.top//为基线到字体上边框的距离,即上图中的top
             val bottom = fontMetrics.bottom//为基线到字体下边框的距离,即上图中的bottom
@@ -82,32 +89,32 @@ class RotaryView: View {
     }
 
     private fun drawRotary() {
-        bitmapRotary = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        bitmapRotary = Bitmap.createBitmap(width, height, BitmapConfig)
         val canvas = Canvas()
         //设置cacheCanvas将会绘制到内存中的cacheBitmap上
         canvas.setBitmap(bitmapRotary)
         val p = Paint().apply {
-            color = Color.BLACK
+            color = BackgroundColor
             // 设置画笔的锯齿效果
             isAntiAlias = true
         }
         //计算圆心坐标、半径
         x0 = width.toFloat() / 2
         y0 = height.toFloat() / 2
-        R = Math.min(width, height).toFloat() / 2
-        radiusNumber = R / 6
+        r0 = Math.min(width, height).toFloat() / 2
+        radiusNumber = r0 / 6
 
         canvas.drawCircle(x0, y0, Math.min(width, height).toFloat() / 2, p)
 
         p.color = Color.WHITE
-        canvas.drawCircle(x0, y0, R / 2, p)
+        canvas.drawCircle(x0, y0, r0 / 2, p)
 
         p.color = Color.RED
         for (i in 0 until Numbers.size) {
             val angle = Angle0 - AngleInterval * i
             val radians = toRadians(angle)
-            val x = x0 - (3 * R / 4) * Math.cos(radians)
-            val y = y0 - (3 * R / 4) * Math.sin(radians)
+            val x = x0 - (3 * r0 / 4) * Math.cos(radians)
+            val y = y0 - (3 * r0 / 4) * Math.sin(radians)
             canvas.drawCircle(x.toFloat(), y.toFloat(), radiusNumber - 10, p)
         }
     }
@@ -119,14 +126,11 @@ class RotaryView: View {
         bmp.getPixels(bmpPixel, 0, imageWidth, 0, 0, imageWidth, imageHeigth)
 
         for (i in 0 until imageWidth * imageHeigth) {
-//            if (m_BmpPixel[i] and 0x00ffffff == 0x00ff0000) {
-//                m_BmpPixel[i] = 0x00000000
-//            }
             val color = bmpPixel[i] and 0x00ffffff
-            if (color == 0x00ffffff || color == 0x00000000) {
+            if (color == BackgroundColor || color == TransparentColor) {
                 continue
             }
-            bmpPixel[i] = 0x00000000
+            bmpPixel[i] = TransparentColor
         }
 
         bmp.setPixels(bmpPixel, 0, imageWidth, 0, 0, imageWidth, imageHeigth)
@@ -140,31 +144,34 @@ class RotaryView: View {
             textSize = TextSize
             textAlign = Paint.Align.CENTER
         }
-        val square = 2.toDouble()
 
         for (i in 0 until Numbers.size) {
             val angle = Angle0 - AngleInterval * i
             val radians = toRadians(angle)
-            val x1 = x0 - (3 * R / 4) * Math.cos(radians)
-            val y2 = y0 - (3 * R / 4) * Math.sin(radians)
+            val x1 = x0 - (3 * r0 / 4) * Math.cos(radians)
+            val y2 = y0 - (3 * r0 / 4) * Math.sin(radians)
             val fontMetrics = p.fontMetrics
             val top = fontMetrics.top//为基线到字体上边框的距离,即上图中的top
             val bottom = fontMetrics.bottom//为基线到字体下边框的距离,即上图中的bottom
             val y1 = y2 - top / 2 - bottom / 2//基线中间点的y轴计算公式
 
-            if (Math.pow(x1 - x, square) + Math.pow(y1 - y, square) <= Math.pow(radiusNumber.toDouble(), square)) {
+            if (isInCircular(x1, y1, x.toDouble(), y.toDouble(), radiusNumber.toDouble())) {
                 return Numbers[i]
             }
         }
         return null
     }
 
+    //是否在圆内
+    private fun isInCircular(x0: Double, y0: Double, x1: Double, y1: Double, radius: Double): Boolean {
+        val square = 2.toDouble()
+        return Math.pow(x1 - x0, square) + Math.pow(y1 - y0, square) <= Math.pow(radius, square)
+    }
+
     // 取旋转角度
     private fun rotation(event: MotionEvent): Float {
-        val x0 = width / 2.toDouble()
-        val y0 = height / 2.toDouble()
-        val deltaX = event.x - x0
-        val deltaY = event.y - y0
+        val deltaX = event.x - x0.toDouble()
+        val deltaY = event.y - y0.toDouble()
         val radians = Math.atan2(deltaY, deltaX)
         val degrees = Math.toDegrees(radians).toFloat()
         return if (degrees < 0) degrees + 360 else degrees
@@ -187,7 +194,6 @@ class RotaryView: View {
                 invalidate()
             }
             if (!isRotating) {
-//                KLog.d("onTouchEvent", "goback.number: " + number)
                 uiThread {
                     listener?.onDial(number!!)
                 }
@@ -209,11 +215,18 @@ class RotaryView: View {
                 return true
             }
             MotionEvent.ACTION_UP -> {
-                degree = lastRotation
-                if (degree < 0) {
-                    degree += 360
+                if (TextUtils.isEmpty(number)) {
+                    //点击在非按键处
+                    if (isInCircular(x0.toDouble(), event.x.toDouble(), y0.toDouble(), event.y.toDouble(), r0.toDouble())) {
+                        listener?.onBackgroundClicked()
+                    }
+                } else {
+                    degree = lastRotation
+                    if (degree < 0) {
+                        degree += 360
+                    }
+                    goback()
                 }
-                goback()
                 return true
             }
             MotionEvent.ACTION_MOVE -> {
@@ -240,5 +253,40 @@ class RotaryView: View {
                 return true
             }
         }
+    }
+
+    fun setMaskImage(picture: Bitmap) {
+        doAsync {
+            doMaskImage(picture)
+        }
+    }
+    //蒙板
+    private fun doMaskImage(picture: Bitmap) {
+        if (bitmapRotary == null) {
+            return
+        }
+
+        val w = bitmapRotary!!.width
+        val h = bitmapRotary!!.height
+        var picBitmap = picture
+        if (picBitmap.width != w || picBitmap.height != h) {
+            picBitmap = Bitmap.createScaledBitmap(picBitmap, w, h, false)
+        }
+
+        //前置相片添加蒙板效果
+        val picPixels = IntArray(w * h)
+        val maskPixels = IntArray(w * h)
+        picBitmap.getPixels(picPixels, 0, w, 0, 0, w, h)
+        bitmapRotary!!.getPixels(maskPixels, 0, w, 0, 0, w, h)
+        for (i in maskPixels.indices) {
+            if (maskPixels[i] == BackgroundColor) {
+                continue
+            }
+            picPixels[i] = picPixels[i] and -0x1000000
+            picPixels[i] = -0x1000000 - picPixels[i]
+        }
+
+        bitmapRotary!!.setPixels(picPixels, 0, w, 0, 0, w, h)
+        invalidate()
     }
 }

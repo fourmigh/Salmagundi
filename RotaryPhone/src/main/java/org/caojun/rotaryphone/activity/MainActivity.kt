@@ -18,13 +18,16 @@ import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
 import org.caojun.utils.DataStorageUtils
+import org.caojun.utils.ImageUtils
 
 
 class MainActivity : BaseAppCompatActivity() {
 
     private val Request_Select_Picture = 1
+    private val Request_Select_Background = 2
     private val SEPARATOR = "，"
     private val ImageData = "ImageData"
+    private val BackgroundData = "BackgroundData"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +50,25 @@ class MainActivity : BaseAppCompatActivity() {
 
             override fun onStopDialing() {
 //                KLog.d("OnRotaryListener", "onStopDialing")
+            }
+
+            override fun onBackgroundClicked() {
+                PictureSelector.create(this@MainActivity)
+                        .openGallery(PictureMimeType.ofAll())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+                        .selectionMode(PictureConfig.SINGLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
+                        .isCamera(true)// 是否显示拍照按钮 true or false
+                        .imageFormat(PictureMimeType.PNG)// 拍照保存图片格式后缀,默认jpeg
+                        .enableCrop(true)// 是否裁剪 true or false
+                        .withAspectRatio(1, 1)// int 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
+                        .freeStyleCropEnabled(true)// 裁剪框是否可拖拽 true or false
+                        .circleDimmedLayer(true)// 是否圆形裁剪 true or false
+                        .showCropFrame(false)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false   true or false
+                        .showCropGrid(false)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false    true or false
+                        .previewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
+                        .cropWH(300, 300)// 裁剪宽高比，设置如果大于图片本身宽高则无效 int
+                        .rotateEnabled(true) // 裁剪是否可旋转图片 true or false
+                        .scaleEnabled(true)// 裁剪是否可放大缩小图片 true or false
+                        .forResult(Request_Select_Background)//结果回调onActivityResult code
             }
         })
 
@@ -85,6 +107,23 @@ class MainActivity : BaseAppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && data != null) {
             when (requestCode) {
+                Request_Select_Background -> {
+                    val selectList = PictureSelector.obtainMultipleResult(data)
+                    val path: String
+                    if (selectList[0].isCut) {
+                        path = selectList[0].cutPath
+                    } else if (selectList[0].isCompressed) {
+                        path = selectList[0].compressPath
+                    } else {
+                        path = selectList[0].path
+                    }
+                    val mask = ImageUtils.toBitmap(path)
+                    if (mask != null) {
+                        rotaryView.setMaskImage(mask)
+                    }
+                    DataStorageUtils.saveString(this@MainActivity, BackgroundData, path)
+                    return
+                }
                 Request_Select_Picture -> {
                     val selectList = PictureSelector.obtainMultipleResult(data)
                     // 例如 LocalMedia 里面返回三种path
@@ -95,13 +134,10 @@ class MainActivity : BaseAppCompatActivity() {
                     val path: String
                     if (selectList[0].isCut) {
                         path = selectList[0].cutPath
-//                        Glide.with(this).load(selectList[0].cutPath).into(circleImageView)
                     } else if (selectList[0].isCompressed) {
                         path = selectList[0].compressPath
-//                        Glide.with(this).load(selectList[0].compressPath).into(circleImageView)
                     } else {
                         path = selectList[0].path
-//                        Glide.with(this).load(selectList[0].path).into(circleImageView)
                     }
                     Glide.with(this).load(path).into(circleImageView)
                     DataStorageUtils.saveString(this@MainActivity, ImageData, path)
