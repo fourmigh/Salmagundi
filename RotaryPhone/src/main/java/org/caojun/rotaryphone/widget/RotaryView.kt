@@ -225,7 +225,8 @@ class RotaryView: View {
             MotionEvent.ACTION_UP -> {
                 if (TextUtils.isEmpty(number)) {
                     //点击在非按键处
-                    if (isInCircular(x0.toDouble(), event.x.toDouble(), y0.toDouble(), event.y.toDouble(), r0.toDouble())) {
+                    val current = rotation(event)
+                    if (Math.abs(current - downRotation) < 10 && isInCircular(x0.toDouble(), event.x.toDouble(), y0.toDouble(), event.y.toDouble(), r0.toDouble())) {
                         listener?.onBackgroundClicked()
                     }
                 } else {
