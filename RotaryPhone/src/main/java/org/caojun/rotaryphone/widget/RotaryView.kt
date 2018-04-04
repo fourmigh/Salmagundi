@@ -9,6 +9,9 @@ import android.view.MotionEvent
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import android.graphics.Bitmap
+import org.caojun.rotaryphone.activity.MainActivity
+import org.caojun.utils.DataStorageUtils
+import org.caojun.utils.ImageUtils
 
 class RotaryView: View {
 
@@ -35,6 +38,7 @@ class RotaryView: View {
     private var y0 = 0f
     private var r0 = 0f
     private var degree = 0f
+    private var maskPixels: IntArray? = null
 
     interface OnRotaryListener {
         fun onDial(number: String)
@@ -57,6 +61,10 @@ class RotaryView: View {
         if (bitmapRotary == null) {
             drawRotary()
             bitmapRotary = transparentImage(bitmapRotary!!)
+            val path = DataStorageUtils.loadString(context, MainActivity.BackgroundData, "")
+            if (!TextUtils.isEmpty(path)) {
+                setMaskImage(path)
+            }
         }
         val p = Paint().apply {
             color = FontColor
@@ -255,11 +263,18 @@ class RotaryView: View {
         }
     }
 
-    fun setMaskImage(picture: Bitmap) {
+    fun setMaskImage(path: String) {
         doAsync {
-            doMaskImage(picture)
+            val mask = ImageUtils.toBitmap(path)
+            if (mask != null) {
+                doMaskImage(mask)
+                uiThread {
+                    invalidate()
+                }
+            }
         }
     }
+
     //蒙板
     private fun doMaskImage(picture: Bitmap) {
         if (bitmapRotary == null) {
@@ -275,11 +290,14 @@ class RotaryView: View {
 
         //前置相片添加蒙板效果
         val picPixels = IntArray(w * h)
-        val maskPixels = IntArray(w * h)
+        if (maskPixels == null) {
+            maskPixels = IntArray(w * h)
+            bitmapRotary!!.getPixels(maskPixels, 0, w, 0, 0, w, h)
+        }
         picBitmap.getPixels(picPixels, 0, w, 0, 0, w, h)
-        bitmapRotary!!.getPixels(maskPixels, 0, w, 0, 0, w, h)
-        for (i in maskPixels.indices) {
-            if (maskPixels[i] == BackgroundColor) {
+
+        for (i in maskPixels!!.indices) {
+            if (maskPixels!![i] == BackgroundColor) {
                 continue
             }
             picPixels[i] = picPixels[i] and -0x1000000
@@ -287,6 +305,5 @@ class RotaryView: View {
         }
 
         bitmapRotary!!.setPixels(picPixels, 0, w, 0, 0, w, h)
-        invalidate()
     }
 }

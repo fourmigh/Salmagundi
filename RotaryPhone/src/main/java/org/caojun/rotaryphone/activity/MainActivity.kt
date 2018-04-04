@@ -18,7 +18,6 @@ import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
 import org.caojun.utils.DataStorageUtils
-import org.caojun.utils.ImageUtils
 
 
 class MainActivity : BaseAppCompatActivity() {
@@ -27,7 +26,9 @@ class MainActivity : BaseAppCompatActivity() {
     private val Request_Select_Background = 2
     private val SEPARATOR = "，"
     private val ImageData = "ImageData"
-    private val BackgroundData = "BackgroundData"
+    companion object {
+        val BackgroundData = "BackgroundData"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,10 +118,7 @@ class MainActivity : BaseAppCompatActivity() {
                     } else {
                         path = selectList[0].path
                     }
-                    val mask = ImageUtils.toBitmap(path)
-                    if (mask != null) {
-                        rotaryView.setMaskImage(mask)
-                    }
+                    rotaryView.setMaskImage(path)
                     DataStorageUtils.saveString(this@MainActivity, BackgroundData, path)
                     return
                 }
@@ -152,21 +150,27 @@ class MainActivity : BaseAppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        var isOnGlobalLayout = true
         rotaryView.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
+
+                if (isOnGlobalLayout) {
+                    isOnGlobalLayout = false
+                } else {
+                    return
+                }
 
                 val params = circleImageView.layoutParams as RelativeLayout.LayoutParams
                 params.width = Math.min(rotaryView.width, rotaryView.height) / 2 - 30
                 params.height = params.width
                 circleImageView.layoutParams = params
 
-                val path = DataStorageUtils.loadString(this@MainActivity, ImageData, "")
+                var path = DataStorageUtils.loadString(this@MainActivity, ImageData, "")
                 if (!TextUtils.isEmpty(path)) {
                     Glide.with(this@MainActivity).load(path).into(circleImageView)
                 }
             }
         })
-
     }
 
     private fun getPhoneContacts(): List<String> {
