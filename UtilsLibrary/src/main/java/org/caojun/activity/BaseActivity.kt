@@ -2,8 +2,11 @@ package org.caojun.activity
 
 import android.Manifest
 import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
+import android.provider.Settings
 import android.support.v4.app.ActivityCompat
 
 /**
@@ -40,5 +43,13 @@ open class BaseActivity : Activity() {
 
     fun getIMEI(listener: RequestPermissionListener) {
         checkSelfPermission(Manifest.permission.READ_PHONE_STATE, listener)
+    }
+
+    fun gotoPermission() {
+        val intent = Intent()
+        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+        val uri = Uri.fromParts("package", packageName, null)
+        intent.data = uri
+        startActivity(intent)
     }
 }
