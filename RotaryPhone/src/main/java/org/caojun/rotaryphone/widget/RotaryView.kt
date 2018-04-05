@@ -12,9 +12,11 @@ import android.graphics.Bitmap
 import org.caojun.rotaryphone.activity.MainActivity
 import org.caojun.utils.DataStorageUtils
 import org.caojun.utils.ImageUtils
+import java.lang.Thread.sleep
 
-class RotaryView: View {
+class RotaryView : View {
 
+    private val AngleStop = 15
     private val Angle0 = 150
     private val AngleInterval = 24
     private val TextSize = 50f
@@ -31,7 +33,8 @@ class RotaryView: View {
     private var downRotation = 0f
     private var lastRotation = 0f
     private var number: String? = null
-    private var isRotating = false
+    private var isRotating = false//在正向旋转
+    private var isGobacking = false//在自动回转
     private var listener: OnRotaryListener? = null
     private var radiusNumber = 0f//数字键半径
     private var x0 = 0f
@@ -185,9 +188,28 @@ class RotaryView: View {
         return if (degrees < 0) degrees + 360 else degrees
     }
 
-    private fun goback() {
+    private fun doGoBack(dial: Boolean) {
+        degree = lastRotation
+        if (degree < 0) {
+            degree += 360
+        }
+        goBack(dial)
+    }
+
+    private fun goBack(dial: Boolean) {
+        if (isGobacking) {
+            return
+        }
+        var num: String? = null
+        if (dial) {
+            num = number!!
+        }
+        isGobacking = true
         doAsync {
             do {
+                if (dial) {
+                    sleep(1)
+                }
                 listener?.onRotating()
                 matrixRotary.postRotate(-0.1f, width / 2f, height / 2f)
                 uiThread {
@@ -201,21 +223,25 @@ class RotaryView: View {
             uiThread {
                 invalidate()
             }
-            if (!isRotating) {
+            if (dial) {
                 uiThread {
-                    listener?.onDial(number!!)
+                    listener?.onDial(num!!)
                 }
             }
+            number = null
+            isGobacking = false
+
         }
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        if (degree != 0f) {
+        if (degree != 0f || isGobacking) {
             return super.onTouchEvent(event)
         }
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 isRotating = true
+                isGobacking = false
                 savedMatrix.set(matrix)
                 oldRotation = rotation(event)
                 downRotation = oldRotation
@@ -230,11 +256,7 @@ class RotaryView: View {
                         listener?.onBackgroundClicked()
                     }
                 } else {
-                    degree = lastRotation
-                    if (degree < 0) {
-                        degree += 360
-                    }
-                    goback()
+                    doGoBack(false)
                 }
                 return true
             }
@@ -242,15 +264,19 @@ class RotaryView: View {
                 if (TextUtils.isEmpty(number)) {
                     return true
                 }
-                val current = rotation(event)
+                if (isRotaryEnd(event)) {
+                    doGoBack(true)
+                    listener?.onStopDialing()
+                    return true
+                }
+                var current = rotation(event)
+                if (current <= AngleStop) {
+                    current += 360
+                }
                 val rotation = current - oldRotation
                 isRotating = rotation >= 0
                 if (!isRotating) {
                     //只能顺时针
-//                    listener?.onStopDialing()
-                    if (isRotaryEnd(event)) {
-                        listener?.onStopDialing()
-                    }
                     return true
                 }
                 listener?.onDialing()
@@ -311,9 +337,10 @@ class RotaryView: View {
         bitmapRotary!!.setPixels(picPixels, 0, w, 0, 0, w, h)
     }
 
+    //是否转到目标位置
     private fun isRotaryEnd(event: MotionEvent): Boolean {
-        val angle = Angle0 + AngleInterval * 2
-        val radians = toRadians(angle)
+        val angle = Angle0 + AngleInterval * 2.5
+        val radians = toRadians(angle.toInt())
         val x = x0 - (3 * r0 / 4) * Math.cos(radians)
         val y = y0 - (3 * r0 / 4) * Math.sin(radians)
         return isInCircular(x, y, event.x.toDouble(), event.y.toDouble(), radiusNumber.toDouble())
