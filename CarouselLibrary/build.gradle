@@ -21,8 +21,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$androidsupport_version"
-    implementation "com.github.zhaokaiqiang.klog:library:latest.release"
+    implementation 'com.github.zhaokaiqiang.klog:library:latest.release'
 }

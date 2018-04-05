@@ -129,11 +129,11 @@ class RotaryView: View {
 
     private fun transparentImage(bmp: Bitmap): Bitmap {
         val imageWidth = bmp.width
-        val imageHeigth = bmp.height
-        val bmpPixel = IntArray(imageWidth * imageHeigth)
-        bmp.getPixels(bmpPixel, 0, imageWidth, 0, 0, imageWidth, imageHeigth)
+        val imageHeight = bmp.height
+        val bmpPixel = IntArray(imageWidth * imageHeight)
+        bmp.getPixels(bmpPixel, 0, imageWidth, 0, 0, imageWidth, imageHeight)
 
-        for (i in 0 until imageWidth * imageHeigth) {
+        for (i in 0 until imageWidth * imageHeight) {
             val color = bmpPixel[i] and 0x00ffffff
             if (color == BackgroundColor || color == TransparentColor) {
                 continue
@@ -141,7 +141,7 @@ class RotaryView: View {
             bmpPixel[i] = TransparentColor
         }
 
-        bmp.setPixels(bmpPixel, 0, imageWidth, 0, 0, imageWidth, imageHeigth)
+        bmp.setPixels(bmpPixel, 0, imageWidth, 0, 0, imageWidth, imageHeight)
 
         return bmp
 
@@ -247,7 +247,10 @@ class RotaryView: View {
                 isRotating = rotation >= 0
                 if (!isRotating) {
                     //只能顺时针
-                    listener?.onStopDialing()
+//                    listener?.onStopDialing()
+                    if (isRotaryEnd(event)) {
+                        listener?.onStopDialing()
+                    }
                     return true
                 }
                 listener?.onDialing()
@@ -306,5 +309,13 @@ class RotaryView: View {
         }
 
         bitmapRotary!!.setPixels(picPixels, 0, w, 0, 0, w, h)
+    }
+
+    private fun isRotaryEnd(event: MotionEvent): Boolean {
+        val angle = Angle0 + AngleInterval * 2
+        val radians = toRadians(angle)
+        val x = x0 - (3 * r0 / 4) * Math.cos(radians)
+        val y = y0 - (3 * r0 / 4) * Math.sin(radians)
+        return isInCircular(x, y, event.x.toDouble(), event.y.toDouble(), radiusNumber.toDouble())
     }
 }

@@ -23,11 +23,11 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$androidsupport_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation "com.android.support:design:$androidsupport_version"
-    implementation "org.jetbrains.anko:anko-common:latest.release"
+    implementation 'org.jetbrains.anko:anko-common:latest.release'
 }
 repositories {
     mavenCentral()

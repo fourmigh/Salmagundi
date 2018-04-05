@@ -39,13 +39,13 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "se.emilsjolander:stickylistheaders:latest.release"
-    implementation "com.github.zhaokaiqiang.klog:library:latest.release"
-    implementation "com.j256.ormlite:ormlite-android:latest.release"
-    implementation "com.alibaba:arouter-api:latest.release"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'se.emilsjolander:stickylistheaders:latest.release'
+    implementation 'com.github.zhaokaiqiang.klog:library:latest.release'
+    implementation 'com.j256.ormlite:ormlite-android:latest.release'
+    implementation 'com.alibaba:arouter-api:latest.release'
     annotationProcessor "com.alibaba:arouter-compiler:latest.release"
-    implementation "com.alibaba:fastjson:latest.release"
+    implementation 'com.alibaba:fastjson:latest.release'
     implementation project(':CalendarLibrary')
     implementation "com.android.support:design:$androidsupport_version"
 }
