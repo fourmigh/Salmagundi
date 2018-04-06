@@ -265,8 +265,8 @@ class RotaryView : View {
                     return true
                 }
                 if (isRotaryEnd(event)) {
-                    doGoBack(true)
                     listener?.onStopDialing()
+                    doGoBack(true)
                     return true
                 }
                 var current = rotation(event)

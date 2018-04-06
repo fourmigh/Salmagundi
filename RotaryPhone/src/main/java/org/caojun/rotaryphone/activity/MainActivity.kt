@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
+import com.socks.library.KLog
 import org.caojun.utils.DataStorageUtils
 
 
@@ -42,15 +43,15 @@ class MainActivity : BaseAppCompatActivity() {
             }
 
             override fun onRotating() {
-//                KLog.d("OnRotaryListener", "onRotating")
+                KLog.d("OnRotaryListener", "onRotating")
             }
 
             override fun onDialing() {
-//                KLog.d("OnRotaryListener", "onDialing")
+                KLog.d("OnRotaryListener", "onDialing")
             }
 
             override fun onStopDialing() {
-//                KLog.d("OnRotaryListener", "onStopDialing")
+                KLog.d("OnRotaryListener", "onStopDialing")
             }
 
             override fun onBackgroundClicked() {
