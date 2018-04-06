@@ -2,6 +2,7 @@ package org.caojun.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Bitmap
 import android.preference.PreferenceManager
 import android.text.TextUtils
 
@@ -36,9 +37,11 @@ object DataStorageUtils {
 
     fun saveBooleanArray(context: Context, key: String, values: BooleanArray): Boolean {
         val editor = getEditor(context)
-        editor.putInt(key + ".length", values.size)
+//        editor.putInt(key + ".length", values.size)
+        editor.putInt("$key.length", values.size)
         for (i in values.indices) {
-            editor.putBoolean(key + "." + i, values[i])
+//            editor.putBoolean(key + "." + i, values[i])
+            editor.putBoolean("$key.$i", values[i])
         }
         editor.commit()
         return true
@@ -46,13 +49,15 @@ object DataStorageUtils {
 
     fun loadBooleanArray(context: Context, key: String, defValue: Boolean): Array<Boolean?>? {
         val preferences = getSharedPreferences(context)
-        val length = preferences.getInt(key + ".length", 0)
+//        val length = preferences.getInt(key + ".length", 0)
+        val length = preferences.getInt("$key.length", 0)
         if (length < 1) {
             return null
         }
         val values = arrayOfNulls<Boolean>(length)
         for (i in 0 until length) {
-            values[i] = preferences.getBoolean(key + "." + i, defValue)
+//            values[i] = preferences.getBoolean(key + "." + i, defValue)
+            values[i] = preferences.getBoolean("$key.$i", defValue)
         }
         return values
     }
@@ -71,9 +76,11 @@ object DataStorageUtils {
 
     fun saveFloatArray(context: Context, key: String, values: FloatArray): Boolean {
         val editor = getEditor(context)
-        editor.putInt(key + ".length", values.size)
+//        editor.putInt(key + ".length", values.size)
+        editor.putInt("$key.length", values.size)
         for (i in values.indices) {
-            editor.putFloat(key + "." + i, values[i])
+//            editor.putFloat(key + "." + i, values[i])
+            editor.putFloat("$key.$i", values[i])
         }
         editor.commit()
         return true
@@ -81,13 +88,15 @@ object DataStorageUtils {
 
     fun loadFloatArray(context: Context, key: String, defValue: Float): Array<Float?>? {
         val preferences = getSharedPreferences(context)
-        val length = preferences.getInt(key + ".length", 0)
+//        val length = preferences.getInt(key + ".length", 0)
+        val length = preferences.getInt("$key.length", 0)
         if (length < 1) {
             return null
         }
         val values = arrayOfNulls<Float>(length)
         for (i in 0 until length) {
-            values[i] = preferences.getFloat(key + "." + i, defValue)
+//            values[i] = preferences.getFloat(key + "." + i, defValue)
+            values[i] = preferences.getFloat("$key.$i", defValue)
         }
         return values
     }
@@ -106,9 +115,11 @@ object DataStorageUtils {
 
     fun saveIntArray(context: Context, key: String, values: IntArray): Boolean {
         val editor = getEditor(context)
-        editor.putInt(key + ".length", values.size)
+//        editor.putInt(key + ".length", values.size)
+        editor.putInt("$key.length", values.size)
         for (i in values.indices) {
-            editor.putInt(key + "." + i, values[i])
+//            editor.putInt(key + "." + i, values[i])
+            editor.putInt("$key.$i", values[i])
         }
         editor.commit()
         return true
@@ -116,9 +127,11 @@ object DataStorageUtils {
 
     fun saveIntArray(context: Context, key: String, values: Array<Int>): Boolean {
         val editor = getEditor(context)
-        editor.putInt(key + ".length", values.size)
+//        editor.putInt(key + ".length", values.size)
+        editor.putInt("$key.length", values.size)
         for (i in values.indices) {
-            editor.putInt(key + "." + i, values[i])
+//            editor.putInt(key + "." + i, values[i])
+            editor.putInt("$key.$i", values[i])
         }
         editor.commit()
         return true
@@ -126,13 +139,15 @@ object DataStorageUtils {
 
     fun loadIntArray(context: Context, key: String, defValue: Int): Array<Int?>? {
         val preferences = getSharedPreferences(context)
-        val length = preferences.getInt(key + ".length", 0)
+//        val length = preferences.getInt(key + ".length", 0)
+        val length = preferences.getInt("$key.length", 0)
         if (length < 1) {
             return null
         }
         val values = arrayOfNulls<Int>(length)
         for (i in 0 until length) {
-            values[i] = preferences.getInt(key + "." + i, defValue)
+//            values[i] = preferences.getInt(key + "." + i, defValue)
+            values[i] = preferences.getInt("$key.$i", defValue)
         }
         return values
     }
@@ -151,9 +166,11 @@ object DataStorageUtils {
 
     fun saveLongArray(context: Context, key: String, values: LongArray): Boolean {
         val editor = getEditor(context)
-        editor.putInt(key + ".length", values.size)
+//        editor.putInt(key + ".length", values.size)
+        editor.putInt("$key.length", values.size)
         for (i in values.indices) {
-            editor.putLong(key + "." + i, values[i])
+//            editor.putLong(key + "." + i, values[i])
+            editor.putLong("$key.$i", values[i])
         }
         editor.commit()
         return true
@@ -161,13 +178,15 @@ object DataStorageUtils {
 
     fun loadLongArray(context: Context, key: String, defValue: Long): Array<Long?>? {
         val preferences = getSharedPreferences(context)
-        val length = preferences.getInt(key + ".length", 0)
+//        val length = preferences.getInt(key + ".length", 0)
+        val length = preferences.getInt("$key.length", 0)
         if (length < 1) {
             return null
         }
         val values = arrayOfNulls<Long>(length)
         for (i in 0 until length) {
-            values[i] = preferences.getLong(key + "." + i, defValue)
+//            values[i] = preferences.getLong(key + "." + i, defValue)
+            values[i] = preferences.getLong("$key.$i", defValue)
         }
         return values
     }
@@ -186,9 +205,11 @@ object DataStorageUtils {
 
     fun saveStringArray(context: Context, key: String, values: Array<String>): Boolean {
         val editor = getEditor(context)
-        editor.putInt(key + ".length", values.size)
+//        editor.putInt(key + ".length", values.size)
+        editor.putInt("$key.length", values.size)
         for (i in values.indices) {
-            editor.putString(key + "." + i, values[i])
+//            editor.putString(key + "." + i, values[i])
+            editor.putString("$key.$i", values[i])
         }
         editor.commit()
         return true
@@ -196,13 +217,15 @@ object DataStorageUtils {
 
     fun loadStringArray(context: Context, key: String, defValue: String): Array<String?>? {
         val preferences = getSharedPreferences(context)
-        val length = preferences.getInt(key + ".length", 0)
+//        val length = preferences.getInt(key + ".length", 0)
+        val length = preferences.getInt("$key.length", 0)
         if (length < 1) {
             return null
         }
         val values = arrayOfNulls<String>(length)
         for (i in 0 until length) {
-            values[i] = preferences.getString(key + "." + i, defValue)
+//            values[i] = preferences.getString(key + "." + i, defValue)
+            values[i] = preferences.getString("$key.$i", defValue)
         }
         return values
     }
@@ -220,11 +243,15 @@ object DataStorageUtils {
         return java.lang.Byte.valueOf(value.toByte())
     }
 
-    fun saveByteArray(context: Context, key: String, values: ByteArray): Boolean {
+    fun saveByteArray(context: Context, key: String, values: ByteArray?): Boolean {
         val editor = getEditor(context)
-        editor.putInt(key + ".length", values.size)
-        for (i in values.indices) {
-            editor.putInt(key + "." + i, values[i].toInt())
+//        editor.putInt(key + ".length", values?.size?:0)
+        editor.putInt("$key.length", values?.size?:0)
+        if (values != null) {
+            for (i in values.indices) {
+//                editor.putInt(key + "." + i, values[i].toInt())
+                editor.putInt("$key.$i", values[i].toInt())
+            }
         }
         editor.commit()
         return true
@@ -232,15 +259,27 @@ object DataStorageUtils {
 
     fun loadByteArray(context: Context, key: String, defValue: Byte): ByteArray? {
         val preferences = getSharedPreferences(context)
-        val length = preferences.getInt(key + ".length", 0)
+//        val length = preferences.getInt(key + ".length", 0)
+        val length = preferences.getInt("$key.length", 0)
         if (length < 1) {
             return null
         }
         val values = ByteArray(length)
         for (i in 0 until length) {
-            val value = preferences.getInt(key + "." + i, defValue.toInt())
+//            val value = preferences.getInt(key + "." + i, defValue.toInt())
+            val value = preferences.getInt("$key.$i", defValue.toInt())
             values[i] = java.lang.Byte.valueOf(value.toByte())!!
         }
         return values
+    }
+
+    fun saveBitmap(context: Context, key: String, bitmap: Bitmap?): Boolean {
+        val data = ImageUtils.toByteArray(bitmap)
+        return saveByteArray(context, key, data)
+    }
+
+    fun loadBitmap(context: Context, key: String, defValue: Bitmap?): Bitmap? {
+        val data = loadByteArray(context, key, 0)
+        return ImageUtils.toBitmap(data) ?: defValue
     }
 }

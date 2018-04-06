@@ -19,6 +19,7 @@ import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
 import com.socks.library.KLog
 import org.caojun.utils.DataStorageUtils
+import org.caojun.utils.ImageUtils
 
 
 class MainActivity : BaseAppCompatActivity() {
@@ -120,7 +121,8 @@ class MainActivity : BaseAppCompatActivity() {
                         path = selectList[0].path
                     }
                     rotaryView.setMaskImage(path)
-                    DataStorageUtils.saveString(this@MainActivity, BackgroundData, path)
+//                    DataStorageUtils.saveString(this@MainActivity, BackgroundData, path)
+                    DataStorageUtils.saveBitmap(this@MainActivity, BackgroundData, ImageUtils.toBitmap(path))
                     return
                 }
                 Request_Select_Picture -> {
@@ -138,8 +140,13 @@ class MainActivity : BaseAppCompatActivity() {
                     } else {
                         path = selectList[0].path
                     }
-                    Glide.with(this).load(path).into(circleImageView)
-                    DataStorageUtils.saveString(this@MainActivity, ImageData, path)
+//                    Glide.with(this).load(path).into(circleImageView)
+//                    DataStorageUtils.saveString(this@MainActivity, ImageData, path)
+                    val image = ImageUtils.toBitmap(path)
+                    if (image != null) {
+                        Glide.with(this).load(image).into(circleImageView)
+                    }
+                    DataStorageUtils.saveBitmap(this@MainActivity, ImageData, image)
                     //包括裁剪和压缩后的缓存，要在上传成功后调用，注意：需要系统sd卡权限
 //                    PictureFileUtils.deleteCacheDirFile(this)
                     return
@@ -166,9 +173,14 @@ class MainActivity : BaseAppCompatActivity() {
                 params.height = params.width
                 circleImageView.layoutParams = params
 
-                var path = DataStorageUtils.loadString(this@MainActivity, ImageData, "")
-                if (!TextUtils.isEmpty(path)) {
-                    Glide.with(this@MainActivity).load(path).into(circleImageView)
+//                var path = DataStorageUtils.loadString(this@MainActivity, ImageData, "")
+//                if (!TextUtils.isEmpty(path)) {
+//                    Glide.with(this@MainActivity).load(path).into(circleImageView)
+//                }
+
+                val image = DataStorageUtils.loadBitmap(this@MainActivity, ImageData, null)
+                if (image != null) {
+                    Glide.with(this@MainActivity).load(image).into(circleImageView)
                 }
             }
         })

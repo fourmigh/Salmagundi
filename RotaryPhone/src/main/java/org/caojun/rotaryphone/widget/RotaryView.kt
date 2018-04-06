@@ -64,9 +64,13 @@ class RotaryView : View {
         if (bitmapRotary == null) {
             drawRotary()
             bitmapRotary = transparentImage(bitmapRotary!!)
-            val path = DataStorageUtils.loadString(context, MainActivity.BackgroundData, "")
-            if (!TextUtils.isEmpty(path)) {
-                setMaskImage(path)
+//            val path = DataStorageUtils.loadString(context, MainActivity.BackgroundData, "")
+//            if (!TextUtils.isEmpty(path)) {
+//                setMaskImage(path)
+//            }
+            val image = DataStorageUtils.loadBitmap(context, MainActivity.BackgroundData, null)
+            if (image != null) {
+                setMaskImage(image)
             }
         }
         val p = Paint().apply {
@@ -301,6 +305,15 @@ class RotaryView : View {
                 uiThread {
                     invalidate()
                 }
+            }
+        }
+    }
+
+    fun setMaskImage(mask: Bitmap) {
+        doAsync {
+            doMaskImage(mask)
+            uiThread {
+                invalidate()
             }
         }
     }
