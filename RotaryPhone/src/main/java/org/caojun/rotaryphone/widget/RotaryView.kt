@@ -209,11 +209,13 @@ class RotaryView : View {
             num = number!!
         }
         isGobacking = true
+        var isSleep = true
         doAsync {
             do {
-                if (dial) {
+                if (dial && isSleep) {
                     sleep(1)
                 }
+                isSleep = !isSleep
                 listener?.onRotating()
                 matrixRotary.postRotate(-0.1f, width / 2f, height / 2f)
                 uiThread {
