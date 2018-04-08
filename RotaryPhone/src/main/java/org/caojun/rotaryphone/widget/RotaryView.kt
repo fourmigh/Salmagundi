@@ -211,8 +211,9 @@ class RotaryView : View {
         isGobacking = true
         var isSleep = true
         doAsync {
+            val Degree = degree
             do {
-                if (dial && isSleep) {
+                if (degree >= Degree / 2 && dial && isSleep) {
                     sleep(1)
                 }
                 isSleep = !isSleep
