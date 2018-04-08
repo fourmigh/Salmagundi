@@ -11,12 +11,12 @@ import android.provider.Settings
 object ActivityUtils {
 
     fun startApplication(context: Context, packageName: String): Boolean {
-        val intent = context.packageManager.getLaunchIntentForPackage(packageName)
-        try {
+        return try {
+            val intent = context.packageManager.getLaunchIntentForPackage(packageName)
             context.startActivity(intent)
-            return true
+            true
         } catch (e: Exception) {
-            return false
+            false
         }
     }
 
