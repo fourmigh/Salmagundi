@@ -21,7 +21,8 @@ object ActivityUtils {
     }
 
     fun gotoMarket(context: Context, packageName: String) {
-        val uri = Uri.parse("market://details?id=" + packageName)
+//        val uri = Uri.parse("market://details?id=" + packageName)
+        val uri = Uri.parse("market://details?id=$packageName")
         val intent = Intent(Intent.ACTION_VIEW, uri)
         try {
             context.startActivity(intent)

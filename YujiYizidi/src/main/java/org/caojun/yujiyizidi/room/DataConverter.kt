@@ -3,10 +3,8 @@ package org.caojun.yujiyizidi.room
 import android.arch.persistence.room.TypeConverter
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import com.socks.library.KLog
-import org.caojun.utils.DrawableUtils
 import java.io.ByteArrayOutputStream
 import java.util.Date
 
