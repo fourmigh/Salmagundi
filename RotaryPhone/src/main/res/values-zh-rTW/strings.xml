@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">轉盤電話</string>
+    <string name="countdown_call">撥號倒數計時：%s秒</string>
 </resources>

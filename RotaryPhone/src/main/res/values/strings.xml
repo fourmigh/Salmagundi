@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RotaryPhone</string>
+    <string name="countdown_call">Countdown: %ss</string>
 </resources>

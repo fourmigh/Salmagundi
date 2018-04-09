@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.caojun.decibelman.R
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import org.caojun.decibelman.Constant
@@ -19,6 +18,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.startActivity
 import java.util.Date
 import org.caojun.decibelman.utils.ActivityUtils
+import org.caojun.utils.ActivityUtils.RequestPermissionListener
 
 class MainActivity : BaseActivity() {
 
