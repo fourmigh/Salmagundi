@@ -24,6 +24,7 @@ class RotaryView : View {
     private val FontColor = Color.BLACK
     private val BitmapConfig = Bitmap.Config.ARGB_8888
     private val TransparentColor = 0x00000000
+    private val Speed = 0.1f
 
     private val Numbers = arrayOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "*", "#")
     private var bitmapRotary: Bitmap? = null
@@ -209,20 +210,14 @@ class RotaryView : View {
             num = number!!
         }
         isGobacking = true
-        var isSleep = true
         doAsync {
-            val Degree = degree
             do {
-                if (degree >= Degree / 2 && dial && isSleep) {
-                    sleep(1)
-                }
-                isSleep = !isSleep
                 listener?.onRotating()
-                matrixRotary.postRotate(-0.1f, width / 2f, height / 2f)
+                matrixRotary.postRotate(-Speed, width / 2f, height / 2f)
                 uiThread {
                     invalidate()
                 }
-                degree -= 0.1f
+                degree -= Speed
             } while (degree > 0)
 
             degree = 0f
