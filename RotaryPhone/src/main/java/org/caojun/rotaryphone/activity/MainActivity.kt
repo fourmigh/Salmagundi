@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Vibrator
 import kotlinx.android.synthetic.main.activity_main.*
 import org.caojun.rotaryphone.R
 import org.caojun.rotaryphone.widget.RotaryView
@@ -20,6 +21,7 @@ import com.luck.picture.lib.config.PictureMimeType
 import com.socks.library.KLog
 import org.caojun.utils.DataStorageUtils
 import org.caojun.utils.ImageUtils
+import org.jetbrains.anko.doAsync
 
 
 class MainActivity : BaseAppCompatActivity() {
@@ -36,11 +38,15 @@ class MainActivity : BaseAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val vibrator = this.getSystemService(VIBRATOR_SERVICE) as Vibrator
         rotaryView.setOnRotaryListener(object : RotaryView.OnRotaryListener {
             override fun onDial(number: String) {
                 val text = autoCompleteTextView.text.toString() + number
                 autoCompleteTextView.setText(text)
                 autoCompleteTextView.setSelection(autoCompleteTextView.text.length)
+                doAsync {
+                    vibrator.cancel()
+                }
             }
 
             override fun onRotating() {
@@ -53,6 +59,9 @@ class MainActivity : BaseAppCompatActivity() {
 
             override fun onStopDialing() {
                 KLog.d("OnRotaryListener", "onStopDialing")
+                doAsync {
+                    vibrator.vibrate(longArrayOf(1, 1), 0)
+                }
             }
 
             override fun onBackgroundClicked() {
