@@ -2,4 +2,9 @@
 <resources>
     <string name="app_name">轉盤電話</string>
     <string name="countdown_call">撥號倒數計時：%s秒</string>
+    <string name="spin_velocity_high">旋轉速度：高</string>
+    <string name="countdown_time">倒數計時時間</string>
+    <string name="dial_alert">撥號提示</string>
+    <string name="settings">設定</string>
+    <string name="call_alert">撥打電話%s嗎？</string>
 </resources>

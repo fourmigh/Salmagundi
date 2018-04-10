@@ -10,6 +10,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import android.graphics.Bitmap
 import org.caojun.rotaryphone.activity.MainActivity
+import org.caojun.rotaryphone.activity.SettingsActivity
 import org.caojun.utils.DataStorageUtils
 import org.caojun.utils.ImageUtils
 import java.lang.Thread.sleep
@@ -207,8 +208,12 @@ class RotaryView : View {
         }
         isGobacking = true
         doAsync {
+            val mSharedPreferences = context.getSharedPreferences(SettingsActivity.PREFER_NAME, Context.MODE_PRIVATE)
+            val isHighSpeed = mSharedPreferences.getBoolean("switch_preference_speed", true)
             do {
-//                Thread.sleep(1)
+                if (!isHighSpeed) {
+                    Thread.sleep(1)
+                }
                 listener?.onRotating()
                 matrixRotary.postRotate(-Speed, width / 2f, height / 2f)
                 uiThread {
