@@ -70,10 +70,10 @@ public class CertManager {
         return false;
     }
 
-    public String createCertificateRequest(String subjectOU, String subjectCN) {
+    public String createCertificateRequest(String subjectO, String subjectOU, String subjectCN, String subjectEmail) {
         try {
             tempKey = generateKeyPair();
-            String dn = String.format(subjectLocal, subjectO, subjectOU, subjectCN);
+            String dn = String.format("C=CN,L=CN,ST=SHANGHAI,O=%s,OU=%s,CN=%s,EMAILADDRESS=%s", subjectO, subjectOU, subjectCN, subjectEmail);
             X500Principal subjectName = new X500Principal(dn);
 
             PKCS10CertificationRequest request = new PKCS10CertificationRequest(
