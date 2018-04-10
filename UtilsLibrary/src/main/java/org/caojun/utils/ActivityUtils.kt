@@ -82,4 +82,16 @@ object ActivityUtils {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         context.startActivity(intent)
     }
+
+    fun getSharedPreferences(context: Context, name: String, key: String, defValue: Boolean): Boolean {
+        return context.getSharedPreferences(name, Context.MODE_PRIVATE).getBoolean(key, defValue)
+    }
+
+    fun getSharedPreferences(context: Context, name: String, key: String, defValue: String): String {
+        return context.getSharedPreferences(name, Context.MODE_PRIVATE).getString(key, defValue)
+    }
+
+    fun getSharedPreferences(context: Context, name: String, key: String, defValue: Int): Int {
+        return context.getSharedPreferences(name, Context.MODE_PRIVATE).getInt(key, defValue)
+    }
 }

@@ -25,4 +25,16 @@ open class BaseActivity : Activity() {
     fun call(number: String) {
         ActivityUtils.call(this, number)
     }
+
+    fun getSharedPreferences(name: String, key: String, defValue: Boolean): Boolean {
+        return ActivityUtils.getSharedPreferences(this, name, key, defValue)
+    }
+
+    fun getSharedPreferences(context: Context, name: String, key: String, defValue: String): String {
+        return ActivityUtils.getSharedPreferences(this, name, key, defValue)
+    }
+
+    fun getSharedPreferences(context: Context, name: String, key: String, defValue: Int): Int {
+        return ActivityUtils.getSharedPreferences(this, name, key, defValue)
+    }
 }

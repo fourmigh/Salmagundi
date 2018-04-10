@@ -1,5 +1,6 @@
 package org.caojun.activity
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import org.caojun.utils.ActivityUtils
 
@@ -23,5 +24,17 @@ open class BaseAppCompatActivity : AppCompatActivity() {
 
     fun call(number: String) {
         ActivityUtils.call(this, number)
+    }
+
+    fun getSharedPreferences(name: String, key: String, defValue: Boolean): Boolean {
+        return ActivityUtils.getSharedPreferences(this, name, key, defValue)
+    }
+
+    fun getSharedPreferences(context: Context, name: String, key: String, defValue: String): String {
+        return ActivityUtils.getSharedPreferences(this, name, key, defValue)
+    }
+
+    fun getSharedPreferences(context: Context, name: String, key: String, defValue: Int): Int {
+        return ActivityUtils.getSharedPreferences(this, name, key, defValue)
     }
 }
