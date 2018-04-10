@@ -3,6 +3,11 @@
 
     <SwitchPreference
         android:defaultValue="true"
+        android:key="switch_preference_vibrator"
+        android:title="@string/vibrator" />
+
+    <SwitchPreference
+        android:defaultValue="true"
         android:key="switch_preference_alert"
         android:title="@string/dial_alert" />
 

@@ -1,6 +1,5 @@
 package org.caojun.rotaryphone.activity
 
-import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -10,13 +9,10 @@ import android.os.Vibrator
 import kotlinx.android.synthetic.main.activity_main.*
 import org.caojun.rotaryphone.R
 import org.caojun.rotaryphone.widget.RotaryView
-import android.provider.ContactsContract.CommonDataKinds.Phone
-import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import org.caojun.activity.BaseAppCompatActivity
-import android.widget.ArrayAdapter
 import android.widget.RelativeLayout
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import com.bumptech.glide.Glide
@@ -27,7 +23,6 @@ import com.socks.library.KLog
 import org.caojun.utils.DataStorageUtils
 import org.caojun.utils.ImageUtils
 import org.jetbrains.anko.*
-import org.caojun.utils.ActivityUtils.RequestPermissionListener
 import org.caojun.utils.DigitUtils
 
 class MainActivity : BaseAppCompatActivity() {
@@ -73,7 +68,11 @@ class MainActivity : BaseAppCompatActivity() {
 
             override fun onStopDialing() {
                 doAsync {
-                    vibrator.vibrate(longArrayOf(1, 1), 0)
+                    val mSharedPreferences = getSharedPreferences(SettingsActivity.PREFER_NAME, Context.MODE_PRIVATE)
+                    val isVibrator = mSharedPreferences.getBoolean("switch_preference_vibrator", true)
+                    if (isVibrator) {
+                        vibrator.vibrate(longArrayOf(1, 1), 0)
+                    }
                 }
                 stopCountDown()
             }

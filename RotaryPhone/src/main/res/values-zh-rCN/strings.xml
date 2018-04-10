@@ -7,4 +7,5 @@
     <string name="dial_alert">拨号提示</string>
     <string name="settings">设置</string>
     <string name="call_alert">拨打电话%s吗？</string>
+    <string name="vibrator">振动</string>
 </resources>

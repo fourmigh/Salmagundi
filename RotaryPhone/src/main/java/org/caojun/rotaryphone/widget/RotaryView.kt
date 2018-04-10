@@ -13,7 +13,6 @@ import org.caojun.rotaryphone.activity.MainActivity
 import org.caojun.rotaryphone.activity.SettingsActivity
 import org.caojun.utils.DataStorageUtils
 import org.caojun.utils.ImageUtils
-import java.lang.Thread.sleep
 
 class RotaryView : View {
 

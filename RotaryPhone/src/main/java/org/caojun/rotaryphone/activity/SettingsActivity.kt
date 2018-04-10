@@ -7,7 +7,6 @@ import org.caojun.rotaryphone.R
 import android.preference.PreferenceFragment
 
 
-
 class SettingsActivity: PreferenceActivity(), Preference.OnPreferenceChangeListener {
 
     companion object {

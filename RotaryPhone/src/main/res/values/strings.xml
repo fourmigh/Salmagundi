@@ -6,4 +6,5 @@
     <string name="dial_alert">Dial Alert</string>
     <string name="settings">Settings</string>
     <string name="call_alert">Call %s?</string>
+    <string name="vibrator">Vibrator</string>
 </resources>
