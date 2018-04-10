@@ -4,11 +4,14 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.os.Vibrator
 import kotlinx.android.synthetic.main.activity_main.*
 import org.caojun.rotaryphone.R
 import org.caojun.rotaryphone.widget.RotaryView
 import android.provider.ContactsContract.CommonDataKinds.Phone
 import android.text.TextUtils
+import android.view.View
 import org.caojun.activity.BaseAppCompatActivity
 import android.widget.ArrayAdapter
 import android.widget.RelativeLayout
@@ -20,7 +23,9 @@ import com.luck.picture.lib.config.PictureMimeType
 import com.socks.library.KLog
 import org.caojun.utils.DataStorageUtils
 import org.caojun.utils.ImageUtils
-
+import org.jetbrains.anko.*
+import org.caojun.utils.ActivityUtils.RequestPermissionListener
+import org.caojun.utils.DigitUtils
 
 class MainActivity : BaseAppCompatActivity() {
 
@@ -28,31 +33,46 @@ class MainActivity : BaseAppCompatActivity() {
     private val Request_Select_Background = 2
     private val SEPARATOR = "，"
     private val ImageData = "ImageData"
+
     companion object {
         val BackgroundData = "BackgroundData"
     }
 
+    private var countDownTimer: CountDownTimer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val vibrator = this.getSystemService(VIBRATOR_SERVICE) as Vibrator
 
         rotaryView.setOnRotaryListener(object : RotaryView.OnRotaryListener {
             override fun onDial(number: String) {
                 val text = autoCompleteTextView.text.toString() + number
                 autoCompleteTextView.setText(text)
                 autoCompleteTextView.setSelection(autoCompleteTextView.text.length)
+                doAsync {
+                    vibrator.cancel()
+                }
+
+                if (text.length >= 3) {
+                    startCountDown()
+                }
             }
 
             override fun onRotating() {
-                KLog.d("OnRotaryListener", "onRotating")
+                stopCountDown()
             }
 
             override fun onDialing() {
-                KLog.d("OnRotaryListener", "onDialing")
+                stopCountDown()
             }
 
             override fun onStopDialing() {
-                KLog.d("OnRotaryListener", "onStopDialing")
+                doAsync {
+                    vibrator.vibrate(longArrayOf(1, 1), 0)
+                }
+                stopCountDown()
             }
 
             override fun onBackgroundClicked() {
@@ -104,7 +124,11 @@ class MainActivity : BaseAppCompatActivity() {
                     .scaleEnabled(true)// 裁剪是否可放大缩小图片 true or false
                     .forResult(Request_Select_Picture)//结果回调onActivityResult code
         })
-
+        circleImageView.setOnLongClickListener {
+            autoCompleteTextView.text = null
+            stopCountDown()
+            true
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -158,6 +182,7 @@ class MainActivity : BaseAppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+//        doWaitDial()
         var isOnGlobalLayout = true
         rotaryView.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
@@ -173,11 +198,6 @@ class MainActivity : BaseAppCompatActivity() {
                 params.height = params.width
                 circleImageView.layoutParams = params
 
-//                var path = DataStorageUtils.loadString(this@MainActivity, ImageData, "")
-//                if (!TextUtils.isEmpty(path)) {
-//                    Glide.with(this@MainActivity).load(path).into(circleImageView)
-//                }
-
                 val image = DataStorageUtils.loadBitmap(this@MainActivity, ImageData, null)
                 if (image != null) {
                     Glide.with(this@MainActivity).load(image).into(circleImageView)
@@ -190,7 +210,7 @@ class MainActivity : BaseAppCompatActivity() {
         /**联系人显示名称**/
         val PHONES_DISPLAY_NAME_INDEX = 0
         /**电话号码**/
-        val PHONES_NUMBER_INDEX = 1;
+        val PHONES_NUMBER_INDEX = 1
         val PHONES_PROJECTION = arrayOf(Phone.DISPLAY_NAME, Phone.NUMBER)
 
         val resolver = this.contentResolver
@@ -217,5 +237,35 @@ class MainActivity : BaseAppCompatActivity() {
             phoneCursor.close()
         }
         return list
+    }
+
+    private fun startCountDown() {
+        tvCountdown.visibility = View.GONE
+        countDownTimer = object : CountDownTimer(3 * 1000, 1) {
+            override fun onTick(millisUntilFinished: Long) {
+                KLog.d("onTick", "onTick: $millisUntilFinished")
+                tvCountdown.text = getString(R.string.countdown_call, DigitUtils.getFixedPoint(millisUntilFinished.toInt(), 4))
+                tvCountdown.visibility = View.VISIBLE
+            }
+
+            override fun onFinish() {
+                tvCountdown.visibility = View.GONE
+                val number = autoCompleteTextView.text.toString()
+                alert(number) {
+                    yesButton {
+                        autoCompleteTextView.text = null
+                        call(number)
+                    }
+                    noButton {
+                        startCountDown()
+                    }
+                }.show()
+            }
+        }.start()
+    }
+
+    private fun stopCountDown() {
+        countDownTimer?.cancel()
+        tvCountdown.visibility = View.GONE
     }
 }

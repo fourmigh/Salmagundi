@@ -65,10 +65,6 @@ class RotaryView : View {
         if (bitmapRotary == null) {
             drawRotary()
             bitmapRotary = transparentImage(bitmapRotary!!)
-//            val path = DataStorageUtils.loadString(context, MainActivity.BackgroundData, "")
-//            if (!TextUtils.isEmpty(path)) {
-//                setMaskImage(path)
-//            }
             val image = DataStorageUtils.loadBitmap(context, MainActivity.BackgroundData, null)
             if (image != null) {
                 setMaskImage(image)
@@ -212,6 +208,7 @@ class RotaryView : View {
         isGobacking = true
         doAsync {
             do {
+//                Thread.sleep(1)
                 listener?.onRotating()
                 matrixRotary.postRotate(-Speed, width / 2f, height / 2f)
                 uiThread {

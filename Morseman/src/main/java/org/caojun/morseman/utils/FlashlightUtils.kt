@@ -8,6 +8,7 @@ import android.hardware.camera2.CameraManager
 import android.os.Build
 import org.caojun.activity.BaseActivity
 import org.caojun.activity.BaseAppCompatActivity
+import org.caojun.utils.ActivityUtils.RequestPermissionListener
 
 /**
  * Created by CaoJun on 2018-3-22.
@@ -17,11 +18,11 @@ object FlashlightUtils {
     var camera: Camera? = null
     var manager: CameraManager? = null
 
-    fun init(activity: BaseAppCompatActivity, listener: BaseAppCompatActivity.RequestPermissionListener) {
+    fun init(activity: BaseAppCompatActivity, listener: RequestPermissionListener) {
         activity.checkSelfPermission(Manifest.permission.CAMERA, listener)
     }
 
-    fun init(activity: BaseActivity, listener: BaseActivity.RequestPermissionListener) {
+    fun init(activity: BaseActivity, listener: RequestPermissionListener) {
         activity.checkSelfPermission(Manifest.permission.CAMERA, listener)
     }
 
