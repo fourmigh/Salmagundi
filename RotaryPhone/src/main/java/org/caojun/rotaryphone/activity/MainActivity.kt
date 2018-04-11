@@ -58,6 +58,13 @@ class MainActivity : BaseAppCompatActivity() {
                 }
             }
 
+            override fun onReady() {
+                val text = autoCompleteTextView.text.toString()
+                if (text.length >= 3) {
+                    startCountDown()
+                }
+            }
+
             override fun onRotating() {
                 stopCountDown()
             }
@@ -79,7 +86,7 @@ class MainActivity : BaseAppCompatActivity() {
 
             override fun onBackgroundClicked() {
                 PictureSelector.create(this@MainActivity)
-                        .openGallery(PictureMimeType.ofAll())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+                        .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
                         .selectionMode(PictureConfig.SINGLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
                         .isCamera(true)// 是否显示拍照按钮 true or false
                         .imageFormat(PictureMimeType.PNG)// 拍照保存图片格式后缀,默认jpeg
@@ -110,7 +117,7 @@ class MainActivity : BaseAppCompatActivity() {
 
         circleImageView.setOnClickListener({
             PictureSelector.create(this)
-                    .openGallery(PictureMimeType.ofAll())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+                    .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
                     .selectionMode(PictureConfig.SINGLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
                     .isCamera(true)// 是否显示拍照按钮 true or false
                     .imageFormat(PictureMimeType.PNG)// 拍照保存图片格式后缀,默认jpeg

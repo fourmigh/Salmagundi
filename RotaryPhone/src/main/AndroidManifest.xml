@@ -3,6 +3,7 @@
     package="org.caojun.rotaryphone">
 
     <!--<uses-permission android:name="android.permission.READ_CONTACTS" />-->
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application

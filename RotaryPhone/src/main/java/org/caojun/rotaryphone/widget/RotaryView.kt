@@ -50,6 +50,7 @@ class RotaryView : View {
         fun onDialing()//拨号
         fun onStopDialing()//停止拨号
         fun onBackgroundClicked()//在非按键处点击
+        fun onReady()//转盘回位
     }
 
     fun setOnRotaryListener(listener: OnRotaryListener) {
@@ -226,11 +227,14 @@ class RotaryView : View {
             uiThread {
                 invalidate()
             }
-            if (dial) {
-                uiThread {
+            uiThread {
+                if (dial) {
                     listener?.onDial(num!!)
+                } else {
+                    listener?.onReady()
                 }
             }
+
             number = null
             isGobacking = false
 

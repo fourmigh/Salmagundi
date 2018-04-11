@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">RotaryPhone</string>
     <string name="countdown_call">Countdown: %ss</string>
-    <string name="spin_velocity_high">Spin Velocity: High</string>
+    <string name="spin_velocity_high">High Spin Velocity</string>
     <string name="countdown_time">Countdown Time</string>
     <string name="dial_alert">Dial Alert</string>
     <string name="settings">Settings</string>
