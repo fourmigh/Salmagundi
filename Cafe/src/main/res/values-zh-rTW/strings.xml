@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">咖啡小館</string>
+    <!-- 配料 -->
+    <string name="espresso">意式咖啡</string>
+    <string name="roasted_coffee">烘焙咖啡</string>
+    <string name="instant_coffee">即溶咖啡</string>
+    <string name="french_coffee">法壓咖啡</string>
+    <string name="warm_milk">溫牛奶</string>
+    <string name="hot_milk">熱牛奶</string>
+    <string name="foam">奶泡</string>
+    <string name="ice_cake">冰塊</string>
+    <string name="hot_water">熱水</string>
+    <string name="ice_water">氷水</string>
+    <string name="sugar">糖</string>
+    <string name="brown_sugar">黃糖</string>
+    <string name="condensed_milk">煉乳</string>
+    <string name="ice_cream_ball">冰淇淋球</string>
+    <string name="syrup">糖水</string>
+    <string name="coffee_foam">咖啡泡沫</string>
+    <string name="lemon">檸檬片</string>
+    <string name="lemon_juice">檸檬汁</string>
+    <string name="cream">忌廉</string>
+    <string name="whipped_cream">打發忌廉</string>
+    <string name="irish_whiskey">愛爾蘭威士卡</string>
+    <string name="cocoa">可哥粉</string>
+    <string name="spice_black_tea">香料紅茶</string>
+    <string name="cinnamon">肉桂粉</string>
+    <string name="flavedo">橙皮碎</string>
+    <!-- 咖啡 -->
+    <string name="coffee">牛奶咖啡</string>
+    <string name="cortadito">告爾多咖啡</string>
+    <string name="caffe_latte">拿鐵咖啡</string>
+    <string name="ca_phe_sua_da">越南冰咖啡</string>
+    <string name="macchiato">瑪奇朵</string>
+    <string name="affogato">阿芙佳朵</string>
+    <string name="galao">葡式嘎漏咖啡</string>
+    <string name="frappe">希臘冰咖啡</string>
+    <string name="cafe_del_tiempo">冰檸檬咖啡</string>
+    <string name="mazagran">葡式檸檬咖啡</string>
+    <string name="irish_coffee">愛爾蘭咖啡</string>
+    <string name="cappucina">卡布奇諾</string>
+    <string name="flat_white">白咖啡</string>
+    <string name="espressiono">濃縮咖啡</string>
+    <string name="long_black">黑咖啡</string>
+    <string name="breve">半拿鐵</string>
+    <string name="cafe_cubano">古巴咖啡</string>
+    <string name="bonbon">意式煉乳咖啡</string>
+    <string name="cafe_con_hielo">西班牙冰咖啡</string>
+    <string name="espresso_romano">羅馬咖啡</string>
+    <string name="dirty_chai_latte">咖啡茶拿鐵</string>
+    <string name="vienna">維也納咖啡</string>
+    <string name="americano">美式咖啡</string>
+    <string name="mocha">摩卡咖啡</string>
+    <string name="borgia">波奇亞咖啡</string>
+</resources>
