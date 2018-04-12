@@ -50,7 +50,6 @@ class MainActivity : AppCompatActivity() {
             Material.Cinnamon -> R.string.cinnamon//肉桂粉
             Material.Flavedo -> R.string.flavedo//橙皮碎
         }
-        return -1
     }
 
     private fun getResId(cafe: Cafe): Int {
@@ -82,7 +81,6 @@ class MainActivity : AppCompatActivity() {
             Cafe.Mocha -> R.string.mocha//摩卡咖啡
             Cafe.Borgia -> R.string.borgia//波奇亚咖啡
         }
-        return -1
     }
 
     private fun initView() {
