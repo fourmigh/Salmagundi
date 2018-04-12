@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.caojun.cafe.R
 import org.caojun.cafe.utils.CafeUtils
 import org.caojun.cafe.utils.CafeUtils.Material
-import org.caojun.cafe.utils.CafeUtils.Café
+import org.caojun.cafe.utils.CafeUtils.Cafe
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,34 +53,34 @@ class MainActivity : AppCompatActivity() {
         return -1
     }
 
-    private fun getResId(café: Café): Int {
-        return when (café) {
-            Café.Espresso -> R.string.espresso//意式咖啡
-            Café.Coffee -> R.string.coffee//牛奶咖啡
-            Café.Cortadito -> R.string.cortadito//告尔多咖啡
-            Café.CaffeLatte -> R.string.caffe_latte//拿铁咖啡
-            Café.CaPheSuaDa -> R.string.ca_phe_sua_da//越南冰咖啡
-            Café.Macchiato -> R.string.macchiato//玛奇朵
-            Café.Affogato -> R.string.affogato//阿芙佳朵
-            Café.Galao -> R.string.galao//葡式嘎漏咖啡
-            Café.Frappe -> R.string.frappe//希腊冰咖啡
-            Café.CafeDelTiempo -> R.string.cafe_del_tiempo//冰柠檬咖啡
-            Café.Mazagran -> R.string.mazagran//葡式柠檬咖啡
-            Café.IrishCoffee -> R.string.irish_coffee//爱尔兰咖啡
-            Café.Cappucina -> R.string.cappucina//卡布奇诺
-            Café.FlatWhite -> R.string.flat_white//白咖啡（馥芮白）
-            Café.Espressiono -> R.string.espressiono//浓缩咖啡
-            Café.LongBlack -> R.string.long_black//黑咖啡
-            Café.Breve -> R.string.breve//半拿铁
-            Café.CafeCubano -> R.string.cafe_cubano//古巴咖啡
-            Café.Bonbon -> R.string.bonbon//意式炼乳咖啡
-            Café.CafeConHielo -> R.string.cafe_con_hielo//西班牙冰咖啡
-            Café.EspressoRomano -> R.string.espresso_romano//罗马咖啡
-            Café.DirtyChaiLatte -> R.string.dirty_chai_latte//咖啡茶拿铁
-            Café.Vienna -> R.string.vienna//维也纳咖啡
-            Café.Americano -> R.string.americano//美式咖啡
-            Café.Mocha -> R.string.mocha//摩卡咖啡
-            Café.Borgia -> R.string.borgia//波奇亚咖啡
+    private fun getResId(cafe: Cafe): Int {
+        return when (cafe) {
+            Cafe.Espresso -> R.string.espresso//意式咖啡
+            Cafe.Coffee -> R.string.coffee//牛奶咖啡
+            Cafe.Cortadito -> R.string.cortadito//告尔多咖啡
+            Cafe.CaffeLatte -> R.string.caffe_latte//拿铁咖啡
+            Cafe.CaPheSuaDa -> R.string.ca_phe_sua_da//越南冰咖啡
+            Cafe.Macchiato -> R.string.macchiato//玛奇朵
+            Cafe.Affogato -> R.string.affogato//阿芙佳朵
+            Cafe.Galao -> R.string.galao//葡式嘎漏咖啡
+            Cafe.Frappe -> R.string.frappe//希腊冰咖啡
+            Cafe.CafeDelTiempo -> R.string.cafe_del_tiempo//冰柠檬咖啡
+            Cafe.Mazagran -> R.string.mazagran//葡式柠檬咖啡
+            Cafe.IrishCoffee -> R.string.irish_coffee//爱尔兰咖啡
+            Cafe.Cappucina -> R.string.cappucina//卡布奇诺
+            Cafe.FlatWhite -> R.string.flat_white//白咖啡（馥芮白）
+            Cafe.Espressiono -> R.string.espressiono//浓缩咖啡
+            Cafe.LongBlack -> R.string.long_black//黑咖啡
+            Cafe.Breve -> R.string.breve//半拿铁
+            Cafe.CafeCubano -> R.string.cafe_cubano//古巴咖啡
+            Cafe.Bonbon -> R.string.bonbon//意式炼乳咖啡
+            Cafe.CafeConHielo -> R.string.cafe_con_hielo//西班牙冰咖啡
+            Cafe.EspressoRomano -> R.string.espresso_romano//罗马咖啡
+            Cafe.DirtyChaiLatte -> R.string.dirty_chai_latte//咖啡茶拿铁
+            Cafe.Vienna -> R.string.vienna//维也纳咖啡
+            Cafe.Americano -> R.string.americano//美式咖啡
+            Cafe.Mocha -> R.string.mocha//摩卡咖啡
+            Cafe.Borgia -> R.string.borgia//波奇亚咖啡
         }
         return -1
     }
@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
                         } else {
                             materials.remove(material)
                         }
-                        val cafe = CafeUtils.getCafé(materials)
+                        val cafe = CafeUtils.getCafe(materials)
                         tvCafe.text = null
                         if (cafe != null) {
                             val cafeId = getResId(cafe)

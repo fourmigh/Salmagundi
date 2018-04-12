@@ -31,7 +31,7 @@ object CafeUtils {
         Flavedo,//橙皮碎
     }
 
-    enum class Café {
+    enum class Cafe {
         Espresso,//意式咖啡
         Coffee,//牛奶咖啡
         Cortadito,//告尔多咖啡
@@ -60,95 +60,95 @@ object CafeUtils {
         Borgia,//波奇亚咖啡
     }
 
-    fun getCafé(materials: List<Material>): Café? {
+    fun getCafe(materials: List<Material>): Cafe? {
         when (materials.size) {
             1 -> {
                 if (Material.Espresso in materials) {
-                    return Café.Espresso
+                    return Cafe.Espresso
                 }
             }
             2 -> {
                 if (Material.Espresso in materials && Material.HotMilk in materials) {
-                    return Café.CaffeLatte
+                    return Cafe.CaffeLatte
                 }
                 if (Material.Espresso in materials && Material.Foam in materials) {
-                    return Café.Macchiato
+                    return Cafe.Macchiato
                 }
                 if (Material.Espresso in materials && Material.FoamMany in materials) {
                     //配方和Macchiato一样，仅Foam的量比较多
-                    return Café.Galao
+                    return Cafe.Galao
                 }
                 if (Material.IceCreamBall in materials && Material.Espresso in materials) {
-                    return Café.Affogato
+                    return Cafe.Affogato
                 }
                 if (Material.Espresso in materials && Material.HotMilk in materials) {
-                    return Café.FlatWhite
+                    return Cafe.FlatWhite
                 }
                 if (Material.HotWater in materials && Material.Espresso in materials) {
-                    return Café.LongBlack
+                    return Cafe.LongBlack
                 }
                 if (Material.BrownSugar in materials && Material.Espresso in materials) {
-                    return Café.CafeCubano
+                    return Cafe.CafeCubano
                 }
                 if (Material.CondensedMilk in materials && Material.Espresso in materials) {
-                    return Café.Bonbon
+                    return Cafe.Bonbon
                 }
                 if (Material.IceCake in materials && Material.Espresso in materials) {
-                    return Café.CafeConHielo
+                    return Cafe.CafeConHielo
                 }
                 if (Material.Espresso in materials && Material.Lemon in materials) {
-                    return Café.EspressoRomano
+                    return Cafe.EspressoRomano
                 }
                 if (Material.Espresso in materials && Material.WhippedCream in materials) {
-                    return Café.Vienna
+                    return Cafe.Vienna
                 }
                 if (Material.Espresso in materials && Material.HotWater in materials) {
-                    return Café.Americano
+                    return Cafe.Americano
                 }
             }
             3 -> {
                 if (Material.Espresso in materials && Material.WarmMilk in materials && Material.Foam in materials) {
-                    return Café.Coffee
+                    return Cafe.Coffee
                 }
                 if (Material.Espresso in materials && Material.IceCake in materials && Material.Lemon in materials) {
-                    return Café.CafeDelTiempo
+                    return Cafe.CafeDelTiempo
                 }
                 if (Material.Espresso in materials && Material.HotMilk in materials && Material.Foam in materials) {
-                    return Café.Cappucina
+                    return Cafe.Cappucina
                 }
                 if (Material.Espresso in materials && Material.HotMilk in materials && Material.Cocoa in materials) {
-                    return Café.Espressiono
+                    return Cafe.Espressiono
                 }
                 if (Material.Espresso in materials && Material.HotChocolate in materials && Material.WhippedCream in materials) {
-                    return Café.Mocha
+                    return Cafe.Mocha
                 }
             }
             4 -> {
                 if (Material.BrownSugar in materials && Material.Espresso in materials && Material.WarmMilk in materials && Material.Foam in materials) {
-                    return Café.Cortadito
+                    return Cafe.Cortadito
                 }
                 if (Material.CondensedMilk in materials && Material.Sugar in materials && Material.RoastedCoffee in materials && Material.IceCake in materials) {
-                    return Café.CaPheSuaDa
+                    return Cafe.CaPheSuaDa
                 }
                 if (Material.BrownSugar in materials && Material.FrenchCoffee in materials && Material.LemonJuice in materials && Material.IceCake in materials) {
-                    return Café.Mazagran
+                    return Cafe.Mazagran
                 }
                 if (Material.BrownSugar in materials && Material.FrenchCoffee in materials && Material.IrishWhiskey in materials && Material.Cream in materials) {
-                    return Café.IrishCoffee
+                    return Cafe.IrishCoffee
                 }
                 if (Material.Espresso in materials && Material.HotMilk in materials && Material.Cream in materials && Material.Foam in materials) {
-                    return Café.Breve
+                    return Cafe.Breve
                 }
                 if (Material.Espresso in materials && Material.SpiceBlackTea in materials && Material.HotMilk in materials && Material.Foam in materials) {
-                    return Café.DirtyChaiLatte
+                    return Cafe.DirtyChaiLatte
                 }
             }
             5 -> {
                 if (Material.InstantCoffee in materials && Material.Syrup in materials && Material.IceWater in materials && Material.IceCake in materials && Material.CoffeeFoam in materials) {
-                    return Café.Frappe
+                    return Cafe.Frappe
                 }
                 if (Material.Espresso in materials && Material.HotChocolate in materials && Material.WhippedCream in materials && Material.Cinnamon in materials && Material.Flavedo in materials) {
-                    return Café.Borgia
+                    return Cafe.Borgia
                 }
             }
         }
