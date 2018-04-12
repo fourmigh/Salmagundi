@@ -7,32 +7,18 @@
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
-    <org.caojun.widget.MultiRadioGroup
-        android:id="@+id/rgMaterial"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
 
-    </org.caojun.widget.MultiRadioGroup>
-
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_weight="1"/>
 
-        <ImageView
-            android:id="@+id/ivCafe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_launcher" />
-
-        <TextView
-            android:id="@+id/tvCafe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:gravity="center" />
-    </LinearLayout>
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/navigation" />
 
 </LinearLayout>

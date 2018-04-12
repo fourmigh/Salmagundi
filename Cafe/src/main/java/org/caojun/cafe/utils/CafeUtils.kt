@@ -1,5 +1,7 @@
 package org.caojun.cafe.utils
 
+import org.caojun.cafe.R
+
 object CafeUtils {
     enum class Material {
         Espresso,//意式咖啡
@@ -94,6 +96,12 @@ object CafeUtils {
         }
     }
 
+    fun getMaterial(cafe: Cafe): Array<Material>? {
+        if (cafe in Formula.arrays) {
+            return Formula.arrays[cafe]
+        }
+        return null
+    }
 
 
     fun getCafe(materials: List<Material>): Cafe? {
@@ -120,5 +128,68 @@ object CafeUtils {
             }
         }
         return true
+    }
+
+    fun getResId(material: CafeUtils.Material): Int {
+        return when (material) {
+            CafeUtils.Material.Espresso -> R.string.espresso//意式咖啡
+            CafeUtils.Material.RoastedCoffee -> R.string.roasted_coffee//烘焙咖啡
+            CafeUtils.Material.InstantCoffee -> R.string.instant_coffee//速溶咖啡
+            CafeUtils.Material.FrenchCoffee -> R.string.french_coffee//法压咖啡
+            CafeUtils.Material.WarmMilk -> R.string.warm_milk//温牛奶
+            CafeUtils.Material.HotMilk -> R.string.hot_milk//热牛奶
+            CafeUtils.Material.Foam -> R.string.foam//奶泡
+            CafeUtils.Material.FoamMany -> R.string.foam_many//大量奶泡
+            CafeUtils.Material.IceCake -> R.string.ice_cake//冰块
+            CafeUtils.Material.HotWater -> R.string.hot_water//热水
+            CafeUtils.Material.IceWater -> R.string.ice_water//冰水
+            CafeUtils.Material.Sugar -> R.string.sugar//糖
+            CafeUtils.Material.BrownSugar -> R.string.brown_sugar//黄糖
+            CafeUtils.Material.CondensedMilk -> R.string.condensed_milk//炼乳
+            CafeUtils.Material.IceCreamBall -> R.string.ice_cream_ball//冰激凌球
+            CafeUtils.Material.Syrup -> R.string.syrup//糖水
+            CafeUtils.Material.CoffeeFoam -> R.string.coffee_foam//咖啡泡沫
+            CafeUtils.Material.Lemon -> R.string.lemon//柠檬片
+            CafeUtils.Material.LemonJuice -> R.string.lemon_juice//柠檬汁
+            CafeUtils.Material.Cream -> R.string.cream//奶油
+            CafeUtils.Material.WhippedCream -> R.string.whipped_cream//打发奶油
+            CafeUtils.Material.IrishWhiskey -> R.string.irish_coffee//爱尔兰威士忌
+            CafeUtils.Material.Cocoa -> R.string.cocoa//可可粉
+            CafeUtils.Material.SpiceBlackTea -> R.string.spice_black_tea//香料红茶
+            CafeUtils.Material.HotChocolate -> R.string.hot_chocolate//热巧克力
+            CafeUtils.Material.Cinnamon -> R.string.cinnamon//肉桂粉
+            CafeUtils.Material.Flavedo -> R.string.flavedo//橙皮碎
+        }
+    }
+
+    fun getResId(cafe: CafeUtils.Cafe): Int {
+        return when (cafe) {
+            CafeUtils.Cafe.Espresso -> R.string.espresso//意式咖啡
+            CafeUtils.Cafe.Coffee -> R.string.coffee//牛奶咖啡
+            CafeUtils.Cafe.Cortadito -> R.string.cortadito//告尔多咖啡
+            CafeUtils.Cafe.CaffeLatte -> R.string.caffe_latte//拿铁咖啡
+            CafeUtils.Cafe.CaPheSuaDa -> R.string.ca_phe_sua_da//越南冰咖啡
+            CafeUtils.Cafe.Macchiato -> R.string.macchiato//玛奇朵
+            CafeUtils.Cafe.Affogato -> R.string.affogato//阿芙佳朵
+            CafeUtils.Cafe.Galao -> R.string.galao//葡式嘎漏咖啡
+            CafeUtils.Cafe.Frappe -> R.string.frappe//希腊冰咖啡
+            CafeUtils.Cafe.CafeDelTiempo -> R.string.cafe_del_tiempo//冰柠檬咖啡
+            CafeUtils.Cafe.Mazagran -> R.string.mazagran//葡式柠檬咖啡
+            CafeUtils.Cafe.IrishCoffee -> R.string.irish_coffee//爱尔兰咖啡
+            CafeUtils.Cafe.Cappucino -> R.string.cappucino//卡布奇诺
+            CafeUtils.Cafe.FlatWhite -> R.string.flat_white//白咖啡（馥芮白）
+            CafeUtils.Cafe.Espressiono -> R.string.espressiono//浓缩咖啡
+            CafeUtils.Cafe.LongBlack -> R.string.long_black//黑咖啡
+            CafeUtils.Cafe.Breve -> R.string.breve//半拿铁
+            CafeUtils.Cafe.CafeCubano -> R.string.cafe_cubano//古巴咖啡
+            CafeUtils.Cafe.Bonbon -> R.string.bonbon//意式炼乳咖啡
+            CafeUtils.Cafe.CafeConHielo -> R.string.cafe_con_hielo//西班牙冰咖啡
+            CafeUtils.Cafe.EspressoRomano -> R.string.espresso_romano//罗马咖啡
+            CafeUtils.Cafe.DirtyChaiLatte -> R.string.dirty_chai_latte//咖啡茶拿铁
+            CafeUtils.Cafe.Vienna -> R.string.vienna//维也纳咖啡
+            CafeUtils.Cafe.Americano -> R.string.americano//美式咖啡
+            CafeUtils.Cafe.Mocha -> R.string.mocha//摩卡咖啡
+            CafeUtils.Cafe.Borgia -> R.string.borgia//波奇亚咖啡
+        }
     }
 }

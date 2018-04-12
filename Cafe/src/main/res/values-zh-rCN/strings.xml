@@ -55,4 +55,7 @@
     <string name="americano">美式咖啡</string>
     <string name="mocha">摩卡咖啡</string>
     <string name="borgia">波奇亚咖啡</string>
+    <!-- 导航栏 -->
+    <string name="navi_material">食材</string>
+    <string name="navi_cafe">咖啡</string>
 </resources>

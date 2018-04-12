@@ -54,4 +54,7 @@
     <string name="americano">Americano</string>
     <string name="mocha">Mocha</string>
     <string name="borgia">Borgia</string>
+    <!-- Navigation -->
+    <string name="navi_material">Material</string>
+    <string name="navi_cafe">Café</string>
 </resources>

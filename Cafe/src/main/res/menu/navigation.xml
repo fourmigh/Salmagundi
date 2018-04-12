@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_material"
+        android:icon="@drawable/ic_material"
+        android:title="@string/navi_material" />
+
+    <item
+        android:id="@+id/navigation_cafe"
+        android:icon="@drawable/ic_cafe"
+        android:title="@string/navi_cafe" />
+</menu>
