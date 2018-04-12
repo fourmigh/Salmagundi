@@ -9,6 +9,7 @@
     <string name="warm_milk">溫牛奶</string>
     <string name="hot_milk">熱牛奶</string>
     <string name="foam">奶泡</string>
+    <string name="foam_many">大量奶泡</string>
     <string name="ice_cake">冰塊</string>
     <string name="hot_water">熱水</string>
     <string name="ice_water">氷水</string>
@@ -25,6 +26,7 @@
     <string name="irish_whiskey">愛爾蘭威士卡</string>
     <string name="cocoa">可哥粉</string>
     <string name="spice_black_tea">香料紅茶</string>
+    <string name="hot_chocolate">熱巧克力</string>
     <string name="cinnamon">肉桂粉</string>
     <string name="flavedo">橙皮碎</string>
     <!-- 咖啡 -->

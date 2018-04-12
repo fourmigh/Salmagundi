@@ -8,6 +8,7 @@
     <string name="warm_milk">Warm Milk</string>
     <string name="hot_milk">HotMilk</string>
     <string name="foam">Foam</string>
+    <string name="foam_many">A great many Foam</string>
     <string name="ice_cake">Ice Cake</string>
     <string name="hot_water">Hot Water</string>
     <string name="ice_water">Ice Water</string>
@@ -24,6 +25,7 @@
     <string name="irish_whiskey">Irish Whiskey</string>
     <string name="cocoa">Cocoa</string>
     <string name="spice_black_tea">Spice Black Tea</string>
+    <string name="hot_chocolate">Hot Chocolate</string>
     <string name="cinnamon">Cinnamon</string>
     <string name="flavedo">Flavedo</string>
     <!-- Café -->

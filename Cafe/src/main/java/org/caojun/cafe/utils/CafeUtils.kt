@@ -9,6 +9,7 @@ object CafeUtils {
         WarmMilk,//温牛奶
         HotMilk,//热牛奶
         Foam,//奶泡
+        FoamMany,//大量奶泡
         IceCake,//冰块
         HotWater,//热水
         IceWater,//冰水
@@ -31,6 +32,7 @@ object CafeUtils {
     }
 
     enum class Café {
+        Espresso,//意式咖啡
         Coffee,//牛奶咖啡
         Cortadito,//告尔多咖啡
         CaffeLatte,//拿铁咖啡
@@ -58,14 +60,23 @@ object CafeUtils {
         Borgia,//波奇亚咖啡
     }
 
-    fun getCafé(vararg materials: Material): Café? {
+    fun getCafé(materials: List<Material>): Café? {
         when (materials.size) {
+            1 -> {
+                if (Material.Espresso in materials) {
+                    return Café.Espresso
+                }
+            }
             2 -> {
                 if (Material.Espresso in materials && Material.HotMilk in materials) {
                     return Café.CaffeLatte
                 }
                 if (Material.Espresso in materials && Material.Foam in materials) {
                     return Café.Macchiato
+                }
+                if (Material.Espresso in materials && Material.FoamMany in materials) {
+                    //配方和Macchiato一样，仅Foam的量比较多
+                    return Café.Galao
                 }
                 if (Material.IceCreamBall in materials && Material.Espresso in materials) {
                     return Café.Affogato
@@ -140,10 +151,6 @@ object CafeUtils {
                     return Café.Borgia
                 }
             }
-        }
-        if (materials.size > 2 && Material.Espresso in materials && Material.Foam in materials) {
-            //配方和Macchiato一样，仅Foam的量比较多
-            return Café.Galao
         }
         return null
     }
