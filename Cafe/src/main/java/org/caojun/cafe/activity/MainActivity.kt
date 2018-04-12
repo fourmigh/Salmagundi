@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
             Cafe.CafeDelTiempo -> R.string.cafe_del_tiempo//冰柠檬咖啡
             Cafe.Mazagran -> R.string.mazagran//葡式柠檬咖啡
             Cafe.IrishCoffee -> R.string.irish_coffee//爱尔兰咖啡
-            Cafe.Cappucina -> R.string.cappucina//卡布奇诺
+            Cafe.Cappucino -> R.string.cappucina//卡布奇诺
             Cafe.FlatWhite -> R.string.flat_white//白咖啡（馥芮白）
             Cafe.Espressiono -> R.string.espressiono//浓缩咖啡
             Cafe.LongBlack -> R.string.long_black//黑咖啡
@@ -91,23 +91,21 @@ class MainActivity : AppCompatActivity() {
                 checkBox.setText(resId)
                 rgMaterial.addView(checkBox)
 
-                checkBox.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
-                    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-                        if (isChecked) {
-                            materials.add(material)
-                        } else {
-                            materials.remove(material)
-                        }
-                        val cafe = CafeUtils.getCafe(materials)
-                        tvCafe.text = null
-                        if (cafe != null) {
-                            val cafeId = getResId(cafe)
-                            if (cafeId > 0) {
-                                tvCafe.setText(cafeId)
-                            }
+                checkBox.setOnCheckedChangeListener { _, isChecked ->
+                    if (isChecked) {
+                        materials.add(material)
+                    } else {
+                        materials.remove(material)
+                    }
+                    val cafe = CafeUtils.getCafe(materials)
+                    tvCafe.text = null
+                    if (cafe != null) {
+                        val cafeId = getResId(cafe)
+                        if (cafeId > 0) {
+                            tvCafe.setText(cafeId)
                         }
                     }
-                })
+                }
             }
         }
     }

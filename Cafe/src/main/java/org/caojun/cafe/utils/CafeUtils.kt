@@ -44,7 +44,7 @@ object CafeUtils {
         CafeDelTiempo,//冰柠檬咖啡
         Mazagran,//葡式柠檬咖啡
         IrishCoffee,//爱尔兰咖啡
-        Cappucina,//卡布奇诺
+        Cappucino,//卡布奇诺
         FlatWhite,//白咖啡（馥芮白）
         Espressiono,//浓缩咖啡
         LongBlack,//黑咖啡
@@ -60,98 +60,65 @@ object CafeUtils {
         Borgia,//波奇亚咖啡
     }
 
+    private object Formula {
+
+        val arrays = HashMap<Cafe, Array<Material>>()
+
+        init {
+            arrays[Cafe.Espresso] = arrayOf(Material.Espresso)
+            arrays[Cafe.Coffee] = arrayOf(Material.Espresso, Material.WarmMilk, Material.Foam)
+            arrays[Cafe.Cortadito] = arrayOf(Material.BrownSugar, Material.Espresso, Material.WarmMilk, Material.Foam)
+            arrays[Cafe.CaffeLatte] = arrayOf(Material.Espresso, Material.HotMilk)
+            arrays[Cafe.CaPheSuaDa] = arrayOf(Material.CondensedMilk, Material.Sugar, Material.RoastedCoffee, Material.IceCake)
+            arrays[Cafe.Macchiato] = arrayOf(Material.Espresso, Material.Foam)
+            arrays[Cafe.Affogato] = arrayOf(Material.IceCreamBall, Material.Espresso)
+            arrays[Cafe.Galao] = arrayOf(Material.Espresso, Material.FoamMany)
+            arrays[Cafe.Frappe] = arrayOf(Material.InstantCoffee, Material.Syrup, Material.IceWater, Material.IceCake, Material.CoffeeFoam)
+            arrays[Cafe.CafeDelTiempo] = arrayOf(Material.Espresso, Material.IceCake, Material.Lemon)
+            arrays[Cafe.Mazagran] = arrayOf(Material.BrownSugar, Material.FrenchCoffee, Material.LemonJuice, Material.IceCake)
+            arrays[Cafe.IrishCoffee] = arrayOf(Material.BrownSugar, Material.FrenchCoffee, Material.IrishWhiskey, Material.Cream)
+            arrays[Cafe.Cappucino] = arrayOf(Material.Espresso, Material.HotMilk, Material.Foam)
+            arrays[Cafe.FlatWhite] = arrayOf(Material.Espresso, Material.HotMilk)
+            arrays[Cafe.Espressiono] = arrayOf(Material.Espresso, Material.HotMilk, Material.Cocoa)
+            arrays[Cafe.LongBlack] = arrayOf(Material.HotWater, Material.Espresso)
+            arrays[Cafe.Breve] = arrayOf(Material.Espresso, Material.HotMilk, Material.Cream, Material.Foam)
+            arrays[Cafe.CafeCubano] = arrayOf(Material.BrownSugar, Material.Espresso)
+            arrays[Cafe.Bonbon] = arrayOf(Material.CondensedMilk, Material.Espresso)
+            arrays[Cafe.CafeConHielo] = arrayOf(Material.IceCake, Material.Espresso)
+            arrays[Cafe.EspressoRomano] = arrayOf(Material.Espresso, Material.Lemon)
+            arrays[Cafe.DirtyChaiLatte] = arrayOf(Material.Espresso, Material.SpiceBlackTea, Material.HotMilk, Material.Foam)
+            arrays[Cafe.Vienna] = arrayOf(Material.Espresso, Material.WhippedCream)
+            arrays[Cafe.Americano] = arrayOf(Material.Espresso, Material.HotWater)
+            arrays[Cafe.Mocha] = arrayOf(Material.Espresso, Material.HotChocolate, Material.WhippedCream)
+            arrays[Cafe.Borgia] = arrayOf(Material.Espresso, Material.HotChocolate, Material.WhippedCream, Material.Cinnamon, Material.Flavedo)
+        }
+    }
+
+
+
     fun getCafe(materials: List<Material>): Cafe? {
-        when (materials.size) {
-            1 -> {
-                if (Material.Espresso in materials) {
-                    return Cafe.Espresso
-                }
-            }
-            2 -> {
-                if (Material.Espresso in materials && Material.HotMilk in materials) {
-                    return Cafe.CaffeLatte
-                }
-                if (Material.Espresso in materials && Material.Foam in materials) {
-                    return Cafe.Macchiato
-                }
-                if (Material.Espresso in materials && Material.FoamMany in materials) {
-                    //配方和Macchiato一样，仅Foam的量比较多
-                    return Cafe.Galao
-                }
-                if (Material.IceCreamBall in materials && Material.Espresso in materials) {
-                    return Cafe.Affogato
-                }
-                if (Material.Espresso in materials && Material.HotMilk in materials) {
-                    return Cafe.FlatWhite
-                }
-                if (Material.HotWater in materials && Material.Espresso in materials) {
-                    return Cafe.LongBlack
-                }
-                if (Material.BrownSugar in materials && Material.Espresso in materials) {
-                    return Cafe.CafeCubano
-                }
-                if (Material.CondensedMilk in materials && Material.Espresso in materials) {
-                    return Cafe.Bonbon
-                }
-                if (Material.IceCake in materials && Material.Espresso in materials) {
-                    return Cafe.CafeConHielo
-                }
-                if (Material.Espresso in materials && Material.Lemon in materials) {
-                    return Cafe.EspressoRomano
-                }
-                if (Material.Espresso in materials && Material.WhippedCream in materials) {
-                    return Cafe.Vienna
-                }
-                if (Material.Espresso in materials && Material.HotWater in materials) {
-                    return Cafe.Americano
-                }
-            }
-            3 -> {
-                if (Material.Espresso in materials && Material.WarmMilk in materials && Material.Foam in materials) {
-                    return Cafe.Coffee
-                }
-                if (Material.Espresso in materials && Material.IceCake in materials && Material.Lemon in materials) {
-                    return Cafe.CafeDelTiempo
-                }
-                if (Material.Espresso in materials && Material.HotMilk in materials && Material.Foam in materials) {
-                    return Cafe.Cappucina
-                }
-                if (Material.Espresso in materials && Material.HotMilk in materials && Material.Cocoa in materials) {
-                    return Cafe.Espressiono
-                }
-                if (Material.Espresso in materials && Material.HotChocolate in materials && Material.WhippedCream in materials) {
-                    return Cafe.Mocha
-                }
-            }
-            4 -> {
-                if (Material.BrownSugar in materials && Material.Espresso in materials && Material.WarmMilk in materials && Material.Foam in materials) {
-                    return Cafe.Cortadito
-                }
-                if (Material.CondensedMilk in materials && Material.Sugar in materials && Material.RoastedCoffee in materials && Material.IceCake in materials) {
-                    return Cafe.CaPheSuaDa
-                }
-                if (Material.BrownSugar in materials && Material.FrenchCoffee in materials && Material.LemonJuice in materials && Material.IceCake in materials) {
-                    return Cafe.Mazagran
-                }
-                if (Material.BrownSugar in materials && Material.FrenchCoffee in materials && Material.IrishWhiskey in materials && Material.Cream in materials) {
-                    return Cafe.IrishCoffee
-                }
-                if (Material.Espresso in materials && Material.HotMilk in materials && Material.Cream in materials && Material.Foam in materials) {
-                    return Cafe.Breve
-                }
-                if (Material.Espresso in materials && Material.SpiceBlackTea in materials && Material.HotMilk in materials && Material.Foam in materials) {
-                    return Cafe.DirtyChaiLatte
-                }
-            }
-            5 -> {
-                if (Material.InstantCoffee in materials && Material.Syrup in materials && Material.IceWater in materials && Material.IceCake in materials && Material.CoffeeFoam in materials) {
-                    return Cafe.Frappe
-                }
-                if (Material.Espresso in materials && Material.HotChocolate in materials && Material.WhippedCream in materials && Material.Cinnamon in materials && Material.Flavedo in materials) {
-                    return Cafe.Borgia
-                }
+        for (cafe in Formula.arrays.keys) {
+            if (isCafe(Formula.arrays[cafe], materials)) {
+                return cafe
             }
         }
         return null
+    }
+
+    private fun isCafe(cafe: Array<Material>?, materials: List<Material>): Boolean {
+        if (cafe == null) {
+            return false
+        }
+        if (cafe.size != materials.size) {
+            return false
+        }
+        for (i in cafe.indices) {
+            if (cafe[i] in materials) {
+                continue
+            } else {
+                return false
+            }
+        }
+        return true
     }
 }
