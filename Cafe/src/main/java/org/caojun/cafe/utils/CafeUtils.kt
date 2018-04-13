@@ -4,7 +4,7 @@ import org.caojun.cafe.R
 
 object CafeUtils {
     enum class Material {
-        Espresso,//意式咖啡
+        Espresso,//浓缩咖啡
         RoastedCoffee,//烘焙咖啡
         InstantCoffee,//速溶咖啡
         FrenchCoffee,//法压咖啡
@@ -96,13 +96,6 @@ object CafeUtils {
         }
     }
 
-    fun getMaterial(cafe: Cafe): Array<Material>? {
-        if (cafe in Formula.arrays) {
-            return Formula.arrays[cafe]
-        }
-        return null
-    }
-
 
     fun getCafe(materials: List<Material>): Cafe? {
         for (cafe in Formula.arrays.keys) {
@@ -112,11 +105,6 @@ object CafeUtils {
         }
         return null
     }
-
-//    fun getCafeResId(materials: List<Material>): Int {
-//        val cafe = getCafe(materials) ?: return -1
-//        return CafeUtils.getResId(cafe)
-//    }
 
     private fun getMaterials(cafe: Cafe): Array<Material>? {
         return if (Formula.arrays.containsKey(cafe)) {
@@ -154,7 +142,7 @@ object CafeUtils {
 
     fun getResId(material: CafeUtils.Material): Int {
         return when (material) {
-            CafeUtils.Material.Espresso -> R.string.m_espresso//意式咖啡
+            CafeUtils.Material.Espresso -> R.string.m_espresso//浓缩咖啡
             CafeUtils.Material.RoastedCoffee -> R.string.roasted_coffee//烘焙咖啡
             CafeUtils.Material.InstantCoffee -> R.string.instant_coffee//速溶咖啡
             CafeUtils.Material.FrenchCoffee -> R.string.french_coffee//法压咖啡
