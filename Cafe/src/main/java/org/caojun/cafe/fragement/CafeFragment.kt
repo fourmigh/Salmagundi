@@ -14,7 +14,7 @@ import org.caojun.cafe.utils.GameUtils
 
 class CafeFragment: Fragment() {
 
-    private var lastCheckedRadioButtonId = 0
+    private var lastCheckedRadioButtonId = -1
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_cafe, container, false)
@@ -28,7 +28,7 @@ class CafeFragment: Fragment() {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (hidden) {
-            lastCheckedRadioButtonId = rgCafe.checkedRadioButtonId
+            lastCheckedRadioButtonId = rgCafe.checkedRadioButtonId % rgCafe.childCount
         } else {
             refreshData()
         }
@@ -66,6 +66,11 @@ class CafeFragment: Fragment() {
                     }
                 }
             }
+        }
+
+        try {
+            (rgCafe.getChildAt(lastCheckedRadioButtonId - 1) as RadioButton).isChecked = true
+        } catch (e: Exception) {
         }
     }
 }
