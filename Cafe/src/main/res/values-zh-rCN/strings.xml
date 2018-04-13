@@ -59,4 +59,6 @@
     <!-- 导航栏 -->
     <string name="navi_material">食材</string>
     <string name="navi_cafe">咖啡</string>
+    <!-- 游戏 -->
+    <string name="you_found">你发现了【%s】。</string>
 </resources>

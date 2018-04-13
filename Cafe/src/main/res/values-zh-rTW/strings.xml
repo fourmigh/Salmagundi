@@ -59,4 +59,6 @@
     <!-- 巡覽列 -->
     <string name="navi_material">食材</string>
     <string name="navi_cafe">咖啡</string>
+    <!-- 遊戲 -->
+    <string name="you_found">你發現了【%s】。</string>
 </resources>

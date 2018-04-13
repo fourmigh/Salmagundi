@@ -9,6 +9,9 @@ import android.widget.CheckBox
 import kotlinx.android.synthetic.main.fragment_material.*
 import org.caojun.cafe.R
 import org.caojun.cafe.utils.CafeUtils
+import org.caojun.cafe.utils.GameUtils
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.yesButton
 
 class MaterialFragment: Fragment() {
 
@@ -27,16 +30,26 @@ class MaterialFragment: Fragment() {
                 rgMaterial.addView(checkBox)
 
                 checkBox.setOnCheckedChangeListener { _, isChecked ->
+                    tvCafe.text = null
                     if (isChecked) {
                         materials.add(material)
                     } else {
                         materials.remove(material)
                     }
-                    val cafeId = CafeUtils.getCafeResId(materials)
-                    if (cafeId > 0) {
-                        tvCafe.setText(cafeId)
-                    } else {
-                        tvCafe.text = null
+                    val cafe = CafeUtils.getCafe(materials) ?: return@setOnCheckedChangeListener
+                    val cafeId = CafeUtils.getResId(cafe)
+                    if (cafeId <= 0) {
+                        return@setOnCheckedChangeListener
+                    }
+                    tvCafe.setText(cafeId)
+                    if (!GameUtils.isGained(context, cafe)) {
+                        activity.alert(getString(R.string.you_found, getString(cafeId))) {
+                            yesButton {
+                                GameUtils.gain(context, cafe)
+
+                            }
+                            isCancelable = false
+                        }.show()
                     }
                 }
             }

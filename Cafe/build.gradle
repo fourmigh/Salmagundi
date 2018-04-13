@@ -33,4 +33,5 @@ dependencies {
     implementation 'org.jetbrains.anko:anko-common:latest.release'
     implementation "com.android.support:design:$androidsupport_version"
     implementation "com.android.support:support-vector-drawable:$androidsupport_version"
+    implementation project(':UtilsLibrary')
 }

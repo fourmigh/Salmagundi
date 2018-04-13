@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentTransaction
 import kotlinx.android.synthetic.main.activity_main.*
 import org.caojun.cafe.R
 import org.caojun.cafe.fragement.CafeFragment
@@ -15,12 +14,17 @@ class MainActivity : AppCompatActivity() {
     private var currentFragment: Fragment? = null
     private val cafeFragment = CafeFragment()
     private val materialFragment = MaterialFragment()
+    private var lastFragmentId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         navigation.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            if (lastFragmentId == item.itemId) {
+                return@OnNavigationItemSelectedListener true
+            }
+            lastFragmentId = item.itemId
             when (item.itemId) {
                 R.id.navigation_material -> {
                     switchFragment(materialFragment)
@@ -33,7 +37,6 @@ class MainActivity : AppCompatActivity() {
             }
             false
         })
-
         switchFragment(materialFragment)
     }
 
