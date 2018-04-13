@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">咖啡小館</string>
     <!-- 配料 -->
-    <string name="espresso">意式咖啡</string>
+    <string name="m_espresso">濃縮咖啡</string>
     <string name="roasted_coffee">烘焙咖啡</string>
     <string name="instant_coffee">即溶咖啡</string>
     <string name="french_coffee">法壓咖啡</string>
@@ -30,6 +30,7 @@
     <string name="cinnamon">肉桂粉</string>
     <string name="flavedo">橙皮碎</string>
     <!-- 咖啡 -->
+    <string name="c_espresso">意式咖啡</string>
     <string name="coffee">牛奶咖啡</string>
     <string name="cortadito">告爾多咖啡</string>
     <string name="caffe_latte">拿鐵咖啡</string>

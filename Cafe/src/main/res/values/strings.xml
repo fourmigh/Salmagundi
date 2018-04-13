@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MiniCafé</string>
     <!-- Material -->
-    <string name="espresso">Espresso</string>
+    <string name="m_espresso">Espresso</string>
     <string name="roasted_coffee">Roasted Coffee</string>
     <string name="instant_coffee">Instant Coffee</string>
     <string name="french_coffee">French Coffee</string>
@@ -29,6 +29,7 @@
     <string name="cinnamon">Cinnamon</string>
     <string name="flavedo">Flavedo</string>
     <!-- Café -->
+    <string name="c_espresso">Espresso</string>
     <string name="coffee">Coffee</string>
     <string name="cortadito">Cortadito</string>
     <string name="caffe_latte">Caffe Latte</string>

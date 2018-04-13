@@ -154,7 +154,7 @@ object CafeUtils {
 
     fun getResId(material: CafeUtils.Material): Int {
         return when (material) {
-            CafeUtils.Material.Espresso -> R.string.espresso//意式咖啡
+            CafeUtils.Material.Espresso -> R.string.m_espresso//意式咖啡
             CafeUtils.Material.RoastedCoffee -> R.string.roasted_coffee//烘焙咖啡
             CafeUtils.Material.InstantCoffee -> R.string.instant_coffee//速溶咖啡
             CafeUtils.Material.FrenchCoffee -> R.string.french_coffee//法压咖啡
@@ -186,7 +186,7 @@ object CafeUtils {
 
     fun getResId(cafe: CafeUtils.Cafe): Int {
         return when (cafe) {
-            CafeUtils.Cafe.Espresso -> R.string.espresso//意式咖啡
+            CafeUtils.Cafe.Espresso -> R.string.c_espresso//意式咖啡
             CafeUtils.Cafe.Coffee -> R.string.coffee//牛奶咖啡
             CafeUtils.Cafe.Cortadito -> R.string.cortadito//告尔多咖啡
             CafeUtils.Cafe.CaffeLatte -> R.string.caffe_latte//拿铁咖啡
