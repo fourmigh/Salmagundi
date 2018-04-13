@@ -12,14 +12,13 @@ import org.caojun.cafe.utils.CafeUtils
 
 class MaterialFragment: Fragment() {
 
-    private val materials = ArrayList<CafeUtils.Material>()
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_material, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        val materials = ArrayList<CafeUtils.Material>()
         for (material in CafeUtils.Material.values()) {
             val checkBox = CheckBox(context)
             val resId = CafeUtils.getResId(material)
@@ -33,13 +32,11 @@ class MaterialFragment: Fragment() {
                     } else {
                         materials.remove(material)
                     }
-                    val cafe = CafeUtils.getCafe(materials)
-                    tvCafe.text = null
-                    if (cafe != null) {
-                        val cafeId = CafeUtils.getResId(cafe)
-                        if (cafeId > 0) {
-                            tvCafe.setText(cafeId)
-                        }
+                    val cafeId = CafeUtils.getCafeResId(materials)
+                    if (cafeId > 0) {
+                        tvCafe.setText(cafeId)
+                    } else {
+                        tvCafe.text = null
                     }
                 }
             }

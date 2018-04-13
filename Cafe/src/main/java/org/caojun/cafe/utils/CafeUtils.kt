@@ -104,13 +104,35 @@ object CafeUtils {
     }
 
 
-    fun getCafe(materials: List<Material>): Cafe? {
+    private fun getCafe(materials: List<Material>): Cafe? {
         for (cafe in Formula.arrays.keys) {
             if (isCafe(Formula.arrays[cafe], materials)) {
                 return cafe
             }
         }
         return null
+    }
+
+    fun getCafeResId(materials: List<Material>): Int {
+        val cafe = getCafe(materials) ?: return -1
+        return CafeUtils.getResId(cafe)
+    }
+
+    private fun getMaterials(cafe: Cafe): Array<Material>? {
+        return if (Formula.arrays.containsKey(cafe)) {
+            Formula.arrays[cafe]
+        } else {
+            null
+        }
+    }
+
+    fun getMaterialsResIds(cafe: Cafe): List<Int>? {
+        val materials = getMaterials(cafe) ?: return null
+        val arrays = ArrayList<Int>()
+        for (material in materials) {
+            arrays.add(getResId(material))
+        }
+        return arrays
     }
 
     private fun isCafe(cafe: Array<Material>?, materials: List<Material>): Boolean {
