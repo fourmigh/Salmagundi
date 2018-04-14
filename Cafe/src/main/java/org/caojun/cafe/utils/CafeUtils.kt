@@ -4,7 +4,7 @@ import org.caojun.cafe.R
 
 object CafeUtils {
     enum class Material {
-        Espresso,//浓缩咖啡
+        Espresso,//意式咖啡
         RoastedCoffee,//烘焙咖啡
         InstantCoffee,//速溶咖啡
         FrenchCoffee,//法压咖啡
@@ -34,7 +34,6 @@ object CafeUtils {
     }
 
     enum class Cafe {
-        Espresso,//意式咖啡
         Coffee,//牛奶咖啡
         Cortadito,//告尔多咖啡
         CaffeLatte,//拿铁咖啡
@@ -67,7 +66,6 @@ object CafeUtils {
         val arrays = HashMap<Cafe, Array<Material>>()
 
         init {
-            arrays[Cafe.Espresso] = arrayOf(Material.Espresso)
             arrays[Cafe.Coffee] = arrayOf(Material.Espresso, Material.WarmMilk, Material.Foam)
             arrays[Cafe.Cortadito] = arrayOf(Material.BrownSugar, Material.Espresso, Material.WarmMilk, Material.Foam)
             arrays[Cafe.CaffeLatte] = arrayOf(Material.Espresso, Material.HotMilk)
@@ -174,7 +172,6 @@ object CafeUtils {
 
     fun getResId(cafe: CafeUtils.Cafe): Int {
         return when (cafe) {
-            CafeUtils.Cafe.Espresso -> R.string.c_espresso//意式咖啡
             CafeUtils.Cafe.Coffee -> R.string.coffee//牛奶咖啡
             CafeUtils.Cafe.Cortadito -> R.string.cortadito//告尔多咖啡
             CafeUtils.Cafe.CaffeLatte -> R.string.caffe_latte//拿铁咖啡
@@ -200,6 +197,36 @@ object CafeUtils {
             CafeUtils.Cafe.Americano -> R.string.americano//美式咖啡
             CafeUtils.Cafe.Mocha -> R.string.mocha//摩卡咖啡
             CafeUtils.Cafe.Borgia -> R.string.borgia//波奇亚咖啡
+        }
+    }
+
+    fun getImageResId(cafe: CafeUtils.Cafe): Int {
+        return when (cafe) {
+            CafeUtils.Cafe.Coffee -> R.drawable.c_coffee//牛奶咖啡
+            CafeUtils.Cafe.Cortadito -> R.drawable.c_cortadito//告尔多咖啡
+            CafeUtils.Cafe.CaffeLatte -> R.drawable.c_caffelatte//拿铁咖啡
+            CafeUtils.Cafe.CaPheSuaDa -> R.drawable.c_caphesuada//越南冰咖啡
+            CafeUtils.Cafe.Macchiato -> R.drawable.c_macchiato//玛奇朵
+            CafeUtils.Cafe.Affogato -> R.drawable.c_affogato//阿芙佳朵
+            CafeUtils.Cafe.Galao -> R.drawable.c_galao//葡式嘎漏咖啡
+            CafeUtils.Cafe.Frappe -> R.drawable.c_frappe//希腊冰咖啡
+            CafeUtils.Cafe.CafeDelTiempo -> R.drawable.c_cafedeltiempo//冰柠檬咖啡
+            CafeUtils.Cafe.Mazagran -> R.drawable.c_mazagran//葡式柠檬咖啡
+            CafeUtils.Cafe.IrishCoffee -> R.drawable.c_irishcoffee//爱尔兰咖啡
+            CafeUtils.Cafe.Cappucino -> R.drawable.c_cappucino//卡布奇诺
+            CafeUtils.Cafe.FlatWhite -> R.drawable.c_flatwhite//白咖啡（馥芮白）
+            CafeUtils.Cafe.Espressiono -> R.drawable.c_espressiono//浓缩咖啡
+            CafeUtils.Cafe.LongBlack -> R.drawable.c_longblack//黑咖啡
+            CafeUtils.Cafe.Breve -> R.drawable.c_breve//半拿铁
+            CafeUtils.Cafe.CafeCubano -> R.drawable.c_cafecubano//古巴咖啡
+            CafeUtils.Cafe.Bonbon -> R.drawable.c_bonbon//意式炼乳咖啡
+            CafeUtils.Cafe.CafeConHielo -> R.drawable.c_cafeconhielo//西班牙冰咖啡
+            CafeUtils.Cafe.EspressoRomano -> R.drawable.c_espressoromano//罗马咖啡
+            CafeUtils.Cafe.DirtyChaiLatte -> R.drawable.c_dirtychailatte//咖啡茶拿铁
+            CafeUtils.Cafe.Vienna -> R.drawable.c_vienna//维也纳咖啡
+            CafeUtils.Cafe.Americano -> R.drawable.c_americano//美式咖啡
+            CafeUtils.Cafe.Mocha -> R.drawable.c_mocha//摩卡咖啡
+            CafeUtils.Cafe.Borgia -> R.drawable.c_borgia//波奇亚咖啡
         }
     }
 }

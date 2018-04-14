@@ -64,6 +64,8 @@ class CafeFragment: Fragment() {
                         checkBox.setText(materials[i])
                         rgMaterial.addView(checkBox)
                     }
+
+                    ivCafe.setImageResource(CafeUtils.getImageResId(cafe))
                 }
             }
         }

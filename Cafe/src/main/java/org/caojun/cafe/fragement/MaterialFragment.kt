@@ -42,6 +42,7 @@ class MaterialFragment: Fragment() {
                         return@setOnCheckedChangeListener
                     }
                     tvCafe.setText(cafeId)
+                    ivCafe.setImageResource(CafeUtils.getImageResId(cafe))
                     if (!GameUtils.isGained(context, cafe)) {
                         activity.alert(getString(R.string.you_found, getString(cafeId))) {
                             yesButton {
