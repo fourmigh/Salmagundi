@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MiniCafé</string>
+    <string name="app_name">Mini Café</string>
     <!-- Material -->
     <string name="m_espresso">Espresso</string>
     <string name="roasted_coffee">Roasted Coffee</string>

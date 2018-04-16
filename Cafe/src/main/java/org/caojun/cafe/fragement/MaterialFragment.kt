@@ -42,7 +42,11 @@ class MaterialFragment: Fragment() {
                         return@setOnCheckedChangeListener
                     }
                     tvCafe.setText(cafeId)
-                    ivCafe.setImageResource(CafeUtils.getImageResId(cafe))
+
+                    val resId = CafeUtils.getImageResId(cafe)
+                    ivCafe.setImageResource(resId)
+                    ivFull.setImageResource(resId)
+
                     if (!GameUtils.isGained(context, cafe)) {
                         activity.alert(getString(R.string.you_found, getString(cafeId))) {
                             yesButton {
@@ -55,5 +59,12 @@ class MaterialFragment: Fragment() {
                 }
             }
         }
+
+        ivCafe.setOnClickListener({
+            ivFull.visibility = View.VISIBLE
+            ivFull.setOnClickListener({
+                ivFull.visibility = View.GONE
+            })
+        })
     }
 }

@@ -65,7 +65,9 @@ class CafeFragment: Fragment() {
                         rgMaterial.addView(checkBox)
                     }
 
-                    ivCafe.setImageResource(CafeUtils.getImageResId(cafe))
+                    val resId = CafeUtils.getImageResId(cafe)
+                    ivCafe.setImageResource(resId)
+                    ivFull.setImageResource(resId)
                 }
             }
         }
@@ -74,5 +76,12 @@ class CafeFragment: Fragment() {
             (rgCafe.getChildAt(lastCheckedRadioButtonId - 1) as RadioButton).isChecked = true
         } catch (e: Exception) {
         }
+
+        ivCafe.setOnClickListener({
+            ivFull.visibility = View.VISIBLE
+            ivFull.setOnClickListener({
+                ivFull.visibility = View.GONE
+            })
+        })
     }
 }
