@@ -67,6 +67,7 @@ class CafeFragment: Fragment() {
 
                     val resId = CafeUtils.getImageResId(cafe)
                     ivCafe.setImageResource(resId)
+                    ivCafe.visibility = View.VISIBLE
                     ivFull.setImageResource(resId)
                 }
             }

@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_launcher" />
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tvCafe"
@@ -44,6 +44,5 @@
         android:id="@+id/ivFull"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/ic_launcher"
         android:visibility="gone"/>
 </RelativeLayout>
