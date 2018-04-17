@@ -9,9 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat.startActivity
-
-
+import android.content.ContentResolver
 
 /**
  * Created by CaoJun on 2017/9/5.
@@ -55,7 +53,6 @@ object ActivityUtils {
     }
 
     fun gotoMarket(context: Context, packageName: String) {
-//        val uri = Uri.parse("market://details?id=" + packageName)
         val uri = Uri.parse("market://details?id=$packageName")
         val intent = Intent(Intent.ACTION_VIEW, uri)
         try {
@@ -93,5 +90,40 @@ object ActivityUtils {
 
     fun getSharedPreferences(context: Context, name: String, key: String, defValue: Int): Int {
         return context.getSharedPreferences(name, Context.MODE_PRIVATE).getInt(key, defValue)
+    }
+
+    private fun getShareIntent(): Intent {
+        return Intent(Intent.ACTION_SEND)
+    }
+
+    private fun getShareText(): Intent {
+        val intent = getShareIntent()
+        intent.type = "text/plain"
+        return intent
+    }
+
+    private fun getShareImage(): Intent {
+        val intent = getShareIntent()
+        intent.type = "image/jpeg"
+        return intent
+    }
+
+    fun shareText(context: Context, title: String, msg: String) {
+        val intent = getShareText()
+        intent.putExtra(Intent.EXTRA_TEXT, msg)
+        context.startActivity(Intent.createChooser(intent, title))
+    }
+
+    private fun getResourcesUri(context: Context, resId: Int): Uri {
+        val resources = context.resources
+        val path = ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + resources.getResourcePackageName(resId) + "/" + resources.getResourceTypeName(resId) + "/" + resources.getResourceEntryName(resId)
+        return Uri.parse(path)
+    }
+
+    fun shareImage(context: Context, title: String, resId: Int) {
+        val intent = getShareImage()
+        val path = getResourcesUri(context, resId)
+        intent.putExtra(Intent.EXTRA_STREAM, path)
+        context.startActivity(Intent.createChooser(intent, title))
     }
 }
