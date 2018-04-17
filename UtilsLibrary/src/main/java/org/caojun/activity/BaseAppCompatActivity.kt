@@ -11,7 +11,7 @@ open class BaseAppCompatActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        ActivityUtils.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        ActivityUtils.onRequestPermissionsResult(grantResults)
     }
 
     fun checkSelfPermission(permission: String, listener: ActivityUtils.RequestPermissionListener): Boolean {

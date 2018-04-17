@@ -23,7 +23,7 @@ object ActivityUtils {
 
     private var requestPermissionListener: RequestPermissionListener? = null
 
-    fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    fun onRequestPermissionsResult(grantResults: IntArray) {
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             requestPermissionListener?.onSuccess()
         } else {
