@@ -58,3 +58,5 @@
 58、圆形ImageView：工程WidgetLibrary（CircleImageView）
 59、图片选择（56+57）：工程app（CropImageActivity）
 60、图片中局部区域透明：工程RotaryPhone（RotaryView）
+61、图片选择（PictureSelector）：工程RotaryPhone（第三方开源库）
+62、ListPreference的使用：工程Cafe（BaikeActivity/BaseFragment）
