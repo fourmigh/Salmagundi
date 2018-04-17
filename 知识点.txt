@@ -60,3 +60,6 @@
 60、图片中局部区域透明：工程RotaryPhone（RotaryView）
 61、图片选择（PictureSelector）：工程RotaryPhone（第三方开源库）
 62、ListPreference的使用：工程Cafe（BaikeActivity/BaseFragment）
+63、倒计时库：工程CountdownLibrary
+64、秒表库：工程StopwatchLibrary
+65、骰子库：DiceLibrary
