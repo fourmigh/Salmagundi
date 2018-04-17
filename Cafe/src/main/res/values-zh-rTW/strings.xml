@@ -60,4 +60,6 @@
     <string name="navi_cafe">咖啡</string>
     <!-- 遊戲 -->
     <string name="you_found">你發現了【%s】。</string>
+    <!-- 百科 -->
+    <string name="baike">百科</string>
 </resources>

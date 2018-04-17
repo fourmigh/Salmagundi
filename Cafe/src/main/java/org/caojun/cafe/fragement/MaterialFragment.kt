@@ -1,7 +1,6 @@
 package org.caojun.cafe.fragement
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,7 @@ import org.caojun.cafe.utils.GameUtils
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.yesButton
 
-class MaterialFragment: Fragment() {
+class MaterialFragment: BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_material, container, false)
@@ -43,10 +42,10 @@ class MaterialFragment: Fragment() {
                     }
                     tvCafe.setText(cafeId)
 
-                    val resId = CafeUtils.getImageResId(cafe)
-                    ivCafe.setImageResource(resId)
+                    val imgResId = CafeUtils.getImageResId(cafe)
+                    ivCafe.setImageResource(imgResId)
                     ivCafe.visibility = View.VISIBLE
-                    ivFull.setImageResource(resId)
+                    ivFull.setImageResource(imgResId)
 
                     if (!GameUtils.isGained(context, cafe)) {
                         activity.alert(getString(R.string.you_found, getString(cafeId))) {
@@ -56,6 +55,11 @@ class MaterialFragment: Fragment() {
                             }
                             isCancelable = false
                         }.show()
+                    }
+
+                    ivCafe.setOnLongClickListener {
+                        doBaike(getString(cafeId))
+                        true
                     }
                 }
             }

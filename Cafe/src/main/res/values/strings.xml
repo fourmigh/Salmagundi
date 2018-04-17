@@ -59,4 +59,6 @@
     <string name="navi_cafe">Café</string>
     <!-- Game -->
     <string name="you_found">You found %s.</string>
+    <!-- Wiki -->
+    <string name="baike">Wiki</string>
 </resources>

@@ -1,7 +1,6 @@
 package org.caojun.cafe.fragement
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import org.caojun.cafe.R
 import org.caojun.cafe.utils.CafeUtils
 import org.caojun.cafe.utils.GameUtils
 
-class CafeFragment: Fragment() {
+class CafeFragment: BaseFragment() {
 
     private var lastCheckedRadioButtonId = -1
 
@@ -65,10 +64,15 @@ class CafeFragment: Fragment() {
                         rgMaterial.addView(checkBox)
                     }
 
-                    val resId = CafeUtils.getImageResId(cafe)
-                    ivCafe.setImageResource(resId)
+                    val imgResId = CafeUtils.getImageResId(cafe)
+                    ivCafe.setImageResource(imgResId)
                     ivCafe.visibility = View.VISIBLE
-                    ivFull.setImageResource(resId)
+                    ivFull.setImageResource(imgResId)
+
+                    ivCafe.setOnLongClickListener {
+                        doBaike(getString(resId))
+                        true
+                    }
                 }
             }
         }
