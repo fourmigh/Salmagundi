@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context=".activity.SchulteActivity">
 
-    <org.caojun.widget.Stopwatch
+    <org.caojun.stopwatch.widget.Stopwatch
         android:id="@+id/stopwatch"
         android:layout_marginTop="4dp"
         android:layout_width="match_parent"

@@ -2,7 +2,6 @@ package org.caojun.ttschulte.activity
 
 import android.app.Activity
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.text.TextUtils
@@ -21,17 +20,19 @@ import android.view.animation.AnimationUtils
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.SaveListener
 import kotlinx.android.synthetic.main.activity_schulte.*
+import org.caojun.activity.BaseAppCompatActivity
 import org.caojun.library.countdown.activity.CountdownActivity
 import org.caojun.ttschulte.Constant
 import org.caojun.ttschulte.room.Score
 import org.caojun.ttschulte.room.ScoreBmob
 import org.caojun.ttschulte.room.TTSDatabase
+import org.caojun.utils.ActivityUtils
 import org.caojun.utils.DataStorageUtils
 import org.caojun.utils.DeviceUtils
 import org.caojun.utils.DigitUtils
 import org.jetbrains.anko.*
 
-class SchulteActivity : AppCompatActivity() {
+class SchulteActivity : BaseAppCompatActivity() {
 
     private val RequestCode_Countdown = 1
 
@@ -190,19 +191,28 @@ class SchulteActivity : AppCompatActivity() {
         doAsync {
             val list = TTSDatabase.getDatabase(this@SchulteActivity).getScore().queryAll(LayoutIndex, TypeIndex)
             val s = list[list.size - 1]
-            val sb = ScoreBmob(s, DeviceUtils.getImei(this@SchulteActivity))
-            sb.save(object : SaveListener<String>() {
+            getIMEI(object : ActivityUtils.RequestPermissionListener {
+                override fun onSuccess() {
+                    val sb = ScoreBmob(s, DeviceUtils.getImei(this@SchulteActivity))
+                    sb.save(object : SaveListener<String>() {
 
-                override fun done(o: String, e: BmobException?) {
-                    if (e == null) {
-                        toast(R.string.upload_ok)
-                    } else {
-                        toast(getString(R.string.upload_error, e.toString()))
-                    }
+                        override fun done(o: String, e: BmobException?) {
+                            if (e == null) {
+                                toast(R.string.upload_ok)
+                            } else {
+                                toast(getString(R.string.upload_error, e.toString()))
+                            }
+                        }
+                    })
+
+                    finish()
+                }
+
+                override fun onFail() {
+                    finish()
                 }
             })
 
-            finish()
         }
     }
 

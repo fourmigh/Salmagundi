@@ -40,6 +40,7 @@ dependencies {
     implementation project(':UtilsLibrary')
     implementation project(':CountdownLibrary')
     implementation project(':WidgetLibrary')
+    implementation project(':StopwatchLibrary')
     //    bmob.cn
     repositories {
         maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
