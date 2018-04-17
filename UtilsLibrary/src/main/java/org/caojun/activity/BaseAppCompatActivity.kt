@@ -30,11 +30,11 @@ open class BaseAppCompatActivity : AppCompatActivity() {
         return ActivityUtils.getSharedPreferences(this, name, key, defValue)
     }
 
-    fun getSharedPreferences(context: Context, name: String, key: String, defValue: String): String {
+    fun getSharedPreferences(name: String, key: String, defValue: String): String {
         return ActivityUtils.getSharedPreferences(this, name, key, defValue)
     }
 
-    fun getSharedPreferences(context: Context, name: String, key: String, defValue: Int): Int {
+    fun getSharedPreferences(name: String, key: String, defValue: Int): Int {
         return ActivityUtils.getSharedPreferences(this, name, key, defValue)
     }
 }
