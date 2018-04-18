@@ -1,5 +1,6 @@
 package org.caojun.cafe.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceActivity
@@ -8,13 +9,11 @@ import org.caojun.cafe.R
 import android.preference.ListPreference
 import android.text.TextUtils
 
-
-class BaikeActivity: PreferenceActivity(), Preference.OnPreferenceChangeListener {
+class BaikeActivity : PreferenceActivity() {
 
     companion object {
         val PREFER_NAME = "org.caojun.cafe.baike"
     }
-
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,11 +23,13 @@ class BaikeActivity: PreferenceActivity(), Preference.OnPreferenceChangeListener
                 .commit()
     }
 
-    override fun onPreferenceChange(preference: Preference, newValue: Any): Boolean {
-        return true
-    }
+    class SettingsFragment : PreferenceFragment(), Preference.OnPreferenceChangeListener {
 
-    class SettingsFragment : PreferenceFragment() {
+        override fun onPreferenceChange(preference: Preference, newValue: Any): Boolean {
+            refresh(preference as ListPreference, newValue as String)
+            return true
+        }
+
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             preferenceManager.sharedPreferencesName = PREFER_NAME
@@ -36,9 +37,22 @@ class BaikeActivity: PreferenceActivity(), Preference.OnPreferenceChangeListener
             addPreferencesFromResource(R.xml.baike)
 
             val lp = findPreference("lp_baike") as ListPreference
-            if(TextUtils.isEmpty(lp.value)) {
+            lp.onPreferenceChangeListener = this
+
+            if (TextUtils.isEmpty(lp.value)) {
                 lp.setValueIndex(0)
             }
+
+            val mSharedPreferences = activity.getSharedPreferences(BaikeActivity.PREFER_NAME, Context.MODE_PRIVATE)
+            var url = mSharedPreferences.getString("lp_baike", "")
+            refresh(lp, url)
+        }
+
+        private fun refresh(lp: ListPreference, value: String) {
+            val index = lp.findIndexOfValue(value)
+            val baikes = resources.getStringArray(R.array.baike)
+
+            lp.summary = baikes[index]
         }
     }
 }
