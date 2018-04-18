@@ -92,38 +92,14 @@ object ActivityUtils {
         return context.getSharedPreferences(name, Context.MODE_PRIVATE).getInt(key, defValue)
     }
 
-    private fun getShareIntent(): Intent {
-        return Intent(Intent.ACTION_SEND)
-    }
-
-    private fun getShareText(): Intent {
-        val intent = getShareIntent()
-        intent.type = "text/plain"
-        return intent
-    }
-
-    private fun getShareImage(): Intent {
-        val intent = getShareIntent()
+    fun shareImage(context: Context, title: String, resId: Int) {
+        val intent = Intent(Intent.ACTION_SEND)
         intent.type = "image/jpeg"
-        return intent
-    }
 
-    fun shareText(context: Context, title: String, msg: String) {
-        val intent = getShareText()
-        intent.putExtra(Intent.EXTRA_TEXT, msg)
-        context.startActivity(Intent.createChooser(intent, title))
-    }
-
-    private fun getResourcesUri(context: Context, resId: Int): Uri {
         val resources = context.resources
         val path = ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + resources.getResourcePackageName(resId) + "/" + resources.getResourceTypeName(resId) + "/" + resources.getResourceEntryName(resId)
-        return Uri.parse(path)
-    }
 
-    fun shareImage(context: Context, title: String, resId: Int) {
-        val intent = getShareImage()
-        val path = getResourcesUri(context, resId)
-        intent.putExtra(Intent.EXTRA_STREAM, path)
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path))
         context.startActivity(Intent.createChooser(intent, title))
     }
 }

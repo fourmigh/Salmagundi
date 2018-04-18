@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.fragment_material.*
 import org.caojun.cafe.R
 import org.caojun.cafe.utils.CafeUtils
 import org.caojun.cafe.utils.GameUtils
+import org.caojun.utils.ActivityUtils
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.yesButton
 
@@ -81,10 +82,15 @@ class MaterialFragment: BaseFragment() {
             }
         }
         val imageView = ImageView(context)
-        imageView.setImageResource(R.drawable.onechina)
+        val resId = R.drawable.onechina
+        imageView.setImageResource(resId)
         activity.alert {
             titleResource = R.string.eggs
             customView = imageView
+            positiveButton(R.string.share, {
+                ActivityUtils.shareImage(activity, getString(R.string.eggs_info, getString(R.string.app_name)), resId)
+            })
+            negativeButton(R.string.close, {})
         }.show()
     }
 }

@@ -63,4 +63,7 @@
     <string name="baike">Wiki</string>
     <!-- Eggs -->
     <string name="eggs">Congratulations!</string>
+    <string name="share">Share</string>
+    <string name="close">Close</string>
+    <string name="eggs_info">I found a colored egg in [%s]!</string>
 </resources>

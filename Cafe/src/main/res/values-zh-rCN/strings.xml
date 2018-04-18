@@ -64,4 +64,7 @@
     <string name="baike">百科</string>
     <!-- 彩蛋 -->
     <string name="eggs">恭喜你，发现了彩蛋！</string>
+    <string name="share">分享</string>
+    <string name="close">关闭</string>
+    <string name="eggs_info">我在【%s】发现了一个彩蛋！</string>
 </resources>
