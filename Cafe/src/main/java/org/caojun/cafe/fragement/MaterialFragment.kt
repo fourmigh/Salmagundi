@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
 import kotlinx.android.synthetic.main.fragment_material.*
 import org.caojun.cafe.R
 import org.caojun.cafe.utils.CafeUtils
@@ -51,7 +52,7 @@ class MaterialFragment: BaseFragment() {
                         activity.alert(getString(R.string.you_found, getString(cafeId))) {
                             yesButton {
                                 GameUtils.gain(context, cafe)
-
+                                showEggs()
                             }
                             isCancelable = false
                         }.show()
@@ -71,5 +72,19 @@ class MaterialFragment: BaseFragment() {
                 ivFull.visibility = View.GONE
             })
         })
+    }
+
+    private fun showEggs() {
+        for (cafe in CafeUtils.Cafe.values()) {
+            if (!GameUtils.isGained(context, cafe)) {
+                return
+            }
+        }
+        val imageView = ImageView(context)
+        imageView.setImageResource(R.drawable.onechina)
+        activity.alert {
+            titleResource = R.string.eggs
+            customView = imageView
+        }.show()
     }
 }

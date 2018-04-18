@@ -62,4 +62,6 @@
     <string name="you_found">你發現了【%s】。</string>
     <!-- 百科 -->
     <string name="baike">百科</string>
+    <!-- 彩蛋 -->
+    <string name="eggs">恭喜你，發現了彩蛋！</string>
 </resources>

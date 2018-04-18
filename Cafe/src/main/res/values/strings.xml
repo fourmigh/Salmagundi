@@ -61,4 +61,6 @@
     <string name="you_found">You found %s.</string>
     <!-- Wiki -->
     <string name="baike">Wiki</string>
+    <!-- Eggs -->
+    <string name="eggs">Congratulations!</string>
 </resources>
