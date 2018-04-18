@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 剪切板 -->
+    <string name="clipboard_alert">“%s”已複製到剪切板。</string></resources>

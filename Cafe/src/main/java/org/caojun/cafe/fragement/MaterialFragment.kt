@@ -31,6 +31,7 @@ class MaterialFragment: BaseFragment() {
                 rgMaterial.addView(checkBox)
 
                 checkBox.setOnCheckedChangeListener { _, isChecked ->
+                    ivCafe.visibility = View.INVISIBLE
                     tvCafe.text = null
                     if (isChecked) {
                         materials.add(material)
@@ -46,6 +47,7 @@ class MaterialFragment: BaseFragment() {
 
                     val imgResId = CafeUtils.getImageResId(cafe)
                     ivCafe.setImageResource(imgResId)
+                    ivCafe.visibility = View.VISIBLE
                     ivCafe.visibility = View.VISIBLE
                     ivFull.setImageResource(imgResId)
 
@@ -88,7 +90,9 @@ class MaterialFragment: BaseFragment() {
             titleResource = R.string.eggs
             customView = imageView
             positiveButton(R.string.share, {
-                ActivityUtils.shareImage(activity, getString(R.string.eggs_info, getString(R.string.app_name)), resId)
+                val title = getString(R.string.eggs_info, getString(R.string.app_name))
+                ActivityUtils.copyClipboardData(context, title)
+                ActivityUtils.shareImage(context, title, resId)
             })
             negativeButton(R.string.close, {})
         }.show()

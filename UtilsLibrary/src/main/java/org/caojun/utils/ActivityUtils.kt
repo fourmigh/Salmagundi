@@ -2,14 +2,13 @@ package org.caojun.utils
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.support.v4.app.ActivityCompat
-import android.content.ContentResolver
+import org.jetbrains.anko.toast
 
 /**
  * Created by CaoJun on 2017/9/5.
@@ -101,5 +100,12 @@ object ActivityUtils {
 
         intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path))
         context.startActivity(Intent.createChooser(intent, title))
+    }
+
+    fun copyClipboardData(context: Context, clipboardData: String) {
+        val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText(null, clipboardData)
+        clipboardManager.primaryClip = clipData
+        context.toast(context.getString(R.string.clipboard_alert, clipboardData))
     }
 }

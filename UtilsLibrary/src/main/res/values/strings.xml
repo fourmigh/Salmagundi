@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">UtilsLibrary</string>
+    <!-- 剪切板 -->
+    <string name="clipboard_alert">"%s" has been copied to the Clipboard.</string>
 </resources>
