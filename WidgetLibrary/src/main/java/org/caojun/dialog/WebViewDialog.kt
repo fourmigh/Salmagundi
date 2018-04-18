@@ -6,9 +6,10 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
-import android.webkit.WebChromeClient
-import android.webkit.WebView
-import android.webkit.WebViewClient
+//import android.webkit.WebChromeClient
+//import android.webkit.WebView
+//import android.webkit.WebViewClient
+import org.caojun.widget.WebView
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
@@ -34,12 +35,12 @@ class WebViewDialog: Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val webView = WebView(this)
-        webView.settings.javaScriptEnabled = true
-        webView.settings.javaScriptCanOpenWindowsAutomatically = true
-        webView.settings.setSupportMultipleWindows(true)
-        webView.webViewClient = WebViewClient()
-        webView.webChromeClient = WebChromeClient()
-        webView.settings.domStorageEnabled = true
+//        webView.settings.javaScriptEnabled = true
+//        webView.settings.javaScriptCanOpenWindowsAutomatically = true
+//        webView.settings.setSupportMultipleWindows(true)
+//        webView.webViewClient = WebViewClient()
+//        webView.webChromeClient = WebChromeClient()
+//        webView.settings.domStorageEnabled = true
         setContentView(webView)
 
         webView.loadUrl(url)
