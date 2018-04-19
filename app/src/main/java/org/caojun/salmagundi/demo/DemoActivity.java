@@ -13,6 +13,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import org.caojun.activity.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
+import org.caojun.utils.ActivityUtils;
 
 /**
  * Created by CaoJun on 2018-3-15.
@@ -26,7 +27,7 @@ public class DemoActivity extends BaseActivity {
         setContentView(R.layout.activity_demo);
 
         final TextView textView = findViewById(R.id.textView);
-        getIMEI(new RequestPermissionListener() {
+        getIMEI(new ActivityUtils.RequestPermissionListener() {
             @Override
             public void onSuccess() {
                 TelephonyManager tm = (TelephonyManager)DemoActivity.this.getSystemService(Context.TELEPHONY_SERVICE);

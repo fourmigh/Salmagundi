@@ -1,6 +1,5 @@
 package org.caojun.utils
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.telephony.TelephonyManager
@@ -10,16 +9,18 @@ import android.telephony.TelephonyManager
  */
 object DeviceUtils {
 
-    @SuppressLint("HardwareIds")
     fun getImei(context: Context): String {
         val tm = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            try {
-                return tm.imei
-            } catch (e: SecurityException) {
+        return try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                tm.imei
+            } else {
+                tm.deviceId
             }
+        } catch (e: SecurityException) {
+            e.printStackTrace()
+            ""
         }
-        @Suppress("DEPRECATION")
-        return tm.deviceId
+
     }
 }
