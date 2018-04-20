@@ -63,4 +63,5 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:latest.release'
     implementation 'cn.bmob.android:bmob-sdk:3.5.8'
     implementation project(':UtilsLibrary')
+    implementation project(':WidgetLibrary')
 }
