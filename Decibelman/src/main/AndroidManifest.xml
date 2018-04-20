@@ -36,16 +36,16 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <!-- 百度地图 -->
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" />
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="lFNmhFqKw8aRliocvWVwcvTuYuGKVXmR" />
-        <meta-data
-            android:name="com.baidu.lbsapi.GeoTableId"
-            android:value="176572" />
+        <!--<service-->
+            <!--android:name="com.baidu.location.f"-->
+            <!--android:enabled="true"-->
+            <!--android:process=":remote" />-->
+        <!--<meta-data-->
+            <!--android:name="com.baidu.lbsapi.API_KEY"-->
+            <!--android:value="lFNmhFqKw8aRliocvWVwcvTuYuGKVXmR" />-->
+        <!--<meta-data-->
+            <!--android:name="com.baidu.lbsapi.GeoTableId"-->
+            <!--android:value="176572" />-->
 
         <!-- 高德地图 -->
         <!-- 设置key -->
