@@ -110,6 +110,7 @@ class MainActivity : BaseActivity() {
         doAsync {
             var list = DecibelInfoDatabase.getDatabase(this@MainActivity).getDao().queryAll()
             if (list.isEmpty()) {
+
                 val time = Date().time
                 Constant.decibelInfo0 = DecibelInfo()
                 Constant.decibelInfo0?.imei = DeviceUtils.getIMEI(this@MainActivity)

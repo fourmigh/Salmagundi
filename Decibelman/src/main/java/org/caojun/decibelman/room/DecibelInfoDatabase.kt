@@ -8,9 +8,12 @@ import android.content.Context
 /**
  * Created by CaoJun on 2017/9/25.
  */
-@Database(entities = arrayOf(DecibelInfo::class), version = 1, exportSchema = false)
-abstract class DecibelInfoDatabase: RoomDatabase {
-    constructor() : super()
+@Database(
+        entities = arrayOf(DecibelInfo::class),
+        version = 1,
+        exportSchema = false
+)
+abstract class DecibelInfoDatabase: RoomDatabase() {
 
     abstract fun getDao(): DecibelInfoDao
 
@@ -19,7 +22,7 @@ abstract class DecibelInfoDatabase: RoomDatabase {
 
         @JvmStatic fun getDatabase(context: Context): DecibelInfoDatabase {
             if (INSTANCE == null) {
-                INSTANCE = Room.databaseBuilder(context.applicationContext, DecibelInfoDatabase::class.java, "decibelinfo_database").build()
+                INSTANCE = Room.databaseBuilder(context, DecibelInfoDatabase::class.java, "decibelinfo_database").build()
             }
             return INSTANCE!!
         }

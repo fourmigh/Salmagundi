@@ -6,7 +6,8 @@ buildscript {
     ext {
         kotlin_version = "latest.release"
         androidsupport_version = "26.1.0"
-        googleroom_version = "1.0.0-alpha9"
+//        googleroom_version = "1.0.0-alpha9"
+        googleroom_version = "latest.release"
         buildToolsVersion = "26.0.2"
         sdkVersion = 26
     }

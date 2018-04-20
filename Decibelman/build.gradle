@@ -49,13 +49,9 @@ dependencies {
     implementation 'org.jetbrains.anko:anko-common:latest.release'
     implementation "android.arch.persistence.room:runtime:$googleroom_version"
     implementation "android.arch.lifecycle:extensions:$googleroom_version"
-    annotationProcessor "android.arch.lifecycle:compiler:$googleroom_version"
+    kapt "android.arch.lifecycle:compiler:$googleroom_version"
     kapt "android.arch.persistence.room:common:$googleroom_version"
-    //BMOB
-    //    implementation "io.reactivex:rxjava:latest.release"
-    //    implementation "com.google.code.gson:gson:latest.release"
-    //    implementation "io.reactivex:rxandroid:latest.release"
-    //    implementation "com.squareup.okio:okio:latest.release"
+    kapt "android.arch.persistence.room:compiler:$googleroom_version"
     repositories {
         maven { url "https://jitpack.io" }
         maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
