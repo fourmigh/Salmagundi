@@ -4,7 +4,14 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import java.io.ByteArrayOutputStream
+import android.R.attr.path
+import android.content.Context
+import android.graphics.Canvas
+import java.io.*
+import android.opengl.ETC1.getWidth
+import android.opengl.ETC1.getHeight
+import android.view.View
+
 
 /**
  * Created by CaoJun on 2017/9/5.
@@ -41,15 +48,43 @@ object ImageUtils {
     }
 
     fun toBitmap(path: String): Bitmap? {
-        try {
-            return BitmapFactory.decodeFile(path)
+        return try {
+            BitmapFactory.decodeFile(path)
         } catch (e: Exception) {
-            return null
+            null
         }
     }
 
     fun toByteArray(path: String): ByteArray? {
         val bitmap = toBitmap(path)
         return toByteArray(bitmap)
+    }
+
+    fun toBitmap(view: View): Bitmap {
+        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view.draw(canvas)
+        return bitmap
+    }
+
+    fun toFile(context: Context, bitmap: Bitmap): File {
+        val path = FileUtils.getDiskCachePath(context)
+        val file = File(path, "temp.jpg")
+        if (file.exists()) {
+            file.delete()
+        }
+        try {
+            val out = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
+            out.flush()
+            out.close()
+            bitmap.recycle()
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } finally {
+            return file
+        }
     }
 }

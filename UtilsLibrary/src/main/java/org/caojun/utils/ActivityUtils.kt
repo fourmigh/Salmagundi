@@ -9,6 +9,7 @@ import android.os.Build
 import android.provider.Settings
 import android.support.v4.app.ActivityCompat
 import org.jetbrains.anko.toast
+import java.io.File
 
 /**
  * Created by CaoJun on 2017/9/5.
@@ -92,13 +93,20 @@ object ActivityUtils {
     }
 
     fun shareImage(context: Context, title: String, resId: Int) {
+        val resources = context.resources
+        val path = ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + resources.getResourcePackageName(resId) + "/" + resources.getResourceTypeName(resId) + "/" + resources.getResourceEntryName(resId)
+        shareImage(context, title, Uri.parse(path))
+    }
+
+    fun shareImage(context: Context, title: String, file: File) {
+        shareImage(context, title, Uri.fromFile(file))
+    }
+
+    private fun shareImage(context: Context, title: String, uri: Uri) {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "image/jpeg"
 
-        val resources = context.resources
-        val path = ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + resources.getResourcePackageName(resId) + "/" + resources.getResourceTypeName(resId) + "/" + resources.getResourceEntryName(resId)
-
-        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path))
+        intent.putExtra(Intent.EXTRA_STREAM, uri)
         context.startActivity(Intent.createChooser(intent, title))
     }
 

@@ -21,4 +21,5 @@
     <string name="share_info">I was at or near [%s], measured by me, where the decibels are\n maximum: %s\n mean: %s\n minimum: %s.</string>
     <string name="menu_upload">Upload</string>
     <string name="menu_share">Share</string>
+    <string name="menu_report">Report</string>
 </resources>

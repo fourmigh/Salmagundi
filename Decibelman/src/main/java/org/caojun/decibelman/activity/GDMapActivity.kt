@@ -1,5 +1,6 @@
 package org.caojun.decibelman.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -16,6 +17,9 @@ import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.LocationSource
 import com.amap.api.maps.model.*
+import com.luck.picture.lib.PictureSelector
+import com.luck.picture.lib.config.PictureConfig
+import com.luck.picture.lib.config.PictureMimeType
 import kotlinx.android.synthetic.main.fragment_gdmap.*
 import org.caojun.decibelman.Constant
 import org.caojun.decibelman.R
@@ -24,6 +28,7 @@ import org.caojun.decibelman.room.DecibelInfo
 import org.caojun.decibelman.utils.DigitUtils
 import org.caojun.decibelman.utils.TimeUtils
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.startActivity
 import rx.Subscriber
 
 /**
@@ -35,6 +40,7 @@ class GDMapActivity: BaseActivity(), LocationSource, AMapLocationListener, AMap.
     private var mLocationChangedListener: LocationSource.OnLocationChangedListener? = null
     private var mLocationClient: AMapLocationClient? = null
     private var mLocationOption: AMapLocationClientOption? = null
+    private val Request_Select_Picture = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -214,6 +220,7 @@ class GDMapActivity: BaseActivity(), LocationSource, AMapLocationListener, AMap.
         super.onCreateContextMenu(menu, v, menuInfo)
         menu?.add(1, 0, 0, R.string.menu_upload)
         menu?.add(1, 1, 1, R.string.menu_share)
+        menu?.add(1, 2, 2, R.string.menu_report)
     }
 
     override fun onContextItemSelected(item: MenuItem?): Boolean {
@@ -225,6 +232,17 @@ class GDMapActivity: BaseActivity(), LocationSource, AMapLocationListener, AMap.
             1 -> {
                 //分享
                 shareInfo(Constant.amapLocation, getSavedDecibelInfo())
+            }
+            2 -> {
+                //拍照举报
+                PictureSelector.create(this)
+                        .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+                        .selectionMode(PictureConfig.SINGLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
+                        .isCamera(true)// 是否显示拍照按钮 true or false
+                        .imageFormat(PictureMimeType.PNG)// 拍照保存图片格式后缀,默认jpeg
+                        .enableCrop(false)// 是否裁剪 true or false
+                        .previewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
+                        .forResult(Request_Select_Picture)//结果回调onActivityResult code
             }
         }
         return super.onContextItemSelected(item)
@@ -238,6 +256,26 @@ class GDMapActivity: BaseActivity(), LocationSource, AMapLocationListener, AMap.
         val intent = Intent(Intent.ACTION_SEND)
         intent.putExtra(Intent.EXTRA_TEXT, text)
         intent.type = "text/plain"
-        startActivity(Intent.createChooser(intent, getString(R.string.menu_share)));
+        startActivity(Intent.createChooser(intent, getString(R.string.menu_share)))
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK && data != null) when (requestCode) {
+            Request_Select_Picture -> {
+                val selectList = PictureSelector.obtainMultipleResult(data)
+                val path = selectList[0].path
+                doReport(Constant.amapLocation, getSavedDecibelInfo(), path)
+                return
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun doReport(amapLocation: AMapLocation?, di: DecibelInfo, path: String) {
+        if (amapLocation == null || TextUtils.isEmpty(amapLocation.address)) {
+            return
+        }
+        val text = getString(R.string.share_info, amapLocation.address, DigitUtils.getRound(di.decibel_max, 1), DigitUtils.getRound(di.decibel_average, 1), DigitUtils.getRound(di.decibel_min, 1))
+        startActivity<ReportActivity>(ReportActivity.Key_Picture_Path to path, ReportActivity.Key_Report_Content to text)
     }
 }

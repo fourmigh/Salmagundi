@@ -12,6 +12,8 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <!-- 获取IMEI -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 拍照 -->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".MainApplication"
@@ -34,6 +36,8 @@
             android:label="@string/settings"/>
         <activity android:name=".activity.GDMapActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".activity.ReportActivity"
+            android:label="@string/menu_report"/>
 
         <!-- 百度地图 -->
         <!--<service-->
