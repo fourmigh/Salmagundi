@@ -18,7 +18,7 @@
     <string name="show_confirm_dialog">顯示確認對話框</string>
     <string name="ask_record_audio_permission">需要錄音許可權。</string>
     <string name="quit">退出</string>
-    <string name="share_info">我在%s或附近，經我量測，這裡的分貝值\n最大：%s\n平均：%s\n最小：%s。</string>
+    <string name="share_info">我在%s，\n經我量測，這裡的分貝值為\n最大：%s\n平均：%s\n最小：%s。</string>
     <string name="menu_upload">上傳</string>
     <string name="menu_share">分享</string>
     <string name="menu_report">拍照舉報</string>
