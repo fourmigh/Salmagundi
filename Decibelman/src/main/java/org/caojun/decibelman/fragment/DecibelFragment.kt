@@ -63,6 +63,7 @@ class DecibelFragment: Fragment() {
     override fun onResume() {
         super.onResume()
         decibelman!!.start()
+        waveView.setText(getString(R.string.wave))
 
         waveView.setOnClickListener {
             waveView.visibility = View.GONE

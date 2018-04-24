@@ -22,4 +22,6 @@
     <string name="menu_upload">上傳</string>
     <string name="menu_share">分享</string>
     <string name="menu_report">拍照舉報</string>
+
+    <string name="wave">波形圖</string>
 </resources>

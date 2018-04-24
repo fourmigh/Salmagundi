@@ -31,12 +31,18 @@ class WaveView: View {
     //字体颜色
     private var textColor = Color.rgb(63, 81, 181)
 
+    private var text = ""
+
     constructor(context: Context, attrs: AttributeSet): super(context, attrs) {
         bits = Math.pow(2.0, (Bits_Per_Sample - 1).toDouble()) - 1
 
         paintText.color = textColor
         paintText.textAlign = Paint.Align.RIGHT
         paintText.textSize = 36f
+    }
+
+    fun setText(text: String) {
+        this.text = text
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -46,7 +52,7 @@ class WaveView: View {
         // 显示波形图
         drawWave(canvas)
 
-        canvas.drawText("波形图", this.width.toFloat() - 20, this.height.toFloat() - 20, paintText)
+        canvas.drawText(text, this.width.toFloat() - 20, this.height.toFloat() - 20, paintText)
     }
 
     /**

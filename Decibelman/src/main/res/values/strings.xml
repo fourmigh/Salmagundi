@@ -22,4 +22,6 @@
     <string name="menu_upload">Upload</string>
     <string name="menu_share">Share</string>
     <string name="menu_report">Report</string>
+
+    <string name="wave">Wave</string>
 </resources>
