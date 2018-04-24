@@ -48,6 +48,12 @@ class DecibelFragment: Fragment() {
                 addEntry(Constant.min, value.toFloat(), Constant.max)
                 resetChart(Constant.min - 12, Constant.max + 12)
             }
+
+            override fun onGetData(data: ShortArray) {
+                if (waveView.visibility == View.VISIBLE) {
+                    waveView.showSpectrogram(data)
+                }
+            }
         })
 
         AverageUtils.init()
@@ -57,6 +63,14 @@ class DecibelFragment: Fragment() {
     override fun onResume() {
         super.onResume()
         decibelman!!.start()
+
+        waveView.setOnClickListener {
+            waveView.visibility = View.GONE
+        }
+
+        chart.setOnClickListener {
+            waveView.visibility = View.VISIBLE
+        }
     }
 
     override fun onPause() {

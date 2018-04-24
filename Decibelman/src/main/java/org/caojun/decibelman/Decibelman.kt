@@ -24,6 +24,7 @@ class Decibelman {
 
     interface OnDecibelListener {
         fun onGetDecibel(decibel: Double)
+        fun onGetData(data: ShortArray)
     }
 
     constructor(activity: MainActivity, listener: OnDecibelListener) {
@@ -55,6 +56,9 @@ class Decibelman {
                 //r是实际读取的数据长度，一般而言r会小于buffersize
                 val r = mAudioRecord!!.read(buffer, 0, BUFFER_SIZE)
                 if (r > 0) {
+
+
+
                     var v: Long = 0
                     // 将 buffer 内容取出，进行平方和运算
                     for (i in buffer.indices) {
@@ -67,6 +71,7 @@ class Decibelman {
                         if (volume.toString().indexOf(".") > 0) {
                             listener?.onGetDecibel(volume)
                         }
+                        listener?.onGetData(buffer)
                     }
                     // 大概一秒十次
                     synchronized(this) {

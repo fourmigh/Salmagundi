@@ -9,6 +9,7 @@ import org.caojun.decibelman.R
 import org.caojun.decibelman.room.DIBmob
 import org.caojun.decibelman.room.DecibelInfo
 import org.caojun.decibelman.room.DecibelInfoDatabase
+import org.caojun.decibelman.utils.ActivityUtils
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.doAsync
 import java.util.Date
@@ -91,5 +92,19 @@ open class BaseActivity: BaseAppCompatActivity() {
             settings.putBoolean(getString(R.string.key_show_confirm_dialog), false)
             settings.commit()
         }
+    }
+
+    fun askRecordAudioPermission() {
+        alert(R.string.ask_record_audio_permission) {
+            positiveButton(android.R.string.ok) {
+                ActivityUtils.gotoPermission(this@BaseActivity)
+            }
+            negativeButton(R.string.quit) {
+                finish()
+            }
+            onCancelled {
+                finish()
+            }
+        }.show()
     }
 }

@@ -13,11 +13,9 @@ import org.caojun.decibelman.room.DecibelInfo
 import org.caojun.decibelman.room.DecibelInfoDatabase
 import org.caojun.decibelman.utils.AlgorithmUtils
 import org.caojun.decibelman.utils.DeviceUtils
-import org.jetbrains.anko.alert
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.startActivity
 import java.util.Date
-import org.caojun.decibelman.utils.ActivityUtils
 import org.caojun.utils.ActivityUtils.RequestPermissionListener
 
 class MainActivity : BaseActivity() {
@@ -29,7 +27,6 @@ class MainActivity : BaseActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_map -> {
-//                doMapFragment()
                 this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION, object : RequestPermissionListener {
                     override fun onSuccess() {
                         doMapFragment()
@@ -64,18 +61,12 @@ class MainActivity : BaseActivity() {
 
     private fun setFragment(/*hide: Fragment, */show: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-//        transaction.hide(hide)
         transaction.show(show)
         transaction.commit()
     }
 
     override fun onResume() {
         super.onResume()
-//        if (navigation.selectedItemId != R.id.navigation_decibel) {
-//            doMapFragment()
-//        } else {
-//            doDecibelFragment()
-//        }
         navigation.selectedItemId = R.id.navigation_decibel
     }
 
@@ -97,8 +88,6 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> {
-//                val intent = Intent(this, SettingsActivity::class.java)
-//                startActivity(intent)
                 startActivity<SettingsActivity>()
                 true
             }
@@ -122,29 +111,5 @@ class MainActivity : BaseActivity() {
                 Constant.decibelInfo0 = list[0]
             }
         }
-    }
-
-//    private fun checkSelfPermission() {
-//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            if (ContextCompat.checkSelfPermission(this, Constant.Sound_Permission) != PackageManager.PERMISSION_GRANTED) {
-////                if (shouldShowRequestPermissionRationale(Constant.Sound_Permission)) {
-////                }
-//                requestPermissions(arrayOf(Constant.Sound_Permission), Constant.RequestCode_Permissions);
-//            }
-//        }
-//    }
-
-    fun askRecordAudioPermission() {
-        alert(R.string.ask_record_audio_permission) {
-            positiveButton(android.R.string.ok) {
-                ActivityUtils.gotoPermission(this@MainActivity)
-            }
-            negativeButton(R.string.quit) {
-                finish()
-            }
-            onCancelled {
-                finish()
-            }
-        }.show()
     }
 }
