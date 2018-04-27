@@ -1,4 +1,4 @@
-package org.caojun.decibelman.widget
+package org.caojun.fft.widget
 
 import android.content.Context
 import android.graphics.Canvas
@@ -6,7 +6,11 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
+import org.caojun.fft.R
 
+/**
+ * 波形图
+ */
 class WaveView: View {
 
     private val Bits_Per_Sample = 16//这里默认为16位
@@ -24,14 +28,14 @@ class WaveView: View {
     private var LineViewWidth = 0f
     private var LineViewHeight = 0f
 
-    private var data: ShortArray? = null
+    private var data: FloatArray? = null
 
     //频谱颜色
     private var sepColor = Color.rgb(63, 81, 181)
     //字体颜色
     private var textColor = Color.rgb(63, 81, 181)
 
-    private var text = ""
+    private var title = ""
 
     constructor(context: Context, attrs: AttributeSet): super(context, attrs) {
         bits = Math.pow(2.0, (Bits_Per_Sample - 1).toDouble()) - 1
@@ -39,10 +43,8 @@ class WaveView: View {
         paintText.color = textColor
         paintText.textAlign = Paint.Align.RIGHT
         paintText.textSize = 36f
-    }
 
-    fun setText(text: String) {
-        this.text = text
+        title = context.getString(R.string.wave)
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -52,7 +54,7 @@ class WaveView: View {
         // 显示波形图
         drawWave(canvas)
 
-        canvas.drawText(text, this.width.toFloat() - 20, this.height.toFloat() - 20, paintText)
+        canvas.drawText(title, this.width.toFloat() - 20, this.height.toFloat() - 20, paintText)
     }
 
     /**
@@ -97,7 +99,7 @@ class WaveView: View {
      * @param buf
      */
     @Synchronized
-    fun showSpectrogram(buf: ShortArray) {
+    fun show(buf: FloatArray) {
         data = buf
         invalidate()
     }

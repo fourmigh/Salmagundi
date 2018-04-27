@@ -1,44 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <org.caojun.library.velocimeter.widget.VelocimeterView
-        android:layout_gravity="center"
         android:id="@+id/velocimeterView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="-80dp"
         android:background="@color/velocimeter_background"
-        app:inside_progress_color="@color/inside_progress"
+        app:bottom_velocimeter_color="@color/bottom_velocimeter"
+        app:digital_number_blur_color="@color/digital_number"
+        app:digital_number_color="@color/digital_number"
         app:external_progress_color0="@color/external_progress0"
         app:external_progress_color1="@color/external_progress1"
+        app:inside_progress_color="@color/inside_progress"
+        app:internal_velocimeter_color="@color/internal_velocimeter"
+        app:max="120"
+        app:needle_blur_color="@color/needle"
+        app:needle_color="@color/needle"
         app:progress_blur_color0="@color/external_progress0"
         app:progress_blur_color1="@color/external_progress1"
-        app:bottom_velocimeter_color="@color/bottom_velocimeter"
-        app:internal_velocimeter_color="@color/internal_velocimeter"
-        app:needle_color="@color/needle"
-        app:needle_blur_color="@color/needle"
-        app:digital_number_color="@color/digital_number"
-        app:digital_number_blur_color="@color/digital_number"
         app:show_bottom_bar="false"
-        app:max="120"
         app:units="dB" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <org.caojun.decibelman.widget.WaveView
+        <org.caojun.fft.widget.WaveView
             android:id="@+id/waveView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#ddd"
+            android:visibility="gone" />
+
+        <org.caojun.fft.widget.SpectrumView
+            android:id="@+id/spectrumView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ddd"
+            android:visibility="gone" />
+
+        <org.caojun.fft.widget.AudioView
+            android:id="@+id/audioView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <com.paramsen.noise.sample.view.FFTBandView
+            android:id="@+id/bandView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+        <com.paramsen.noise.sample.view.FFTSpectogramView
+            android:id="@+id/spectogramView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:visibility="gone"/>
     </RelativeLayout>
 

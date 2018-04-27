@@ -19,6 +19,9 @@ import java.util.Date
  */
 open class BaseActivity: BaseAppCompatActivity() {
 
+    private val Key_Confirm_Dialog = "sp_confirm_dialog"
+    private val Key_Switch_LP = "sp_switch_lp"
+
     interface OnDatabaseListener {
         fun onSuccess()
         fun onError()
@@ -36,7 +39,7 @@ open class BaseActivity: BaseAppCompatActivity() {
             return
         }
         val settings = PreferenceManager.getDefaultSharedPreferences(this)
-        if (settings.getBoolean(getString(R.string.key_show_confirm_dialog), true)) {
+        if (settings.getBoolean(Key_Confirm_Dialog, true)) {
             alert(R.string.alert_save_data) {
                 positiveButton(R.string.yes) {
                     saveDecibelInfo()
@@ -89,7 +92,7 @@ open class BaseActivity: BaseAppCompatActivity() {
     private fun saveSharedPreferences() {
         doAsync {
             val settings = PreferenceManager.getDefaultSharedPreferences(this@BaseActivity).edit()
-            settings.putBoolean(getString(R.string.key_show_confirm_dialog), false)
+            settings.putBoolean(Key_Confirm_Dialog, false)
             settings.commit()
         }
     }

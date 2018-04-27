@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FFTLibrary</string>
+    <string name="ask_record_audio_permission">Need Microphone Permission.</string>
+    <string name="wave">Wave</string>
+    <string name="spectrum">Spectrum</string>
+    <string name="audio">Audio</string>
+</resources>

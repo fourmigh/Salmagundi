@@ -14,14 +14,14 @@
     <string name="yes_no_alert">Yes, and no alert again.</string>
     <string name="decibel_info">Max: %s\nAverage: %s\nMin: %s</string>
     <string name="mark_title">Decibel\n%s</string>
-    <string name="key_show_confirm_dialog">sp_confirm_dialog</string>
     <string name="show_confirm_dialog">Show Confirm Dialog</string>
-    <string name="ask_record_audio_permission">Need Microphone Permission.</string>
     <string name="quit">Quit</string>
     <string name="share_info">I was at %s,\nmeasured by me, where the decibels are\n maximum: %s\n mean: %s\n minimum: %s.</string>
     <string name="menu_upload">Upload</string>
     <string name="menu_share">Share</string>
     <string name="menu_report">Report</string>
 
-    <string name="wave">Wave</string>
+    <string name="portrait">Portrait</string>
+    <string name="landscape">Landscape</string>
+    <string name="content_switch_lp">It will be effective at the next start.</string>
 </resources>

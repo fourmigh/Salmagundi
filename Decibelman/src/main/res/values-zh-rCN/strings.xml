@@ -16,12 +16,12 @@
     <string name="decibel_info">最大值: %s\n平均值: %s\n最小值: %s</string>
     <string name="mark_title">分贝\n%s</string>
     <string name="show_confirm_dialog">显示确认对话框</string>
-    <string name="ask_record_audio_permission">需要录音权限。</string>
     <string name="quit">退出</string>
     <string name="share_info">我在%s，\n经我测量，这里的分贝值为\n最大: %s\n平均: %s\n最小: %s。</string>
     <string name="menu_upload">上传</string>
     <string name="menu_share">分享</string>
     <string name="menu_report">拍照举报</string>
-
-    <string name="wave">波形图</string>
+    <string name="portrait">竖屏</string>
+    <string name="landscape">横屏</string>
+    <string name="content_switch_lp">下次启动时生效。</string>
 </resources>

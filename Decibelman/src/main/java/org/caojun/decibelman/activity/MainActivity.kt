@@ -1,6 +1,8 @@
 package org.caojun.decibelman.activity
 
 import android.Manifest
+import android.content.Context
+import android.content.pm.ActivityInfo
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -57,6 +59,13 @@ class MainActivity : BaseActivity() {
                 finish()
             }
         })
+
+        val mSharedPreferences = getSharedPreferences(SettingsActivity.PREFER_NAME, Context.MODE_PRIVATE)
+        requestedOrientation = if (mSharedPreferences.getBoolean(SettingsActivity.Key_Switch_LP, true)) {
+            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT//竖屏
+        } else {
+            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE//横屏
+        }
     }
 
     private fun setFragment(/*hide: Fragment, */show: Fragment) {

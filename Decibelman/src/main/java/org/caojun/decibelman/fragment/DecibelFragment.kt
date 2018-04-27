@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.github.mikephil.charting.components.Description
 import kotlinx.android.synthetic.main.fragment_decibel.*
-import org.caojun.decibelman.Decibelman
 import org.caojun.decibelman.R
 import org.caojun.decibelman.utils.AverageUtils
 import com.github.mikephil.charting.components.YAxis.AxisDependency
@@ -20,19 +19,20 @@ import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.Legend.LegendForm
 import org.caojun.decibelman.Constant
 import org.caojun.decibelman.activity.MainActivity
+import org.caojun.fft.AudioSource
 
 /**
  * Created by CaoJun on 2017/9/13.
  */
 class DecibelFragment: Fragment() {
 
-    private var decibelman: Decibelman? = null
+    private var audioSource: AudioSource? = null
     private var chartInited = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view: View = inflater.inflate(R.layout.fragment_decibel, null)
 
-        decibelman = Decibelman(activity as MainActivity, object : Decibelman.OnDecibelListener {
+        audioSource = AudioSource(object : AudioSource.OnDecibelListener {
             override fun onGetDecibel(decibel: Double) {
                 velocimeterView?.setValue(decibel.toFloat(), false)
                 //数据统计
@@ -49,10 +49,29 @@ class DecibelFragment: Fragment() {
                 resetChart(Constant.min - 12, Constant.max + 12)
             }
 
-            override fun onGetData(data: ShortArray) {
+            override fun onGetData(data: FloatArray) {
                 if (waveView.visibility == View.VISIBLE) {
-                    waveView.showSpectrogram(data)
+                    waveView.show(data)
                 }
+                if (spectrumView.visibility == View.VISIBLE) {
+                    spectrumView.show(data)
+                }
+                if (audioView.visibility == View.VISIBLE) {
+                    audioView.show(data)
+                }
+            }
+
+            override fun onGetFFT(data: FloatArray) {
+                if (bandView.visibility == View.VISIBLE) {
+                    bandView.show(data)
+                }
+                if (spectogramView.visibility == View.VISIBLE) {
+                    spectogramView.show(data)
+                }
+            }
+
+            override fun onRequestPermission() {
+                (activity as MainActivity).askRecordAudioPermission()
             }
         })
 
@@ -62,21 +81,40 @@ class DecibelFragment: Fragment() {
 
     override fun onResume() {
         super.onResume()
-        decibelman!!.start()
-        waveView.setText(getString(R.string.wave))
-
-        waveView.setOnClickListener {
-            waveView.visibility = View.GONE
-        }
+        audioSource?.start()
 
         chart.setOnClickListener {
             waveView.visibility = View.VISIBLE
+        }
+
+        waveView.setOnClickListener {
+            waveView.visibility = View.GONE
+            spectrumView.visibility = View.VISIBLE
+        }
+
+        spectrumView.setOnClickListener {
+            spectrumView.visibility = View.GONE
+            audioView.visibility = View.VISIBLE
+        }
+
+        audioView.setOnClickListener {
+            audioView.visibility = View.GONE
+            bandView.visibility = View.VISIBLE
+        }
+
+        bandView.setOnClickListener {
+            bandView.visibility = View.GONE
+            spectogramView.visibility = View.VISIBLE
+        }
+
+        spectogramView.setOnClickListener {
+            spectogramView.visibility = View.GONE
         }
     }
 
     override fun onPause() {
         super.onPause()
-        decibelman!!.stop()
+        audioSource?.stop()
     }
 
     private fun initChart() {

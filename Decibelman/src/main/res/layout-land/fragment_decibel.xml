@@ -36,11 +36,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <org.caojun.decibelman.widget.WaveView
+        <org.caojun.fft.widget.WaveView
             android:id="@+id/waveView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#ddd"
+            android:visibility="gone"/>
+
+        <org.caojun.fft.widget.SpectrumView
+            android:id="@+id/spectrumView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ddd"
+            android:visibility="gone"/>
+
+        <org.caojun.fft.widget.AudioView
+            android:id="@+id/audioView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <com.paramsen.noise.sample.view.FFTBandView
+            android:id="@+id/bandView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+        <com.paramsen.noise.sample.view.FFTSpectogramView
+            android:id="@+id/spectogramView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:visibility="gone"/>
     </RelativeLayout>
 

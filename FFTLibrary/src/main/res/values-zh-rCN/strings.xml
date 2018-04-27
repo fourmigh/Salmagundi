@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ask_record_audio_permission">需要录音权限。</string>
+    <string name="wave">波形图</string>
+    <string name="spectrum">频谱图</string>
+    <string name="audio">音频图</string>
+</resources>
