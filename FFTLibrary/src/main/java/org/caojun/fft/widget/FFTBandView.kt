@@ -41,11 +41,11 @@ class FFTBandView(context: Context, attrs: AttributeSet?) : SimpleSurface(contex
 
     private fun drawAudio(canvas: Canvas): Canvas {
         canvas.drawColor(Color.DKGRAY)
-        for (i in 0..bands - 1) {
+        for (i in 0 until bands) {
             var accum = .0f
 
             synchronized(fft) {
-                for (j in 0..bandSize - 1 step 2) {
+                for (j in 0 until bandSize step 2) {
                     //convert real and imag part to get energy
                     accum += (Math.pow(fft[j + (i * bandSize)].toDouble(), 2.0) + Math.pow(fft[j + 1 + (i * bandSize)].toDouble(), 2.0)).toFloat()
                 }

@@ -130,7 +130,7 @@ class FFTSpectogramView(context: Context, attrs: AttributeSet?) : SimpleSurface(
             for (i in 0..resolution - 1) {
                 accum = .0f
 
-                for (j in 0..fft.size / resolution - 1 step 2) {
+                for (j in 0 until fft.size / resolution step 2) {
                     accum += (Math.sqrt(Math.pow(fft[i * j].toDouble(), 2.0) + Math.pow(fft[i * j + 1].toDouble(), 2.0))).toFloat() //magnitudes
                 }
 
@@ -141,7 +141,7 @@ class FFTSpectogramView(context: Context, attrs: AttributeSet?) : SimpleSurface(
 
             avg /= resolution
 
-            for (i in 0..resolution - 1) {
+            for (i in 0 until resolution) {
                 if (bands[i] < avg / 2) bands[i] * 1000f
             }
 
