@@ -6,5 +6,5 @@ public class ImageUtilEngine {
         System.loadLibrary("native-lib");
     }
 
-    public native int[] decodeYUV420SP(byte[] buf, int width, int heigth);
+    public native int[] decodeYUV420SP(byte[] buf, int width, int height);
 }
