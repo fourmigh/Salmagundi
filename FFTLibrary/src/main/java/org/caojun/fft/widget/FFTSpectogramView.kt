@@ -127,7 +127,7 @@ class FFTSpectogramView(context: Context, attrs: AttributeSet?) : SimpleSurface(
             var accum: Float
             var avg = 0f
 
-            for (i in 0..resolution - 1) {
+            for (i in 0 until resolution) {
                 accum = .0f
 
                 for (j in 0 until fft.size / resolution step 2) {
