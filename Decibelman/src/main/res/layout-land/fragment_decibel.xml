@@ -56,13 +56,13 @@
             android:layout_height="match_parent"
             android:visibility="gone" />
 
-        <com.paramsen.noise.sample.view.FFTBandView
+        <org.caojun.fft.widget.FFTBandView
             android:id="@+id/bandView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"/>
 
-        <com.paramsen.noise.sample.view.FFTSpectogramView
+        <org.caojun.fft.widget.FFTSpectogramView
             android:id="@+id/spectogramView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

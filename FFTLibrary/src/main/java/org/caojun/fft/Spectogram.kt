@@ -1,4 +1,4 @@
-package com.paramsen.noise.sample.view
+package org.caojun.fft
 
 import android.graphics.Color
 
