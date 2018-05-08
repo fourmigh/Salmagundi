@@ -1,11 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-//    ext.kotlin_version = '1.2.30'
 
     ext {
 //        kotlin_version = "latest.release"
-        kotlin_version = '1.2.30'
+        kotlin_version = '1.2.41'
         androidsupport_version = "26.1.0"
 //        googleroom_version = "1.0.0-alpha9"
         googleroom_version = "latest.release"
