@@ -9,10 +9,6 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import java.util.*
-import android.content.res.TypedArray
-import android.util.TypedValue
-
-
 
 class ParticleView: View {
 
@@ -23,8 +19,8 @@ class ParticleView: View {
     private val ROW_NUM = 10
     private val COLUMN_NUM = 10
 
-    private val DEFAULT_MAX_TEXT_SIZE = sp2px(80f).toInt()
-    private val DEFAULT_MIN_TEXT_SIZE = sp2px(30f).toInt()
+    private val DEFAULT_MAX_TEXT_SIZE = sp2px(96f).toInt()
+    private val DEFAULT_MIN_TEXT_SIZE = sp2px(32f).toInt()
 
     val DEFAULT_TEXT_ANIM_TIME = 1000
     val DEFAULT_SPREAD_ANIM_TIME = 300
@@ -73,10 +69,10 @@ class ParticleView: View {
     //动画最后等待时间
     private var mWaitingTime = 2000
 
-    private var mStartMaxP: PointF? = null
-    private var mEndMaxP:PointF? = null
-    private var mStartMinP: PointF? = null
-    private var mEndMinP:PointF? = null
+    private val mStartMaxP = PointF()
+    private val mEndMaxP = PointF()
+    private val mStartMinP = PointF()
+    private val mEndMinP = PointF()
 
     constructor(context: Context, attrs: AttributeSet): this(context, attrs, 0)
 
@@ -84,7 +80,6 @@ class ParticleView: View {
         initView(attrs)
     }
 
-    @SuppressLint("ResourceType")
     private fun initView(attrs: AttributeSet) {
 
         val typeArray = context.obtainStyledAttributes(attrs, R.styleable.ParticleView)
@@ -131,32 +126,10 @@ class ParticleView: View {
         mWidth = w
         mHeight = h
 
-        mStartMinP = PointF((mWidth / 2).toFloat() - getTextWidth(mParticleText, mParticleTextPaint) / 2f - dip2px(4f).toFloat(), mHeight / 2 + getTextHeight(mHostText, mHostTextPaint) / 2 - getTextHeight(mParticleText, mParticleTextPaint) / 0.7f)
-        mEndMinP = PointF((mWidth / 2).toFloat() + getTextWidth(mParticleText, mParticleTextPaint) / 2f + dip2px(10f).toFloat(), mHeight / 2 + getTextHeight(mHostText, mHostTextPaint) / 2)
-
-        for (i in 0 until ROW_NUM) {
-            for (j in 0 until COLUMN_NUM) {
-                mMinParticles[i][j] = Particle(mStartMinP!!.x + (mEndMinP!!.x - mStartMinP!!.x) / COLUMN_NUM * j, mStartMinP!!.y + (mEndMinP!!.y - mStartMinP!!.y) / ROW_NUM * i, dip2px(0.8f))
-            }
-        }
-
-        mStartMaxP = PointF(mWidth / 2f - DEFAULT_MAX_TEXT_SIZE, mHeight / 2f - DEFAULT_MAX_TEXT_SIZE)
-        mEndMaxP = PointF(mWidth / 2f + DEFAULT_MAX_TEXT_SIZE, mHeight / 2f + DEFAULT_MAX_TEXT_SIZE)
-
-        for (i in 0 until ROW_NUM) {
-            for (j in 0 until COLUMN_NUM) {
-                mParticles[i][j] = Particle(mStartMaxP!!.x + (mEndMaxP!!.x - mStartMaxP!!.x) / COLUMN_NUM * j, mStartMaxP!!.y + (mEndMaxP!!.y - mStartMaxP!!.y) / ROW_NUM * i, getTextWidth(mHostText + mParticleText, mParticleTextPaint) / (COLUMN_NUM * 1.8f))
-            }
-        }
-
-        val linearGradient = LinearGradient(mWidth / 2 - getTextWidth(mParticleText, mCirclePaint) / 2f,
-                mHeight / 2 - getTextHeight(mParticleText, mCirclePaint) / 2,
-                mWidth / 2 - getTextWidth(mParticleText, mCirclePaint) / 2,
-                mHeight / 2 + getTextHeight(mParticleText, mCirclePaint) / 2,
-                intArrayOf(mParticleColor, Color.argb(120, getR(mParticleColor), getG(mParticleColor), getB(mParticleColor))), null, Shader.TileMode.CLAMP)
-        mCirclePaint.shader = linearGradient
+        init()
     }
 
+    @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
@@ -174,16 +147,72 @@ class ParticleView: View {
         }
 
         if (mStatus == STATUS_PARTICLE_GATHER) {
-            canvas.drawRoundRect(RectF(mWidth / 2 - mSpreadWidth, mStartMinP!!.y, mWidth / 2 + mSpreadWidth, mEndMinP!!.y), dip2px(2f), dip2px(2f), mHostBgPaint)
-            canvas.drawText(mParticleText, mWidth / 2 - getTextWidth(mParticleText, mParticleTextPaint) / 2, mStartMinP!!.y + (mEndMinP!!.y - mStartMinP!!.y) / 2 + getTextHeight(mParticleText, mParticleTextPaint) / 2, mParticleTextPaint)
+            val left = mWidth / 2 - mSpreadWidth
+            val right = mWidth / 2 + mSpreadWidth
+            val top = mStartMinP.y - dip2px(2f)
+            val bottom = mEndMinP.y + dip2px(2f)
+
+            canvas.run {
+                drawRoundRect(RectF(left, top, right, bottom), dip2px(2f), dip2px(2f), mHostBgPaint)
+                drawText(mParticleText, mWidth / 2 - getTextWidth(mParticleText, mParticleTextPaint) / 2, mStartMinP.y + (mEndMinP.y - mStartMinP.y) / 2 + getTextHeight(mParticleText, mParticleTextPaint) / 2, mParticleTextPaint)
+            }
         } else if (mStatus == STATUS_TEXT_MOVING) {
-            canvas.drawRoundRect(RectF(mParticleTextX - dip2px(4f), mStartMinP!!.y, mParticleTextX + getTextWidth(mParticleText, mParticleTextPaint) + dip2px(4f), mEndMinP!!.y), dip2px(2f), dip2px(2f), mHostBgPaint)
-            canvas.drawText(mParticleText, mParticleTextX, mStartMinP!!.y + (mEndMinP!!.y - mStartMinP!!.y) / 2 + getTextHeight(mParticleText, mParticleTextPaint) / 2, mParticleTextPaint)
+            val left = mParticleTextX - dip2px(4f)
+            val right = mParticleTextX + getTextWidth(mParticleText, mParticleTextPaint) + dip2px(4f)
+            val top = mStartMinP.y - dip2px(2f)
+            val bottom = mEndMinP.y + dip2px(2f)
+
+            with(canvas) {
+                drawRoundRect(RectF(left, top, right, bottom), dip2px(2f), dip2px(2f), mHostBgPaint)
+                drawText(mParticleText, mParticleTextX, mStartMinP.y + (mEndMinP.y - mStartMinP.y) / 2 + getTextHeight(mParticleText, mParticleTextPaint) / 2, mParticleTextPaint)
+            }
         }
 
     }
 
+    private fun init() {
+        mStartMinP.x = mWidth / 2 - getTextWidth(mParticleText, mParticleTextPaint) / 2 - dip2px(4f)
+        mStartMinP.y = mHeight / 2 + getTextHeight(mHostText, mHostTextPaint) / 2 - getTextHeight(mParticleText, mParticleTextPaint) / 0.7f
+//        mStartMinP = PointF(mWidth / 2 - getTextWidth(mParticleText, mParticleTextPaint) / 2 - dip2px(4f), mHeight / 2 + getTextHeight(mHostText, mHostTextPaint) / 2 - getTextHeight(mParticleText, mParticleTextPaint) / 0.7f)
+//        mEndMinP = PointF(mWidth / 2 + getTextWidth(mParticleText, mParticleTextPaint) / 2 + dip2px(10f), mHeight / 2 + getTextHeight(mHostText, mHostTextPaint) / 2)
+        mEndMinP.x = mWidth / 2 + getTextWidth(mParticleText, mParticleTextPaint) / 2 + dip2px(10f)
+        mEndMinP.y = mHeight / 2 + getTextHeight(mHostText, mHostTextPaint) / 2
+
+        for (i in 0 until ROW_NUM) {
+            for (j in 0 until COLUMN_NUM) {
+                mMinParticles[i][j] = Particle(mStartMinP.x + (mEndMinP.x - mStartMinP.x) / COLUMN_NUM * j, mStartMinP.y + (mEndMinP.y - mStartMinP.y) / ROW_NUM * i, dip2px(0.8f))
+            }
+        }
+
+        mStartMaxP.x = mWidth / 2f - DEFAULT_MAX_TEXT_SIZE
+        mStartMaxP.y = mHeight / 2f - DEFAULT_MAX_TEXT_SIZE
+//        mStartMaxP = PointF(mWidth / 2f - DEFAULT_MAX_TEXT_SIZE, mHeight / 2f - DEFAULT_MAX_TEXT_SIZE)
+//        mEndMaxP = PointF(mWidth / 2f + DEFAULT_MAX_TEXT_SIZE, mHeight / 2f + DEFAULT_MAX_TEXT_SIZE)
+        mEndMaxP.x = mWidth / 2f + DEFAULT_MAX_TEXT_SIZE
+        mEndMaxP.y = mHeight / 2f + DEFAULT_MAX_TEXT_SIZE
+
+        for (i in 0 until ROW_NUM) {
+            for (j in 0 until COLUMN_NUM) {
+                val x = mStartMaxP.x + (mEndMaxP.x - mStartMaxP.x) / COLUMN_NUM * j
+                val y = mStartMaxP.y + (mEndMaxP.y - mStartMaxP.y) / ROW_NUM * i
+                val radius = getTextWidth(mHostText + mParticleText, mParticleTextPaint) / (COLUMN_NUM * 1.8f)
+                mParticles[i][j] = Particle(x, y, radius)
+            }
+        }
+
+        val linearGradient = LinearGradient(mWidth / 2 - getTextWidth(mParticleText, mCirclePaint) / 2f,
+                mHeight / 2 - getTextHeight(mParticleText, mCirclePaint) / 2,
+                mWidth / 2 - getTextWidth(mParticleText, mCirclePaint) / 2,
+                mHeight / 2 + getTextHeight(mParticleText, mCirclePaint) / 2,
+                intArrayOf(mParticleColor, Color.argb(120, getR(mParticleColor), getG(mParticleColor), getB(mParticleColor))), null, Shader.TileMode.CLAMP)
+        mCirclePaint.shader = linearGradient
+    }
+
     private fun startParticleAnim() {
+
+        init()
+
+        mSpreadWidth = 0f
 
         mStatus = STATUS_PARTICLE_GATHER
 
@@ -243,7 +272,7 @@ class ParticleView: View {
 
         val animList = ArrayList<Animator>()
 
-        val particleTextXAnim = ValueAnimator.ofFloat(mStartMinP!!.x + dip2px(4f), mWidth / 2 - (getTextWidth(mHostText, mHostTextPaint) + getTextWidth(mParticleText, mParticleTextPaint)) / 2 + getTextWidth(mHostText, mHostTextPaint))
+        val particleTextXAnim = ValueAnimator.ofFloat(mStartMinP.x + dip2px(4f), mWidth / 2 - (getTextWidth(mHostText, mHostTextPaint) + getTextWidth(mParticleText, mParticleTextPaint)) / 2 + getTextWidth(mHostText, mHostTextPaint))
         particleTextXAnim.addUpdateListener { animation -> mParticleTextX = animation.animatedValue as Float }
         animList.add(particleTextXAnim)
 
@@ -251,7 +280,7 @@ class ParticleView: View {
         animator.addUpdateListener { animation -> mHostRectWidth = animation.animatedValue as Float }
         animList.add(animator)
 
-        val hostTextXAnim = ValueAnimator.ofFloat(mStartMinP!!.x, mWidth / 2 - (getTextWidth(mHostText, mHostTextPaint) + getTextWidth(mParticleText, mParticleTextPaint) + dip2px(20f)) / 2)
+        val hostTextXAnim = ValueAnimator.ofFloat(mStartMinP.x, mWidth / 2 - (getTextWidth(mHostText, mHostTextPaint) + getTextWidth(mParticleText, mParticleTextPaint) + dip2px(20f)) / 2)
         hostTextXAnim.addUpdateListener { animation ->
             mHostTextX = animation.animatedValue as Float
             invalidate()
