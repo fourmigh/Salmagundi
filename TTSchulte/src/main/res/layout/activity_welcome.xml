@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pv="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <org.caojun.particle.ParticleView
+        android:id="@+id/particleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        pv:pv_host_text="@string/app_name_l"
+        pv:pv_particle_text="@string/app_name_r"
+        pv:pv_text_anim_time="3000"
+        pv:pv_spread_anim_time="2000"
+        pv:pv_host_text_anim_time="3000" />
+</LinearLayout>

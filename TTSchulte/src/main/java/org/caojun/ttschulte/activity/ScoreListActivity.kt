@@ -16,6 +16,7 @@ import org.caojun.ttschulte.room.Score
 import org.caojun.ttschulte.room.ScoreBmob
 import org.caojun.ttschulte.room.TTSDatabase
 import org.caojun.ttschulte.utils.Schulte
+import org.caojun.utils.TimeUtils
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -81,8 +82,20 @@ class ScoreListActivity : AppCompatActivity() {
         if (list == null || list.isEmpty()) {
             return null
         }
+
+        //过滤非本月数据
+        val filters = ArrayList<ScoreBmob>()
+        for (i in 0 until list.size) {
+            val time = list[i].time
+            val date = TimeUtils.getDate(time)
+            if (TimeUtils.isThisMonth(date)) {
+                filters.add(list[i])
+            }
+        }
+
         val scores = ArrayList<Score>()
-        list.indices.mapTo(scores) { Score(list[it]) }
+//        list.indices.mapTo(scores) { Score(list[it]) }
+        filters.indices.mapTo(scores) { Score(filters[it]) }
         return scores
     }
 }

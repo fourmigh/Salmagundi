@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">舒尔特表</string>
+    <string name="app_name_l">舒尔特</string>
+    <string name="app_name_r">表</string>
     <string name="grid">方格</string>
     <string name="layout9">3×3</string>
     <string name="layout16">4×4</string>
