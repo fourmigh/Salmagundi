@@ -63,3 +63,5 @@
 63、倒计时库：工程CountdownLibrary
 64、秒表库：工程StopwatchLibrary
 65、骰子库：DiceLibrary
+66、粒子爆炸效果库：SmasherLibrary（https://github.com/ifadai/ParticleSmasher）
+67、粒子文字动画库：ParticleLibrary（https://github.com/JeasonWong/Particle）
