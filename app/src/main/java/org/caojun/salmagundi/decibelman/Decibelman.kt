@@ -1,12 +1,8 @@
 package org.caojun.salmagundi.decibelman
 
 import android.media.AudioFormat
-import android.media.AudioFormat.ENCODING_PCM_16BIT
-import android.media.AudioFormat.CHANNEL_IN_DEFAULT
 import android.media.AudioRecord
 import android.media.MediaRecorder
-import android.media.MediaRecorder.AudioSource.MIC
-import com.socks.library.KLog
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -33,15 +29,14 @@ class Decibelman {
 
     fun start() {
         if (isGetVoiceRun) {
-            KLog.e(TAG, "还在录着呢")
             return
         }
         mAudioRecord = AudioRecord(MediaRecorder.AudioSource.MIC,
                 SAMPLE_RATE_IN_HZ, AudioFormat.CHANNEL_IN_DEFAULT,
                 AudioFormat.ENCODING_PCM_16BIT, BUFFER_SIZE)
-        if (mAudioRecord == null) {
-           KLog.e("sound", "mAudioRecord初始化失败")
-        }
+//        if (mAudioRecord == null) {
+//           KLog.e("sound", "mAudioRecord初始化失败")
+//        }
         isGetVoiceRun = true
 
         doAsync {

@@ -204,4 +204,7 @@
     <!-- Demo -->
     <string name="demo_title">Demo</string>
     <string name="imei_permission">To get IMEI，needs permission: READ_PHONE_STATE.</string>
+
+    <!-- SVG Map -->
+    <string name="sm_title">SVG Map</string>
 </resources>

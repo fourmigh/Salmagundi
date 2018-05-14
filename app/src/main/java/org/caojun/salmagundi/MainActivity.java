@@ -44,6 +44,7 @@ import org.caojun.salmagundi.sharecase.UserActivity;
 import org.caojun.salmagundi.string.ConvertUtils;
 import org.caojun.salmagundi.string.StringActivity;
 import org.caojun.salmagundi.string.StringSortDemo;
+import org.caojun.salmagundi.svgmap.SvgmapActivity;
 import org.caojun.salmagundi.sysinfo.SysinfoActivity;
 import org.caojun.salmagundi.taxicab.TaxicabActivity;
 import org.caojun.salmagundi.textart.TextArtActivity;
@@ -80,7 +81,8 @@ public class MainActivity extends Activity {
             R.drawable.icon_gyroscope,
             R.drawable.icon_typewriting,
             R.drawable.icon_cropimage,
-            R.drawable.icon_demo
+            R.drawable.icon_demo,
+            R.drawable.icon_china
     };
     private final Integer[] mTextIds = {
             R.string.bp_title,
@@ -109,7 +111,8 @@ public class MainActivity extends Activity {
             R.string.gyroscope_title,
             R.string.tw_title,
             R.string.ci_title,
-            R.string.demo_title
+            R.string.demo_title,
+            R.string.sm_title
     };
     private final Class[] mActivitys = {
             BloodPressureActivity.class,
@@ -138,7 +141,8 @@ public class MainActivity extends Activity {
             GyroscopeActivity.class,
             MobileInputActivity.class,
             CropImageActivity.class,
-            DemoActivity.class
+            DemoActivity.class,
+            SvgmapActivity.class
     };
     private final String[] mARouterPaths = {
             Constant.ACTIVITY_BLOODPRESSURE,
@@ -167,14 +171,15 @@ public class MainActivity extends Activity {
             Constant.ACTIVITY_GYROSCOPE,
             Constant.ACTIVITY_TYPEWRITING,
             Constant.ACTIVITY_CROPIMAGE,
-            Constant.ACTIVITY_DEMO
+            Constant.ACTIVITY_DEMO,
+            Constant.ACTIVITY_SVGMAP
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        GridView gridView = (GridView) findViewById(R.id.gvApp);
+        GridView gridView = findViewById(R.id.gvApp);
         final AppAdapter adapter = new AppAdapter(this);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -241,8 +246,8 @@ public class MainActivity extends Activity {
             if (convertView == null) {
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.item_app, null);
                 holder = new ViewHolder();
-                holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
-                holder.textView = (TextView) convertView.findViewById(R.id.textView);
+                holder.imageView = convertView.findViewById(R.id.imageView);
+                holder.textView = convertView.findViewById(R.id.textView);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();

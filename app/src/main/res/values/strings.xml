@@ -219,4 +219,7 @@
     <!-- Demo -->
     <string name="demo_title">演示</string>
     <string name="imei_permission">获取IMEI，需要READ_PHONE_STATE权限。</string>
+
+    <!-- SVG Map -->
+    <string name="sm_title">矢量地图</string>
 </resources>

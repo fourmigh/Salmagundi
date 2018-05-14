@@ -135,6 +135,8 @@
             android:label="@string/ci_title" />
         <activity android:name=".demo.DemoActivity"
             android:label="@string/demo_title" />
+        <activity android:name=".svgmap.SvgmapActivity"
+            android:label="@string/sm_title" />
     </application>
 
 </manifest>
