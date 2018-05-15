@@ -49,17 +49,25 @@ public class MapView extends View {
         //关闭硬件加速
         setLayerType(LAYER_TYPE_SOFTWARE, null);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mDetector = new GestureDetector(new GestureDetector.SimpleOnGestureListener() {
+        mDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onDown(MotionEvent e) {
                 float x = e.getX() / scale;
                 float y = e.getY() / scale;
                 x -= dX;
                 y -= dY;
-                for (PathItem pathItem : pathItems) {
-                    pathItem.setSelect(pathItem.isTouch((int) x, (int) y));
+                try {
+                    for (PathItem pathItem : pathItems) {
+                        boolean isSelected = pathItem.isTouch((int) x, (int) y);
+                        pathItem.setSelect(isSelected);
+
+//                        if (isSelected) {
+//                            parserPaths(pathItem.getMapName());
+//                        }
+                    }
+                    invalidate();
+                } catch (Exception e1) {
                 }
-                invalidate();
                 return true;
             }
 
@@ -147,36 +155,39 @@ public class MapView extends View {
                 preScale = scale;//记录本次缩放比例
             }
         });
-        parserPaths();
+        parserPaths("world");
     }
 
     /**
      * 解析path
      */
-    private void parserPaths() {
+    private void parserPaths(final String mapName) {
 
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
                 // 创建DOM工厂对象
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                 try {
                     // DocumentBuilder对象
                     DocumentBuilder db = dbf.newDocumentBuilder();
                     //打开输入流
-                    InputStream is = getResources().openRawResource(R.raw.china);
+                    int resId = getResources().getIdentifier(mapName, "raw", getContext().getPackageName());
+                    InputStream is = getResources().openRawResource(resId);
                     // 获取文档对象
                     Document doc = db.parse(is);
                     //获取path元素节点集合
                     NodeList paths = doc.getElementsByTagName("path");
                     PathItem item;
+                    pathItems.clear();
                     for (int i = 0; i < paths.getLength(); i++) {
                         // 取出每一个元素
                         Element personNode = (Element) paths.item(i);
                         //得到d属性值
                         String nodeValue = personNode.getAttribute("d");
+                        String title = personNode.getAttribute("title");
                         //解析，并创建pathItem
-                        item = new PathItem(PathParser.createPathFromPathData(nodeValue));
+                        item = new PathItem(title, PathParser.createPathFromPathData(nodeValue));
                         pathItems.add(item);
 
                         //统计整体尺寸
@@ -194,11 +205,11 @@ public class MapView extends View {
                             rectF.bottom = rf.bottom;
                         }
                     }
+                    postInvalidate();
                 } catch (Exception e) {
                 }
-//            }
-//        }).start();
-//        postInvalidate();
+            }
+        }).start();
     }
 
     @Override
@@ -211,8 +222,11 @@ public class MapView extends View {
         canvas.save();
         canvas.scale(scale, scale);
         canvas.translate(dX, dY);
-        for (PathItem pathItem : pathItems) {
-            pathItem.draw(canvas, mPaint);
+        try {
+            for (PathItem pathItem : pathItems) {
+                pathItem.draw(canvas, mPaint);
+            }
+        } catch (Exception e) {
         }
         canvas.restore();
     }

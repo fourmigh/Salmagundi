@@ -14,11 +14,22 @@ import android.graphics.Region;
  */
 
 public class PathItem {
+    private String title;
     private Path mPath;
     private boolean isSelect;
 
-    public PathItem(Path path) {
+    public PathItem(String title, Path path) {
+        this.title = title;
         mPath = path;
+    }
+
+    public String getMapName() {
+        String name = title;
+        String AND = " and ";
+        if (name.contains(AND)) {
+            name = title.substring(0, title.indexOf(AND)) + "_" + title.substring(title.indexOf(AND) + AND.length());
+        }
+        return name.toLowerCase();
     }
 
     /**
