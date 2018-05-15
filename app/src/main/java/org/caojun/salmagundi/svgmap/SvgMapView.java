@@ -114,8 +114,9 @@ public class SvgMapView extends View {
 
             @Override
             public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-                dX = lastX + distanceX;
-                dY = lastY + distanceY;
+                float s = Math.abs(scale);
+                dX = lastX + distanceX / s;
+                dY = lastY + distanceY / s;
                 lastX = dX;
                 lastY = dY;
                 dX = -dX;
