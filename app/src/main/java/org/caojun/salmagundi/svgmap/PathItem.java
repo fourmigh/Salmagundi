@@ -26,8 +26,11 @@ public class PathItem {
     public String getMapName() {
         String name = title;
         String AND = " and ";
+        String SPACE = " ";
         if (name.contains(AND)) {
             name = title.substring(0, title.indexOf(AND)) + "_" + title.substring(title.indexOf(AND) + AND.length());
+        } else if (name.contains(SPACE)) {
+            name = title.replace(SPACE, "_");
         }
         return name.toLowerCase();
     }
