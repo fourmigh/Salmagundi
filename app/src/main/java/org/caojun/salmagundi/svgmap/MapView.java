@@ -136,13 +136,14 @@ public class MapView extends View {
             public boolean onScale(ScaleGestureDetector scaleGestureDetector) {
                 float previousSpan = scaleGestureDetector.getPreviousSpan();
                 float currentSpan = scaleGestureDetector.getCurrentSpan();
-                if (currentSpan < previousSpan) {
-                    // 缩小
-                    scale = preScale - (previousSpan - currentSpan) / 1000;
-                } else {
-                    // 放大
-                    scale = preScale + (currentSpan - previousSpan) / 1000;
-                }
+//                if (currentSpan < previousSpan) {
+//                    // 缩小
+//                    scale = preScale - (previousSpan - currentSpan) / 1000;
+//                } else {
+//                    // 放大
+//                    scale = preScale + (currentSpan - previousSpan) / 1000;
+//                }
+                scale = preScale + (currentSpan - previousSpan) / 1000;
                 invalidate();
                 return false;
             }
