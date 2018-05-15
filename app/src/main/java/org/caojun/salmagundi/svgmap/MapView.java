@@ -6,17 +6,14 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-
 import org.caojun.salmagundi.R;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,23 +21,15 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-/**
- * @author: 蜗牛
- * @date: 2017/6/1 10:11
- * @desc:
- */
-
 public class MapView extends View {
     private Paint mPaint;
 
     //手势监听器
     private GestureDetector mDetector;
     //缩放系数
-//    private float scale=1.3f;
-    private float scale = 1f;
+    private float scale=1.3f;
     //保存path对象
     private List<PathItem> pathItems = new ArrayList<>();
-    private String TAG = "MapView";
 
     private ScaleGestureDetector mScaleGestureDetector;
 
@@ -175,8 +164,7 @@ public class MapView extends View {
                     // DocumentBuilder对象
                     DocumentBuilder db = dbf.newDocumentBuilder();
                     //打开输入流
-//                    InputStream is = getResources().openRawResource(R.raw.taiwan_maps);
-                    InputStream is = getResources().openRawResource(R.raw.china_maps);
+                    InputStream is = getResources().openRawResource(R.raw.china);
                     // 获取文档对象
                     Document doc = db.parse(is);
                     //获取path元素节点集合
@@ -185,8 +173,8 @@ public class MapView extends View {
                     for (int i = 0; i < paths.getLength(); i++) {
                         // 取出每一个元素
                         Element personNode = (Element) paths.item(i);
-                        //得到android:pathData属性值
-                        String nodeValue = personNode.getAttribute("android:pathData");
+                        //得到d属性值
+                        String nodeValue = personNode.getAttribute("d");
                         //解析，并创建pathItem
                         item = new PathItem(PathParser.createPathFromPathData(nodeValue));
                         pathItems.add(item);
@@ -206,13 +194,7 @@ public class MapView extends View {
                             rectF.bottom = rf.bottom;
                         }
                     }
-                    Log.e(TAG, "蜗牛   itemsCount  " + pathItems.size());
-                    Log.e("RectF", "rectF.left: " + rectF.left);
-                    Log.e("RectF", "rectF.top: " + rectF.top);
-                    Log.e("RectF", "rectF.right: " + rectF.right);
-                    Log.e("RectF", "rectF.bottom: " + rectF.bottom);
                 } catch (Exception e) {
-                    Log.e(TAG, "蜗牛   解析出错 ");
                 }
 //            }
 //        }).start();
