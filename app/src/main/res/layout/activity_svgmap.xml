@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <org.caojun.salmagundi.svgmap.MapView
-        android:id="@+id/mapView"
+    <org.caojun.salmagundi.svgmap.SvgMapView
+        android:id="@+id/svgMapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>

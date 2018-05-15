@@ -71,11 +71,7 @@ public class PathItem {
     }
 
     public void setSelect(boolean select) {
-        if (isSelect && select) {
-            isSelect = false;
-        } else {
-            isSelect = select;
-        }
+        isSelect = select;
     }
 
     public RectF getRectF() {

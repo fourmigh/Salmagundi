@@ -5,12 +5,13 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import org.caojun.salmagundi.R;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -21,7 +22,7 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class MapView extends View {
+public class SvgMapView extends View {
     private Paint mPaint;
 
     //手势监听器
@@ -33,17 +34,27 @@ public class MapView extends View {
 
     private ScaleGestureDetector mScaleGestureDetector;
 
-    public MapView(Context context) {
+    public SvgMapView(Context context) {
         this(context, null);
     }
 
-    public MapView(Context context, @Nullable AttributeSet attrs) {
+    public SvgMapView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
     private float dX = 0, dY = 0;
     private float lastX = 0, lastY = 0;
+
+    public interface OnClickListener {
+        void onClick(String mapName);
+    }
+
+    private OnClickListener listener;
+
+    public void setOnClickListener(OnClickListener listener) {
+        this.listener = listener;
+    }
 
     private void init() {
         //关闭硬件加速
@@ -77,17 +88,21 @@ public class MapView extends View {
                 float y = e.getY() / scale;
                 x -= dX;
                 y -= dY;
+                String mapName = "";
                 try {
                     for (PathItem pathItem : pathItems) {
                         boolean isSelected = pathItem.isTouch((int) x, (int) y);
                         pathItem.setSelect(isSelected);
 
-//                        if (isSelected) {
-//                            parserPaths(pathItem.getMapName());
-//                        }
+                        if (isSelected) {
+                            mapName = pathItem.getMapName();
+                        }
                     }
                     invalidate();
                 } catch (Exception e1) {
+                }
+                if (listener != null && !TextUtils.isEmpty(mapName)) {
+                    listener.onClick(mapName);
                 }
                 return super.onSingleTapUp(e);
             }
@@ -171,13 +186,13 @@ public class MapView extends View {
                 preScale = scale;//记录本次缩放比例
             }
         });
-        parserPaths("world");
+//        setMap("world");
     }
 
     /**
      * 解析path
      */
-    private void parserPaths(final String mapName) {
+    public void setMap(final String mapName) {
 
         new Thread(new Runnable() {
             @Override
