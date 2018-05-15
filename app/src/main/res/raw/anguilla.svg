@@ -14,7 +14,7 @@
 		</style>
 
 		<amcharts:ammap projection="mercator" leftLongitude="-63.4908997068" topLatitude="18.6120679789" rightLongitude="-62.7956051499" bottomLatitude="18.1582899031"></amcharts:ammap>
-
+        
 		<!-- All areas are listed in the line below. You can use this list in your script. -->
 		<!--{id:"AI-00"},{id:"AI-WE"},{id:"AI-TV"},{id:"AI-TQ"},{id:"AI-TF"},{id:"AI-ST"},{id:"AI-SO"},{id:"AI-SH"},{id:"AI-SG"},{id:"AI-NS"},{id:"AI-NH"},{id:"AI-IH"},{id:"AI-GH"},{id:"AI-EE"},{id:"AI-BP"}-->
 
