@@ -70,9 +70,12 @@ public class PathItem {
         }
     }
 
-    public PathItem setSelect(boolean select) {
-        isSelect = select;
-        return this;
+    public void setSelect(boolean select) {
+        if (isSelect && select) {
+            isSelect = false;
+        } else {
+            isSelect = select;
+        }
     }
 
     public RectF getRectF() {

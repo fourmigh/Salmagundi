@@ -52,6 +52,27 @@ public class MapView extends View {
         mDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onDown(MotionEvent e) {
+//                float x = e.getX() / scale;
+//                float y = e.getY() / scale;
+//                x -= dX;
+//                y -= dY;
+//                try {
+//                    for (PathItem pathItem : pathItems) {
+//                        boolean isSelected = pathItem.isTouch((int) x, (int) y);
+//                        pathItem.setSelect(isSelected);
+//
+////                        if (isSelected) {
+////                            parserPaths(pathItem.getMapName());
+////                        }
+//                    }
+//                    invalidate();
+//                } catch (Exception e1) {
+//                }
+                return true;
+            }
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
                 float x = e.getX() / scale;
                 float y = e.getY() / scale;
                 x -= dX;
@@ -68,11 +89,6 @@ public class MapView extends View {
                     invalidate();
                 } catch (Exception e1) {
                 }
-                return true;
-            }
-
-            @Override
-            public boolean onSingleTapUp(MotionEvent e) {
                 return super.onSingleTapUp(e);
             }
 
