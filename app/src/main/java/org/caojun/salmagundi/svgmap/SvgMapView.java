@@ -11,14 +11,12 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -56,6 +54,8 @@ public class SvgMapView extends View {
         this.listener = listener;
     }
 
+    private InputStream inputStream;
+
     private void init() {
         //关闭硬件加速
         setLayerType(LAYER_TYPE_SOFTWARE, null);
@@ -63,22 +63,6 @@ public class SvgMapView extends View {
         mDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onDown(MotionEvent e) {
-//                float x = e.getX() / scale;
-//                float y = e.getY() / scale;
-//                x -= dX;
-//                y -= dY;
-//                try {
-//                    for (PathItem pathItem : pathItems) {
-//                        boolean isSelected = pathItem.isTouch((int) x, (int) y);
-//                        pathItem.setSelect(isSelected);
-//
-////                        if (isSelected) {
-////                            parserPaths(pathItem.getMapName());
-////                        }
-//                    }
-//                    invalidate();
-//                } catch (Exception e1) {
-//                }
                 return true;
             }
 
@@ -101,7 +85,7 @@ public class SvgMapView extends View {
                     invalidate();
                 } catch (Exception e1) {
                 }
-                if (listener != null && !TextUtils.isEmpty(mapName)) {
+                if (listener != null && !TextUtils.isEmpty(mapName) && hasMap(mapName)) {
                     listener.onClick(mapName);
                 }
                 return super.onSingleTapUp(e);
@@ -165,13 +149,6 @@ public class SvgMapView extends View {
             public boolean onScale(ScaleGestureDetector scaleGestureDetector) {
                 float previousSpan = scaleGestureDetector.getPreviousSpan();
                 float currentSpan = scaleGestureDetector.getCurrentSpan();
-//                if (currentSpan < previousSpan) {
-//                    // 缩小
-//                    scale = preScale - (previousSpan - currentSpan) / 1000;
-//                } else {
-//                    // 放大
-//                    scale = preScale + (currentSpan - previousSpan) / 1000;
-//                }
                 scale = preScale + (currentSpan - previousSpan) / 1000;
                 invalidate();
                 return false;
@@ -187,7 +164,17 @@ public class SvgMapView extends View {
                 preScale = scale;//记录本次缩放比例
             }
         });
-//        setMap("world");
+    }
+
+    private boolean hasMap(String mapName) {
+        try {
+            //打开输入流
+            int resId = getResources().getIdentifier(mapName, "raw", getContext().getPackageName());
+            inputStream = getResources().openRawResource(resId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**
@@ -198,16 +185,19 @@ public class SvgMapView extends View {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                // 创建DOM工厂对象
-                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+
+                if (inputStream == null) {
+                    hasMap(mapName);
+                }
+                if (inputStream == null) {
+                    return;
+                }
                 try {
-                    // DocumentBuilder对象
+                    // 创建DOM工厂对象
+                    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                     DocumentBuilder db = dbf.newDocumentBuilder();
-                    //打开输入流
-                    int resId = getResources().getIdentifier(mapName, "raw", getContext().getPackageName());
-                    InputStream is = getResources().openRawResource(resId);
                     // 获取文档对象
-                    Document doc = db.parse(is);
+                    Document doc = db.parse(inputStream);
                     //获取path元素节点集合
                     NodeList paths = doc.getElementsByTagName("path");
                     PathItem item;
@@ -236,9 +226,12 @@ public class SvgMapView extends View {
                         if (rf.bottom > rectF.bottom) {
                             rectF.bottom = rf.bottom;
                         }
+                        postInvalidate();
+                        Thread.sleep(100);
                     }
-                    postInvalidate();
+                    inputStream.close();
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }).start();
