@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import org.caojun.salmagundi.Constant;
@@ -23,7 +24,13 @@ public class SvgmapActivity extends Activity {
         final SvgMapView svgMapView = findViewById(R.id.svgMapView);
         svgMapView.setOnClickListener(new SvgMapView.OnClickListener() {
             @Override
-            public void onClick(String mapName) {
+            public void onClick(String title, String mapName) {
+                if (!TextUtils.isEmpty(title)) {
+                    Toast.makeText(SvgmapActivity.this, title, Toast.LENGTH_SHORT).show();
+                }
+                if (TextUtils.isEmpty(mapName)) {
+                    return;
+                }
                 Intent intent = new Intent(SvgmapActivity.this, SvgmapActivity.class);
                 intent.putExtra(Key_Map_Name, mapName);
                 startActivity(intent);

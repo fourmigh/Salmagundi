@@ -35,6 +35,10 @@ public class PathItem {
         return name.toLowerCase();
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     /**
      * 是否touch在该path内部
      * @param x

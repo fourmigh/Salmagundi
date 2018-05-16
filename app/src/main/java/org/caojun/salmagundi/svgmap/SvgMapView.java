@@ -45,7 +45,7 @@ public class SvgMapView extends View {
     private float lastX = 0, lastY = 0;
 
     public interface OnClickListener {
-        void onClick(String mapName);
+        void onClick(String title, String mapName);
     }
 
     private OnClickListener listener;
@@ -73,6 +73,7 @@ public class SvgMapView extends View {
                 x -= dX;
                 y -= dY;
                 String mapName = "";
+                String title = "";
                 try {
                     for (PathItem pathItem : pathItems) {
                         boolean isSelected = pathItem.isTouch((int) x, (int) y);
@@ -80,13 +81,17 @@ public class SvgMapView extends View {
 
                         if (isSelected) {
                             mapName = pathItem.getMapName();
+                            if (TextUtils.isEmpty(mapName) || !hasMap(mapName)) {
+                                mapName = null;
+                            }
+                            title = pathItem.getTitle();
                         }
                     }
                     invalidate();
                 } catch (Exception e1) {
                 }
-                if (listener != null && !TextUtils.isEmpty(mapName) && hasMap(mapName)) {
-                    listener.onClick(mapName);
+                if (listener != null) {
+                    listener.onClick(title, mapName);
                 }
                 return super.onSingleTapUp(e);
             }
