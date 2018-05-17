@@ -39,7 +39,7 @@ public class SvgmapActivity extends Activity {
 
         String mapName = getIntent().getStringExtra(Key_Map_Name);
         if (TextUtils.isEmpty(mapName)) {
-            svgMapView.setMap("china");
+            svgMapView.setMap("world");
         } else {
             svgMapView.setMap(mapName);
         }

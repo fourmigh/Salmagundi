@@ -99,6 +99,28 @@ public class SvgMapView extends View {
 
             @Override
             public void onLongPress(MotionEvent e) {
+                float x = e.getX() / scale;
+                float y = e.getY() / scale;
+                x -= dX;
+                y -= dY;
+                try {
+                    RectF rf = null;
+                    for (PathItem pathItem : pathItems) {
+                        boolean isSelected = pathItem.isTouch((int) x, (int) y);
+                        pathItem.setSelect(isSelected);
+
+                        if (isSelected) {
+                            rf = pathItem.getRectF();
+                        }
+                    }
+                    if (rf == null) {
+                        center(rectF);
+                    } else {
+                        center(rf);
+                    }
+                } catch (Exception e1) {
+                }
+                invalidate();
                 super.onLongPress(e);
             }
 
@@ -127,8 +149,6 @@ public class SvgMapView extends View {
 
             @Override
             public boolean onDoubleTap(MotionEvent e) {
-                center();
-                invalidate();
                 return super.onDoubleTap(e);
             }
 
@@ -267,11 +287,11 @@ public class SvgMapView extends View {
     }
 
     RectF rectF = new RectF();
-    private void center() {
+
+    private void center(RectF rectF) {
+
         int Width = getRight() - getLeft();
         int Height = getBottom() - getTop();
-//        float width = (rectF.right - rectF.left) * scale;
-//        float height = (rectF.bottom - rectF.top) * scale;
         float width = rectF.right - rectF.left;
         float height = rectF.bottom - rectF.top;
         float sX = Width / width;
@@ -285,9 +305,10 @@ public class SvgMapView extends View {
         dX = (Width - width) / (2 * scale);
         dY = (Height - height) / (2 * scale);
 
+        dX -= rectF.left;
+        dY -= rectF.top;
+
         lastX = -dX;
         lastY = -dY;
     }
-
-
 }
