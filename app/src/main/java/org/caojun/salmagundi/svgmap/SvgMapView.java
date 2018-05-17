@@ -69,58 +69,13 @@ public class SvgMapView extends View {
 
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
-                float x = e.getX() / scale;
-                float y = e.getY() / scale;
-                x -= dX;
-                y -= dY;
-                String mapName = "";
-                String title = "";
-                try {
-                    for (PathItem pathItem : pathItems) {
-                        boolean isSelected = pathItem.isTouch((int) x, (int) y);
-                        pathItem.setSelect(isSelected);
-
-                        if (isSelected) {
-                            mapName = pathItem.getMapName();
-                            if (TextUtils.isEmpty(mapName) || !hasMap(mapName)) {
-                                mapName = null;
-                            }
-                            title = pathItem.getTitle();
-                        }
-                    }
-                    invalidate();
-                } catch (Exception e1) {
-                }
-                if (listener != null) {
-                    listener.onClick(title, mapName);
-                }
+                doClick(e);
                 return super.onSingleTapUp(e);
             }
 
             @Override
             public void onLongPress(MotionEvent e) {
-                float x = e.getX() / scale;
-                float y = e.getY() / scale;
-                x -= dX;
-                y -= dY;
-                try {
-                    RectF rf = null;
-                    for (PathItem pathItem : pathItems) {
-                        boolean isSelected = pathItem.isTouch((int) x, (int) y);
-                        pathItem.setSelect(isSelected);
-
-                        if (isSelected) {
-                            rf = pathItem.getRectF();
-                        }
-                    }
-                    if (rf == null) {
-                        center(rectF);
-                    } else {
-                        center(rf);
-                    }
-                } catch (Exception e1) {
-                }
-                invalidate();
+                doCenter(e);
                 super.onLongPress(e);
             }
 
@@ -310,5 +265,58 @@ public class SvgMapView extends View {
 
         lastX = -dX;
         lastY = -dY;
+    }
+
+    private void doCenter(MotionEvent e) {
+        float x = e.getX() / scale;
+        float y = e.getY() / scale;
+        x -= dX;
+        y -= dY;
+        try {
+            RectF rf = null;
+            for (PathItem pathItem : pathItems) {
+                boolean isSelected = pathItem.isTouch((int) x, (int) y);
+                pathItem.setSelect(isSelected);
+
+                if (isSelected) {
+                    rf = pathItem.getRectF();
+                }
+            }
+            if (rf == null) {
+                center(rectF);
+            } else {
+                center(rf);
+            }
+        } catch (Exception e1) {
+        }
+        invalidate();
+    }
+
+    private void doClick(MotionEvent e) {
+        float x = e.getX() / scale;
+        float y = e.getY() / scale;
+        x -= dX;
+        y -= dY;
+        String mapName = "";
+        String title = "";
+        try {
+            for (PathItem pathItem : pathItems) {
+                boolean isSelected = pathItem.isTouch((int) x, (int) y);
+                pathItem.setSelect(isSelected);
+
+                if (isSelected) {
+                    mapName = pathItem.getMapName();
+                    if (TextUtils.isEmpty(mapName) || !hasMap(mapName)) {
+                        mapName = null;
+                    }
+                    title = pathItem.getTitle();
+                }
+            }
+            invalidate();
+        } catch (Exception e1) {
+        }
+        if (listener != null) {
+            listener.onClick(title, mapName);
+        }
     }
 }
