@@ -26,7 +26,7 @@ public class SvgMapView extends View {
     //手势监听器
     private GestureDetector mDetector;
     //缩放系数
-    private float scale=1.3f;
+    private float scale=2.0f;
     //保存path对象
     private List<PathItem> pathItems = new ArrayList<>();
 
@@ -206,7 +206,13 @@ public class SvgMapView extends View {
                     //获取path元素节点集合
                     NodeList paths = doc.getElementsByTagName("path");
                     PathItem item;
+
                     pathItems.clear();
+                    rectF.left = Float.MAX_VALUE;
+                    rectF.top = Float.MAX_VALUE;
+                    rectF.right = 0;
+                    rectF.bottom = 0;
+
                     for (int i = 0; i < paths.getLength(); i++) {
                         // 取出每一个元素
                         Element personNode = (Element) paths.item(i);
@@ -263,14 +269,16 @@ public class SvgMapView extends View {
 
     RectF rectF = new RectF();
     private void center() {
-        int Width = getWidth();
-        int Height = getHeight();
-        int width = (int)((rectF.right - rectF.left) * scale);
-        int height = (int)((rectF.bottom - rectF.top) * scale);
-        dX = (Width - width) / 2;
-        dY = (Height - height) / 2;
+        int Width = getRight() - getLeft();
+        int Height = getBottom() - getTop();
+        float width = (rectF.right - rectF.left) * scale;
+        float height = (rectF.bottom - rectF.top) * scale;
+        dX = (Width - width) / (2 * scale);
+        dY = (Height - height) / (2 * scale);
 
         lastX = -dX;
         lastY = -dY;
     }
+
+
 }

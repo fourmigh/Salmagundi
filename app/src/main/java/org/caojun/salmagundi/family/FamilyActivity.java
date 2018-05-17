@@ -50,17 +50,21 @@ public class FamilyActivity extends AppCompatActivity {
 //        KLog.d("ESister true", r.getName());
 //        Relation r = RelationUtils.claim(Person.ESister, false);
 //        KLog.d("ESister false", r.getName());
-        Relation r = RelationUtils.claim(Person.YSister, true);
-        KLog.d("YSister true", r.getName());
-        r = RelationUtils.claim(Person.YSister, false);
-        KLog.d("YSister false", r.getName());
-        r = RelationUtils.claim(Person.Husband, true);
-        KLog.d("Husband true", r.getName());
-        r = RelationUtils.claim(Person.Husband, false);
-        KLog.d("Husband false", r.getName());
-        r = RelationUtils.claim(Person.Wife, true);
-        KLog.d("Wife true", r.getName());
-        r = RelationUtils.claim(Person.Wife, false);
-        KLog.d("Wife false", r.getName());
+//        Relation r = RelationUtils.claim(Person.YSister, true);
+//        KLog.d("YSister true", r.getName());
+//        r = RelationUtils.claim(Person.YSister, false);
+//        KLog.d("YSister false", r.getName());
+//        r = RelationUtils.claim(Person.Husband, true);
+//        KLog.d("Husband true", r.getName());
+//        r = RelationUtils.claim(Person.Husband, false);
+//        KLog.d("Husband false", r.getName());
+//        r = RelationUtils.claim(Person.Wife, true);
+//        KLog.d("Wife true", r.getName());
+//        r = RelationUtils.claim(Person.Wife, false);
+//        KLog.d("Wife false", r.getName());
+
+        Relation r = RelationUtils.link(Person.Father, Person.Father, null);
+        r = RelationUtils.claim(r, true);
+        KLog.d("Father 1", r.getName());
     }
 }

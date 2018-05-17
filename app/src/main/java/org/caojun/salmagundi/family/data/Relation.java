@@ -16,7 +16,7 @@ public class Relation {
     private int rank;//辈分（0：平辈，1：长一辈，-1：小一辈，……）
     private Boolean male;//性别（true：男性，false：女性，null：未知）
     private List<Integer> link;//关系（0：父子，1：夫妻，2：兄弟）
-    private Boolean elder;//true：年长，false：年幼，null：未知
+    private Boolean elder = null;//true：年长，false：年幼，null：未知
     private String name;//称谓
 
     public Relation() {}
