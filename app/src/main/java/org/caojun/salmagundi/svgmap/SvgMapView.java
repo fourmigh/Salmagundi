@@ -27,6 +27,7 @@ public class SvgMapView extends View {
     private GestureDetector mDetector;
     //缩放系数
     private float scale=2.0f;
+    private float preScale = scale;// 默认前一次缩放比例为1
     //保存path对象
     private List<PathItem> pathItems = new ArrayList<>();
 
@@ -147,8 +148,6 @@ public class SvgMapView extends View {
             }
         });
         mScaleGestureDetector = new ScaleGestureDetector(getContext(), new ScaleGestureDetector.OnScaleGestureListener() {
-
-            private float preScale = scale;// 默认前一次缩放比例为1
 
             @Override
             public boolean onScale(ScaleGestureDetector scaleGestureDetector) {
@@ -271,8 +270,18 @@ public class SvgMapView extends View {
     private void center() {
         int Width = getRight() - getLeft();
         int Height = getBottom() - getTop();
-        float width = (rectF.right - rectF.left) * scale;
-        float height = (rectF.bottom - rectF.top) * scale;
+//        float width = (rectF.right - rectF.left) * scale;
+//        float height = (rectF.bottom - rectF.top) * scale;
+        float width = rectF.right - rectF.left;
+        float height = rectF.bottom - rectF.top;
+        float sX = Width / width;
+        float sY = Height / height;
+        scale = Math.min(sX, sY);
+        preScale = scale;
+
+        width *= scale;
+        height *= scale;
+
         dX = (Width - width) / (2 * scale);
         dY = (Height - height) / (2 * scale);
 
