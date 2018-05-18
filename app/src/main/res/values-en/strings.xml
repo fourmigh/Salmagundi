@@ -207,4 +207,11 @@
 
     <!-- SVG Map -->
     <string name="sm_title">SVG Map</string>
+
+    <string name="sc_deposit">Deposit</string>
+    <string name="sc_previous">Previous</string>
+    <string name="sc_next">Next</string>
+    <string name="ft_title">IFLYTEK</string>
+    <string name="cal_expand_title">Cal Expand</string>
+    <string name="cal_month_title">Cal Month</string>
 </resources>
