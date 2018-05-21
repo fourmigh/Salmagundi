@@ -63,7 +63,7 @@ public class SvgmapActivity extends BaseActivity {
                 tvInfo.setText(item.getTitle());
                 if (index == size - 1) {
                     try {
-                        Thread.sleep(2000);
+                        Thread.sleep(1000);
                         tvInfo.setText(null);
                     } catch (InterruptedException e) {
                         e.printStackTrace();

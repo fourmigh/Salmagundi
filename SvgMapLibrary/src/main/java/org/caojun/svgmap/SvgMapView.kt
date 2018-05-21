@@ -166,14 +166,15 @@ class SvgMapView: View {
                         rectF.bottom = rf.bottom
                     }
 
-                    uiThread {
-                        listener?.onShow(item, i, paths.length)
-                    }
-
                     postInvalidate()
                     Thread.sleep(100)
                     item.isSelected = false
+
+                    uiThread {
+                        listener?.onShow(item, i, paths.length)
+                    }
                 }
+                postInvalidate()
                 inputStream?.close()
             } catch (e: Exception) {
                 e.printStackTrace()
