@@ -61,7 +61,7 @@ class SvgMapView: View {
             override fun onScale(scaleGestureDetector: ScaleGestureDetector): Boolean {
                 val previousSpan = scaleGestureDetector.previousSpan
                 val currentSpan = scaleGestureDetector.currentSpan
-                scale = preScale + (currentSpan - previousSpan) / 1000
+                scale = preScale + (currentSpan - previousSpan) * scale / 1000
                 invalidate()
                 return false
             }
