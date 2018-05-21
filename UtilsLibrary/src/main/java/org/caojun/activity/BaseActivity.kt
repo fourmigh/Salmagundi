@@ -37,4 +37,12 @@ open class BaseActivity : Activity() {
     fun getSharedPreferences(name: String, key: String, defValue: Int): Int {
         return ActivityUtils.getSharedPreferences(this, name, key, defValue)
     }
+
+    fun getString(context: Context, name: String): Int? {
+        return ActivityUtils.getStringResId(context, name)
+    }
+
+    fun getRaw(context: Context, name: String): Int? {
+        return ActivityUtils.getRowResId(context, name)
+    }
 }

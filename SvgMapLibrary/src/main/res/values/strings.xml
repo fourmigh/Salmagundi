@@ -91,7 +91,7 @@
     <string name="GW">Guinea-Bissau</string>
     <string name="GY">Guyana</string>
     <string name="HK">Hong Kong</string>
-    <string name="HM">Heard &#038; McDonald Is.</string>
+    <string name="HM">Heard Island and McDonald Islands</string>
     <string name="HN">Honduras</string>
     <string name="HR">Croatia</string>
     <string name="HT">Haiti</string>
@@ -115,7 +115,7 @@
     <string name="KH">Cambodia</string>
     <string name="KI">Kiribati</string>
     <string name="KM">Comoros</string>
-    <string name="KN">St. Kitts &#038; Nevis</string>
+    <string name="KN">St. Kitts and Nevis</string>
     <string name="KP">North Korea</string>
     <string name="KR">South Korea</string>
     <string name="KW">Kuwait</string>
@@ -177,7 +177,7 @@
     <string name="PH">Philippines</string>
     <string name="PK">Pakistan</string>
     <string name="PL">Poland</string>
-    <string name="PM">St. Pierre &#038; Mequielon</string>
+    <string name="PM">St. Pierre and Mequielon</string>
     <string name="PN">Pitcairn Island</string>
     <string name="PR">Puerto Rico</string>
     <string name="PS">Palestine</string>
@@ -197,7 +197,7 @@
     <string name="SG">Singapore</string>
     <string name="SH">St. Helena</string>
     <string name="SI">Slovenia</string>
-    <string name="SJ">Svalbard &#038; Jan Mayen</string>
+    <string name="SJ">Svalbard and Jan Mayen</string>
     <string name="SK">Slovakia</string>
     <string name="SL">Sierra Leone</string>
     <string name="SM">San Marino</string>
@@ -205,12 +205,12 @@
     <string name="SO">Somalia</string>
     <string name="SR">Suriname</string>
     <string name="SS">South Sudan</string>
-    <string name="ST">Sao Tome &#038; Principe</string>
+    <string name="ST">Sao Tome and Principe</string>
     <string name="SU">USSR</string>
     <string name="SX">Sint Maarten</string>
     <string name="SY">Syrian Arab Republic</string>
     <string name="SZ">Swaziland</string>
-    <string name="TC">Turks &#038; Caicos Islands</string>
+    <string name="TC">Turks and Caicos Islands</string>
     <string name="TD">Chad</string>
     <string name="TF">French Southern Territories</string>
     <string name="TG">Togo</string>
@@ -222,7 +222,7 @@
     <string name="TO">Tonga</string>
     <string name="TP">East Timor</string>
     <string name="TR">Turkey</string>
-    <string name="TT">Trinidad &#038; Tobago</string>
+    <string name="TT">Trinidad and Tobago</string>
     <string name="TV">Tuvalu</string>
     <string name="TW">Taiwan</string>
     <string name="TZ">Tanzania</string>
@@ -233,13 +233,13 @@
     <string name="UY">Uruguay</string>
     <string name="UZ">Uzbekistan</string>
     <string name="VA">Vatican City State</string>
-    <string name="VC">St. Vincent &#038; the Grenadines</string>
+    <string name="VC">St. Vincent and the Grenadines</string>
     <string name="VE">Venezuela</string>
     <string name="VG">British Virgin Islands</string>
     <string name="VI">US Virgin Islands</string>
     <string name="VN">Vietnam</string>
     <string name="VU">Vanuatu</string>
-    <string name="WF">Wallis &#038; Fortuna Is.</string>
+    <string name="WF">Wallis and Fortuna Islands</string>
     <string name="WS">Samoa</string>
     <string name="XK">Kosovo</string>
     <string name="YE">Yemen</string>

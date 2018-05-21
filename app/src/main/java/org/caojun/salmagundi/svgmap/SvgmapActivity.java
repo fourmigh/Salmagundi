@@ -9,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+
+import org.caojun.activity.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.svgmap.PathItem;
@@ -16,7 +18,7 @@ import org.caojun.svgmap.SvgMapView;
 import org.jetbrains.annotations.NotNull;
 
 @Route(path = Constant.ACTIVITY_SVGMAP)
-public class SvgmapActivity extends Activity {
+public class SvgmapActivity extends BaseActivity {
 
     public final static String Key_Map_Name = "Key_Map_Name";
     private String lastId = "";
@@ -31,8 +33,17 @@ public class SvgmapActivity extends Activity {
         svgMapView.setMapListener(new SvgMapView.MapListener() {
             @Override
             public void onClick(@NotNull PathItem item) {
-                if (!TextUtils.isEmpty(item.getTitle())) {
-                    Toast.makeText(SvgmapActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
+                if (!TextUtils.isEmpty(item.getId())) {
+//                    int resId = getResources().getIdentifier(item.getId().toUpperCase(), "string", getPackageName());
+//                    if (resId > 0) {
+//                        Toast.makeText(SvgmapActivity.this, resId, Toast.LENGTH_SHORT).show();
+//                    }
+                    Integer resId = getString(SvgmapActivity.this, item.getId());
+                    if (resId == null) {
+                        Toast.makeText(SvgmapActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(SvgmapActivity.this, resId, Toast.LENGTH_SHORT).show();
+                    }
                 }
                 if (TextUtils.isEmpty(item.getId()) || !svgMapView.hasMap(item.getId())) {
                     return;

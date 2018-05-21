@@ -116,4 +116,26 @@ object ActivityUtils {
         clipboardManager.primaryClip = clipData
         context.toast(context.getString(R.string.clipboard_alert, clipboardData))
     }
+
+    private fun getResId(context: Context, name: String, defType: String): Int {
+        return context.resources.getIdentifier(name, defType, context.packageName)
+    }
+
+    fun getRowResId(context: Context, name: String): Int? {
+        val resId = getResId(context, name, "raw")
+        return if (resId > 0) {
+            resId
+        } else {
+            null
+        }
+    }
+
+    fun getStringResId(context: Context, name: String): Int? {
+        val resId = getResId(context, name, "string")
+        return if (resId > 0) {
+            resId
+        } else {
+            null
+        }
+    }
 }
