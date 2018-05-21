@@ -148,6 +148,7 @@ class SvgMapView: View {
                     val id = personNode.getAttribute("id")
                     //解析，并创建pathItem
                     item = PathItem(id, title, path)
+                    item.isSelected = true
                     pathItems.add(item)
 
                     //统计整体尺寸
@@ -171,6 +172,7 @@ class SvgMapView: View {
 
                     postInvalidate()
                     Thread.sleep(100)
+                    item.isSelected = false
                 }
                 inputStream?.close()
             } catch (e: Exception) {
