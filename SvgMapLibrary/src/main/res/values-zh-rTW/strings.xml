@@ -16,6 +16,7 @@
     <string name="AT">奧地利</string>
     <string name="AU">澳大利亞</string>
     <string name="AW">阿魯巴</string>
+    <string name="AX">奧蘭群島</string>
     <string name="AZ">阿塞拜疆</string>
     <string name="BA">波士尼亞和黑塞哥維那</string>
     <string name="BB">巴巴多斯</string>
@@ -26,9 +27,11 @@
     <string name="BH">巴林</string>
     <string name="BI">布隆迪</string>
     <string name="BJ">貝南</string>
+    <string name="BL">聖巴特島</string>
     <string name="BM">百慕大群島</string>
     <string name="BN">汶萊達魯薩蘭</string>
     <string name="BO">玻利維亞</string>
+    <string name="BQ">荷兰加勒比区</string>
     <string name="BR">巴西</string>
     <string name="BS">巴哈馬群島</string>
     <string name="BT">不丹</string>
@@ -52,6 +55,7 @@
     <string name="CR">哥斯大黎加</string>
     <string name="CU">古巴</string>
     <string name="CV">佛得角</string>
+    <string name="CW">庫拉索</string>
     <string name="CX">聖誕島</string>
     <string name="CY">賽普勒斯</string>
     <string name="CZ">捷克共和國</string>
@@ -80,13 +84,17 @@
     <string name="GD">格林伍德</string>
     <string name="GE">格魯吉亞</string>
     <string name="GF">法屬圭亞那</string>
+    <string name="GG">根西岛</string>
     <string name="GH">迦納</string>
     <string name="GI">直布羅陀</string>
     <string name="GL">格陵蘭</string>
     <string name="GM">岡比亞</string>
     <string name="GN">幾內亞</string>
+    <string name="GO">格洛裏厄斯群島</string>
     <string name="GP">瓜德羅普</string>
+    <string name="GQ">赤道幾內亞</string>
     <string name="GR">希臘</string>
+    <string name="GS">南喬治亞和南桑德韋奇群島</string>
     <string name="GT">瓜地馬拉</string>
     <string name="GU">關島</string>
     <string name="GW">幾內亞·比索</string>
@@ -111,6 +119,7 @@
     <string name="JM">牙買加</string>
     <string name="JO">約旦</string>
     <string name="JP">日本</string>
+    <string name="JU">新胡安島</string>
     <string name="KE">肯雅</string>
     <string name="KG">吉爾吉斯斯坦</string>
     <string name="KH">高棉</string>
@@ -208,6 +217,7 @@
     <string name="SS">南蘇丹</string>
     <string name="ST">聖多美及普林西比</string>
     <string name="SU">蘇聯</string>
+    <string name="SV">薩爾瓦多</string>
     <string name="SX">荷屬聖馬丁</string>
     <string name="SY">敘利亞阿拉伯共和國</string>
     <string name="SZ">史瓦濟蘭</string>
@@ -218,6 +228,7 @@
     <string name="TH">泰國</string>
     <string name="TJ">塔吉克共和國</string>
     <string name="TK">托克勞</string>
+    <string name="TL">東帝汶</string>
     <string name="TM">土庫曼共和國</string>
     <string name="TN">突尼斯</string>
     <string name="TO">東加</string>

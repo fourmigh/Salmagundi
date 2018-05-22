@@ -15,6 +15,7 @@
     <string name="AT">Austria</string>
     <string name="AU">Australia</string>
     <string name="AW">Aruba</string>
+    <string name="AX">Aland Islands</string>
     <string name="AZ">Azerbaijan</string>
     <string name="BA">Bosnia Hercegovina</string>
     <string name="BB">Barbados</string>
@@ -25,9 +26,11 @@
     <string name="BH">Bahrain</string>
     <string name="BI">Burundi</string>
     <string name="BJ">Benin</string>
+    <string name="BL">Saint Barthelemy</string>
     <string name="BM">Bermuda</string>
     <string name="BN">Brunei Darussalam</string>
     <string name="BO">Bolivia</string>
+    <string name="BQ">Caribbean Netherlands</string>
     <string name="BR">Brazil</string>
     <string name="BS">Bahamas</string>
     <string name="BT">Bhutan</string>
@@ -51,6 +54,7 @@
     <string name="CR">Costa Rica</string>
     <string name="CU">Cuba</string>
     <string name="CV">Cape Verde</string>
+    <string name="CW">Curaçao</string>
     <string name="CX">Christmas Island</string>
     <string name="CY">Cyprus</string>
     <string name="CZ">Czech Republic</string>
@@ -79,13 +83,17 @@
     <string name="GD">Grenada</string>
     <string name="GE">Georgia</string>
     <string name="GF">French Guiana</string>
+    <string name="GG">Guernsey</string>
     <string name="GH">Ghana</string>
     <string name="GI">Gibraltar</string>
     <string name="GL">Greenland</string>
     <string name="GM">Gambia</string>
     <string name="GN">Guinea</string>
+    <string name="GO">Glorioso Islands</string>
     <string name="GP">Guadeloupe</string>
+    <string name="GQ">Equatorial Guinea</string>
     <string name="GR">Greece</string>
+    <string name="GS">South Georgia and South Sandwich Islands</string>
     <string name="GT">Guatemala</string>
     <string name="GU">Guam</string>
     <string name="GW">Guinea-Bissau</string>
@@ -110,6 +118,7 @@
     <string name="JM">Jamaica</string>
     <string name="JO">Jordan</string>
     <string name="JP">Japan</string>
+    <string name="JU">Juan De Nova Island</string>
     <string name="KE">Kenya</string>
     <string name="KG">Kyrgyzstan</string>
     <string name="KH">Cambodia</string>
@@ -207,6 +216,7 @@
     <string name="SS">South Sudan</string>
     <string name="ST">Sao Tome and Principe</string>
     <string name="SU">USSR</string>
+    <string name="SV">El Salvador</string>
     <string name="SX">Sint Maarten</string>
     <string name="SY">Syrian Arab Republic</string>
     <string name="SZ">Swaziland</string>
@@ -217,6 +227,7 @@
     <string name="TH">Thailand</string>
     <string name="TJ">Tajikistan</string>
     <string name="TK">Tokelau</string>
+    <string name="TL">Timor-Leste</string>
     <string name="TM">Turkmenistan</string>
     <string name="TN">Tunisia</string>
     <string name="TO">Tonga</string>
