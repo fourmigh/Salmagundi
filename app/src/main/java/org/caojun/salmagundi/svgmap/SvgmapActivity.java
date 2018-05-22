@@ -1,21 +1,24 @@
 package org.caojun.salmagundi.svgmap;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.alibaba.android.arouter.facade.annotation.Route;
-
 import org.caojun.activity.BaseActivity;
 import org.caojun.salmagundi.Constant;
 import org.caojun.salmagundi.R;
 import org.caojun.svgmap.PathItem;
 import org.caojun.svgmap.SvgMapView;
 import org.jetbrains.annotations.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Route(path = Constant.ACTIVITY_SVGMAP)
 public class SvgmapActivity extends BaseActivity {
@@ -30,14 +33,14 @@ public class SvgmapActivity extends BaseActivity {
 
         final TextView tvInfo = findViewById(R.id.tvInfo);
         final SvgMapView svgMapView = findViewById(R.id.svgMapView);
+
+        final Spinner spID = findViewById(R.id.spID);
+        spID.setVisibility(View.GONE);
+
         svgMapView.setMapListener(new SvgMapView.MapListener() {
             @Override
             public void onClick(@NotNull PathItem item) {
                 if (!TextUtils.isEmpty(item.getId())) {
-//                    int resId = getResources().getIdentifier(item.getId().toUpperCase(), "string", getPackageName());
-//                    if (resId > 0) {
-//                        Toast.makeText(SvgmapActivity.this, resId, Toast.LENGTH_SHORT).show();
-//                    }
                     Integer resId = getString(SvgmapActivity.this, item.getId());
                     if (resId == null) {
                         Toast.makeText(SvgmapActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
@@ -60,12 +63,48 @@ public class SvgmapActivity extends BaseActivity {
 
             @Override
             public void onShow(@NotNull PathItem item, int index, int size) {
-                tvInfo.setText(item.getTitle());
+                Integer id = getString(SvgmapActivity.this, item.getId());
+                if (id == null) {
+                    tvInfo.setText(item.getTitle());
+                } else {
+                    tvInfo.setText(id);
+                }
+
                 if (index == size - 1) {
                     try {
                         Thread.sleep(1000);
                         tvInfo.setText(null);
-                    } catch (InterruptedException e) {
+
+                        final List<PathItem> pathItems = svgMapView.getPathItems();
+                        List<String> names = new ArrayList<>();
+                        for (int i = 0;i < pathItems.size();i ++) {
+                            PathItem pathItem = pathItems.get(i);
+                            id = getString(SvgmapActivity.this, pathItem.getId());
+                            if (id == null) {
+                                names.add(pathItem.getTitle());
+                            } else {
+                                names.add(getString(id));
+                            }
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(SvgmapActivity.this,
+                                android.R.layout.simple_dropdown_item_1line, names);
+                        spID.setAdapter(adapter);
+                        spID.setVisibility(View.VISIBLE);
+                        spID.setSelection(0, true);
+
+                        spID.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                pathItems.get(position).setSelected(true);
+                                svgMapView.doCenter(position);
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
@@ -79,7 +118,6 @@ public class SvgmapActivity extends BaseActivity {
         } else {
             svgMapView.setMap(mapName);
         }
-
 
     }
 }

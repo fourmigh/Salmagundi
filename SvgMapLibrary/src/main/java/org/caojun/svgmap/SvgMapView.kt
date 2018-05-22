@@ -202,6 +202,12 @@ class SvgMapView: View {
 
     private var rectF = RectF()
 
+    fun doCenter(index: Int) {
+        val pathItem = pathItems[index]
+        center(pathItem.getRectF())
+        invalidate()
+    }
+
     private fun center(rectF: RectF) {
 
         val Width = right - left
@@ -283,5 +289,10 @@ class SvgMapView: View {
         dX = -dX
         dY = -dY
         invalidate()
+    }
+
+
+    fun getPathItems(): ArrayList<PathItem> {
+        return pathItems
     }
 }
