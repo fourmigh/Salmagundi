@@ -34,20 +34,29 @@ public class SvgmapActivity extends BaseActivity {
         final TextView tvInfo = findViewById(R.id.tvInfo);
         final SvgMapView svgMapView = findViewById(R.id.svgMapView);
 
-        final Spinner spID = findViewById(R.id.spID);
+        spID = findViewById(R.id.spID);
         spID.setVisibility(View.GONE);
 
         svgMapView.setMapListener(new SvgMapView.MapListener() {
+
             @Override
-            public void onClick(@NotNull PathItem item) {
-                if (!TextUtils.isEmpty(item.getId())) {
-                    Integer resId = getString(SvgmapActivity.this, item.getId());
-                    if (resId == null) {
-                        Toast.makeText(SvgmapActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(SvgmapActivity.this, resId, Toast.LENGTH_SHORT).show();
-                    }
-                }
+            public void onLongClick(@NotNull PathItem item, int index) {
+                doSpinnerSelect(index, false);
+            }
+
+            @Override
+            public void onClick(@NotNull PathItem item, int index) {
+
+                doSpinnerSelect(index, false);
+
+//                if (!TextUtils.isEmpty(item.getId())) {
+//                    Integer resId = getString(SvgmapActivity.this, item.getId());
+//                    if (resId == null) {
+//                        Toast.makeText(SvgmapActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        Toast.makeText(SvgmapActivity.this, resId, Toast.LENGTH_SHORT).show();
+//                    }
+//                }
                 if (TextUtils.isEmpty(item.getId()) || !svgMapView.hasMap(item.getId())) {
                     return;
                 }
@@ -90,13 +99,15 @@ public class SvgmapActivity extends BaseActivity {
                                 android.R.layout.simple_dropdown_item_1line, names);
                         spID.setAdapter(adapter);
                         spID.setVisibility(View.VISIBLE);
-                        spID.setSelection(0, true);
 
                         spID.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                pathItems.get(position).setSelected(true);
-                                svgMapView.doCenter(position);
+                                if (isSelectWork) {
+                                    pathItems.get(position).setSelected(true);
+                                    svgMapView.doCenter(position);
+                                }
+                                isSelectWork = true;
                             }
 
                             @Override
@@ -119,5 +130,12 @@ public class SvgmapActivity extends BaseActivity {
             svgMapView.setMap(mapName);
         }
 
+    }
+
+    private Spinner spID;
+    private boolean isSelectWork = false;
+    private void doSpinnerSelect(int position, boolean isSelectWork) {
+        spID.setSelection(position, true);
+        this.isSelectWork = isSelectWork;
     }
 }

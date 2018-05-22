@@ -42,12 +42,14 @@ class SvgMapView: View {
             }
 
             override fun onSingleTapUp(e: MotionEvent): Boolean {
-                doClick(e)
+                doClick(e, false)
+                invalidate()
                 return super.onSingleTapUp(e)
             }
 
             override fun onLongPress(e: MotionEvent) {
-                doCenter(e)
+                center(doClick(e, true))
+                invalidate()
                 super.onLongPress(e)
             }
 
@@ -82,8 +84,9 @@ class SvgMapView: View {
     private var lastY = 0f
 
     interface MapListener {
-        fun onClick(item: PathItem)
+        fun onClick(item: PathItem, index: Int)
         fun onShow(item: PathItem, index: Int, size: Int)
+        fun onLongClick(item: PathItem, index: Int)
     }
 
     private var listener: MapListener? = null
@@ -232,52 +235,37 @@ class SvgMapView: View {
         lastY = -dY
     }
 
-    private fun doCenter(e: MotionEvent) {
-        var x = e.x / scale
-        var y = e.y / scale
-        x -= dX
-        y -= dY
-        try {
-            var rf: RectF? = null
-            for (pathItem in pathItems) {
-                pathItem.isSelected = pathItem.isTouch(x.toInt(), y.toInt())
-
-                if (pathItem.isSelected) {
-                    rf = pathItem.getRectF()
-                }
-            }
-            if (rf == null) {
-                center(rectF)
-            } else {
-                center(rf)
-            }
-        } catch (e1: Exception) {
-        }
-
-        invalidate()
-    }
-
-    private fun doClick(e: MotionEvent) {
+    private fun doClick(e: MotionEvent, isLongClick: Boolean): RectF {
         var x = e.x / scale
         var y = e.y / scale
         x -= dX
         y -= dY
         var item: PathItem? = null
+        var index = 0
+        var rf = rectF
         try {
-            for (pathItem in pathItems) {
+            for (i in pathItems.indices) {
+                val pathItem = pathItems[i]
                 pathItem.isSelected = pathItem.isTouch(x.toInt(), y.toInt())
 
                 if (pathItem.isSelected) {
                     item = pathItem
+                    index = i
+                    rf = pathItem.getRectF()
                 }
             }
-            invalidate()
+//            invalidate()
         } catch (e1: Exception) {
         }
 
         if (listener != null && item != null) {
-            listener?.onClick(item)
+            if (isLongClick) {
+                listener?.onLongClick(item, index)
+            } else {
+                listener?.onClick(item, index)
+            }
         }
+        return rf
     }
 
     private fun doScroll(distanceX: Float, distanceY: Float) {
