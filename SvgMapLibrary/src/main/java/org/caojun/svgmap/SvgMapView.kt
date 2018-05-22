@@ -177,6 +177,8 @@ class SvgMapView: View {
                         listener?.onShow(item, i, paths.length)
                     }
                 }
+//                postInvalidate()
+                center(rectF)
                 postInvalidate()
                 inputStream?.close()
             } catch (e: Exception) {
@@ -282,5 +284,48 @@ class SvgMapView: View {
 
     fun getPathItems(): ArrayList<PathItem> {
         return pathItems
+    }
+
+    private interface AnimationListener {
+        fun onFinish()
+    }
+
+    fun doAnimateCenter(index: Int) {
+//        val pathItem = pathItems[index]
+//        doAnimateCenter(step, pathItem.getRectF())
+        doAnimateCenter(rectF, object : AnimationListener {
+            override fun onFinish() {
+                doAnimateCenter(pathItems[index].getRectF(), null)
+            }
+        })
+    }
+
+    private fun doAnimateCenter(rectF: RectF, listener: AnimationListener?) {
+        val lastDX = dX
+        val lastDY = dY
+        val lastScale = scale
+        center(rectF)
+        val goalDX = dX
+        val goalDY = dY
+        val goalScale = scale
+
+        val step = 20
+
+        val stepX = (goalDX - lastDX) / step
+        val stepY = (goalDY - lastDY) / step
+        val stepScale = (goalScale - lastScale) / step
+        doAsync {
+            for (i in 1 .. step) {
+                dX = lastDX + stepX * i
+                dY = lastDY + stepY * i
+                scale = lastScale + stepScale * i
+                uiThread {
+                    invalidate()
+                }
+                Thread.sleep(100)
+            }
+            listener?.onFinish()
+        }
+
     }
 }

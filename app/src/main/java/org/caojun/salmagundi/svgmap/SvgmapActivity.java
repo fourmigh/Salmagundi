@@ -104,8 +104,11 @@ public class SvgmapActivity extends BaseActivity {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 if (isSelectWork) {
-                                    pathItems.get(position).setSelected(true);
+                                    for (int i = 0;i < pathItems.size();i ++) {
+                                        pathItems.get(i).setSelected(position == i);
+                                    }
                                     svgMapView.doCenter(position);
+//                                    svgMapView.doAnimateCenter(position);
                                 }
                                 isSelectWork = true;
                             }
