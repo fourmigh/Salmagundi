@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
@@ -48,8 +49,9 @@ class SvgMapView: View {
             }
 
             override fun onLongPress(e: MotionEvent) {
-                center(doClick(e, true))
-                invalidate()
+//                center(doClick(e, true))
+//                invalidate()
+                doAnimateCenter(doClick(e, true), null)
                 super.onLongPress(e)
             }
 
@@ -178,8 +180,9 @@ class SvgMapView: View {
                     }
                 }
 //                postInvalidate()
-                center(rectF)
-                postInvalidate()
+//                center(rectF)
+//                postInvalidate()
+                doAnimateCenter(rectF, null)
                 inputStream?.close()
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -256,7 +259,6 @@ class SvgMapView: View {
                     rf = pathItem.getRectF()
                 }
             }
-//            invalidate()
         } catch (e1: Exception) {
         }
 
@@ -291,13 +293,12 @@ class SvgMapView: View {
     }
 
     fun doAnimateCenter(index: Int) {
-//        val pathItem = pathItems[index]
-//        doAnimateCenter(step, pathItem.getRectF())
-        doAnimateCenter(rectF, object : AnimationListener {
-            override fun onFinish() {
-                doAnimateCenter(pathItems[index].getRectF(), null)
-            }
-        })
+//        doAnimateCenter(rectF, object : AnimationListener {
+//            override fun onFinish() {
+//                doAnimateCenter(pathItems[index].getRectF(), null)
+//            }
+//        })
+        doAnimateCenter(pathItems[index].getRectF(), null)
     }
 
     private fun doAnimateCenter(rectF: RectF, listener: AnimationListener?) {
@@ -309,11 +310,12 @@ class SvgMapView: View {
         val goalDY = dY
         val goalScale = scale
 
-        val step = 20
+        var step = 20
 
-        val stepX = (goalDX - lastDX) / step
-        val stepY = (goalDY - lastDY) / step
-        val stepScale = (goalScale - lastScale) / step
+        var stepX = (goalDX - lastDX) / step
+        var stepY = (goalDY - lastDY) / step
+        var stepScale = (goalScale - lastScale) / step
+
         doAsync {
             for (i in 1 .. step) {
                 dX = lastDX + stepX * i

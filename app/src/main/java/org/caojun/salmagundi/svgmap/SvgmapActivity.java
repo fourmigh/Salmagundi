@@ -107,8 +107,8 @@ public class SvgmapActivity extends BaseActivity {
                                     for (int i = 0;i < pathItems.size();i ++) {
                                         pathItems.get(i).setSelected(position == i);
                                     }
-                                    svgMapView.doCenter(position);
-//                                    svgMapView.doAnimateCenter(position);
+//                                    svgMapView.doCenter(position);
+                                    svgMapView.doAnimateCenter(position);
                                 }
                                 isSelectWork = true;
                             }
