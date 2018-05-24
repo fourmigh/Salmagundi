@@ -38,13 +38,15 @@ class SvgMapView: ScaleCanvasView {
 
             override fun onSingleTapUp(e: MotionEvent): Boolean {
                 doClick(e, false)
-                invalidate()
+//                invalidate()
+                postInvalidate()
                 return super.onSingleTapUp(e)
             }
 
             override fun onLongPress(e: MotionEvent) {
                 doClick(e, true)
-                invalidate()
+//                invalidate()
+                postInvalidate()
                 super.onLongPress(e)
             }
         }))
@@ -137,7 +139,7 @@ class SvgMapView: ScaleCanvasView {
                     }
 
                     postInvalidate()
-                    Thread.sleep(100)
+//                    Thread.sleep(100)
                     item.isSelected = false
 
                     uiThread {
@@ -181,12 +183,15 @@ class SvgMapView: ScaleCanvasView {
     }
 
     private fun doCenter(rectF: RectF): RectF {
-        doAsync {
-            center(rectF)
-            uiThread {
-                invalidate()
-            }
-        }
+//        doAsync {
+//            center(rectF)
+////            uiThread {
+////                invalidate()
+////            }
+//            postInvalidate()
+//        }
+        center(rectF)
+        postInvalidate()
         return rectF
     }
 

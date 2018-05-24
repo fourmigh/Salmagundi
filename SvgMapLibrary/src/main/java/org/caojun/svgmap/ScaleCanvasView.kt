@@ -74,7 +74,8 @@ abstract class ScaleCanvasView: View, ScaleGestureDetector.OnScaleGestureListene
                     val dX = dx - mPreviousTransX + mTransX
                     val dY = dy - mPreviousTransY + mTransY
                     postTranslate(dX, dY)
-                    invalidate()
+//                    invalidate()
+                    postInvalidate()
                 } else if (mode == MODE_SCALE) {
                     scaleGestureDetector!!.onTouchEvent(event)
                 }
@@ -137,7 +138,8 @@ abstract class ScaleCanvasView: View, ScaleGestureDetector.OnScaleGestureListene
 
         postScale(scale, scale, scaleGestureDetector.focusX, scaleGestureDetector.focusY)
 
-        invalidate()
+//        invalidate()
+        postInvalidate()
         return false
     }
 
