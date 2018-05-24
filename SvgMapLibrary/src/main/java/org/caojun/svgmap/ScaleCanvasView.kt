@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.util.AttributeSet
-import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
@@ -74,8 +73,6 @@ abstract class ScaleCanvasView: View, ScaleGestureDetector.OnScaleGestureListene
                     val mPreviousTransY = values[Matrix.MTRANS_Y]
                     val dX = dx - mPreviousTransX + mTransX
                     val dY = dy - mPreviousTransY + mTransY
-                    Log.d("onTouchEvent", "dX: $dX")
-                    Log.d("onTouchEvent", "dY: $dY")
                     postTranslate(dX, dY)
                     invalidate()
                 } else if (mode == MODE_SCALE) {

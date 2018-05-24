@@ -39,17 +39,17 @@ public class SvgmapActivity extends BaseActivity {
         svgMapView.setMapListener(new SvgMapView.MapListener() {
 
             @Override
-            public void onLongClick(@NotNull PathItem item, int index) {
+            public void onLongClick(PathItem item, int index) {
 //                doSpinnerSelect(index, true);
                 svgMapView.doAnimateCenter(index);
             }
 
             @Override
-            public void onClick(@NotNull PathItem item, int index) {
+            public void onClick(PathItem item, int index) {
 
                 doSpinnerSelect(index, false);
 
-                if (TextUtils.isEmpty(item.getId()) || !svgMapView.hasMap(item.getId())) {
+                if (item == null || TextUtils.isEmpty(item.getId()) || !svgMapView.hasMap(item.getId())) {
                     return;
                 }
                 if (!lastId.equals(item.getId())) {
@@ -121,7 +121,7 @@ public class SvgmapActivity extends BaseActivity {
 
         String mapName = getIntent().getStringExtra(Key_Map_Name);
         if (TextUtils.isEmpty(mapName)) {
-            svgMapView.setMap("world");
+            svgMapView.setMap("cn");
         } else {
             svgMapView.setMap(mapName);
         }

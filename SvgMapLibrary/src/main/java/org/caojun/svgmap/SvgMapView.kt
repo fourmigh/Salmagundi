@@ -51,9 +51,9 @@ class SvgMapView: ScaleCanvasView {
     }
 
     interface MapListener {
-        fun onClick(item: PathItem, index: Int)
+        fun onClick(item: PathItem?, index: Int)
         fun onShow(item: PathItem, index: Int, size: Int)
-        fun onLongClick(item: PathItem, index: Int)
+        fun onLongClick(item: PathItem?, index: Int)
     }
 
     private var listener: MapListener? = null
@@ -144,8 +144,12 @@ class SvgMapView: ScaleCanvasView {
                         listener?.onShow(item, i, paths.length)
                     }
                 }
-                curRectF = doCenter(rectF)
-//                doAnimateCenter(rectF)
+//                curRectF = doCenter(rectF)
+                curRectF.left = 0f
+                curRectF.top = 0f
+                curRectF.right = curRectF.left + width
+                curRectF.bottom = curRectF.top + height
+                doAnimateCenter(rectF)
                 inputStream?.close()
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -220,7 +224,7 @@ class SvgMapView: ScaleCanvasView {
         val y = (e.y - matrixValue[Matrix.MTRANS_Y]) / scale
 
         var item: PathItem? = null
-        var index = 0
+        var index = -1
         var rf = rectF
         try {
             for (i in pathItems.indices) {
@@ -237,7 +241,7 @@ class SvgMapView: ScaleCanvasView {
             e1.printStackTrace()
         }
 
-        if (listener != null && item != null) {
+        if (listener != null) {
             if (isLongClick) {
                 listener?.onLongClick(item, index)
             } else {
@@ -268,12 +272,13 @@ class SvgMapView: ScaleCanvasView {
     }
 
     fun doAnimateCenter(step: Int, index: Int, isDirect: Boolean) {
+        val rf = if (index < 0 || index >= pathItems.size) rectF else pathItems[index].getRectF()
         if (isDirect) {
-            doAnimateCenter(step, pathItems[index].getRectF(), null)
+            doAnimateCenter(step, rf, null)
         } else {
             doAnimateCenter(step, rectF, object : AnimationListener {
                 override fun onFinish() {
-                    doAnimateCenter(step, pathItems[index].getRectF(), null)
+                    doAnimateCenter(step, rf, null)
                 }
             })
         }
