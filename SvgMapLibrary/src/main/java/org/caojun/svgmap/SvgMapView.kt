@@ -2,6 +2,7 @@ package org.caojun.svgmap
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
@@ -17,19 +18,14 @@ import java.io.InputStream
 import java.util.ArrayList
 import javax.xml.parsers.DocumentBuilderFactory
 
-class SvgMapView: View {
+class SvgMapView: ScaleCanvasView {
 
     private val mPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
-    //手势监听器
-    private var mDetector: GestureDetector? = null
-    //缩放系数
-    private var scale = 1.3f
-    private var preScale = scale// 默认前一次缩放比例为1
     //保存path对象
     private val pathItems = ArrayList<PathItem>()
 
-    private var mScaleGestureDetector: ScaleGestureDetector? = null
+//    private var mScaleGestureDetector: ScaleGestureDetector? = null
 
     constructor(context: Context): this(context, null)
 
@@ -37,7 +33,7 @@ class SvgMapView: View {
         //关闭硬件加速
         setLayerType(View.LAYER_TYPE_SOFTWARE, null)
 
-        mDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
+        this.setGestureDetector(GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
             override fun onDown(e: MotionEvent): Boolean {
                 return true
             }
@@ -49,41 +45,13 @@ class SvgMapView: View {
             }
 
             override fun onLongPress(e: MotionEvent) {
-//                center(doClick(e, true))
-//                invalidate()
-                doAnimateCenter(doClick(e, true), null)
+                doClick(e, true)
+//                doCenter(doClick(e, true))
+//                doAnimateCenter(doClick(e, true), null)
                 super.onLongPress(e)
             }
-
-            override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
-                doScroll(distanceX, distanceY)
-                return super.onScroll(e1, e2, distanceX, distanceY)
-            }
-        })
-        mScaleGestureDetector = ScaleGestureDetector(context, object : ScaleGestureDetector.OnScaleGestureListener {
-
-            override fun onScale(scaleGestureDetector: ScaleGestureDetector): Boolean {
-                val previousSpan = scaleGestureDetector.previousSpan
-                val currentSpan = scaleGestureDetector.currentSpan
-                scale = preScale + (currentSpan - previousSpan) * scale / 1000
-                invalidate()
-                return false
-            }
-
-            override fun onScaleBegin(scaleGestureDetector: ScaleGestureDetector): Boolean {
-                return true
-            }
-
-            override fun onScaleEnd(scaleGestureDetector: ScaleGestureDetector) {
-                preScale = scale//记录本次缩放比例
-            }
-        })
+        }))
     }
-
-    private var dX = 0f
-    private var dY = 0f
-    private var lastX = 0f
-    private var lastY = 0f
 
     interface MapListener {
         fun onClick(item: PathItem, index: Int)
@@ -179,10 +147,8 @@ class SvgMapView: View {
                         listener?.onShow(item, i, paths.length)
                     }
                 }
-//                postInvalidate()
-//                center(rectF)
-//                postInvalidate()
-                doAnimateCenter(rectF, null)
+                doCenter(rectF)
+//                doAnimateCenter(rectF, null)
                 inputStream?.close()
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -190,33 +156,34 @@ class SvgMapView: View {
         }
     }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        return mScaleGestureDetector!!.onTouchEvent(event) && mDetector!!.onTouchEvent(event)
-    }
-
-    override fun onDraw(canvas: Canvas) {
-        canvas.save()
-        canvas.scale(scale, scale)
-        canvas.translate(dX, dY)
+    override fun drawCustom(canvas: Canvas) {
         try {
             for (pathItem in pathItems) {
                 pathItem.draw(canvas, mPaint)
             }
         } catch (e: Exception) {
         }
-
-        canvas.restore()
     }
 
     private var rectF = RectF()
 
     fun doCenter(index: Int) {
         val pathItem = pathItems[index]
-        center(pathItem.getRectF())
-        invalidate()
+        doCenter(pathItem.getRectF())
+    }
+
+    fun doCenter(rectF: RectF) {
+        doAsync {
+            center(rectF)
+            uiThread {
+                invalidate()
+            }
+        }
     }
 
     private fun center(rectF: RectF) {
+
+//        val matrixValues = getMatrixValues()
 
         val Width = right - left
         val Height = bottom - top
@@ -224,27 +191,30 @@ class SvgMapView: View {
         var height = rectF.bottom - rectF.top
         val sX = Width / width
         val sY = Height / height
-        scale = Math.min(sX, sY)
-        preScale = scale
+        val scale = Math.min(sX, sY)
 
         width *= scale
         height *= scale
 
-        dX = (Width - width) / (2 * scale)
-        dY = (Height - height) / (2 * scale)
-
+        var dX = (Width - width) / (2 * scale)
+        var dY = (Height - height) / (2 * scale)
+//
         dX -= rectF.left
         dY -= rectF.top
 
-        lastX = -dX
-        lastY = -dY
+        postTranslate(dX, dY)
+        postScale(scale, scale)
+        onMatrixEnd(scale)
     }
 
     private fun doClick(e: MotionEvent, isLongClick: Boolean): RectF {
-        var x = e.x / scale
-        var y = e.y / scale
-        x -= dX
-        y -= dY
+
+        val matrixValue = getMatrixValues()
+        val scale = matrixValue[Matrix.MSCALE_X]
+
+        val x = (e.x - matrixValue[Matrix.MTRANS_X]) / scale
+        val y = (e.y - matrixValue[Matrix.MTRANS_Y]) / scale
+
         var item: PathItem? = null
         var index = 0
         var rf = rectF
@@ -272,17 +242,15 @@ class SvgMapView: View {
         return rf
     }
 
-    private fun doScroll(distanceX: Float, distanceY: Float) {
-        val s = Math.abs(scale)
-        dX = lastX + distanceX / s
-        dY = lastY + distanceY / s
-        lastX = dX
-        lastY = dY
-        dX = -dX
-        dY = -dY
-        invalidate()
-    }
-
+//    private fun doScroll(distanceX: Float, distanceY: Float) {
+//        val s = Math.abs(scale)
+//        dX = lastX + distanceX / s
+//        dY = lastY + distanceY / s
+//        lastX = dX
+//        lastY = dY
+//        dX = -dX
+//        dY = -dY
+//    }
 
     fun getPathItems(): ArrayList<PathItem> {
         return pathItems
@@ -302,32 +270,39 @@ class SvgMapView: View {
     }
 
     private fun doAnimateCenter(rectF: RectF, listener: AnimationListener?) {
-        val lastDX = dX
-        val lastDY = dY
-        val lastScale = scale
-        center(rectF)
-        val goalDX = dX
-        val goalDY = dY
-        val goalScale = scale
-
-        var step = 20
-
-        var stepX = (goalDX - lastDX) / step
-        var stepY = (goalDY - lastDY) / step
-        var stepScale = (goalScale - lastScale) / step
-
-        doAsync {
-            for (i in 1 .. step) {
-                dX = lastDX + stepX * i
-                dY = lastDY + stepY * i
-                scale = lastScale + stepScale * i
-                uiThread {
-                    invalidate()
-                }
-                Thread.sleep(100)
-            }
-            listener?.onFinish()
-        }
+//        val lastDX = dX
+//        val lastDY = dY
+//        val lastScale = scale
+//        center(rectF)
+//        val goalDX = dX
+//        val goalDY = dY
+//        val goalScale = scale
+//
+//        var step = 20
+//
+//        var stepX = (goalDX - lastDX) / step
+//        var stepY = (goalDY - lastDY) / step
+//        var stepScale = (goalScale - lastScale) / step
+//
+//        doAsync {
+//            for (i in 1 .. step) {
+//                dX = lastDX + stepX * i
+//                dY = lastDY + stepY * i
+//                scale = lastScale + stepScale * i
+//                uiThread {
+//                    invalidate()
+//                }
+//                Thread.sleep(100)
+//            }
+//            listener?.onFinish()
+//        }
 
     }
+
+//    private fun doScale(scaleGestureDetector: ScaleGestureDetector) {
+//        val previousSpan = scaleGestureDetector.previousSpan
+//        val currentSpan = scaleGestureDetector.currentSpan
+//
+//        scale = preScale + (currentSpan - previousSpan) * scale / 1000
+//    }
 }
