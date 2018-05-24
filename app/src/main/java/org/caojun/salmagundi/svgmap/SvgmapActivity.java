@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import org.caojun.activity.BaseActivity;
 import org.caojun.salmagundi.Constant;
@@ -49,14 +48,6 @@ public class SvgmapActivity extends BaseActivity {
 
                 doSpinnerSelect(index, false);
 
-//                if (!TextUtils.isEmpty(item.getId())) {
-//                    Integer resId = getString(SvgmapActivity.this, item.getId());
-//                    if (resId == null) {
-//                        Toast.makeText(SvgmapActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(SvgmapActivity.this, resId, Toast.LENGTH_SHORT).show();
-//                    }
-//                }
                 if (TextUtils.isEmpty(item.getId()) || !svgMapView.hasMap(item.getId())) {
                     return;
                 }
@@ -107,9 +98,9 @@ public class SvgmapActivity extends BaseActivity {
                                     for (int i = 0;i < pathItems.size();i ++) {
                                         pathItems.get(i).setSelected(position == i);
                                     }
-//                                    svgMapView.doCenter(position);
+                                    svgMapView.doCenter(position);
 //                                    svgMapView.doAnimateCenter(position);
-                                    svgMapView.invalidate();
+//                                    svgMapView.invalidate();
                                 }
                                 isSelectWork = true;
                             }

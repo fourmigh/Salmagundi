@@ -6,10 +6,8 @@ import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
-import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
-import android.view.ScaleGestureDetector
 import android.view.View
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -24,8 +22,6 @@ class SvgMapView: ScaleCanvasView {
 
     //保存path对象
     private val pathItems = ArrayList<PathItem>()
-
-//    private var mScaleGestureDetector: ScaleGestureDetector? = null
 
     constructor(context: Context): this(context, null)
 
@@ -45,8 +41,8 @@ class SvgMapView: ScaleCanvasView {
             }
 
             override fun onLongPress(e: MotionEvent) {
-                doClick(e, true)
-//                doCenter(doClick(e, true))
+//                doClick(e, true)
+                doCenter(doClick(e, true))
 //                doAnimateCenter(doClick(e, true), null)
                 super.onLongPress(e)
             }
@@ -165,14 +161,18 @@ class SvgMapView: ScaleCanvasView {
         }
     }
 
-    private var rectF = RectF()
+    private val rectF = RectF()
 
     fun doCenter(index: Int) {
-        val pathItem = pathItems[index]
-        doCenter(pathItem.getRectF())
+        if (index < 0 || index >= pathItems.size) {
+            doCenter(rectF)
+        } else {
+            val pathItem = pathItems[index]
+            doCenter(pathItem.getRectF())
+        }
     }
 
-    fun doCenter(rectF: RectF) {
+    private fun doCenter(rectF: RectF) {
         doAsync {
             center(rectF)
             uiThread {
@@ -183,12 +183,10 @@ class SvgMapView: ScaleCanvasView {
 
     private fun center(rectF: RectF) {
 
-//        val matrixValues = getMatrixValues()
-
         val Width = right - left
         val Height = bottom - top
-        var width = rectF.right - rectF.left
-        var height = rectF.bottom - rectF.top
+        var width = rectF.width()//rectF.right - rectF.left
+        var height = rectF.height()//rectF.bottom - rectF.top
         val sX = Width / width
         val sY = Height / height
         val scale = Math.min(sX, sY)
@@ -198,10 +196,11 @@ class SvgMapView: ScaleCanvasView {
 
         var dX = (Width - width) / (2 * scale)
         var dY = (Height - height) / (2 * scale)
-//
+
         dX -= rectF.left
         dY -= rectF.top
 
+        resetMatrix()
         postTranslate(dX, dY)
         postScale(scale, scale)
         onMatrixEnd(scale)
@@ -241,16 +240,6 @@ class SvgMapView: ScaleCanvasView {
         }
         return rf
     }
-
-//    private fun doScroll(distanceX: Float, distanceY: Float) {
-//        val s = Math.abs(scale)
-//        dX = lastX + distanceX / s
-//        dY = lastY + distanceY / s
-//        lastX = dX
-//        lastY = dY
-//        dX = -dX
-//        dY = -dY
-//    }
 
     fun getPathItems(): ArrayList<PathItem> {
         return pathItems
@@ -298,11 +287,4 @@ class SvgMapView: ScaleCanvasView {
 //        }
 
     }
-
-//    private fun doScale(scaleGestureDetector: ScaleGestureDetector) {
-//        val previousSpan = scaleGestureDetector.previousSpan
-//        val currentSpan = scaleGestureDetector.currentSpan
-//
-//        scale = preScale + (currentSpan - previousSpan) * scale / 1000
-//    }
 }

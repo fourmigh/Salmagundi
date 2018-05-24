@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.util.AttributeSet
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
@@ -71,7 +72,11 @@ abstract class ScaleCanvasView: View, ScaleGestureDetector.OnScaleGestureListene
                     val values = getMatrixValues()
                     val mPreviousTransX = values[Matrix.MTRANS_X]
                     val mPreviousTransY = values[Matrix.MTRANS_Y]
-                    mMatrix.postTranslate(dx - mPreviousTransX + mTransX, dy - mPreviousTransY + mTransY)
+                    val dX = dx - mPreviousTransX + mTransX
+                    val dY = dy - mPreviousTransY + mTransY
+                    Log.d("onTouchEvent", "dX: $dX")
+                    Log.d("onTouchEvent", "dY: $dY")
+                    postTranslate(dX, dY)
                     invalidate()
                 } else if (mode == MODE_SCALE) {
                     scaleGestureDetector!!.onTouchEvent(event)
@@ -133,7 +138,7 @@ abstract class ScaleCanvasView: View, ScaleGestureDetector.OnScaleGestureListene
         val previousScaleFactor = values[Matrix.MSCALE_X]
         val scale = mScaleFactor / previousScaleFactor
 
-        mMatrix.postScale(scale, scale, scaleGestureDetector.focusX, scaleGestureDetector.focusY)
+        postScale(scale, scale, scaleGestureDetector.focusX, scaleGestureDetector.focusY)
 
         invalidate()
         return false
@@ -173,6 +178,10 @@ abstract class ScaleCanvasView: View, ScaleGestureDetector.OnScaleGestureListene
         return mMatrix.postScale(sx, sy)
     }
 
+    fun resetMatrix() {
+        mMatrix.reset()
+    }
+
     fun onMatrixEnd() {
         val values = getMatrixValues()
         mTransX = values[Matrix.MTRANS_X]
@@ -182,5 +191,13 @@ abstract class ScaleCanvasView: View, ScaleGestureDetector.OnScaleGestureListene
     fun onMatrixEnd(lastScale: Float) {
         mLastScaleFactor = lastScale
         onMatrixEnd()
+    }
+
+    fun getTransX(): Float {
+        return mTransX
+    }
+
+    fun getTransY(): Float {
+        return mTransY
     }
 }
