@@ -40,7 +40,8 @@ public class SvgmapActivity extends BaseActivity {
 
             @Override
             public void onLongClick(@NotNull PathItem item, int index) {
-                doSpinnerSelect(index, true);
+//                doSpinnerSelect(index, true);
+                svgMapView.doAnimateCenter(index);
             }
 
             @Override
@@ -98,8 +99,8 @@ public class SvgmapActivity extends BaseActivity {
                                     for (int i = 0;i < pathItems.size();i ++) {
                                         pathItems.get(i).setSelected(position == i);
                                     }
-                                    svgMapView.doCenter(position);
-//                                    svgMapView.doAnimateCenter(position);
+//                                    svgMapView.doCenter(position);
+                                    svgMapView.doAnimateCenter(position);
 //                                    svgMapView.invalidate();
                                 }
                                 isSelectWork = true;
@@ -120,7 +121,7 @@ public class SvgmapActivity extends BaseActivity {
 
         String mapName = getIntent().getStringExtra(Key_Map_Name);
         if (TextUtils.isEmpty(mapName)) {
-            svgMapView.setMap("cn");
+            svgMapView.setMap("world");
         } else {
             svgMapView.setMap(mapName);
         }

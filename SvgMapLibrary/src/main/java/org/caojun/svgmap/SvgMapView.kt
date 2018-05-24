@@ -18,6 +18,8 @@ import javax.xml.parsers.DocumentBuilderFactory
 
 class SvgMapView: ScaleCanvasView {
 
+    //默认动画帧数
+    private val DEFAULT_STEP = 20
     private val mPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     //保存path对象
@@ -41,9 +43,8 @@ class SvgMapView: ScaleCanvasView {
             }
 
             override fun onLongPress(e: MotionEvent) {
-//                doClick(e, true)
-                doCenter(doClick(e, true))
-//                doAnimateCenter(doClick(e, true), null)
+                doClick(e, true)
+                invalidate()
                 super.onLongPress(e)
             }
         }))
@@ -143,8 +144,8 @@ class SvgMapView: ScaleCanvasView {
                         listener?.onShow(item, i, paths.length)
                     }
                 }
-                doCenter(rectF)
-//                doAnimateCenter(rectF, null)
+                curRectF = doCenter(rectF)
+//                doAnimateCenter(rectF)
                 inputStream?.close()
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -161,10 +162,13 @@ class SvgMapView: ScaleCanvasView {
         }
     }
 
+    //全地图
     private val rectF = RectF()
+    //当前选中区域地图
+    private var curRectF = RectF()
 
-    fun doCenter(index: Int) {
-        if (index < 0 || index >= pathItems.size) {
+    fun doCenter(index: Int): RectF {
+        return if (index < 0 || index >= pathItems.size) {
             doCenter(rectF)
         } else {
             val pathItem = pathItems[index]
@@ -172,21 +176,22 @@ class SvgMapView: ScaleCanvasView {
         }
     }
 
-    private fun doCenter(rectF: RectF) {
+    private fun doCenter(rectF: RectF): RectF {
         doAsync {
             center(rectF)
             uiThread {
                 invalidate()
             }
         }
+        return rectF
     }
 
     private fun center(rectF: RectF) {
 
         val Width = right - left
         val Height = bottom - top
-        var width = rectF.width()//rectF.right - rectF.left
-        var height = rectF.height()//rectF.bottom - rectF.top
+        var width = rectF.width()
+        var height = rectF.height()
         val sX = Width / width
         val sY = Height / height
         val scale = Math.min(sX, sY)
@@ -229,6 +234,7 @@ class SvgMapView: ScaleCanvasView {
                 }
             }
         } catch (e1: Exception) {
+            e1.printStackTrace()
         }
 
         if (listener != null && item != null) {
@@ -250,41 +256,52 @@ class SvgMapView: ScaleCanvasView {
     }
 
     fun doAnimateCenter(index: Int) {
-//        doAnimateCenter(rectF, object : AnimationListener {
-//            override fun onFinish() {
-//                doAnimateCenter(pathItems[index].getRectF(), null)
-//            }
-//        })
-        doAnimateCenter(pathItems[index].getRectF(), null)
+        doAnimateCenter(DEFAULT_STEP, index)
     }
 
-    private fun doAnimateCenter(rectF: RectF, listener: AnimationListener?) {
-//        val lastDX = dX
-//        val lastDY = dY
-//        val lastScale = scale
-//        center(rectF)
-//        val goalDX = dX
-//        val goalDY = dY
-//        val goalScale = scale
-//
-//        var step = 20
-//
-//        var stepX = (goalDX - lastDX) / step
-//        var stepY = (goalDY - lastDY) / step
-//        var stepScale = (goalScale - lastScale) / step
-//
-//        doAsync {
-//            for (i in 1 .. step) {
-//                dX = lastDX + stepX * i
-//                dY = lastDY + stepY * i
-//                scale = lastScale + stepScale * i
-//                uiThread {
-//                    invalidate()
-//                }
-//                Thread.sleep(100)
-//            }
-//            listener?.onFinish()
-//        }
+    fun doAnimateCenter(step: Int, index: Int) {
+        doAnimateCenter(step, index, false)
+    }
 
+    fun doAnimateCenter(rectF: RectF) {
+        doAnimateCenter(DEFAULT_STEP, rectF, null)
+    }
+
+    fun doAnimateCenter(step: Int, index: Int, isDirect: Boolean) {
+        if (isDirect) {
+            doAnimateCenter(step, pathItems[index].getRectF(), null)
+        } else {
+            doAnimateCenter(step, rectF, object : AnimationListener {
+                override fun onFinish() {
+                    doAnimateCenter(step, pathItems[index].getRectF(), null)
+                }
+            })
+        }
+    }
+
+    private fun doAnimateCenter(step: Int, rectF: RectF, listener: AnimationListener?) {
+        if (rectF == curRectF) {
+            listener?.onFinish()
+            return
+        }
+        val STEP = if (step < 1) DEFAULT_STEP else step
+        val stepLeft = (rectF.left - curRectF.left) / STEP
+        val stepRight = (rectF.right - curRectF.right) / STEP
+        val stepTop = (rectF.top - curRectF.top) / STEP
+        val stepBottom = (rectF.bottom - curRectF.bottom) / STEP
+        doAsync {
+            for (i in 1 .. STEP) {
+                val rf = RectF()
+                rf.left = curRectF.left + stepLeft * i
+                rf.right = curRectF.right + stepRight * i
+                rf.top = curRectF.top + stepTop * i
+                rf.bottom = curRectF.bottom + stepBottom * i
+
+                doCenter(rf)
+                Thread.sleep(100)
+            }
+            curRectF = rectF
+            listener?.onFinish()
+        }
     }
 }
