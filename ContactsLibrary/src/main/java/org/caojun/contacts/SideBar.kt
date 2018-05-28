@@ -52,6 +52,8 @@ class SideBar: View {
         for (i in 0 until l.size) {
             letters[i] = l[i]
         }
+
+        postInvalidate()
     }
 
     override fun onDraw(canvas: Canvas) {

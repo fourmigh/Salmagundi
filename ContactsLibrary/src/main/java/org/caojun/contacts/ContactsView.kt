@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.contacts.view.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.util.*
 
 class ContactsView: LinearLayout {
@@ -73,12 +75,18 @@ class ContactsView: LinearLayout {
     }
 
     fun init(list: List<Contact>) {
-        mAllContactsList = list
-        Collections.sort(mAllContactsList)
-        adapter = ContactAdapter(context, mAllContactsList)
-        listView.adapter = adapter
+        doAsync {
+            mAllContactsList = list
+            Collections.sort(mAllContactsList)
+            adapter = ContactAdapter(context, mAllContactsList)
 
-        sideBar.init(mAllContactsList)
+
+            sideBar.init(mAllContactsList)
+
+            uiThread {
+                listView.adapter = adapter
+            }
+        }
     }
 
     /**

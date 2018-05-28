@@ -10,7 +10,6 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import org.w3c.dom.Element
 import java.io.InputStream
 import java.util.ArrayList
@@ -141,10 +140,7 @@ class SvgMapView: ScaleCanvasView {
                     postInvalidate()
 //                    Thread.sleep(100)
                     item.isSelected = false
-
-                    uiThread {
-                        listener?.onShow(item, i, paths.length)
-                    }
+                    listener?.onShow(item, i, paths.length)
                 }
 //                curRectF = doCenter(rectF)
                 curRectF.left = 0f

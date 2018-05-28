@@ -1,19 +1,27 @@
 package org.caojun.mapman
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.caojun.contacts.Contact
+import org.caojun.svgmap.PathItem
+import org.caojun.svgmap.SvgMapView
+import org.caojun.utils.ActivityUtils
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    val Key_Map_Name = "Key_Map_Name"
+    private var lastId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,27 +41,72 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
 
         val list = ArrayList<Contact>()
-        var contact = Contact("1","曹珺","13817066976")
-        list.add(contact)
-        contact = Contact("2","阿门","13712345678")
-        list.add(contact)
-        contact = Contact("3","ABC","13612345678")
-        list.add(contact)
-        contact = Contact("4","朱雯轩","13512345678")
-        list.add(contact)
-        contact = Contact("5","曹国舅","13712345678")
-        list.add(contact)
-        contact = Contact("6","曹庙雄","13412345678")
-        list.add(contact)
-        contact = Contact("7","王云妹","13312345678")
-        list.add(contact)
-        contact = Contact("8","李靖","13212345678")
-        list.add(contact)
-        contact = Contact("9","aacd","13112345678")
-        list.add(contact)
-        contact = Contact("10","AACD","13112345678")
-        list.add(contact)
-        contactView.init(list)
+//        var contact = Contact("1","曹珺","13817066976")
+//        list.add(contact)
+//        contact = Contact("2","阿门","13712345678")
+//        list.add(contact)
+//        contact = Contact("3","ABC","13612345678")
+//        list.add(contact)
+//        contact = Contact("4","朱雯轩","13512345678")
+//        list.add(contact)
+//        contact = Contact("5","曹国舅","13712345678")
+//        list.add(contact)
+//        contact = Contact("6","曹庙雄","13412345678")
+//        list.add(contact)
+//        contact = Contact("7","王云妹","13312345678")
+//        list.add(contact)
+//        contact = Contact("8","李靖","13212345678")
+//        list.add(contact)
+//        contact = Contact("9","aacd","13112345678")
+//        list.add(contact)
+//        contact = Contact("10","AACD","13112345678")
+//        list.add(contact)
+//        contactView.init(list)
+
+        svgMapView.setMapListener(object : SvgMapView.MapListener {
+
+            override fun onLongClick(item: PathItem?, index: Int) {
+                svgMapView.doAnimateCenter(index)
+            }
+
+            override fun onClick(item: PathItem?, index: Int) {
+
+                if (item == null || TextUtils.isEmpty(item.id) || !svgMapView.hasMap(item.id)) {
+                    return
+                }
+                if (lastId != item.id) {
+                    lastId = item.id
+                    return
+                }
+
+                val intent = Intent(this@MainActivity, MainActivity::class.java)
+                intent.putExtra(Key_Map_Name, item.id)
+                startActivity(intent)
+            }
+
+            override fun onShow(item: PathItem, index: Int, size: Int) {
+                var id = ActivityUtils.getStringResId(this@MainActivity, item.id)
+                var contact: Contact
+                contact = if (id == null) {
+                    Contact(item.title, item.title,null)
+                } else {
+                    Contact(item.title, getString(id), null)
+                }
+
+                list.add(contact)
+
+                if (index == size - 1) {
+                    contactView.init(list)
+                }
+            }
+        })
+
+        val mapName = intent.getStringExtra(Key_Map_Name)
+        if (TextUtils.isEmpty(mapName)) {
+            svgMapView.setMap("cn")
+        } else {
+            svgMapView.setMap(mapName)
+        }
     }
 
     override fun onBackPressed() {

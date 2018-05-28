@@ -33,4 +33,5 @@ dependencies {
     implementation 'com.github.zhaokaiqiang.klog:library:latest.release'
     implementation project(':SvgMapLibrary')
     implementation project(':ContactsLibrary')
+    implementation project(':UtilsLibrary')
 }
