@@ -19,7 +19,7 @@ class Contact: Comparable<Contact> {
     }
 
     fun getSortLetter(): Char {
-        return sort[0]
+        return sort[0].toUpperCase()
     }
 
     fun getSort(): String {

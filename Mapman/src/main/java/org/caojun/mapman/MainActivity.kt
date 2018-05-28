@@ -41,15 +41,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         list.add(contact)
         contact = Contact("4","朱雯轩","13512345678")
         list.add(contact)
-        contact = Contact("5","曹韵春","13712345678")
+        contact = Contact("5","曹国舅","13712345678")
         list.add(contact)
         contact = Contact("6","曹庙雄","13412345678")
         list.add(contact)
         contact = Contact("7","王云妹","13312345678")
         list.add(contact)
-        contact = Contact("8","李雯","13212345678")
+        contact = Contact("8","李靖","13212345678")
         list.add(contact)
-        contactView.setData(list)
+        contact = Contact("9","aacd","13112345678")
+        list.add(contact)
+        contact = Contact("10","AACD","13112345678")
+        list.add(contact)
+        contactView.init(list)
     }
 
     override fun onBackPressed() {

@@ -29,11 +29,11 @@ class ContactsView: LinearLayout {
 
         etSearch.addTextChangedListener(object : TextWatcher {
 
-            override fun onTextChanged(arg0: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
 
             }
 
-            override fun beforeTextChanged(arg0: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
 
             }
 
@@ -72,7 +72,7 @@ class ContactsView: LinearLayout {
         }
     }
 
-    fun setData(list: List<Contact>) {
+    fun init(list: List<Contact>) {
         mAllContactsList = list
         Collections.sort(mAllContactsList)
         adapter = ContactAdapter(context, mAllContactsList)
