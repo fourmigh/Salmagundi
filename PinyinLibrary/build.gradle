@@ -26,4 +26,5 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$androidsupport_version"
     implementation 'org.jetbrains.anko:anko-common:latest.release'
+    implementation 'com.belerweb:pinyin4j:latest.release'
 }

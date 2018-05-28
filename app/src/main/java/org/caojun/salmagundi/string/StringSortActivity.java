@@ -143,10 +143,10 @@ public class StringSortActivity extends Activity {
     }
 
     @Autowired
-    protected int[] ids;
+    int[] ids;
 
     @Autowired
-    protected String[] strings;
+    String[] strings;
 
     private SortString[] sorts;//排好序的SortString对象
     private StickyListHeadersListView listView;
@@ -180,6 +180,7 @@ public class StringSortActivity extends Activity {
     private void initSortString() {
         if (strings == null) {
             return;
+//            strings = new String[]{"ab12cd", "abcd", "查良镛", "曹珺", "abc曹珺", "123曹珺", "曹abc珺", "查良查"};
         }
         List<SortString> list = new ArrayList<>();
         for (int i = 0;i < strings.length;i ++) {
