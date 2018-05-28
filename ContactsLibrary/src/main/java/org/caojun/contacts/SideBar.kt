@@ -92,25 +92,21 @@ class SideBar: View {
         val oldChoose = choose
         val c = (y / height * letters.size).toInt()// 点击y坐标所占总高度的比例*b数组的长度就等于点击b中的个数.
 
-        when (action) {
-            MotionEvent.ACTION_UP -> {
-                setBackgroundColor(Color.parseColor("#00000000"))
-                choose = -1//
-                invalidate()
-                mTextDialog?.visibility = View.INVISIBLE
-            }
+        if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
+            setBackgroundColor(Color.parseColor("#00000000"))
+            choose = -1//
+            invalidate()
+            mTextDialog?.visibility = View.INVISIBLE
+        } else {
+            setBackgroundResource(R.drawable.sidebar_background)
+            if (oldChoose != c) {
+                if (c >= 0 && c < letters.size) {
+                    listener?.onTouchLetterChanged(letters[c])
+                    mTextDialog?.text = letters[c].toString()
+                    mTextDialog?.visibility = View.VISIBLE
 
-            else -> {
-                setBackgroundResource(R.drawable.sidebar_background)
-                if (oldChoose != c) {
-                    if (c >= 0 && c < letters.size) {
-                        listener?.onTouchLetterChanged(letters[c])
-                        mTextDialog?.text = letters[c].toString()
-                        mTextDialog?.visibility = View.VISIBLE
-
-                        choose = c
-                        invalidate()
-                    }
+                    choose = c
+                    invalidate()
                 }
             }
         }
