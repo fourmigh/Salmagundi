@@ -313,4 +313,8 @@ class SvgMapView: ScaleCanvasView {
             listener?.onFinish()
         }
     }
+
+    fun setGestureSupport(isGestureSupport: Boolean) {
+        init(isGestureSupport)
+    }
 }

@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelec
 //        list.add(contact)
 //        contactView.init(list)
 
+        svgMapView.setGestureSupport(false)
         svgMapView.setMapListener(object : SvgMapView.MapListener {
 
             override fun onLongClick(item: PathItem?, index: Int) {

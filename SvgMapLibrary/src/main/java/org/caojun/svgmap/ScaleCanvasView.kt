@@ -9,7 +9,7 @@ import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
 
-abstract class ScaleCanvasView: View, ScaleGestureDetector.OnScaleGestureListener/*, GestureDetector.OnGestureListener*/, View.OnTouchListener {
+abstract class ScaleCanvasView: View, ScaleGestureDetector.OnScaleGestureListener, View.OnTouchListener {
 
     private val DEFAULT_WIDTH = 400
     private val DEFAULT_HEIGHT = 400
@@ -37,12 +37,12 @@ abstract class ScaleCanvasView: View, ScaleGestureDetector.OnScaleGestureListene
 
     constructor(context: Context, attrs: AttributeSet?): this(context, attrs, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int): super(context, attrs, defStyleAttr) {
-        init()
-    }
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int): super(context, attrs, defStyleAttr)
 
-    private fun init() {
-        scaleGestureDetector = ScaleGestureDetector(context, this)
+    fun init(isGestureSupport: Boolean) {
+        if (isGestureSupport) {
+            scaleGestureDetector = ScaleGestureDetector(context, this)
+        }
     }
 
     fun setGestureDetector(gestureDetector: GestureDetector) {
@@ -50,6 +50,9 @@ abstract class ScaleCanvasView: View, ScaleGestureDetector.OnScaleGestureListene
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        if (scaleGestureDetector == null) {
+            return true
+        }
         //把触摸事件分发给ScaleDetector
         when (event.action and MotionEvent.ACTION_MASK) {
             MotionEvent.ACTION_DOWN -> {
@@ -74,10 +77,9 @@ abstract class ScaleCanvasView: View, ScaleGestureDetector.OnScaleGestureListene
                     val dX = dx - mPreviousTransX + mTransX
                     val dY = dy - mPreviousTransY + mTransY
                     postTranslate(dX, dY)
-//                    invalidate()
                     postInvalidate()
                 } else if (mode == MODE_SCALE) {
-                    scaleGestureDetector!!.onTouchEvent(event)
+                    scaleGestureDetector?.onTouchEvent(event)
                 }
             }
             MotionEvent.ACTION_UP -> {
@@ -85,7 +87,7 @@ abstract class ScaleCanvasView: View, ScaleGestureDetector.OnScaleGestureListene
             }
         }
 
-        return scaleGestureDetector!!.onTouchEvent(event) && gestureDetector?.onTouchEvent(event)?:true
+        return scaleGestureDetector?.onTouchEvent(event)?:true && gestureDetector?.onTouchEvent(event)?:true
     }
 
 
@@ -138,7 +140,6 @@ abstract class ScaleCanvasView: View, ScaleGestureDetector.OnScaleGestureListene
 
         postScale(scale, scale, scaleGestureDetector.focusX, scaleGestureDetector.focusY)
 
-//        invalidate()
         postInvalidate()
         return false
     }
