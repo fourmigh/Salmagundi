@@ -15,7 +15,7 @@ class PathItem {
 
     constructor(index: Int, id: String, title: String, path: Path, color: Int) {
         this.index = index
-        this.id = id
+        this.id = id.replace('-', '_').toLowerCase()
         this.title = title
         this.path = path
         this.color = color

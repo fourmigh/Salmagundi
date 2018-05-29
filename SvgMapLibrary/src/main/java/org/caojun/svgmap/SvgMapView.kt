@@ -65,7 +65,7 @@ class SvgMapView: ScaleCanvasView {
 
     fun hasMap(mapName: String): Boolean {
         return try {
-            var name = mapName
+            var name = mapName.replace('-', '_')
             if (name.toUpperCase() == "DO") {
                 name = "DODO"
             }

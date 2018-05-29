@@ -39,30 +39,7 @@ class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelec
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
-//        nav_view.setNavigationItemSelectedListener(this)
-
         val list = ArrayList<Contact>()
-//        var contact = Contact("1","曹珺","13817066976")
-//        list.add(contact)
-//        contact = Contact("2","阿门","13712345678")
-//        list.add(contact)
-//        contact = Contact("3","ABC","13612345678")
-//        list.add(contact)
-//        contact = Contact("4","朱雯轩","13512345678")
-//        list.add(contact)
-//        contact = Contact("5","曹国舅","13712345678")
-//        list.add(contact)
-//        contact = Contact("6","曹庙雄","13412345678")
-//        list.add(contact)
-//        contact = Contact("7","王云妹","13312345678")
-//        list.add(contact)
-//        contact = Contact("8","李靖","13212345678")
-//        list.add(contact)
-//        contact = Contact("9","aacd","13112345678")
-//        list.add(contact)
-//        contact = Contact("10","AACD","13112345678")
-//        list.add(contact)
-//        contactView.init(list)
 
         svgMapView.setGestureSupport(false)
         svgMapView.setMapListener(object : SvgMapView.MapListener {
@@ -74,6 +51,7 @@ class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelec
             override fun onClick(item: PathItem?, index: Int) {
 
                 if (item == null || TextUtils.isEmpty(item.id) || !svgMapView.hasMap(item.id)) {
+                    lastId = ""
                     return
                 }
                 if (lastId != item.id) {

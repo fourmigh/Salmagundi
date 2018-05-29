@@ -50,36 +50,39 @@ abstract class ScaleCanvasView: View, ScaleGestureDetector.OnScaleGestureListene
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (scaleGestureDetector == null) {
-            return true
-        }
         //把触摸事件分发给ScaleDetector
         when (event.action and MotionEvent.ACTION_MASK) {
             MotionEvent.ACTION_DOWN -> {
-                mode = MODE_DRAG
-                downX = event.x
-                downY = event.y
+                if (scaleGestureDetector != null) {
+                    mode = MODE_DRAG
+                    downX = event.x
+                    downY = event.y
+                }
             }
             MotionEvent.ACTION_POINTER_DOWN -> {
-                mode = MODE_SCALE
+                if (scaleGestureDetector != null) {
+                    mode = MODE_SCALE
+                }
                 return false
             }
             MotionEvent.ACTION_MOVE -> {
-                if (mode == MODE_DRAG) {
-                    val moveX = event.x
-                    val moveY = event.y
-                    val dx = moveX - downX
-                    val dy = moveY - downY
+                if (scaleGestureDetector != null) {
+                    if (mode == MODE_DRAG) {
+                        val moveX = event.x
+                        val moveY = event.y
+                        val dx = moveX - downX
+                        val dy = moveY - downY
 
-                    val values = getMatrixValues()
-                    val mPreviousTransX = values[Matrix.MTRANS_X]
-                    val mPreviousTransY = values[Matrix.MTRANS_Y]
-                    val dX = dx - mPreviousTransX + mTransX
-                    val dY = dy - mPreviousTransY + mTransY
-                    postTranslate(dX, dY)
-                    postInvalidate()
-                } else if (mode == MODE_SCALE) {
-                    scaleGestureDetector?.onTouchEvent(event)
+                        val values = getMatrixValues()
+                        val mPreviousTransX = values[Matrix.MTRANS_X]
+                        val mPreviousTransY = values[Matrix.MTRANS_Y]
+                        val dX = dx - mPreviousTransX + mTransX
+                        val dY = dy - mPreviousTransY + mTransY
+                        postTranslate(dX, dY)
+                        postInvalidate()
+                    } else if (mode == MODE_SCALE) {
+                        scaleGestureDetector?.onTouchEvent(event)
+                    }
                 }
             }
             MotionEvent.ACTION_UP -> {
