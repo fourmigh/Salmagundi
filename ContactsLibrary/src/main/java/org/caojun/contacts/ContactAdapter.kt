@@ -1,6 +1,7 @@
 package org.caojun.contacts
 
 import android.content.Context
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,6 +55,7 @@ class ContactAdapter: BaseAdapter, StickyListHeadersAdapter {
 
         viewHolder.tvTitle?.text = contact.getTitle()
         viewHolder.tvNumber?.text = contact.getContent()
+        viewHolder.tvNumber?.visibility = if (TextUtils.isEmpty(contact.getContent())) View.GONE else View.VISIBLE
         viewHolder.cbChecked?.isChecked = isSelected(contact)
 
         return view!!

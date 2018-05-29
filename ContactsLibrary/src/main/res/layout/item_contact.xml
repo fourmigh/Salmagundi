@@ -11,18 +11,18 @@
         android:id="@+id/cbChecked"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:padding="8dp"
         android:background="@drawable/selector_checkbox_contact"
         android:button="@null"
         android:clickable="false"
-        android:focusable="false"
-        android:visibility="visible" />
+        android:focusable="false" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingLeft="8dp" >
+        android:padding="8dp" >
 
         <TextView
             android:id="@+id/title"
