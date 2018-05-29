@@ -14,11 +14,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.caojun.contacts.Contact
+import org.caojun.contacts.ContactsView
 import org.caojun.svgmap.PathItem
 import org.caojun.svgmap.SvgMapView
 import org.caojun.utils.ActivityUtils
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelectedListener*/ {
 
     val Key_Map_Name = "Key_Map_Name"
     private var lastId = ""
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
-        nav_view.setNavigationItemSelectedListener(this)
+//        nav_view.setNavigationItemSelectedListener(this)
 
         val list = ArrayList<Contact>()
 //        var contact = Contact("1","曹珺","13817066976")
@@ -88,15 +89,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 var id = ActivityUtils.getStringResId(this@MainActivity, item.id)
                 var contact: Contact
                 contact = if (id == null) {
-                    Contact(item.title, item.title,null)
+                    Contact(index, item.title, item.title,null)
                 } else {
-                    Contact(item.title, getString(id), null)
+                    Contact(index, item.title, getString(id), null)
                 }
 
                 list.add(contact)
 
                 if (index == size - 1) {
-                    contactView.init(list)
+                    contactView.init(list, object : ContactsView.OnSelectChangedListener {
+                        override fun onSelectChanged(index: Int, isChecked: Boolean) {
+                            svgMapView.setSelected(index, isChecked, true)
+                            if (isChecked) {
+                                svgMapView.doAnimateCenter(index)
+                            } else {
+                                svgMapView.doAnimateCenter(-1)
+                            }
+                            drawer_layout.closeDrawer(GravityCompat.START)
+                        }
+                    })
                 }
             }
         })
@@ -133,30 +144,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
-        when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
-            }
-            R.id.nav_gallery -> {
-
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_manage -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
-            }
-        }
-
-        drawer_layout.closeDrawer(GravityCompat.START)
-        return true
-    }
+//    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+//        // Handle navigation view item clicks here.
+//        when (item.itemId) {
+//            R.id.nav_camera -> {
+//                // Handle the camera action
+//            }
+//            R.id.nav_gallery -> {
+//
+//            }
+//            R.id.nav_slideshow -> {
+//
+//            }
+//            R.id.nav_manage -> {
+//
+//            }
+//            R.id.nav_share -> {
+//
+//            }
+//            R.id.nav_send -> {
+//
+//            }
+//        }
+//
+//        drawer_layout.closeDrawer(GravityCompat.START)
+//        return true
+//    }
 }

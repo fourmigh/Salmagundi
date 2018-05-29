@@ -13,7 +13,6 @@ import java.util.*
 class ContactAdapter: BaseAdapter, StickyListHeadersAdapter {
 
     private var mList: List<Contact> = ArrayList()
-    private val mSelectedList = ArrayList<Contact>()
     private val mContext: Context
 
     constructor(mContext: Context, list: List<Contact>?) {
@@ -40,7 +39,7 @@ class ContactAdapter: BaseAdapter, StickyListHeadersAdapter {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var viewHolder: ViewHolder?
-        val mContent = mList[position]
+        val contact = mList[position]
         var view = convertView
         if (view == null) {
             viewHolder = ViewHolder()
@@ -53,9 +52,9 @@ class ContactAdapter: BaseAdapter, StickyListHeadersAdapter {
             viewHolder = view.tag as ViewHolder
         }
 
-        viewHolder.tvTitle?.text = this.mList[position].getTitle()
-        viewHolder.tvNumber?.text = this.mList[position].getContent()
-        viewHolder.cbChecked?.isChecked = isSelected(mContent)
+        viewHolder.tvTitle?.text = contact.getTitle()
+        viewHolder.tvNumber?.text = contact.getContent()
+        viewHolder.cbChecked?.isChecked = isSelected(contact)
 
         return view!!
     }
@@ -65,7 +64,7 @@ class ContactAdapter: BaseAdapter, StickyListHeadersAdapter {
     }
 
     override fun getItemId(position: Int): Long {
-        return position.toLong()
+        return mList[position].getIndex().toLong()
     }
 
     override fun getCount(): Int {
@@ -79,28 +78,32 @@ class ContactAdapter: BaseAdapter, StickyListHeadersAdapter {
     }
 
     private fun isSelected(contact: Contact): Boolean {
-        return mSelectedList.contains(contact)
+        return contact.isChecked()
     }
 
-    fun toggleChecked(position: Int) {
-        if (isSelected(mList[position])) {
+    fun toggleChecked(position: Int, isSingle: Boolean): Boolean {
+        if (isSingle) {
+            for (i in mList.indices) {
+                if (i != position) {
+                    removeSelected(i)
+                }
+            }
+        }
+        return if (isSelected(mList[position])) {
             removeSelected(position)
+            false
         } else {
             setSelected(position)
+            true
         }
-
     }
 
     private fun setSelected(position: Int) {
-        if (!mSelectedList.contains(mList[position])) {
-            mSelectedList.add(mList[position])
-        }
+        mList[position].setChecked(true)
     }
 
     private fun removeSelected(position: Int) {
-        if (mSelectedList.contains(mList[position])) {
-            mSelectedList.remove(mList[position])
-        }
+        mList[position].setChecked(false)
     }
 
     fun getPositionForSection(c: Char): Int {

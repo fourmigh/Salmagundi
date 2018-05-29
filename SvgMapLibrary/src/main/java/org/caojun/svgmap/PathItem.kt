@@ -4,15 +4,17 @@ import android.graphics.*
 
 class PathItem {
 
+    val index: Int
     val id: String
     val title: String
     private var path: Path
     var isSelected = false
     private var color: Int = Color.BLUE
 
-    constructor(id: String, title: String, path: Path): this(id, title, path, Color.BLUE)
+    constructor(index: Int, id: String, title: String, path: Path): this(index, id, title, path, Color.BLUE)
 
-    constructor(id: String, title: String, path: Path, color: Int) {
+    constructor(index: Int, id: String, title: String, path: Path, color: Int) {
+        this.index = index
         this.id = id
         this.title = title
         this.path = path

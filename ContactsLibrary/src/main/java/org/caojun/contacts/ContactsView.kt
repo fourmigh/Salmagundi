@@ -17,6 +17,11 @@ class ContactsView: LinearLayout {
 
     private var mAllContactsList: List<Contact> = ArrayList()
     private var adapter: ContactAdapter? = null
+    private var listener: OnSelectChangedListener? = null
+
+    interface OnSelectChangedListener {
+        fun onSelectChanged(index: Int, isChecked: Boolean)
+    }
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -67,14 +72,18 @@ class ContactsView: LinearLayout {
                 }
             }
         })
-        listView.setOnItemClickListener { _, view, position, _ ->
-            val viewHolder = view.tag as ContactAdapter.ViewHolder
-            viewHolder.cbChecked?.performClick()
-            adapter?.toggleChecked(position)
+        listView.setOnItemClickListener { _, _, position, _ ->
+//            val viewHolder = view.tag as ContactAdapter.ViewHolder
+//            viewHolder.cbChecked?.performClick()
+            val isChecked = adapter?.toggleChecked(position, true)?:false
+            adapter?.notifyDataSetChanged()
+            val index = (adapter?.getItemId(position)?:0).toInt()
+            listener?.onSelectChanged(index, isChecked)
         }
     }
 
-    fun init(list: List<Contact>) {
+    fun init(list: List<Contact>, listener: OnSelectChangedListener?) {
+        this.listener = listener
         doAsync {
             mAllContactsList = list
             Collections.sort(mAllContactsList)

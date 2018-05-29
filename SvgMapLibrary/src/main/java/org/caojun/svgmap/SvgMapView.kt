@@ -37,14 +37,12 @@ class SvgMapView: ScaleCanvasView {
 
             override fun onSingleTapUp(e: MotionEvent): Boolean {
                 doClick(e, false)
-//                invalidate()
                 postInvalidate()
                 return super.onSingleTapUp(e)
             }
 
             override fun onLongPress(e: MotionEvent) {
                 doClick(e, true)
-//                invalidate()
                 postInvalidate()
                 super.onLongPress(e)
             }
@@ -118,7 +116,7 @@ class SvgMapView: ScaleCanvasView {
                     val title = personNode.getAttribute("title")
                     val id = personNode.getAttribute("id")
                     //解析，并创建pathItem
-                    item = PathItem(id, title, path)
+                    item = PathItem(i, id, title, path)
                     item.isSelected = true
                     pathItems.add(item)
 
@@ -179,13 +177,6 @@ class SvgMapView: ScaleCanvasView {
     }
 
     private fun doCenter(rectF: RectF): RectF {
-//        doAsync {
-//            center(rectF)
-////            uiThread {
-////                invalidate()
-////            }
-//            postInvalidate()
-//        }
         center(rectF)
         postInvalidate()
         return rectF
@@ -250,6 +241,18 @@ class SvgMapView: ScaleCanvasView {
             }
         }
         return rf
+    }
+
+    fun setSelected(index: Int, isSelected: Boolean, isSingle: Boolean) {
+        if (index < 0 || index >= pathItems.size) {
+            return
+        }
+        if (isSingle) {
+            for (i in pathItems.indices) {
+                pathItems[i].isSelected = false
+            }
+        }
+        pathItems[index].isSelected = isSelected
     }
 
     fun getPathItems(): ArrayList<PathItem> {
