@@ -82,7 +82,7 @@ class SvgMapView: ScaleCanvasView {
     /**
      * 解析path
      */
-    fun setMap(mapName: String) {
+    fun setMap(mapName: String, color: Int) {
 
         doAsync {
             if (inputStream == null) {
@@ -116,7 +116,7 @@ class SvgMapView: ScaleCanvasView {
                     val title = personNode.getAttribute("title")
                     val id = personNode.getAttribute("id")
                     //解析，并创建pathItem
-                    item = PathItem(i, id, title, path)
+                    item = PathItem(i, id, title, path, color)
                     item.isSelected = true
                     pathItems.add(item)
 

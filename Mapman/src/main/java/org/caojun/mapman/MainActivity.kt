@@ -1,28 +1,33 @@
 package org.caojun.mapman
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import org.caojun.color.ColorActivity
 import org.caojun.contacts.Contact
 import org.caojun.contacts.ContactsView
 import org.caojun.svgmap.PathItem
 import org.caojun.svgmap.SvgMapView
 import org.caojun.utils.ActivityUtils
+import org.jetbrains.anko.startActivityForResult
 
 class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelectedListener*/ {
 
     val Key_Map_Name = "Key_Map_Name"
     private var lastId = ""
+    private val Request_Color = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,9 +98,9 @@ class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelec
 
         val mapName = intent.getStringExtra(Key_Map_Name)
         if (TextUtils.isEmpty(mapName)) {
-            svgMapView.setMap("cn")
+            svgMapView.setMap("cn", Color.RED)
         } else {
-            svgMapView.setMap(mapName)
+            svgMapView.setMap(mapName, Color.BLUE)
         }
     }
 
@@ -117,10 +122,30 @@ class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelec
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        when (item.itemId) {
-            R.id.action_settings -> return true
-            else -> return super.onOptionsItemSelected(item)
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                //TODO
+                val color = "#474747"
+                startActivityForResult<ColorActivity>(Request_Color, ColorActivity.KEY_HEX to color)
+//                val color = Color.parseColor("#474747")
+//                startActivityForResult<ColorActivity>(Request_Color, ColorActivity.KEY_INT to color)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            when(requestCode) {
+                Request_Color -> {
+                    //TODO
+                    Log.d("Request_Color", data?.getStringExtra(ColorActivity.KEY_HEX))
+                    return
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
 //    override fun onNavigationItemSelected(item: MenuItem): Boolean {

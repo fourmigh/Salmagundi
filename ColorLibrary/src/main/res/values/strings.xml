@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ColorLibrary</string>
+    <string name="input_rgb_hex">Input RGB HEX(#)</string>
+    <string name="or_input">or input</string>
+    <string name="input_r">R</string>
+    <string name="input_g">G</string>
+    <string name="input_b">B</string>
+</resources>

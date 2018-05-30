@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.caojun.color" >
+    <application android:allowBackup="true">
+
+        <activity
+            android:name="org.caojun.color.ColorActivity" />
+    </application>
+</manifest>
