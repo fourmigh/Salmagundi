@@ -6,5 +6,6 @@
     <string name="baike">Wiki</string>
     <string name="map_selected_color">Map Selected Color</string>
     <string name="map_unselected_color">Map Unselected Color</string>
-    <string name="summary_map_color">It will be effective at the next start.</string>
+    <string name="summary_effective">It will be effective at the next start.</string>
+    <string name="map_gesture">Map Gesture</string>
 </resources>

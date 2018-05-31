@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         val list = ArrayList<Contact>()
 
-        svgMapView.setGestureSupport(false)
+        svgMapView.setGestureSupport(getGesture())
         svgMapView.setMapListener(object : SvgMapView.MapListener {
 
             override fun onLongClick(item: PathItem?, index: Int) {
@@ -189,6 +189,11 @@ class MainActivity : AppCompatActivity() {
             color = ColorUtils.toHexEncoding(defColor)
         }
         return Color.parseColor("#$color")
+    }
+
+    private fun getGesture(): Boolean {
+        val mSharedPreferences = getSharedPreferences(SettingsActivity.PREFER_NAME, Context.MODE_PRIVATE)
+        return mSharedPreferences.getBoolean(SettingsActivity.SettingsFragment.Key_Gesture, false)
     }
 
 //    private fun setSearchText(id: Int) {

@@ -10,7 +10,7 @@
     <EditTextPreference
         android:key="etpSelectedColor"
         android:title="@string/map_selected_color"
-        android:summary="@string/summary_map_color"
+        android:summary="@string/summary_effective"
         android:negativeButtonText=""
         android:positiveButtonText=""
         android:dialogLayout="@layout/layout_color"/>
@@ -18,8 +18,14 @@
     <EditTextPreference
         android:key="etpUnselectedColor"
         android:title="@string/map_unselected_color"
-        android:summary="@string/summary_map_color"
+        android:summary="@string/summary_effective"
         android:negativeButtonText=""
         android:positiveButtonText=""
         android:dialogLayout="@layout/layout_color"/>
+
+    <SwitchPreference
+        android:key="sp_gesture"
+        android:title="@string/map_gesture"
+        android:summary="@string/summary_effective"
+        android:defaultValue="false"/>
 </PreferenceScreen>

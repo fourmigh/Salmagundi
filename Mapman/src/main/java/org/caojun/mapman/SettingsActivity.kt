@@ -6,15 +6,11 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.preference.ListPreference
-import android.preference.Preference
-import android.preference.PreferenceActivity
-import android.preference.PreferenceFragment
+import android.preference.*
 import android.text.TextUtils
 import android.widget.ImageView
 import org.caojun.color.ColorActivity
 import org.jetbrains.anko.startActivityForResult
-import android.preference.EditTextPreference
 import org.caojun.color.ColorUtils
 
 
@@ -26,8 +22,6 @@ class SettingsActivity: PreferenceActivity() {
         val Request_Selected_Color = 1
         val Request_Unselected_Color = 2
     }
-
-
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +38,7 @@ class SettingsActivity: PreferenceActivity() {
             val Key_Selected_Color = "map_selected_color"
             val Key_Unselected_Color = "map_unselected_color"
             val Key_Baike = "lp_baike"
+            val Key_Gesture = "sp_gesture"
         }
         private var mSharedPreferences: SharedPreferences? = null
         private var ivSetColor: ImageView? = null
