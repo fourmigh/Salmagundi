@@ -35,4 +35,5 @@ dependencies {
     implementation project(':ContactsLibrary')
     implementation project(':UtilsLibrary')
     implementation project(':ColorLibrary')
+    implementation project(':WidgetLibrary')
 }

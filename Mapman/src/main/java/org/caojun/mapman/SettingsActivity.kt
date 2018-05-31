@@ -43,10 +43,10 @@ class SettingsActivity: PreferenceActivity() {
         companion object {
             val Key_Selected_Color = "map_selected_color"
             val Key_Unselected_Color = "map_unselected_color"
+            val Key_Baike = "lp_baike"
         }
         private var mSharedPreferences: SharedPreferences? = null
         private var ivSetColor: ImageView? = null
-        private val Key_Baike = "lp_baike"
 
         override fun onPreferenceChange(preference: Preference, newValue: Any): Boolean {
             if (preference is ListPreference) {

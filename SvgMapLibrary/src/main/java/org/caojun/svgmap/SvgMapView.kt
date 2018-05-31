@@ -263,19 +263,19 @@ class SvgMapView: ScaleCanvasView {
         fun onFinish()
     }
 
-    fun doAnimateCenter(index: Int) {
-        doAnimateCenter(DEFAULT_STEP, index)
+    fun doAnimateCenter(index: Int): PathItem? {
+        return doAnimateCenter(DEFAULT_STEP, index)
     }
 
-    fun doAnimateCenter(step: Int, index: Int) {
-        doAnimateCenter(step, index, false)
+    fun doAnimateCenter(step: Int, index: Int): PathItem? {
+        return doAnimateCenter(step, index, false)
     }
 
     fun doAnimateCenter(rectF: RectF) {
         doAnimateCenter(DEFAULT_STEP, rectF, null)
     }
 
-    fun doAnimateCenter(step: Int, index: Int, isDirect: Boolean) {
+    fun doAnimateCenter(step: Int, index: Int, isDirect: Boolean): PathItem? {
         val rf = if (index < 0 || index >= pathItems.size) rectF else pathItems[index].getRectF()
         if (isDirect) {
             doAnimateCenter(step, rf, null)
@@ -285,6 +285,11 @@ class SvgMapView: ScaleCanvasView {
                     doAnimateCenter(step, rf, null)
                 }
             })
+        }
+        return if (rf == rectF) {
+            null
+        } else {
+            pathItems[index]
         }
     }
 

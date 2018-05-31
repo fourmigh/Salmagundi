@@ -1,6 +1,5 @@
 package org.caojun.mapman
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -15,16 +14,17 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import org.caojun.color.ColorActivity
 import org.caojun.color.ColorUtils
 import org.caojun.contacts.Contact
 import org.caojun.contacts.ContactsView
+import org.caojun.dialog.WebViewDialog
 import org.caojun.svgmap.PathItem
 import org.caojun.svgmap.SvgMapView
 import org.caojun.utils.ActivityUtils
+import org.caojun.utils.RandomUtils
 import org.jetbrains.anko.startActivity
 
-class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelectedListener*/ {
+class MainActivity : AppCompatActivity() {
 
     val Key_Map_Name = "Key_Map_Name"
     private var lastId = ""
@@ -44,17 +44,31 @@ class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelec
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
+        btnSearch.setOnClickListener {
+            if (TextUtils.isEmpty(btnSearch.text)) {
+                return@setOnClickListener
+            }
+            doBaike(btnSearch.text.toString())
+        }
+
         val list = ArrayList<Contact>()
 
         svgMapView.setGestureSupport(false)
         svgMapView.setMapListener(object : SvgMapView.MapListener {
 
             override fun onLongClick(item: PathItem?, index: Int) {
+                setSearchText(item)
+                lastId = if (item == null) {
+                    ""
+                } else {
+                    item.id
+                }
                 svgMapView.doAnimateCenter(index)
             }
 
             override fun onClick(item: PathItem?, index: Int) {
 
+                setSearchText(item)
                 if (item == null || TextUtils.isEmpty(item.id) || !svgMapView.hasMap(item.id)) {
                     lastId = ""
                     return
@@ -70,6 +84,8 @@ class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelec
             }
 
             override fun onShow(item: PathItem, index: Int, size: Int) {
+                setSearchText(item)
+
                 var id = ActivityUtils.getStringResId(this@MainActivity, item.id)
                 var contact: Contact
                 contact = if (id == null) {
@@ -84,14 +100,20 @@ class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelec
                     contactView.init(list, object : ContactsView.OnSelectChangedListener {
                         override fun onSelectChanged(index: Int, isChecked: Boolean) {
                             svgMapView.setSelected(index, isChecked, true)
-                            if (isChecked) {
-                                svgMapView.doAnimateCenter(index)
+                            lastId = if (isChecked) {
+                                val item = svgMapView.doAnimateCenter(index)
+                                setSearchText(item)
+                                item?.id?:""
                             } else {
+                                setSearchText(null)
                                 svgMapView.doAnimateCenter(-1)
+                                ""
                             }
                             drawer_layout.closeDrawer(GravityCompat.START)
                         }
                     })
+
+                    setSearchText(null)
                 }
             }
         })
@@ -127,11 +149,6 @@ class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelec
         return when (item.itemId) {
             R.id.action_settings -> {
                 startActivity<SettingsActivity>()
-                //TODO
-//                val color = "474747"
-//                startActivityForResult<ColorActivity>(Request_Color, ColorActivity.KEY_HEX to color)
-//                val color = Color.parseColor("#474747")
-//                startActivityForResult<ColorActivity>(Request_Color, ColorActivity.KEY_INT to color)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -172,5 +189,39 @@ class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelec
             color = ColorUtils.toHexEncoding(defColor)
         }
         return Color.parseColor("#$color")
+    }
+
+//    private fun setSearchText(id: Int) {
+//        if (id <= 0) {
+//            btnSearch.text = null
+//        } else {
+//            btnSearch.setText(id)
+//        }
+//    }
+
+    private fun setSearchText(item: PathItem?) {
+        runOnUiThread {
+            if (item == null) {
+                btnSearch.text = null
+            } else {
+                val resId = ActivityUtils.getStringResId(this@MainActivity, item.id)
+                if (resId == null) {
+                    btnSearch.text = item.title
+                } else {
+                    btnSearch.setText(resId)
+                }
+            }
+        }
+    }
+
+    private fun doBaike(text: String) {
+        val mSharedPreferences = getSharedPreferences(SettingsActivity.PREFER_NAME, Context.MODE_PRIVATE)
+        var url = mSharedPreferences.getString(SettingsActivity.SettingsFragment.Key_Baike, "")
+        if (TextUtils.isEmpty(url)) {
+            val urls = resources.getStringArray(R.array.baike_url)
+            val index = RandomUtils.getRandom(1, urls.size - 1)
+            url = urls[index]
+        }
+        WebViewDialog.show(this, url + text, null, null)
     }
 }
