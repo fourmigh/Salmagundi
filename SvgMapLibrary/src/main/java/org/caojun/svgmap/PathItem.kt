@@ -9,16 +9,18 @@ class PathItem {
     val title: String
     private var path: Path
     var isSelected = false
-    private var color: Int = Color.BLUE
+    private var colorSelected: Int = Color.BLUE
+    private var colorUnselected: Int = Color.GRAY
 
-    constructor(index: Int, id: String, title: String, path: Path): this(index, id, title, path, Color.BLUE)
+    constructor(index: Int, id: String, title: String, path: Path): this(index, id, title, path, Color.BLUE, Color.GRAY)
 
-    constructor(index: Int, id: String, title: String, path: Path, color: Int) {
+    constructor(index: Int, id: String, title: String, path: Path, colorSelected: Int, colorUnselected: Int) {
         this.index = index
         this.id = id.replace('-', '_').toLowerCase()
         this.title = title
         this.path = path
-        this.color = color
+        this.colorSelected = colorSelected
+        this.colorUnselected = colorUnselected
     }
 
     /**
@@ -47,11 +49,11 @@ class PathItem {
             canvas.drawPath(path, paint)
             //绘制具体显示的
             paint.clearShadowLayer()
-            paint.color = color
+            paint.color = colorSelected
             paint.style = Paint.Style.FILL
         } else {
             //绘制具体显示的
-            paint.color = Color.GRAY
+            paint.color = colorUnselected
             paint.style = Paint.Style.FILL
         }
         canvas.drawPath(path, paint)

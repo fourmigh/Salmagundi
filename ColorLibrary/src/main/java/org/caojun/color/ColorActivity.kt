@@ -19,6 +19,7 @@ class ColorActivity: Activity() {
         val KEY_INT = "KEY_INT"
     }
     private var HEX = ""
+    private var isHex = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +30,12 @@ class ColorActivity: Activity() {
             if (HEX.length > 6) {
                 HEX = HEX.substring(HEX.length - 6)
             }
+            isHex = true
         }
         if (TextUtils.isEmpty(HEX)) {
             val color = intent.getIntExtra(KEY_INT, Color.parseColor("#FFFFFF"))
             HEX = ColorUtils.toHexEncoding(color)
+            isHex = false
         }
 
         val ivMinuses = arrayOf(ivMinusR, ivMinusG, ivMinusB)
@@ -118,9 +121,14 @@ class ColorActivity: Activity() {
         }
 
         btnOK.setOnClickListener {
-            HEX = etRGB.text.toString()
             val intent = Intent()
-            intent.putExtra(KEY_HEX, HEX)
+            if (isHex) {
+                HEX = etRGB.text.toString()
+                intent.putExtra(KEY_HEX, HEX)
+            } else {
+                val color = getColor(sbColors[0].progress, sbColors[1].progress, sbColors[2].progress)
+                intent.putExtra(KEY_INT, color)
+            }
             setResult(Activity.RESULT_OK, intent)
             finish()
         }

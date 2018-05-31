@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="baike">
+        <item>随机</item>
+        <item>百度百科</item>
+        <item>互动百科</item>
+        <item>360百科</item>
+    </array>
+</resources>

@@ -3,4 +3,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
+    <string name="baike">Wiki</string>
+    <string name="map_selected_color">Map Selected Color</string>
+    <string name="map_unselected_color">Map Unselected Color</string>
+    <string name="summary_map_color">It will be effective at the next start.</string>
 </resources>

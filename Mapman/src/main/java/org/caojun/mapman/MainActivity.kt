@@ -1,6 +1,7 @@
 package org.caojun.mapman
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -9,25 +10,24 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.caojun.color.ColorActivity
+import org.caojun.color.ColorUtils
 import org.caojun.contacts.Contact
 import org.caojun.contacts.ContactsView
 import org.caojun.svgmap.PathItem
 import org.caojun.svgmap.SvgMapView
 import org.caojun.utils.ActivityUtils
-import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelectedListener*/ {
 
     val Key_Map_Name = "Key_Map_Name"
     private var lastId = ""
-    private val Request_Color = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,10 +97,12 @@ class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelec
         })
 
         val mapName = intent.getStringExtra(Key_Map_Name)
+        val colorSelected = getMapColor(SettingsActivity.SettingsFragment.Key_Selected_Color, Color.BLUE)
+        val colorUnselected = getMapColor(SettingsActivity.SettingsFragment.Key_Unselected_Color, Color.GRAY)
         if (TextUtils.isEmpty(mapName)) {
-            svgMapView.setMap("cn", Color.RED)
+            svgMapView.setMap("cn", colorSelected, colorUnselected)
         } else {
-            svgMapView.setMap(mapName, Color.BLUE)
+            svgMapView.setMap(mapName, colorSelected, colorUnselected)
         }
     }
 
@@ -124,28 +126,16 @@ class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelec
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> {
+                startActivity<SettingsActivity>()
                 //TODO
-                val color = "#474747"
-                startActivityForResult<ColorActivity>(Request_Color, ColorActivity.KEY_HEX to color)
+//                val color = "474747"
+//                startActivityForResult<ColorActivity>(Request_Color, ColorActivity.KEY_HEX to color)
 //                val color = Color.parseColor("#474747")
 //                startActivityForResult<ColorActivity>(Request_Color, ColorActivity.KEY_INT to color)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK) {
-            when(requestCode) {
-                Request_Color -> {
-                    //TODO
-                    Log.d("Request_Color", data?.getStringExtra(ColorActivity.KEY_HEX))
-                    return
-                }
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
 //    override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -174,4 +164,13 @@ class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelec
 //        drawer_layout.closeDrawer(GravityCompat.START)
 //        return true
 //    }
+
+    private fun getMapColor(key: String, defColor: Int): Int {
+        val mSharedPreferences = getSharedPreferences(SettingsActivity.PREFER_NAME, Context.MODE_PRIVATE)
+        var color = mSharedPreferences.getString(key, ColorUtils.toHexEncoding(defColor))
+        if (TextUtils.isEmpty(color)) {
+            color = ColorUtils.toHexEncoding(defColor)
+        }
+        return Color.parseColor("#$color")
+    }
 }

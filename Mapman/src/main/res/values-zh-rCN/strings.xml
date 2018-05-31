@@ -4,4 +4,8 @@
     <string name="navigation_drawer_open">打开导航抽屉</string>
     <string name="navigation_drawer_close">关闭导航抽屉</string>
     <string name="action_settings">设置</string>
+    <string name="baike">百科</string>
+    <string name="map_selected_color">地图选中颜色</string>
+    <string name="map_unselected_color">地图未选中颜色</string>
+    <string name="summary_map_color">下次启动后生效。</string>
 </resources>

@@ -4,4 +4,8 @@
     <string name="navigation_drawer_open">打開導航抽屜</string>
     <string name="navigation_drawer_close">關閉導航抽屜</string>
     <string name="action_settings">設定</string>
+    <string name="baike">百科</string>
+    <string name="map_selected_color">地圖選中顏色</string>
+    <string name="map_unselected_color">地圖未選中顏色</string>
+    <string name="summary_map_color">下次啟動後生效。</string>
 </resources>
