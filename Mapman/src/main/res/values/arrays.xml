@@ -12,4 +12,16 @@
         <item>http://www.baike.com/wiki/</item>
         <item>https://baike.so.com/doc/search?word=</item>
     </array>
+
+    <array name="map_first">
+        <item>World</item>
+        <item>Continents</item>
+        <item>China</item>
+    </array>
+
+    <array name="map_id">
+        <item>world</item>
+        <item>continents</item>
+        <item>cn</item>
+    </array>
 </resources>

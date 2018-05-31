@@ -350,4 +350,11 @@
     <!-- 澳門 -->
     <string name="mo_01">澳門半島</string>
     <string name="mo_02">其他</string>
+    <!-- 大洲 -->
+    <string name="europe">歐洲</string>
+    <string name="asia">亞洲</string>
+    <string name="north_america">北美洲</string>
+    <string name="africa">非洲</string>
+    <string name="south_america">南美洲</string>
+    <string name="australia">大洋洲</string>
 </resources>

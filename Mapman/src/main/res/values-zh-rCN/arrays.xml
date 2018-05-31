@@ -6,4 +6,10 @@
         <item>互动百科</item>
         <item>360百科</item>
     </array>
+
+    <array name="map_first">
+        <item>世界</item>
+        <item>大洲</item>
+        <item>中国</item>
+    </array>
 </resources>

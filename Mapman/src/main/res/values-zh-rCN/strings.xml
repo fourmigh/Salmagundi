@@ -9,4 +9,5 @@
     <string name="map_unselected_color">地图未选中颜色</string>
     <string name="summary_effective">下次启动后生效。</string>
     <string name="map_gesture">地图手势</string>
+    <string name="map_first">初始地图</string>
 </resources>

@@ -13,7 +13,6 @@ import org.caojun.color.ColorActivity
 import org.jetbrains.anko.startActivityForResult
 import org.caojun.color.ColorUtils
 
-
 class SettingsActivity: PreferenceActivity() {
 
     companion object {
@@ -39,6 +38,7 @@ class SettingsActivity: PreferenceActivity() {
             val Key_Unselected_Color = "map_unselected_color"
             val Key_Baike = "lp_baike"
             val Key_Gesture = "sp_gesture"
+            val Key_Map = "lp_map"
         }
         private var mSharedPreferences: SharedPreferences? = null
         private var ivSetColor: ImageView? = null
@@ -56,16 +56,25 @@ class SettingsActivity: PreferenceActivity() {
             // Load the preferences from an XML resource
             addPreferencesFromResource(R.xml.settings)
 
-            val lp = findPreference(Key_Baike) as ListPreference
-            lp.onPreferenceChangeListener = this
+            val lpBaike = findPreference(Key_Baike) as ListPreference
+            lpBaike.onPreferenceChangeListener = this
+            if (TextUtils.isEmpty(lpBaike.value)) {
+                lpBaike.setValueIndex(0)
+            }
 
-            if (TextUtils.isEmpty(lp.value)) {
-                lp.setValueIndex(0)
+            val lpMap = findPreference(Key_Map) as ListPreference
+            lpMap.onPreferenceChangeListener = this
+
+            if (TextUtils.isEmpty(lpMap.value)) {
+                lpMap.setValueIndex(2)
             }
 
             mSharedPreferences = activity.getSharedPreferences(SettingsActivity.PREFER_NAME, Context.MODE_PRIVATE)
             val url = mSharedPreferences?.getString(Key_Baike, "")?:""
-            update(lp, url)
+            update(lpBaike, url)
+
+            val map = mSharedPreferences?.getString(Key_Map, "cn")?:"cn"
+            update(lpMap, map)
 
             val etpSelectedColor = findPreference("etpSelectedColor")
             etpSelectedColor.onPreferenceClickListener = object : Preference.OnPreferenceClickListener {
@@ -109,10 +118,21 @@ class SettingsActivity: PreferenceActivity() {
         }
 
         private fun update(lp: ListPreference, value: String) {
-            val index = lp.findIndexOfValue(value)
-            val baikes = resources.getStringArray(R.array.baike)
 
-            lp.summary = baikes[index]
+            when (lp.key) {
+                Key_Baike -> {
+                    val index = lp.findIndexOfValue(value)
+                    val baikes = resources.getStringArray(R.array.baike)
+
+                    lp.summary = baikes[index]
+                }
+                Key_Map -> {
+                    val index = lp.findIndexOfValue(value)
+                    val maps = resources.getStringArray(R.array.map_first)
+
+                    lp.summary = maps[index]
+                }
+            }
         }
 
         override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

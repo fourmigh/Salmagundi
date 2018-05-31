@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity() {
         val colorSelected = getMapColor(SettingsActivity.SettingsFragment.Key_Selected_Color, Color.BLUE)
         val colorUnselected = getMapColor(SettingsActivity.SettingsFragment.Key_Unselected_Color, Color.GRAY)
         if (TextUtils.isEmpty(mapName)) {
-            svgMapView.setMap("cn", colorSelected, colorUnselected)
+            svgMapView.setMap(getMap(), colorSelected, colorUnselected)
         } else {
             svgMapView.setMap(mapName, colorSelected, colorUnselected)
         }
@@ -196,14 +196,6 @@ class MainActivity : AppCompatActivity() {
         return mSharedPreferences.getBoolean(SettingsActivity.SettingsFragment.Key_Gesture, false)
     }
 
-//    private fun setSearchText(id: Int) {
-//        if (id <= 0) {
-//            btnSearch.text = null
-//        } else {
-//            btnSearch.setText(id)
-//        }
-//    }
-
     private fun setSearchText(item: PathItem?) {
         runOnUiThread {
             if (item == null) {
@@ -228,5 +220,10 @@ class MainActivity : AppCompatActivity() {
             url = urls[index]
         }
         WebViewDialog.show(this, url + text, null, null)
+    }
+
+    private fun getMap(): String {
+        val mSharedPreferences = getSharedPreferences(SettingsActivity.PREFER_NAME, Context.MODE_PRIVATE)
+        return mSharedPreferences.getString(SettingsActivity.SettingsFragment.Key_Map, "cn")
     }
 }

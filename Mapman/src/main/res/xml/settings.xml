@@ -28,4 +28,12 @@
         android:title="@string/map_gesture"
         android:summary="@string/summary_effective"
         android:defaultValue="false"/>
+
+    <PreferenceCategory
+        android:title="@string/map_first">
+        <ListPreference
+            android:key="lp_map"
+            android:entries="@array/map_first"
+            android:entryValues="@array/map_id" />
+    </PreferenceCategory>
 </PreferenceScreen>
