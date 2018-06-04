@@ -103,7 +103,7 @@ class SvgMapView: ScaleCanvasView {
                 // 获取文档对象
                 val doc = db.parse(inputStream!!)
 
-                /////////////////
+                ////////////////////////////////////////////////////////////////////////
                 val de = doc.documentElement
                 if (de != null) {
                     val defs = de.getElementsByTagName("amcharts:ammap")
@@ -117,7 +117,7 @@ class SvgMapView: ScaleCanvasView {
                         }
                     }
                 }
-                /////////////////
+                ////////////////////////////////////////////////////////////////////////
 
                 //获取path元素节点集合
                 val paths = doc.getElementsByTagName("path")
