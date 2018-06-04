@@ -16,7 +16,7 @@
     <string name="as">美屬薩摩亞</string>
     <string name="at">奧地利</string>
     <string name="au">澳大利亞</string>
-    <string name="aw">阿魯巴</string>
+    <string name="aw">阿魯巴島</string>
     <string name="ax">奧蘭群島</string>
     <string name="az">阿塞拜疆</string>
     <string name="ba">波士尼亞和黑塞哥維那</string>
@@ -42,9 +42,9 @@
     <string name="bz">貝裡斯</string>
     <string name="ca">加拿大</string>
     <string name="cc">科科斯群島</string>
-    <string name="cd">剛果共和國</string>
+    <string name="cd">剛果民主共和國</string>
     <string name="cf">中非共和國</string>
-    <string name="cg">剛果</string>
+    <string name="cg">剛果共和國</string>
     <string name="ch">瑞士</string>
     <string name="ci">象牙海岸</string>
     <string name="ck">科克群島</string>
@@ -59,7 +59,7 @@
     <string name="cw">庫拉索</string>
     <string name="cx">聖誕島</string>
     <string name="cy">賽普勒斯</string>
-    <string name="cz">捷克共和國</string>
+    <string name="cz">捷克</string>
     <string name="de">德國</string>
     <string name="dj">吉佈提</string>
     <string name="dk">丹麥</string>
@@ -85,10 +85,10 @@
     <string name="gd">格林伍德</string>
     <string name="ge">格魯吉亞</string>
     <string name="gf">法屬圭亞那</string>
-    <string name="gg">根西岛</string>
+    <string name="gg">根西島</string>
     <string name="gh">迦納</string>
     <string name="gi">直布羅陀</string>
-    <string name="gl">格陵蘭</string>
+    <string name="gl">格陵蘭島</string>
     <string name="gm">岡比亞</string>
     <string name="gn">幾內亞</string>
     <string name="go">格洛裏厄斯群島</string>
@@ -116,7 +116,7 @@
     <string name="ir">伊朗</string>
     <string name="is">冰島</string>
     <string name="it">義大利</string>
-    <string name="je">澤西</string>
+    <string name="je">澤西島</string>
     <string name="jm">牙買加</string>
     <string name="jo">約旦</string>
     <string name="jp">日本</string>
@@ -126,7 +126,7 @@
     <string name="kh">高棉</string>
     <string name="ki">吉裡巴斯</string>
     <string name="km">科摩羅</string>
-    <string name="kn">聖基茨島和尼維斯島</string>
+    <string name="kn">聖基茨和尼維斯</string>
     <string name="kp">北韓</string>
     <string name="kr">韓國</string>
     <string name="kw">科威特</string>
@@ -134,8 +134,8 @@
     <string name="kz">哈薩克共和國</string>
     <string name="la">老撾</string>
     <string name="lb">黎巴嫩</string>
-    <string name="lc">聖露西亞</string>
-    <string name="li">列支士登</string>
+    <string name="lc">聖盧西亞</string>
+    <string name="li">列支敦士登</string>
     <string name="lk">斯里蘭卡</string>
     <string name="lr">賴比瑞亞</string>
     <string name="ls">萊索托</string>
@@ -188,8 +188,8 @@
     <string name="ph">菲律賓</string>
     <string name="pk">巴基斯坦</string>
     <string name="pl">波蘭</string>
-    <string name="pm">聖皮爾和密克隆島</string>
-    <string name="pn">皮特凱恩島</string>
+    <string name="pm">聖皮爾和密克隆群島</string>
+    <string name="pn">皮特凱恩群島</string>
     <string name="pr">波多黎各</string>
     <string name="ps">巴勒斯坦</string>
     <string name="pt">葡萄牙</string>
@@ -224,7 +224,7 @@
     <string name="sz">史瓦濟蘭</string>
     <string name="tc">特克斯和凱科斯群島</string>
     <string name="td">查德</string>
-    <string name="tf">法屬南半球領地</string>
+    <string name="tf">法屬南半球和南極領地</string>
     <string name="tg">多哥</string>
     <string name="th">泰國</string>
     <string name="tj">塔吉克共和國</string>

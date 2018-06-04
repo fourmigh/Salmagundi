@@ -16,7 +16,7 @@
     <string name="as">美属萨摩亚</string>
     <string name="at">奥地利</string>
     <string name="au">澳大利亚</string>
-    <string name="aw">阿鲁巴</string>
+    <string name="aw">阿鲁巴岛</string>
     <string name="ax">奥兰群岛</string>
     <string name="az">阿塞拜疆</string>
     <string name="ba">波斯尼亚和黑塞哥维那</string>
@@ -42,9 +42,9 @@
     <string name="bz">伯利兹</string>
     <string name="ca">加拿大</string>
     <string name="cc">科科斯群岛</string>
-    <string name="cd">刚果共和国</string>
+    <string name="cd">刚果民主共和国</string>
     <string name="cf">中非共和国</string>
-    <string name="cg">刚果</string>
+    <string name="cg">刚果共和国</string>
     <string name="ch">瑞士</string>
     <string name="ci">象牙海岸</string>
     <string name="ck">库克群岛</string>
@@ -59,7 +59,7 @@
     <string name="cw">库拉索岛</string>
     <string name="cx">圣诞岛</string>
     <string name="cy">塞浦路斯</string>
-    <string name="cz">捷克共和国</string>
+    <string name="cz">捷克</string>
     <string name="de">德国</string>
     <string name="dj">吉布提</string>
     <string name="dk">丹麦</string>
@@ -85,10 +85,10 @@
     <string name="gd">格林纳达</string>
     <string name="ge">格鲁吉亚</string>
     <string name="gf">法属圭亚那</string>
-    <string name="gg">Guernsey</string>
+    <string name="gg">根西岛</string>
     <string name="gh">加纳</string>
     <string name="gi">直布罗陀</string>
-    <string name="gl">格陵兰</string>
+    <string name="gl">格陵兰岛</string>
     <string name="gm">冈比亚</string>
     <string name="gn">几内亚</string>
     <string name="go">格洛里厄斯群岛</string>
@@ -116,7 +116,7 @@
     <string name="ir">伊朗</string>
     <string name="is">冰岛</string>
     <string name="it">意大利</string>
-    <string name="je">泽西</string>
+    <string name="je">泽西岛</string>
     <string name="jm">牙买加</string>
     <string name="jo">约旦</string>
     <string name="jp">日本</string>
@@ -126,7 +126,7 @@
     <string name="kh">柬埔寨</string>
     <string name="ki">基里巴斯</string>
     <string name="km">科摩罗</string>
-    <string name="kn">圣基茨岛和尼维斯岛</string>
+    <string name="kn">圣基茨和尼维斯</string>
     <string name="kp">朝鲜</string>
     <string name="kr">韩国</string>
     <string name="kw">科威特</string>
@@ -134,8 +134,8 @@
     <string name="kz">哈萨克斯坦</string>
     <string name="la">老挝</string>
     <string name="lb">黎巴嫩</string>
-    <string name="lc">圣露西亚</string>
-    <string name="li">列支士登</string>
+    <string name="lc">圣卢西亚</string>
+    <string name="li">列支敦士登</string>
     <string name="lk">斯里兰卡</string>
     <string name="lr">利比里亚</string>
     <string name="ls">莱索托</string>
@@ -188,8 +188,8 @@
     <string name="ph">菲律宾</string>
     <string name="pk">巴基斯坦</string>
     <string name="pl">波兰</string>
-    <string name="pm">圣皮埃尔和密克隆岛</string>
-    <string name="pn">皮特凯恩岛</string>
+    <string name="pm">圣皮埃尔和密克隆群岛</string>
+    <string name="pn">皮特凯恩群岛</string>
     <string name="pr">波多黎各</string>
     <string name="ps">巴勒斯坦</string>
     <string name="pt">葡萄牙</string>
@@ -224,7 +224,7 @@
     <string name="sz">斯威士兰</string>
     <string name="tc">特克斯和凯科斯群岛</string>
     <string name="td">乍得</string>
-    <string name="tf">法属南半球领地</string>
+    <string name="tf">法属南半球和南极领地</string>
     <string name="tg">多哥</string>
     <string name="th">泰国</string>
     <string name="tj">塔吉克斯坦</string>
