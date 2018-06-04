@@ -79,6 +79,11 @@ class SvgMapView: ScaleCanvasView {
 
     }
 
+    private var leftLongitude = ""//左经度
+    private var topLatitude = ""//上纬度
+    private var rightLongitude = ""//右经度
+    private var bottomLatitude = ""//下纬度
+
     /**
      * 解析path
      */
@@ -97,6 +102,23 @@ class SvgMapView: ScaleCanvasView {
                 val db = dbf.newDocumentBuilder()
                 // 获取文档对象
                 val doc = db.parse(inputStream!!)
+
+                /////////////////
+                val de = doc.documentElement
+                if (de != null) {
+                    val defs = de.getElementsByTagName("amcharts:ammap")
+                    if (defs != null) {
+                        val ammap = defs.item(0) as Element
+                        if (ammap != null) {
+                            leftLongitude = ammap.getAttribute("leftLongitude")
+                            topLatitude = ammap.getAttribute("topLatitude")
+                            rightLongitude = ammap.getAttribute("rightLongitude")
+                            bottomLatitude = ammap.getAttribute("bottomLatitude")
+                        }
+                    }
+                }
+                /////////////////
+
                 //获取path元素节点集合
                 val paths = doc.getElementsByTagName("path")
                 var item: PathItem
