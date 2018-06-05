@@ -36,4 +36,5 @@ dependencies {
     implementation project(':UtilsLibrary')
     implementation project(':ColorLibrary')
     implementation project(':WidgetLibrary')
+    implementation 'com.github.bumptech.glide:glide:latest.release'
 }

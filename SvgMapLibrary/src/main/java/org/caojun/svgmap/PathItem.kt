@@ -1,9 +1,12 @@
 package org.caojun.svgmap
 
+import android.content.Context
 import android.graphics.*
+import org.caojun.utils.ActivityUtils
 
 class PathItem {
 
+    val context: Context
     val index: Int
     val id: String
     val title: String
@@ -12,15 +15,37 @@ class PathItem {
     private var colorSelected: Int = Color.BLUE
     private var colorUnselected: Int = Color.GRAY
 
-    constructor(index: Int, id: String, title: String, path: Path): this(index, id, title, path, Color.BLUE, Color.GRAY)
+    constructor(context: Context, index: Int, id: String, title: String, path: Path): this(context, index, id, title, path, Color.BLUE, Color.GRAY)
 
-    constructor(index: Int, id: String, title: String, path: Path, colorSelected: Int, colorUnselected: Int) {
+    constructor(context: Context, index: Int, id: String, title: String, path: Path, colorSelected: Int, colorUnselected: Int) {
+        this.context = context
         this.index = index
         this.id = id.replace('-', '_').toLowerCase()
         this.title = title
         this.path = path
         this.colorSelected = colorSelected
         this.colorUnselected = colorUnselected
+    }
+
+    //地图名称（国名、地区名）
+    fun getName(): String {
+        val id = ActivityUtils.getStringResId(context, id)
+        return if (id == null) {
+            title
+        } else {
+            context.getString(id)
+        }
+    }
+
+    //国旗（地区旗）图片Url
+    fun getFlagUrl(): String {
+        val flag = "flag_$id"
+        val resId = ActivityUtils.getStringResId(context, flag)
+        return if (resId == null) {
+            ""
+        } else {
+            context.getString(resId)
+        }
     }
 
     /**

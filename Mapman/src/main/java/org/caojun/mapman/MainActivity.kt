@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -20,7 +19,6 @@ import org.caojun.contacts.ContactsView
 import org.caojun.dialog.WebViewDialog
 import org.caojun.svgmap.PathItem
 import org.caojun.svgmap.SvgMapView
-import org.caojun.utils.ActivityUtils
 import org.caojun.utils.RandomUtils
 import org.jetbrains.anko.startActivity
 
@@ -81,13 +79,7 @@ class MainActivity : AppCompatActivity() {
             override fun onShow(item: PathItem, index: Int, size: Int) {
                 setSearchText(item)
 
-                var id = ActivityUtils.getStringResId(this@MainActivity, item.id)
-                var contact: Contact
-                contact = if (id == null) {
-                    Contact(index, item.title, item.title,null)
-                } else {
-                    Contact(index, item.title, getString(id), null)
-                }
+                val contact = Contact(index, item.title, item.getName(),null)
 
                 list.add(contact)
 
@@ -196,13 +188,10 @@ class MainActivity : AppCompatActivity() {
             if (item == null) {
                 btnSearch.text = null
             } else {
-                val resId = ActivityUtils.getStringResId(this@MainActivity, item.id)
-                if (resId == null) {
-                    btnSearch.text = item.title
-                } else {
-                    btnSearch.setText(resId)
-                }
+                btnSearch.text = item.getName()
+//                Glide.with(this).load(getString(R.string.flag_cn)).into(ivFlag)
             }
+
         }
     }
 

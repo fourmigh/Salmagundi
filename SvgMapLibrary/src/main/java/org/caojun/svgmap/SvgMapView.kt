@@ -138,7 +138,7 @@ class SvgMapView: ScaleCanvasView {
                     val title = personNode.getAttribute("title")
                     val id = personNode.getAttribute("id")
                     //解析，并创建pathItem
-                    item = PathItem(i, id, title, path, colorSelected, colorUnselected)
+                    item = PathItem(context, i, id, title, path, colorSelected, colorUnselected)
                     item.isSelected = true
                     pathItems.add(item)
 
