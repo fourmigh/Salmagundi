@@ -29,7 +29,8 @@ class PathItem {
 
     //地图名称（国名、地区名）
     fun getName(): String {
-        val id = ActivityUtils.getStringResId(context, id)
+        val resId = if (id == "do") "${this.id}_" else id
+        val id = ActivityUtils.getStringResId(context, resId)
         return if (id == null) {
             title
         } else {
@@ -38,14 +39,9 @@ class PathItem {
     }
 
     //国旗（地区旗）图片Url
-    fun getFlagUrl(): String {
+    fun getFlagResId(): Int? {
         val flag = "flag_$id"
-        val resId = ActivityUtils.getStringResId(context, flag)
-        return if (resId == null) {
-            ""
-        } else {
-            context.getString(resId)
-        }
+        return ActivityUtils.getRowResId(context, flag)
     }
 
     /**

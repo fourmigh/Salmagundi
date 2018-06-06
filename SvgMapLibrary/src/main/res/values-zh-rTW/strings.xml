@@ -64,7 +64,7 @@
     <string name="dj">吉佈提</string>
     <string name="dk">丹麥</string>
     <string name="dm">多明尼克</string>
-    <string name="dodo">多明尼加</string>
+    <string name="do_">多明尼加</string>
     <string name="dz">阿爾及利亞</string>
     <string name="ec">厄瓜多</string>
     <string name="ee">愛沙尼亞</string>
@@ -262,6 +262,12 @@
     <string name="zm">尚比亞</string>
     <string name="zr">薩伊</string>
     <string name="zw">辛巴威</string>
+    <string name="um_fq">貝克島</string>
+    <string name="um_hq">豪蘭島</string>
+    <string name="um_dq">賈維斯島</string>
+    <string name="um_jq">約翰斯頓環礁</string>
+    <string name="um_mq">中途島</string>
+    <string name="um_wq">威克島</string>
     <!-- 中國 -->
     <string name="cn_34">安徽省</string>
     <string name="cn_11">北京市</string>

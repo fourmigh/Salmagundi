@@ -64,7 +64,7 @@
     <string name="dj">吉布提</string>
     <string name="dk">丹麦</string>
     <string name="dm">多米尼克</string>
-    <string name="dodo">多米尼加共和国</string>
+    <string name="do_">多米尼加共和国</string>
     <string name="dz">阿尔及利亚</string>
     <string name="ec">厄瓜多尔</string>
     <string name="ee">爱沙尼亚</string>
@@ -262,6 +262,12 @@
     <string name="zm">赞比亚</string>
     <string name="zr">扎伊尔</string>
     <string name="zw">津巴布韦</string>
+    <string name="um_fq">贝克岛</string>
+    <string name="um_hq">豪兰岛</string>
+    <string name="um_dq">贾维斯岛</string>
+    <string name="um_jq">约翰斯顿环礁</string>
+    <string name="um_mq">中途岛</string>
+    <string name="um_wq">威克岛</string>
     <!-- 中国 -->
     <string name="cn_34">安徽省</string>
     <string name="cn_11">北京市</string>

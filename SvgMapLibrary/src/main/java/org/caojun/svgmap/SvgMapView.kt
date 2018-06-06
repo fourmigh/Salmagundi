@@ -65,12 +65,9 @@ class SvgMapView: ScaleCanvasView {
 
     fun hasMap(mapName: String): Boolean {
         return try {
-            var name = mapName.replace('-', '_')
-            if (name.toUpperCase() == "DO") {
-                name = "DODO"
-            }
+            var name = mapName.replace('-', '_').toLowerCase()
             //打开输入流
-            val resId = resources.getIdentifier(name.toLowerCase(), "raw", context.packageName)
+            val resId = resources.getIdentifier("map_$name", "raw", context.packageName)
             inputStream = resources.openRawResource(resId)
             true
         } catch (e: Exception) {
@@ -101,7 +98,7 @@ class SvgMapView: ScaleCanvasView {
                 val dbf = DocumentBuilderFactory.newInstance()
                 val db = dbf.newDocumentBuilder()
                 // 获取文档对象
-                val doc = db.parse(inputStream!!)
+                val doc = db.parse(inputStream)
 
                 ////////////////////////////////////////////////////////////////////////
                 val de = doc.documentElement
