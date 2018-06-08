@@ -1,10 +1,7 @@
 package org.caojun.svgmap
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Matrix
-import android.graphics.Paint
-import android.graphics.RectF
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -84,6 +81,9 @@ class SvgMapView: ScaleCanvasView {
     /**
      * 解析path
      */
+    fun setMap(mapName: String) {
+        setMap(mapName, Color.BLUE, Color.GRAY)
+    }
     fun setMap(mapName: String, colorSelected: Int, colorUnselected: Int) {
 
         doAsync {

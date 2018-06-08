@@ -12,7 +12,6 @@ android {
         targetSdkVersion rootProject.ext.sdkVersion
         versionCode 1
         versionName "1.0.0"
-
     }
 
     buildTypes {
@@ -36,5 +35,4 @@ dependencies {
     implementation project(':UtilsLibrary')
     implementation project(':ColorLibrary')
     implementation project(':WidgetLibrary')
-    implementation 'com.github.bumptech.glide:glide:latest.release'
 }

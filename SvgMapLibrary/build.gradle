@@ -11,6 +11,7 @@ android {
         targetSdkVersion rootProject.ext.sdkVersion
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -26,5 +27,4 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$androidsupport_version"
     implementation 'org.jetbrains.anko:anko-common:latest.release'
-    implementation project(':UtilsLibrary')
 }

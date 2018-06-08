@@ -11,14 +11,20 @@ class Contact: Comparable<Contact> {
     private var sort = ""//全拼
     private var initials = ""//首字母
     private var checked = false
+    private var icon = 0
 
-    constructor(index: Int, id: String, title: String, content: String?) {
+    constructor(index: Int, id: String, title: String, content: String?, icon: Int) {
         this.index = index
         this.id = id
         this.title = title
         this.content = content
         sort = PinyinUtils.toPinyinString(title)
         initials = PinyinUtils.toPinyinInitials(title)
+        this.icon = icon
+    }
+
+    fun getIcon(): Int {
+        return icon
     }
 
     fun setChecked(checked: Boolean) {

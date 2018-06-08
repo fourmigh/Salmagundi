@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
             override fun onShow(item: PathItem, index: Int, size: Int) {
                 setSearchText(item)
 
-                val contact = Contact(index, item.title, item.getName(),null)
+                val contact = Contact(index, item.title, item.getName(),null, item.getFlag())
 
                 list.add(contact)
 

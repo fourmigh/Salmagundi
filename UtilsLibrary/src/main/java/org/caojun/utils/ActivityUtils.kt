@@ -130,6 +130,15 @@ object ActivityUtils {
         }
     }
 
+    fun getDrawableResId(context: Context, name: String): Int? {
+        val resId = getResId(context, name, "drawable")
+        return if (resId > 0) {
+            resId
+        } else {
+            null
+        }
+    }
+
     fun getStringResId(context: Context, name: String): Int? {
         val resId = getResId(context, name, "string")
         return if (resId > 0) {

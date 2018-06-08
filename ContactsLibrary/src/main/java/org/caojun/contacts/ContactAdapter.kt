@@ -2,11 +2,13 @@ package org.caojun.contacts
 
 import android.content.Context
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.TextView
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter
 import java.util.*
@@ -48,6 +50,7 @@ class ContactAdapter: BaseAdapter, StickyListHeadersAdapter {
             viewHolder.tvTitle = view.findViewById(R.id.title)
             viewHolder.tvNumber = view.findViewById(R.id.number)
             viewHolder.cbChecked = view.findViewById(R.id.cbChecked)
+            viewHolder.ivIcon = view.findViewById(R.id.ivIcon)
             view.tag = viewHolder
         } else {
             viewHolder = view.tag as ViewHolder
@@ -57,6 +60,13 @@ class ContactAdapter: BaseAdapter, StickyListHeadersAdapter {
         viewHolder.tvNumber?.text = contact.getContent()
         viewHolder.tvNumber?.visibility = if (TextUtils.isEmpty(contact.getContent())) View.GONE else View.VISIBLE
         viewHolder.cbChecked?.isChecked = isSelected(contact)
+        val icon = contact.getIcon()
+        if (icon <= 0) {
+            viewHolder.ivIcon?.visibility = View.GONE
+        } else {
+            viewHolder.ivIcon?.setImageResource(icon)
+            viewHolder.ivIcon?.visibility = View.VISIBLE
+        }
 
         return view!!
     }
@@ -77,6 +87,7 @@ class ContactAdapter: BaseAdapter, StickyListHeadersAdapter {
         var tvTitle: TextView? = null
         var tvNumber: TextView? = null
         var cbChecked: CheckBox? = null
+        var ivIcon: ImageView? = null
     }
 
     private fun isSelected(contact: Contact): Boolean {

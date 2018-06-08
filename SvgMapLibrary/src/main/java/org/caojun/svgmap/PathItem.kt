@@ -2,7 +2,6 @@ package org.caojun.svgmap
 
 import android.content.Context
 import android.graphics.*
-import org.caojun.utils.ActivityUtils
 
 class PathItem {
 
@@ -30,7 +29,7 @@ class PathItem {
     //地图名称（国名、地区名）
     fun getName(): String {
         val resId = if (id == "do") "${this.id}_" else id
-        val id = ActivityUtils.getStringResId(context, resId)
+        val id = getStringResId(context, resId)
         return if (id == null) {
             title
         } else {
@@ -39,9 +38,9 @@ class PathItem {
     }
 
     //国旗（地区旗）图片Url
-    fun getFlagResId(): Int? {
+    fun getFlag(): Int {
         val flag = "flag_$id"
-        return ActivityUtils.getRowResId(context, flag)
+        return getDrawableResId(context, flag)?:0
     }
 
     /**
@@ -85,5 +84,36 @@ class PathItem {
         //计算path的边界
         path.computeBounds(r, true)
         return r
+    }
+
+    private fun getResId(context: Context, name: String, defType: String): Int {
+        return context.resources.getIdentifier(name, defType, context.packageName)
+    }
+
+    fun getRowResId(context: Context, name: String): Int? {
+        val resId = getResId(context, name, "raw")
+        return if (resId > 0) {
+            resId
+        } else {
+            null
+        }
+    }
+
+    fun getDrawableResId(context: Context, name: String): Int? {
+        val resId = getResId(context, name, "drawable")
+        return if (resId > 0) {
+            resId
+        } else {
+            null
+        }
+    }
+
+    fun getStringResId(context: Context, name: String): Int? {
+        val resId = getResId(context, name, "string")
+        return if (resId > 0) {
+            resId
+        } else {
+            null
+        }
     }
 }
