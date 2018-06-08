@@ -1,6 +1,7 @@
 package org.caojun.contacts
 
 import org.caojun.pinyin.PinyinUtils
+import java.util.*
 
 class Contact: Comparable<Contact> {
 
@@ -18,8 +19,13 @@ class Contact: Comparable<Contact> {
         this.id = id
         this.title = title
         this.content = content
-        sort = PinyinUtils.toPinyinString(title)
-        initials = PinyinUtils.toPinyinInitials(title)
+        if (Locale.getDefault().language == "zh") {
+            sort = PinyinUtils.toPinyinString(title)
+            initials = PinyinUtils.toPinyinInitials(title)
+        } else {
+            sort = title
+            initials = title[0].toString()
+        }
         this.icon = icon
     }
 
