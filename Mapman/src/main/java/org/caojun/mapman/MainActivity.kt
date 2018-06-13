@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -17,8 +18,10 @@ import org.caojun.color.ColorUtils
 import org.caojun.contacts.Contact
 import org.caojun.contacts.ContactsView
 import org.caojun.dialog.WebViewDialog
+import org.caojun.imageview.ImageLoader
 import org.caojun.svgmap.PathItem
 import org.caojun.svgmap.SvgMapView
+import org.caojun.utils.ActivityUtils
 import org.caojun.utils.RandomUtils
 import org.jetbrains.anko.startActivity
 
@@ -113,6 +116,20 @@ class MainActivity : AppCompatActivity() {
         } else {
             svgMapView.setMap(mapName, colorSelected, colorUnselected)
         }
+
+        fabFlag.setOnClickListener { view ->
+            doFab(0)
+        }
+
+        fabEmblem.setOnClickListener { view ->
+            doFab(1)
+        }
+
+        fabLocation.setOnClickListener { view ->
+            doFab(2)
+        }
+
+        fabGone()
     }
 
     override fun onBackPressed() {
@@ -169,6 +186,43 @@ class MainActivity : AppCompatActivity() {
 //        return true
 //    }
 
+    private fun fabGone() {
+        fabFlag.visibility = View.GONE
+        fabEmblem.visibility = View.GONE
+        fabLocation.visibility = View.GONE
+    }
+
+    private fun doFab(type: Int) {
+        val item = btnSearch.tag as PathItem
+        when (item) {
+            null -> return
+            else -> {
+                var resId: Int? = null
+                when (type) {
+                    0 -> {
+                        //Flag
+                        resId = ActivityUtils.getStringResId(this@MainActivity, "flag_${item.id}")
+                    }
+                    1 -> {
+                        //Emblem
+                        resId = ActivityUtils.getStringResId(this@MainActivity, "emblem_${item.id}")
+                    }
+                    2 -> {
+                        //Location
+                        resId = ActivityUtils.getStringResId(this@MainActivity, "location_${item.id}")
+                    }
+                }
+                if (resId == null) {
+                    return
+                }
+//                WebViewDialog.show(this, getString(resId))
+//                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(resId))))
+//                ImageLoader.show(this@MainActivity, getString(resId))
+                ImageLoader.show(this@MainActivity, "https://bbs.qn.img-space.com/201803/1/dfd2eb58639be0c55be4802b99b50fb6.jpg")
+            }
+        }
+    }
+
     private fun getMapColor(key: String, defColor: Int): Int {
         val mSharedPreferences = getSharedPreferences(SettingsActivity.PREFER_NAME, Context.MODE_PRIVATE)
         var color = mSharedPreferences.getString(key, ColorUtils.toHexEncoding(defColor))
@@ -187,9 +241,27 @@ class MainActivity : AppCompatActivity() {
         runOnUiThread {
             if (item == null) {
                 btnSearch.text = null
+                btnSearch.tag = null
+                fabGone()
             } else {
                 btnSearch.text = item.getName()
 //                Glide.with(this).load(getString(R.string.flag_cn)).into(ivFlag)
+                if (ActivityUtils.getStringResId(this@MainActivity, "flag_${item.id}") == null) {
+                    fabFlag.visibility = View.GONE
+                } else {
+                    fabFlag.visibility = View.VISIBLE
+                }
+                if (ActivityUtils.getStringResId(this@MainActivity, "emblem_${item.id}") == null) {
+                    fabEmblem.visibility = View.GONE
+                } else {
+                    fabEmblem.visibility = View.VISIBLE
+                }
+                if (ActivityUtils.getStringResId(this@MainActivity, "location_${item.id}") == null) {
+                    fabLocation.visibility = View.GONE
+                } else {
+                    fabLocation.visibility = View.VISIBLE
+                }
+                btnSearch.tag = item
             }
 
         }
@@ -203,7 +275,7 @@ class MainActivity : AppCompatActivity() {
             val index = RandomUtils.getRandom(1, urls.size - 1)
             url = urls[index]
         }
-        WebViewDialog.show(this, url + text, null, null)
+        WebViewDialog.show(this, url + text)
     }
 
     private fun getMap(): String {

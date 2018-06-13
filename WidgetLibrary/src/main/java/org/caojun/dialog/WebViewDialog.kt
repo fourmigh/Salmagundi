@@ -24,6 +24,10 @@ class WebViewDialog: Activity() {
         private var clipboardData: String? = null
         private var url = ""
 
+        fun show(activity: Activity, url: String) {
+            show(activity, url, null, null)
+        }
+
         fun show(activity: Activity, url: String, toast: String?, clipboard: String?) {
             WebViewDialog.url = url
             toastInfo = toast

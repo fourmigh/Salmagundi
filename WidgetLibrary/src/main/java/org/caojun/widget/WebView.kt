@@ -75,9 +75,9 @@ class WebView : RelativeLayout {
         inflater.inflate(R.layout.view_webview, this)
         setStyle(StyleLarge)
 
-//        wvWebView.settings.builtInZoomControls = false
-//        wvWebView.settings.setSupportZoom(false)
-//        wvWebView.settings.displayZoomControls = false
+//        wvWebView.settings.builtInZoomControls = true
+//        wvWebView.settings.setSupportZoom(true)
+//        wvWebView.settings.displayZoomControls = true
 
         wvWebView.settings.javaScriptEnabled = true
 //        wvWebView.settings.javaScriptCanOpenWindowsAutomatically = true
