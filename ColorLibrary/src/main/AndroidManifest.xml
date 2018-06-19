@@ -3,6 +3,6 @@
     <application android:allowBackup="true">
 
         <activity
-            android:name="org.caojun.color.ColorActivity" />
+            android:name=".ColorActivity" />
     </application>
 </manifest>

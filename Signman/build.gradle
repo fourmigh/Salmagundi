@@ -34,7 +34,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation "com.android.support:appcompat-v7:$androidsupport_version"
     implementation "android.arch.persistence.room:runtime:$googleroom_version"
     implementation "android.arch.lifecycle:extensions:$googleroom_version"
