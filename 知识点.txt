@@ -66,3 +66,4 @@
 66、粒子爆炸效果库：SmasherLibrary（https://github.com/ifadai/ParticleSmasher）
 67、粒子文字动画库：ParticleLibrary（https://github.com/JeasonWong/Particle）
 68、矢量地图库：SvgMapLibrary
+69、图片自适应高度：android:adjustViewBounds="true"
